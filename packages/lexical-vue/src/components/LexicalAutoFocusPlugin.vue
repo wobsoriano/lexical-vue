@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { nextTick, onMounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
 const editor = useEditor()
 
 onMounted(() => {
-  editor.focus()
+  nextTick(() => {
+    editor.focus()
+  })
 })
 </script>
 

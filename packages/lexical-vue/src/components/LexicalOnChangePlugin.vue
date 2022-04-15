@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-  (e: 'change', editorState: EditorState, editor: LexicalEditor): void,
+  (e: 'change', editorState: EditorState, editor: LexicalEditor): void
   (e: 'update:modelValue', payload: string): void
 }>()
 

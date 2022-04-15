@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { EditorState } from 'lexical'
-import { $getRoot, $getSelection } from 'lexical'
 import {
   LexicalAutoFocusPlugin,
   LexicalComposer,
