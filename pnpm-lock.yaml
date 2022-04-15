@@ -65,7 +65,6 @@ importers:
       '@types/node': ^17.0.24
       '@vitejs/plugin-vue': ^2.3.1
       bumpp: ^7.1.1
-      lexical: ^0.2.1
       rimraf: ^3.0.2
       tsconfig: workspace:*
       typescript: ^4.6.3
@@ -88,7 +87,6 @@ importers:
       '@lexical/table': 0.2.1_lexical@0.2.1
       '@lexical/text': 0.2.1_lexical@0.2.1
       '@lexical/utils': 0.2.1_lexical@0.2.1
-      lexical: 0.2.1
       vue: 3.2.33
     devDependencies:
       '@types/node': 17.0.24
