@@ -5,7 +5,6 @@
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+    "isolatedModules": true
   }
 }
