@@ -40,6 +40,8 @@ importers:
   packages/lexical-vue:
     specifiers:
       '@lexical/clipboard': ^0.2.1
+      '@lexical/dragon': ^0.2.1
+      '@lexical/plain-text': ^0.2.1
       '@lexical/selection': ^0.2.1
       '@lexical/text': ^0.2.1
       '@lexical/utils': ^0.2.1
@@ -54,6 +56,8 @@ importers:
       vue-tsc: ^0.34.6
     dependencies:
       '@lexical/clipboard': 0.2.1_lexical@0.2.1
+      '@lexical/dragon': 0.2.1_lexical@0.2.1
+      '@lexical/plain-text': 0.2.1_76d8601950cd7390a6185da6aac3b1bf
       '@lexical/selection': 0.2.1_lexical@0.2.1
       '@lexical/text': 0.2.1_lexical@0.2.1
       '@lexical/utils': 0.2.1_lexical@0.2.1
@@ -238,11 +242,33 @@ packages:
       lexical: 0.2.1
     dev: false
 
+  /@lexical/dragon/0.2.1_lexical@0.2.1:
+    resolution: {integrity: sha512-je0uq9S6JGLBChwJrmSLOM04QOl5cCzC4zPNh8D7fGUFuw7W15uo9cdqmSEIgXsi3u1AkbTfAsf/QUzqHPLriQ==}
+    peerDependencies:
+      lexical: 0.2.1
+    dependencies:
+      lexical: 0.2.1
+    dev: false
+
   /@lexical/list/0.2.1_lexical@0.2.1:
     resolution: {integrity: sha512-jRly4P0ClYZtKDXzmhPaDBFXYlTqXc2XooqKjdYff/0TLoVaMdZJJL4YrbBsFSIFhwuMTeb4qJNRaFLca49xhg==}
     peerDependencies:
       lexical: 0.2.1
     dependencies:
+      '@lexical/utils': 0.2.1_lexical@0.2.1
+      lexical: 0.2.1
+    dev: false
+
+  /@lexical/plain-text/0.2.1_76d8601950cd7390a6185da6aac3b1bf:
+    resolution: {integrity: sha512-OP3GwRbjNSihrCF5D/TWL83YeNMuLI3y+Hk+Ezgl/Zc30uyCVSeKYn8zozu6cillVtSrOQDtv8D96AM0VytKnw==}
+    peerDependencies:
+      '@lexical/clipboard': 0.2.1
+      '@lexical/selection': 0.2.1
+      '@lexical/utils': 0.2.1
+      lexical: 0.2.1
+    dependencies:
+      '@lexical/clipboard': 0.2.1_lexical@0.2.1
+      '@lexical/selection': 0.2.1_lexical@0.2.1
       '@lexical/utils': 0.2.1_lexical@0.2.1
       lexical: 0.2.1
     dev: false
