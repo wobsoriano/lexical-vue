@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
 const root = ref<HTMLElement>()
@@ -29,19 +29,19 @@ withDefaults(defineProps<{
   spellcheck: true,
 })
 const isReadOnly = ref(true)
-let listener: () => void
+let unregisterListener: () => void
 
 onMounted(() => {
   if (root.value)
     editor.setRootElement(root.value)
 
-  listener = editor.registerReadOnlyListener((currentIsReadOnly) => {
+  unregisterListener = editor.registerReadOnlyListener((currentIsReadOnly) => {
     isReadOnly.value = currentIsReadOnly
   })
 })
 
 onUnmounted(() => {
-  listener?.()
+  unregisterListener?.()
 })
 </script>
 
