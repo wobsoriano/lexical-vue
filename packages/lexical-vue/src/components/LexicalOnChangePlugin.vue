@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watchEffect } from 'vue'
+import { onUnmounted, watchEffect } from 'vue'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { useEditor } from '../composables/useEditor'
 
@@ -18,7 +18,7 @@ const emit = defineEmits<{
 }>()
 
 watchEffect(() => {
-  editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {
+  const unsub = editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {
     if (
       props.ignoreSelectionChange
         && dirtyElements.size === 0
@@ -30,6 +30,10 @@ watchEffect(() => {
       return
 
     emit('change', editorState, editor)
+  })
+
+  onUnmounted(() => {
+    unsub()
   })
 })
 </script>
