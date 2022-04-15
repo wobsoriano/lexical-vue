@@ -10,6 +10,7 @@ import {
   LexicalPlainTextPlugin,
   LexicalTreeViewPlugin,
 } from 'lexical-vue'
+import { ref, watch } from 'vue'
 import Test from './components/Test.vue'
 
 const config = {
@@ -25,15 +26,11 @@ const config = {
   readOnly: false,
 }
 
-const onChange = (editorState: EditorState) => {
-  editorState.read(() => {
-    // Read the contents of the EditorState here.
-    const root = $getRoot()
-    const selection = $getSelection()
+const model = ref('')
 
-    console.log(root, selection)
-  })
-}
+watch(model, (val) => {
+  console.log('Editor value:', val)
+})
 </script>
 
 <template>
@@ -49,7 +46,7 @@ const onChange = (editorState: EditorState) => {
           </div>
         </template>
       </LexicalPlainTextPlugin>
-      <LexicalOnChangePlugin @change="onChange" />
+      <LexicalOnChangePlugin v-model="model" />
       <LexicalHistoryPlugin />
       <LexicalTreeViewPlugin
         view-class-name="tree-view-output"
