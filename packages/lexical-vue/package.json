@@ -2,7 +2,12 @@
   "name": "lexical-vue",
   "version": "0.0.3",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "vue",
+    "lexical",
+    "editor",
+    "rich-text"
+  ],
   "homepage": "https://github.com/wobsoriano/lexical-vue#readme",
   "bugs": {
     "url": "https://github.com/wobsoriano/lexical-vue/issues"
