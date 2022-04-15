@@ -132,6 +132,7 @@ pre::-webkit-scrollbar-thumb {
   flex: 1;
   color: #fff;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .debug-timetravel-panel-button:hover {
@@ -147,6 +148,7 @@ pre::-webkit-scrollbar-thumb {
   position: absolute;
   background: none;
   color: #fff;
+  cursor: pointer;
 }
 
 .debug-timetravel-button:hover {
