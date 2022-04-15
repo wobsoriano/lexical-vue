@@ -2,9 +2,17 @@
   "name": "monorepo",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lib": "pnpm -C packages/lexical-vue",
+    "example:plain-text": "pnpm -C examples/plain-text",
+    "lint": "eslint ."
   },
-  "dependencies": {
-    "vue": "^3.2.33"
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.20.2",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "eslint": "^8.13.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.5",
+    "vue": "^3.2.33",
+    "vue-tsc": "^0.34.6"
   }
 }

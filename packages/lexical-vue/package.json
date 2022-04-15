@@ -1,0 +1,51 @@
+{
+  "name": "lexical-vue",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/wobsoriano/lexical-vue#readme",
+  "bugs": {
+    "url": "https://github.com/wobsoriano/lexical-vue/issues"
+  },
+  "license": "MIT",
+  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wobsoriano/lexical-vue.git"
+  },
+  "main": "./dist/lexical-vue.umd.js",
+  "module": "./dist/lexical-vue.es.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/lexical-vue.umd.js",
+      "import": "./dist/lexical-vue.es.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rimraf dist && vue-tsc && vite build",
+    "prepublishOnly": "pnpm run build",
+    "release": "bumpp --commit --push --tag && pnpm publish"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "@lexical/text": "^0.2.1",
+    "lexical": "^0.2.1",
+    "vue": "^3.2.33"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.24",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "bumpp": "^7.1.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.5",
+    "vue-tsc": "^0.34.6"
+  }
+}
