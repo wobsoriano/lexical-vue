@@ -7,18 +7,44 @@ import {
 } from 'lexical'
 import { mergeRegister } from '@lexical/utils'
 import { useEditor } from 'lexical-vue'
-import { ref, watchEffect } from 'vue'
+import { defineComponent, h, onMounted, onUnmounted, ref } from 'vue'
 
 const LowPriority = 1
+
+const supportedBlockTypes = new Set([
+  'paragraph',
+  'quote',
+  'code',
+  'h1',
+  'h2',
+  'ul',
+  'ol',
+])
+
+const blockTypeToBlockName = {
+  code: 'Code Block',
+  h1: 'Large Heading',
+  h2: 'Small Heading',
+  h3: 'Heading',
+  h4: 'Heading',
+  h5: 'Heading',
+  ol: 'Numbered List',
+  paragraph: 'Normal',
+  quote: 'Quote',
+  ul: 'Bulleted List',
+}
 
 const toolbarRef = ref<HTMLDivElement>()
 const editor = useEditor()
 
 const canUndo = ref(false)
 const canRedo = ref(false)
+const blockType = ref('paragraph')
 
-watchEffect(() => {
-  mergeRegister(editor.registerCommand(
+let unregisterMergeListener: () => void
+
+onMounted(() => {
+  unregisterMergeListener = mergeRegister(editor.registerCommand(
     CAN_UNDO_COMMAND,
     (payload: boolean) => {
       canUndo.value = payload
@@ -35,6 +61,18 @@ watchEffect(() => {
     LowPriority,
   ))
 })
+
+onUnmounted(() => {
+  unregisterMergeListener?.()
+})
+
+const Divider = defineComponent({
+  render() {
+    return h('div', {
+      class: 'divider',
+    })
+  },
+})
 </script>
 
 <template>
@@ -45,6 +83,13 @@ watchEffect(() => {
     <button :disabled="!canRedo" class="toolbar-item spaced" aria-label="Redo" @click="editor.dispatchCommand(REDO_COMMAND)">
       <i class="format redo" />
     </button>
-    <div class="divider" />
+    <Divider />
+    <template v-if="supportedBlockTypes.has(blockType)">
+      <button class="toolbar-item block-controls" aria-label="Formatting Options">
+        <span :class="`icon block-type ${blockType}`" />
+        <span class="text">{{ blockTypeToBlockName[blockType] }}</span>
+        <i className="chevron-down" />
+      </button>
+    </template>
   </div>
 </template>
