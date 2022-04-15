@@ -29,7 +29,6 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "rimraf dist && vue-tsc && vite build",
-    "prepublishOnly": "pnpm run build",
     "release": "bumpp --commit --push --tag && pnpm publish"
   },
   "peerDependencies": {
