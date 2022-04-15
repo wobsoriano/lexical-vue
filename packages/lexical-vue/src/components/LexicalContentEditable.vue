@@ -29,17 +29,19 @@ withDefaults(defineProps<{
   spellcheck: true,
 })
 const isReadOnly = ref(true)
+let listener: () => void
+
 onMounted(() => {
   if (root.value)
     editor.setRootElement(root.value)
 
-  const unsub = editor.registerReadOnlyListener((currentIsReadOnly) => {
+  listener = editor.registerReadOnlyListener((currentIsReadOnly) => {
     isReadOnly.value = currentIsReadOnly
   })
+})
 
-  onUnmounted(() => {
-    unsub()
-  })
+onUnmounted(() => {
+  listener?.()
 })
 </script>
 

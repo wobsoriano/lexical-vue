@@ -17,8 +17,10 @@ const emit = defineEmits<{
   (e: 'change', editorState: EditorState, editor: LexicalEditor): void
 }>()
 
+let listener: () => void
+
 watchEffect(() => {
-  const unsub = editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {
+  listener = editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {
     if (
       props.ignoreSelectionChange
         && dirtyElements.size === 0
@@ -31,10 +33,10 @@ watchEffect(() => {
 
     emit('change', editorState, editor)
   })
+})
 
-  onUnmounted(() => {
-    unsub()
-  })
+onUnmounted(() => {
+  listener?.()
 })
 </script>
 
