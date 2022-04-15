@@ -19,3 +19,12 @@ export {
 export {
   default as LexicalAutoFocusPlugin,
 } from './LexicalAutoFocusPlugin.vue'
+export {
+  default as LexicalRichTextPlugin,
+} from './LexicalRichTextPlugin.vue'
+export {
+  default as LexicalCodeHighlightPlugin,
+} from './LexicalCodeHighlightPlugin.vue'
+export {
+  default as LexicalListPlugin,
+} from './LexicalListPlugin.vue'
