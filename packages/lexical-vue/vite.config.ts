@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import pkg from './package.json'
 
 const pkgName = pkg.name
-const external = ['vue', 'lexical', '@lexical/text']
+const lexicalPlugins = ['text', 'clipboard', 'utils']
 
 export default defineConfig({
   plugins: [vue()],
@@ -15,7 +15,11 @@ export default defineConfig({
       fileName: format => `${pkgName}.${format}.js`,
     },
     rollupOptions: {
-      external,
+      external: [
+        'vue',
+        'lexical',
+        ...lexicalPlugins.map(plugin => `@lexical/${plugin}`),
+      ],
       output: {
         exports: 'named',
         globals: {

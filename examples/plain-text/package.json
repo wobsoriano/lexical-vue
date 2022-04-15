@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "lexical-vue": "workspace:*",
     "vue": "^3.2.33"
   },
   "devDependencies": {

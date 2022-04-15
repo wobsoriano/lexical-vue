@@ -23,11 +23,13 @@ importers:
   examples/plain-text:
     specifiers:
       '@vitejs/plugin-vue': ^2.3.1
+      lexical-vue: workspace:*
       typescript: ^4.6.3
       vite: ^2.9.5
       vue: ^3.2.33
       vue-tsc: ^0.34.6
     dependencies:
+      lexical-vue: link:../../packages/lexical-vue
       vue: 3.2.33
     devDependencies:
       '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
@@ -37,7 +39,10 @@ importers:
 
   packages/lexical-vue:
     specifiers:
+      '@lexical/clipboard': ^0.2.1
+      '@lexical/selection': ^0.2.1
       '@lexical/text': ^0.2.1
+      '@lexical/utils': ^0.2.1
       '@types/node': ^17.0.24
       '@vitejs/plugin-vue': ^2.3.1
       bumpp: ^7.1.1
@@ -48,7 +53,10 @@ importers:
       vue: ^3.2.33
       vue-tsc: ^0.34.6
     dependencies:
+      '@lexical/clipboard': 0.2.1_lexical@0.2.1
+      '@lexical/selection': 0.2.1_lexical@0.2.1
       '@lexical/text': 0.2.1_lexical@0.2.1
+      '@lexical/utils': 0.2.1_lexical@0.2.1
       lexical: 0.2.1
       vue: 3.2.33
     devDependencies:
@@ -220,11 +228,57 @@ packages:
       type-detect: 4.0.8
     dev: true
 
+  /@lexical/clipboard/0.2.1_lexical@0.2.1:
+    resolution: {integrity: sha512-r2r8TwYLnM0i+//oQlUSz9IK/FrDrMi+mW3K2L9enjimV+HqXhdSqxQQspMjZ8ULE/lVRzf3aDFgP2p61Fn7nQ==}
+    peerDependencies:
+      lexical: 0.2.1
+    dependencies:
+      '@lexical/selection': 0.2.1_lexical@0.2.1
+      '@lexical/utils': 0.2.1_lexical@0.2.1
+      lexical: 0.2.1
+    dev: false
+
+  /@lexical/list/0.2.1_lexical@0.2.1:
+    resolution: {integrity: sha512-jRly4P0ClYZtKDXzmhPaDBFXYlTqXc2XooqKjdYff/0TLoVaMdZJJL4YrbBsFSIFhwuMTeb4qJNRaFLca49xhg==}
+    peerDependencies:
+      lexical: 0.2.1
+    dependencies:
+      '@lexical/utils': 0.2.1_lexical@0.2.1
+      lexical: 0.2.1
+    dev: false
+
+  /@lexical/selection/0.2.1_lexical@0.2.1:
+    resolution: {integrity: sha512-WsulHJV8lQRCDb4oTWlPLF2/C0SLc38h+5WHag85A9/xFwLOpl8xxKYZkhbAmda9jUsr7h2/SY/1FS4xTxk0Dg==}
+    peerDependencies:
+      lexical: 0.2.1
+    dependencies:
+      lexical: 0.2.1
+    dev: false
+
+  /@lexical/table/0.2.1_lexical@0.2.1:
+    resolution: {integrity: sha512-fLwaZQBwkNWTMcMUf7xdBTAv/iwsRhGlqHqXPGELf7nr31H/RcWis7VMtFFFC6bXm2l8AaqwHk9tmGKlzlspnA==}
+    peerDependencies:
+      lexical: 0.2.1
+    dependencies:
+      '@lexical/utils': 0.2.1_lexical@0.2.1
+      lexical: 0.2.1
+    dev: false
+
   /@lexical/text/0.2.1_lexical@0.2.1:
     resolution: {integrity: sha512-5x3TvlXw7HJjHLbgYcwkJPc9TVs755BhGH8k9C6lFFUlk28wEzSRBFkna9CchrVqF52jDjJKLu6+hkIGNdsYbg==}
     peerDependencies:
       lexical: 0.2.1
     dependencies:
+      lexical: 0.2.1
+    dev: false
+
+  /@lexical/utils/0.2.1_lexical@0.2.1:
+    resolution: {integrity: sha512-P1O0uN7U3vVTk4pqaobP+MF9RkXtSCseIEyLZMgBgoPAS+TcelXeVgbhTjP2H67yss9cNRlCseqF3/anexPCVg==}
+    peerDependencies:
+      lexical: 0.2.1
+    dependencies:
+      '@lexical/list': 0.2.1_lexical@0.2.1
+      '@lexical/table': 0.2.1_lexical@0.2.1
       lexical: 0.2.1
     dev: false
 
