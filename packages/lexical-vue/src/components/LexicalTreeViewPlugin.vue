@@ -3,7 +3,6 @@ import type {
   EditorState,
   ElementNode,
   GridSelection,
-  LexicalEditor,
   LexicalNode,
   NodeSelection,
   RangeSelection,
