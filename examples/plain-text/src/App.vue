@@ -65,5 +65,19 @@ const onChange = (editorState: EditorState) => {
       </div>
       <!-- <Test /> -->
     </LexicalComposer>
+    <div className="other">
+      <h2>View source</h2>
+      <ul>
+        <li>
+          <a
+            href="https://github.com/wobsoriano/lexical-vue/tree/master/examples/plain-text"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
