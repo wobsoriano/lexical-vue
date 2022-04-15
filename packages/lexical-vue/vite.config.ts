@@ -5,8 +5,17 @@ import pkg from './package.json'
 
 const pkgName = pkg.name
 const lexicalPlugins = [
-  'text',
   'clipboard',
+  'list',
+  'table',
+  'yjs',
+  'hashtag',
+  'selection',
+  'code',
+  'link',
+  'overflow',
+  'markdown',
+  'text',
   'utils',
   'dragon',
   'plain-text',
