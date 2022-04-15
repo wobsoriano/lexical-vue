@@ -10,8 +10,12 @@
     },
     "dev": {
       "dependsOn": ["lexical-vue#build"],
-      "outputs": [],
+      "outputs": [""],
       "cache": false
+    },
+    "publish": {
+      "dependsOn": ["build"],
+      "outputs": [""]
     }
   }
 }
