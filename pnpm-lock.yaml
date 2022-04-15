@@ -43,6 +43,27 @@ importers:
       vite: 2.9.5
       vue-tsc: 0.34.6_typescript@4.6.3
 
+  examples/rich-text:
+    specifiers:
+      '@vitejs/plugin-vue': ^2.3.1
+      lexical: ^0.2.1
+      lexical-vue: workspace:*
+      tsconfig: workspace:*
+      typescript: ^4.6.3
+      vite: ^2.9.5
+      vue: ^3.2.33
+      vue-tsc: ^0.34.6
+    dependencies:
+      lexical: 0.2.1
+      lexical-vue: link:../../packages/lexical-vue
+      vue: 3.2.33
+    devDependencies:
+      '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
+      tsconfig: link:../../packages/tsconfig
+      typescript: 4.6.3
+      vite: 2.9.5
+      vue-tsc: 0.34.6_typescript@4.6.3
+
   packages/lexical-vue:
     specifiers:
       '@lexical/clipboard': ^0.2.1
