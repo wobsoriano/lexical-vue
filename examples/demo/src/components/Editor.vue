@@ -19,6 +19,7 @@ import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { ref, watch } from 'vue'
 import exampleTheme from '../themes/example'
 import Test from './components/Test.vue'
+import ToolbarPlugin from './ToolbarPlugin.vue'
 
 const config = {
   theme: exampleTheme,
@@ -49,6 +50,7 @@ watch(model, (val) => {
 <template>
   <LexicalComposer :initial-config="config">
     <div class="editor-container">
+      <ToolbarPlugin />
       <div className="editor-inner">
         <LexicalRichTextPlugin>
           <template #contentEditable>
