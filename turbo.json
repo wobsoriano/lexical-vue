@@ -13,7 +13,7 @@
       "outputs": [""],
       "cache": false
     },
-    "publish": {
+    "deploy": {
       "dependsOn": ["build"],
       "outputs": [""]
     }
