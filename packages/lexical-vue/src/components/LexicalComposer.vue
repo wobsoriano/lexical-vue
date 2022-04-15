@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, provide, ref } from 'vue'
 import type { EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
-import * as lexicalDragon from '@lexical/dragon'
-import { registerPlainText } from '@lexical/plain-text'
-import { mergeRegister } from '@lexical/utils'
 import { createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
 
@@ -24,12 +21,6 @@ provide(editorKey, editor)
 
 onMounted(() => {
   const isReadOnly = props.initialConfig.readOnly
-
-  mergeRegister(
-    registerPlainText(editor),
-    // @ts-expect-error: Lexical dragon esm when?
-    lexicalDragon.registerDragonSupport(editor),
-  )
 
   editor.setReadOnly(isReadOnly || false)
 })
