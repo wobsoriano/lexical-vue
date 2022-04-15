@@ -2,9 +2,11 @@
 import {
   LexicalComposer,
   LexicalContentEditable,
+  LexicalHistoryPlugin,
   LexicalOnChangePlugin,
   LexicalPlainTextPlugin,
 } from 'lexical-vue'
+import Test from './components/Test.vue'
 
 const config = {
   theme: {
@@ -37,6 +39,8 @@ const config = {
           </template>
         </LexicalPlainTextPlugin>
         <LexicalOnChangePlugin />
+        <LexicalHistoryPlugin />
+        <Test />
       </LexicalComposer>
     </div>
   </div>

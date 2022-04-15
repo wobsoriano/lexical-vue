@@ -10,3 +10,6 @@ export {
 export {
   default as LexicalOnChangePlugin,
 } from './LexicalOnChangePlugin.vue'
+export {
+  default as LexicalHistoryPlugin,
+} from './LexicalHistoryPlugin.vue'
