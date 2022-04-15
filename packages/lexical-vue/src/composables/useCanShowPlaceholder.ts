@@ -1,9 +1,8 @@
 import { onUnmounted, readonly, ref } from 'vue'
 import { $canShowPlaceholderCurry } from '@lexical/text'
-import { useEditor } from './useEditor'
+import type { LexicalEditor } from 'lexical'
 
-export function useCanShowPlaceholder() {
-  const editor = useEditor()
+export function useCanShowPlaceholder(editor: LexicalEditor) {
   const initialState = editor
     .getEditorState()
     .read($canShowPlaceholderCurry(editor.isComposing()))

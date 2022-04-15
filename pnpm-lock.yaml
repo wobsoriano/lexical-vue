@@ -49,6 +49,7 @@ importers:
     specifiers:
       '@lexical/clipboard': ^0.2.1
       '@lexical/dragon': ^0.2.1
+      '@lexical/history': ^0.2.1
       '@lexical/plain-text': ^0.2.1
       '@lexical/selection': ^0.2.1
       '@lexical/text': ^0.2.1
@@ -66,6 +67,7 @@ importers:
     dependencies:
       '@lexical/clipboard': 0.2.1_lexical@0.2.1
       '@lexical/dragon': 0.2.1_lexical@0.2.1
+      '@lexical/history': 0.2.1_lexical@0.2.1
       '@lexical/plain-text': 0.2.1_76d8601950cd7390a6185da6aac3b1bf
       '@lexical/selection': 0.2.1_lexical@0.2.1
       '@lexical/text': 0.2.1_lexical@0.2.1
@@ -260,6 +262,15 @@ packages:
     peerDependencies:
       lexical: 0.2.1
     dependencies:
+      lexical: 0.2.1
+    dev: false
+
+  /@lexical/history/0.2.1_lexical@0.2.1:
+    resolution: {integrity: sha512-6IZc89QnY4hZw8xbdPEcwKBPJeSpqLR1f6nGnSyu3MgcHc4DcE0vDtdwPnvOON0mWpseWdFiYFWaudFFqBeyAQ==}
+    peerDependencies:
+      lexical: 0.2.1
+    dependencies:
+      '@lexical/utils': 0.2.1_lexical@0.2.1
       lexical: 0.2.1
     dev: false
 
