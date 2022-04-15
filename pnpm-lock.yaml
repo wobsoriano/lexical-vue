@@ -65,6 +65,7 @@ importers:
       '@types/node': ^17.0.24
       '@vitejs/plugin-vue': ^2.3.1
       bumpp: ^7.1.1
+      clean-publish: ^4.0.0
       rimraf: ^3.0.2
       tsconfig: workspace:*
       typescript: ^4.6.3
@@ -92,6 +93,7 @@ importers:
       '@types/node': 17.0.24
       '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
       bumpp: 7.1.1
+      clean-publish: 4.0.0
       rimraf: 3.0.2
       tsconfig: link:../tsconfig
       typescript: 4.6.3
@@ -876,6 +878,16 @@ packages:
 
   /ci-info/3.3.0:
     resolution: {integrity: sha512-riT/3vI5YpVH6/qomlDnJow6TBee2PBKSEpx3O32EGPYbWGIRsIlGRms3Sm74wYE1JMo8RnO04Hb12+v1J5ICw==}
+    dev: true
+
+  /clean-publish/4.0.0:
+    resolution: {integrity: sha512-PcOxJSnPgncx/ANmgPw8hj9DDtdLHTxIc6Vh/yXCX7IA9w1oUSx2POL0Vno/7omhyrKxMKTpnRh2wlzwH5zaCw==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      fast-glob: 3.2.11
+      lilconfig: 2.0.5
+      micromatch: 4.0.5
     dev: true
 
   /clean-regexp/1.0.0:
@@ -2061,6 +2073,11 @@ packages:
 
   /lexical/0.2.1:
     resolution: {integrity: sha512-6GwyP+KByy6aMuS1Ri1fFD/7NHENnhEFutdT+4SGIZCau0RkzlUYz0izA7FPQHEn663w23h0op477UHvjzrJHQ==}
+
+  /lilconfig/2.0.5:
+    resolution: {integrity: sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg==}
+    engines: {node: '>=10'}
+    dev: true
 
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
