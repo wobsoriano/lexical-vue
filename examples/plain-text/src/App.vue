@@ -27,13 +27,13 @@ const config = {
     <h1>Plain Text Example</h1>
     <p>Note: this is an experimental build of Lexical</p>
     <LexicalComposer :initial-config="config">
-      <div className="editor-container">
+      <div class="editor-container">
         <LexicalPlainTextPlugin>
           <template #contentEditable>
             <LexicalContentEditable class="editor-input" />
           </template>
           <template #placeholder>
-            <div className="editor-placeholder">
+            <div class="editor-placeholder">
               Enter some plain text...
             </div>
           </template>
