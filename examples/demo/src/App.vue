@@ -4,7 +4,7 @@ import Editor from './components/Editor.vue'
 
 <template>
   <div class="App">
-    <h1>Plain Text Example</h1>
+    <h1>Lexicel Vue Demo</h1>
     <p>Note: this is an experimental build of Lexical</p>
     <Editor />
     <div className="other">
