@@ -4,7 +4,15 @@ import vue from '@vitejs/plugin-vue'
 import pkg from './package.json'
 
 const pkgName = pkg.name
-const lexicalPlugins = ['text', 'clipboard', 'utils', 'dragon', 'plain-text', 'history']
+const lexicalPlugins = [
+  'text',
+  'clipboard',
+  'utils',
+  'dragon',
+  'plain-text',
+  'history',
+  'rich-text',
+]
 
 const globals: Record<string, string> = {}
 

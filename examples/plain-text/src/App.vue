@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import type { EditorState } from 'lexical'
+import { $getRoot, $getSelection } from 'lexical'
 import {
+  LexicalAutoFocusPlugin,
   LexicalComposer,
   LexicalContentEditable,
   LexicalHistoryPlugin,
@@ -21,6 +24,16 @@ const config = {
   },
   readOnly: false,
 }
+
+const onChange = (editorState: EditorState) => {
+  editorState.read(() => {
+    // Read the contents of the EditorState here.
+    const root = $getRoot()
+    const selection = $getSelection()
+
+    console.log(root, selection)
+  })
+}
 </script>
 
 <template>
@@ -39,7 +52,7 @@ const config = {
             </div>
           </template>
         </LexicalPlainTextPlugin>
-        <LexicalOnChangePlugin />
+        <LexicalOnChangePlugin @change="onChange" />
         <LexicalHistoryPlugin />
         <LexicalTreeViewPlugin
           view-class-name="tree-view-output"
@@ -48,6 +61,7 @@ const config = {
           time-travel-panel-slider-class-name="debug-timetravel-panel-slider"
           time-travel-panel-button-class-name="debug-timetravel-panel-button"
         />
+        <LexicalAutoFocusPlugin />
       </div>
       <!-- <Test /> -->
     </LexicalComposer>

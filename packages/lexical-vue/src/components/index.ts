@@ -16,3 +16,6 @@ export {
 export {
   default as LexicalTreeViewPlugin,
 } from './LexicalTreeViewPlugin.vue'
+export {
+  default as LexicalAutoFocusPlugin,
+} from './LexicalAutoFocusPlugin.vue'

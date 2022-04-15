@@ -51,6 +51,7 @@ importers:
       '@lexical/dragon': ^0.2.1
       '@lexical/history': ^0.2.1
       '@lexical/plain-text': ^0.2.1
+      '@lexical/rich-text': ^0.2.1
       '@lexical/selection': ^0.2.1
       '@lexical/text': ^0.2.1
       '@lexical/utils': ^0.2.1
@@ -69,6 +70,7 @@ importers:
       '@lexical/dragon': 0.2.1_lexical@0.2.1
       '@lexical/history': 0.2.1_lexical@0.2.1
       '@lexical/plain-text': 0.2.1_76d8601950cd7390a6185da6aac3b1bf
+      '@lexical/rich-text': 0.2.1_76d8601950cd7390a6185da6aac3b1bf
       '@lexical/selection': 0.2.1_lexical@0.2.1
       '@lexical/text': 0.2.1_lexical@0.2.1
       '@lexical/utils': 0.2.1_lexical@0.2.1
@@ -285,6 +287,20 @@ packages:
 
   /@lexical/plain-text/0.2.1_76d8601950cd7390a6185da6aac3b1bf:
     resolution: {integrity: sha512-OP3GwRbjNSihrCF5D/TWL83YeNMuLI3y+Hk+Ezgl/Zc30uyCVSeKYn8zozu6cillVtSrOQDtv8D96AM0VytKnw==}
+    peerDependencies:
+      '@lexical/clipboard': 0.2.1
+      '@lexical/selection': 0.2.1
+      '@lexical/utils': 0.2.1
+      lexical: 0.2.1
+    dependencies:
+      '@lexical/clipboard': 0.2.1_lexical@0.2.1
+      '@lexical/selection': 0.2.1_lexical@0.2.1
+      '@lexical/utils': 0.2.1_lexical@0.2.1
+      lexical: 0.2.1
+    dev: false
+
+  /@lexical/rich-text/0.2.1_76d8601950cd7390a6185da6aac3b1bf:
+    resolution: {integrity: sha512-YJYnm6LEeiduRb+nNrrKj2g4nKtFTd3v0s0MiJB+/8id5OY0VQWWIUZym1g/cfG1obXOMSGEsqgUR+l/14TjOA==}
     peerDependencies:
       '@lexical/clipboard': 0.2.1
       '@lexical/selection': 0.2.1

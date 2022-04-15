@@ -350,12 +350,12 @@ const treeElementRef = ref<HTMLPreElement>()
 const inputRef = ref<HTMLInputElement >()
 const isPlaying = ref(false)
 
-let listener: () => void
+let unregisterListener: () => void
 
 watchEffect(() => {
   content.value = generateContent(editor.getEditorState())
 
-  listener = editor.registerUpdateListener(({ editorState }) => {
+  unregisterListener = editor.registerUpdateListener(({ editorState }) => {
     const compositionKey = editor._compositionKey
     const treeText = generateContent(editor.getEditorState())
     const compositionText
@@ -411,7 +411,7 @@ watchEffect(() => {
 })
 
 onUnmounted(() => {
-  listener?.()
+  unregisterListener?.()
   clearTimeout(timeoutId)
   // @ts-expect-error: Internal field
   element.__lexicalEditor = null

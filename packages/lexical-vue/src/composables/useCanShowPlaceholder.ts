@@ -9,7 +9,7 @@ export function useCanShowPlaceholder(editor: LexicalEditor) {
 
   const canShowPlaceholder = ref(initialState)
 
-  const unsub = editor.registerUpdateListener(({ editorState }) => {
+  const unregisterListener = editor.registerUpdateListener(({ editorState }) => {
     const isComposing = editor.isComposing()
     canShowPlaceholder.value = editorState.read(
       $canShowPlaceholderCurry(isComposing),
@@ -17,7 +17,7 @@ export function useCanShowPlaceholder(editor: LexicalEditor) {
   })
 
   onUnmounted(() => {
-    unsub()
+    unregisterListener()
   })
 
   return readonly(canShowPlaceholder)
