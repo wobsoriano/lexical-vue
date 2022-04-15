@@ -38,7 +38,7 @@ const change = (editorState: EditorState) => {
       <LexicalComposer :initial-config="config">
         <LexicalPlainTextPlugin>
           <template #contentEditable>
-            <LexicalContentEditable />
+            <LexicalContentEditable class="editor-input" />
           </template>
           <template #placeholder>
             <div className="editor-placeholder">

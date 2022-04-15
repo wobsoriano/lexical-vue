@@ -5,7 +5,7 @@ export function useEditor() {
   const editor = inject(editorKey)
 
   if (!editor)
-    throw new Error('Editor is required')
+    throw new Error('<LexicalComposer /> is required')
 
   return editor
 }

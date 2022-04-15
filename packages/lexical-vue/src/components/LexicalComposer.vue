@@ -1,24 +1,29 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, provide, ref } from 'vue'
+import type { EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
 import * as lexicalDragon from '@lexical/dragon'
 import { registerPlainText } from '@lexical/plain-text'
 import { mergeRegister } from '@lexical/utils'
-import type { EditorConfig } from 'lexical'
 import { createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
 
 const props = defineProps<{
-  initialConfig: EditorConfig<Record<string, unknown>>
+  initialConfig: {
+    editor__DEPRECATED?: LexicalEditor | null
+    readOnly?: boolean
+    namespace?: string
+    nodes?: LexicalNode[]
+    theme?: EditorThemeClasses
+    onError: (error: Error) => void
+  }
 }>()
 
-// @ts-expect-error TODO: Missing generics
 const editor = createEditor(props.initialConfig)
 
 provide(editorKey, editor)
 
 onMounted(() => {
-// @ts-expect-error TODO: Missing generics
-  const isReadOnly = props.initialConfig.readOnly as boolean
+  const isReadOnly = props.initialConfig.readOnly
 
   mergeRegister(
     registerPlainText(editor),
