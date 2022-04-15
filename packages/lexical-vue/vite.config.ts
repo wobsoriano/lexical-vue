@@ -6,6 +6,12 @@ import pkg from './package.json'
 const pkgName = pkg.name
 const lexicalPlugins = ['text', 'clipboard', 'utils', 'dragon', 'plain-text']
 
+const globals: Record<string, string> = {}
+
+lexicalPlugins.forEach((plugin) => {
+  globals[`@lexical/${plugin}`] = `Lexical${plugin.charAt(0).toUpperCase() + plugin.slice(1)}`
+})
+
 export default defineConfig({
   plugins: [vue()],
   build: {
@@ -24,6 +30,8 @@ export default defineConfig({
         exports: 'named',
         globals: {
           vue: 'Vue',
+          lexical: 'Lexical',
+          ...globals,
         },
       },
     },

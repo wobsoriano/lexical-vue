@@ -2,8 +2,8 @@
   "name": "monorepo",
   "private": true,
   "scripts": {
-    "lib": "pnpm -C packages/lexical-vue",
-    "example:plain": "pnpm -C examples/plain-text",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -12,6 +12,7 @@
     "@vitejs/plugin-vue": "^2.3.1",
     "eslint": "^8.13.0",
     "lexical": "^0.2.1",
+    "turbo": "latest",
     "typescript": "^4.6.3",
     "vite": "^2.9.5",
     "vue": "^3.2.33",
