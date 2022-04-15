@@ -4,7 +4,8 @@
   "scripts": {
     "lib": "pnpm -C packages/lexical-vue",
     "example:plain-text": "pnpm -C examples/plain-text",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.20.2",
