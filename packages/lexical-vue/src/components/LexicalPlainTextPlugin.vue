@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const editor = useEditor()
-const showPlaceholder = useCanShowPlaceholder()
+const showPlaceholder = useCanShowPlaceholder(editor)
 usePlainTextSetup(editor, props.initialEditorState)
 </script>
 

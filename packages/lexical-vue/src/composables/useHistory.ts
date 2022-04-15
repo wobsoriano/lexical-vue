@@ -10,7 +10,7 @@ export function useHistory(
   editor: LexicalEditor,
   externalHistoryState?: Ref<HistoryState> | HistoryState,
   delay?: Ref<number> | number,
-): void {
+) {
   const historyState = computed<HistoryState>(
     () => getRealValue(externalHistoryState) || createEmptyHistoryState(),
   )
