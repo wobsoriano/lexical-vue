@@ -24,9 +24,11 @@ withDefaults(defineProps<{
   role?: string
   spellcheck?: boolean
   tabindex?: number
+  enableGrammarly?: boolean
 }>(), {
   role: 'textbox',
   spellcheck: true,
+  enableGrammarly: true,
 })
 const isReadOnly = ref(true)
 let unregisterListener: () => void
@@ -66,5 +68,6 @@ onUnmounted(() => {
     :role="isReadOnly ? undefined : role"
     :spellcheck="spellcheck"
     :tabindex="tabindex"
+    :data-enable-grammarly="enableGrammarly"
   />
 </template>
