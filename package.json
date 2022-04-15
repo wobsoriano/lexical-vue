@@ -4,7 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "deploy": "pnpm -C packages/lexical-vue deploy",
+    "deploy": "turbo run build --scope=plain-text-demo --includeDependencies --no-deps",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
