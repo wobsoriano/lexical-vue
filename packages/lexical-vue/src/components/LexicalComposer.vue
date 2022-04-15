@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, provide, ref } from 'vue'
-import type { EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
+import type { EditorState, EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
 import { createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
 
@@ -10,7 +10,10 @@ const props = defineProps<{
     readOnly?: boolean
     namespace?: string
     nodes?: LexicalNode[]
+    editorState?: EditorState | undefined
     theme?: EditorThemeClasses
+    disableEvents?: boolean | undefined
+    context?: unknown
     onError: (error: Error) => void
   }
 }>()
