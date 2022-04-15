@@ -1,6 +1,6 @@
 {
   "name": "lexical-vue",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Lexical components and composables for Vue applications.",
   "keywords": [
     "vue",
