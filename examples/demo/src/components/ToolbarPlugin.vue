@@ -40,6 +40,12 @@ const editor = useEditor()
 const canUndo = ref(false)
 const canRedo = ref(false)
 const blockType = ref('paragraph')
+const isLink = ref(false)
+const isBold = ref(false)
+const isItalic = ref(false)
+const isUnderline = ref(false)
+const isStrikethrough = ref(false)
+const isCode = ref(false)
 
 let unregisterMergeListener: () => void
 
@@ -88,8 +94,71 @@ const Divider = defineComponent({
       <button class="toolbar-item block-controls" aria-label="Formatting Options">
         <span :class="`icon block-type ${blockType}`" />
         <span class="text">{{ blockTypeToBlockName[blockType] }}</span>
-        <i className="chevron-down" />
+        <i class="chevron-down" />
       </button>
     </template>
+    <Divider />
+    <button
+      :class="`toolbar-item spaced ${isBold ? 'active' : ''}`"
+      aria-label="Format Bold"
+    >
+      <i class="format bold" />
+    </button>
+    <button
+      :class="`toolbar-item spaced ${isItalic ? 'active' : ''}`"
+      aria-label="Format Italics"
+    >
+      <i class="format italic" />
+    </button>
+    <button
+      :class="`toolbar-item spaced ${isUnderline ? 'active' : ''}`"
+      aria-label="Format Underline"
+    >
+      <i class="format underline" />
+    </button>
+    <button
+      :class="`toolbar-item spaced ${isStrikethrough ? 'active' : ''}`"
+      aria-label="Format Strikethrough"
+    >
+      <i class="format strikethrough" />
+    </button>
+    <button
+      :class="`toolbar-item spaced ${isCode ? 'active' : ''}`"
+      aria-label="Insert Code"
+    >
+      <i class="format code" />
+    </button>
+    <button
+      :class="`toolbar-item spaced ${isLink ? 'active' : ''}`"
+      aria-label="Insert Link"
+    >
+      <i class="format link" />
+    </button>
+    <Divider />
+    <button
+
+      class="toolbar-item spaced"
+      aria-label="Left Align"
+    >
+      <i class="format left-align" />
+    </button>
+    <button
+      class="toolbar-item spaced"
+      aria-label="Center Align"
+    >
+      <i class="format center-align" />
+    </button>
+    <button
+      class="toolbar-item spaced"
+      aria-label="Right Align"
+    >
+      <i class="format right-align" />
+    </button>
+    <button
+      class="toolbar-item"
+      aria-label="Justify Align"
+    >
+      <i class="format justify-align" />
+    </button>
   </div>
 </template>
