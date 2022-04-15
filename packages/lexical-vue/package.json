@@ -18,12 +18,12 @@
     "type": "git",
     "url": "git+https://github.com/wobsoriano/lexical-vue.git"
   },
-  "main": "./dist/lexical-vue.umd.js",
+  "main": "./dist/lexical-vue.cjs.js",
   "module": "./dist/lexical-vue.es.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/lexical-vue.umd.js",
+      "require": "./dist/lexical-vue.cjs.js",
       "import": "./dist/lexical-vue.es.js"
     }
   },

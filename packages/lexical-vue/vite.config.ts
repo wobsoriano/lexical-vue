@@ -26,6 +26,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: pkgName,
+      formats: ['es', 'cjs'],
       fileName: format => `${pkgName}.${format}.js`,
     },
     rollupOptions: {
@@ -34,14 +35,6 @@ export default defineConfig({
         'lexical',
         ...lexicalPlugins.map(plugin => `@lexical/${plugin}`),
       ],
-      output: {
-        exports: 'named',
-        globals: {
-          vue: 'Vue',
-          lexical: 'Lexical',
-          ...globals,
-        },
-      },
     },
     emptyOutDir: false,
   },
