@@ -48,6 +48,4 @@ onUnmounted(() => {
 })
 </script>
 
-<template>
-  <slot />
-</template>
+<template />

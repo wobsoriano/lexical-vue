@@ -11,6 +11,4 @@ const editor = useEditor()
 useHistory(editor, props.externalHistoryState)
 </script>
 
-<template>
-  <slot />
-</template>
+<template />
