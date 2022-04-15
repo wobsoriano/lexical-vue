@@ -4,7 +4,6 @@
   "scripts": {
     "lib": "pnpm -C packages/lexical-vue",
     "example:plain": "pnpm -C examples/plain-text",
-    "example:rich": "pnpm -C examples/rich-text",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
