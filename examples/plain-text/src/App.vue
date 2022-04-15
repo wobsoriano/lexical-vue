@@ -26,8 +26,8 @@ const config = {
   <div class="App">
     <h1>Plain Text Example</h1>
     <p>Note: this is an experimental build of Lexical</p>
-    <div className="editor-container">
-      <LexicalComposer :initial-config="config">
+    <LexicalComposer :initial-config="config">
+      <div className="editor-container">
         <LexicalPlainTextPlugin>
           <template #contentEditable>
             <LexicalContentEditable class="editor-input" />
@@ -40,8 +40,8 @@ const config = {
         </LexicalPlainTextPlugin>
         <LexicalOnChangePlugin />
         <LexicalHistoryPlugin />
-        <Test />
-      </LexicalComposer>
-    </div>
+      </div>
+      <Test />
+    </LexicalComposer>
   </div>
 </template>

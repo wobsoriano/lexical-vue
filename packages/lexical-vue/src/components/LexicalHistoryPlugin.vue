@@ -11,5 +11,6 @@ const editor = useEditor()
 useHistory(editor, props.externalHistoryState)
 </script>
 
-<!-- eslint-disable-next-line vue/valid-template-root -->
-<template />
+<template>
+  <slot />
+</template>
