@@ -1,4 +1,6 @@
-const exampleTheme = {
+import type { EditorThemeClasses } from 'lexical'
+
+const exampleTheme: EditorThemeClasses = {
   ltr: 'ltr',
   rtl: 'rtl',
   placeholder: 'editor-placeholder',
@@ -24,6 +26,7 @@ const exampleTheme = {
   text: {
     bold: 'editor-text-bold',
     italic: 'editor-text-italic',
+    // @ts-expect-error: TODO: Missing types
     overflowed: 'editor-text-overflowed',
     hashtag: 'editor-text-hashtag',
     underline: 'editor-text-underline',
