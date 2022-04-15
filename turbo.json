@@ -12,10 +12,6 @@
       "dependsOn": ["lexical-vue#build"],
       "outputs": [""],
       "cache": false
-    },
-    "deploy": {
-      "dependsOn": ["build"],
-      "outputs": [""]
     }
   }
 }
