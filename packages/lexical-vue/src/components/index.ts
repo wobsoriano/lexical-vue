@@ -13,3 +13,6 @@ export {
 export {
   default as LexicalHistoryPlugin,
 } from './LexicalHistoryPlugin.vue'
+export {
+  default as LexicalTreeViewPlugin,
+} from './LexicalTreeViewPlugin.vue'

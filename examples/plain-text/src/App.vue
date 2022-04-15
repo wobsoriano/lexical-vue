@@ -5,6 +5,7 @@ import {
   LexicalHistoryPlugin,
   LexicalOnChangePlugin,
   LexicalPlainTextPlugin,
+  LexicalTreeViewPlugin,
 } from 'lexical-vue'
 import Test from './components/Test.vue'
 
@@ -40,8 +41,15 @@ const config = {
         </LexicalPlainTextPlugin>
         <LexicalOnChangePlugin />
         <LexicalHistoryPlugin />
+        <LexicalTreeViewPlugin
+          view-class-name="tree-view-output"
+          time-travel-panel-class-name="debug-timetravel-panel"
+          time-travel-button-class-name="debug-timetravel-button"
+          time-travel-panel-slider-class-name="debug-timetravel-panel-slider"
+          time-travel-panel-button-class-name="debug-timetravel-panel-button"
+        />
       </div>
-      <Test />
+      <!-- <Test /> -->
     </LexicalComposer>
   </div>
 </template>
