@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 // @ts-expect-error: TODO: Missing types
 import { registerCodeHighlighting } from '@lexical/code'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from 'lexical-vue'
 
 const editor = useEditor()
 

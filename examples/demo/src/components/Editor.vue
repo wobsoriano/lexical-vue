@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
   LexicalAutoFocusPlugin,
-  LexicalCodeHighlightPlugin,
   LexicalComposer,
   LexicalContentEditable,
   LexicalHistoryPlugin,
@@ -19,6 +18,8 @@ import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { ref, watch } from 'vue'
 import exampleTheme from '../themes/example'
 import ToolbarPlugin from './ToolbarPlugin.vue'
+import CodeHighlightPlugin from './CodeHighlightPlugin.vue'
+import ListMaxIndentLevelPlugin from './ListMaxIndentLevelPlugin.vue'
 
 const config = {
   theme: exampleTheme,
@@ -71,8 +72,9 @@ watch(model, (val) => {
           time-travel-panel-button-class-name="debug-timetravel-panel-button"
         />
         <LexicalAutoFocusPlugin />
-        <LexicalCodeHighlightPlugin />
+        <CodeHighlightPlugin />
         <LexicalListPlugin />
+        <ListMaxIndentLevelPlugin :max-depth="7" />
       </div>
     </div>
     <!-- <Test /> -->
