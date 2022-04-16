@@ -40,3 +40,6 @@ export {
 export {
   default as LexicalCharacterLimitPlugin,
 } from './LexicalCharacterLimitPlugin.vue'
+export {
+  default as LexicalAutoScrollPlugin,
+} from './LexicalAutoScrollPlugin.vue'
