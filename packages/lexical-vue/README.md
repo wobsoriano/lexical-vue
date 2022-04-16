@@ -34,7 +34,7 @@ import {
   LexicalPlainTextPlugin,
 } from 'lexical-vue'
 
-const initialConfig = {
+const config = {
   theme: {
     // Theme styling goes here
   },
