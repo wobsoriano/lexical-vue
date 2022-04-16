@@ -12,7 +12,7 @@ import Editor from './components/Editor.vue'
       <ul>
         <li>
           <a
-            href="https://github.com/wobsoriano/lexical-vue/tree/master/examples/plain-text"
+            href="https://github.com/wobsoriano/lexical-vue/tree/master/examples/demo"
             target="_blank"
             rel="noreferrer"
           >
