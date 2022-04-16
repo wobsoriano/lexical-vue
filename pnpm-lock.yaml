@@ -54,37 +54,6 @@ importers:
       vue: 3.2.33
       vue-tsc: 0.34.6_typescript@4.6.3
 
-  examples/demo:
-    specifiers:
-      '@lexical/code': 0.2.1
-      '@lexical/link': 0.2.1
-      '@lexical/list': 0.2.1
-      '@lexical/rich-text': 0.2.1
-      '@lexical/table': 0.2.1
-      '@vitejs/plugin-vue': ^2.3.1
-      lexical: ^0.2.1
-      lexical-vue: workspace:*
-      tsconfig: workspace:*
-      typescript: ^4.6.3
-      vite: ^2.9.5
-      vue: ^3.2.33
-      vue-tsc: ^0.34.6
-    dependencies:
-      '@lexical/code': 0.2.1_lexical@0.2.1
-      '@lexical/link': 0.2.1_lexical@0.2.1
-      '@lexical/list': 0.2.1_lexical@0.2.1
-      '@lexical/rich-text': 0.2.1_76d8601950cd7390a6185da6aac3b1bf
-      '@lexical/table': 0.2.1_lexical@0.2.1
-      lexical: 0.2.1
-      lexical-vue: link:../../packages/lexical-vue
-      vue: 3.2.33
-    devDependencies:
-      '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
-      tsconfig: link:../../packages/tsconfig
-      typescript: 4.6.3
-      vite: 2.9.5
-      vue-tsc: 0.34.6_typescript@4.6.3
-
   packages/lexical-vue:
     specifiers:
       '@lexical/clipboard': 0.2.1
@@ -135,6 +104,37 @@ importers:
       bumpp: 7.1.1
       clean-publish: 4.0.0
       rimraf: 3.0.2
+      tsconfig: link:../tsconfig
+      typescript: 4.6.3
+      vite: 2.9.5
+      vue-tsc: 0.34.6_typescript@4.6.3
+
+  packages/playground:
+    specifiers:
+      '@lexical/code': 0.2.1
+      '@lexical/link': 0.2.1
+      '@lexical/list': 0.2.1
+      '@lexical/rich-text': 0.2.1
+      '@lexical/table': 0.2.1
+      '@vitejs/plugin-vue': ^2.3.1
+      lexical: ^0.2.1
+      lexical-vue: workspace:*
+      tsconfig: workspace:*
+      typescript: ^4.6.3
+      vite: ^2.9.5
+      vue: ^3.2.33
+      vue-tsc: ^0.34.6
+    dependencies:
+      '@lexical/code': 0.2.1_lexical@0.2.1
+      '@lexical/link': 0.2.1_lexical@0.2.1
+      '@lexical/list': 0.2.1_lexical@0.2.1
+      '@lexical/rich-text': 0.2.1_76d8601950cd7390a6185da6aac3b1bf
+      '@lexical/table': 0.2.1_lexical@0.2.1
+      lexical: 0.2.1
+      lexical-vue: link:../lexical-vue
+      vue: 3.2.33
+    devDependencies:
+      '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
       tsconfig: link:../tsconfig
       typescript: 4.6.3
       vite: 2.9.5
