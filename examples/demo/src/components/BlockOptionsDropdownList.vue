@@ -16,7 +16,6 @@ import {
 } from '@lexical/list'
 import {
   $wrapLeafNodesInElements,
-
 } from '@lexical/selection'
 import {
   $createHeadingNode,
@@ -135,6 +134,7 @@ const formatQuote = () => {
       }
     })
   }
+  emit('update:showBlockOptionsDropDown', false)
 }
 
 const formatCode = () => {
