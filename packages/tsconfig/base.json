@@ -12,7 +12,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "skipLibCheck": true
   },
   "exclude": ["dist", "node_modules"]

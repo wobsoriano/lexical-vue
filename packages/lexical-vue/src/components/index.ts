@@ -37,3 +37,6 @@ export {
 export {
   default as LexicalClearEditorPlugin,
 } from './LexicalClearEditorPlugin.vue'
+export {
+  default as LexicalCharacterLimitPlugin,
+} from './LexicalCharacterLimitPlugin.vue'
