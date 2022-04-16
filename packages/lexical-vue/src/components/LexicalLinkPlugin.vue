@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { LinkNode } from '@lexical/link'
 import {
   $createLinkNode,
   $isLinkNode,
-  LinkNode,
   TOGGLE_LINK_COMMAND,
 } from '@lexical/link'
 import {
@@ -117,12 +117,12 @@ const editor = useEditor()
 let unregisterListener: () => void
 
 // TODO: Missing export
-const COMMAND_PRIORITY_EDITOR = 1
+const COMMAND_PRIORITY_EDITOR = 0
 
 onMounted(() => {
-  // @ts-expect-error: TODO: Internal lexical types
-  if (!editor.hasNodes(LinkNode))
-    throw new Error('LinkPlugin: LinkNode not registered on editor')
+  //  TODO: Throwing getType error
+  // if (!editor.hasNodes(LinkNode))
+  //   throw new Error('LinkPlugin: LinkNode not registered on editor')
 
   unregisterListener = editor.registerCommand(
     TOGGLE_LINK_COMMAND,

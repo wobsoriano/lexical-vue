@@ -4,6 +4,7 @@ import {
   LexicalComposer,
   LexicalContentEditable,
   LexicalHistoryPlugin,
+  LexicalLinkPlugin,
   LexicalListPlugin,
   LexicalOnChangePlugin,
   LexicalRichTextPlugin,
@@ -75,6 +76,7 @@ watch(model, (val) => {
         <LexicalAutoFocusPlugin />
         <CodeHighlightPlugin />
         <LexicalListPlugin />
+        <LexicalLinkPlugin />
         <AutoLinkPlugin />
         <ListMaxIndentLevelPlugin :max-depth="7" />
       </div>
