@@ -22,7 +22,6 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 
 ```vue
 <script setup lang="ts">
-import { content, nextTick, onMounted } from 'vue'
 import {
   LexicalAutoFocusPlugin,
   LexicalComposer,
