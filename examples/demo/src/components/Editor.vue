@@ -20,6 +20,7 @@ import exampleTheme from '../themes/example'
 import ToolbarPlugin from './ToolbarPlugin.vue'
 import CodeHighlightPlugin from './CodeHighlightPlugin.vue'
 import ListMaxIndentLevelPlugin from './ListMaxIndentLevelPlugin.vue'
+import AutoLinkPlugin from './AutoLinkPlugin.vue'
 
 const config = {
   theme: exampleTheme,
@@ -74,6 +75,7 @@ watch(model, (val) => {
         <LexicalAutoFocusPlugin />
         <CodeHighlightPlugin />
         <LexicalListPlugin />
+        <AutoLinkPlugin />
         <ListMaxIndentLevelPlugin :max-depth="7" />
       </div>
     </div>
