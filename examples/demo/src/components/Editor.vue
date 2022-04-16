@@ -13,12 +13,11 @@ import {
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import { ListItemNode, ListNode } from '@lexical/list'
-// @ts-expect-error: TODO: Types
+// @ts-expect-error: TODO: Missing types
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { ref, watch } from 'vue'
 import exampleTheme from '../themes/example'
-import Test from './components/Test.vue'
 import ToolbarPlugin from './ToolbarPlugin.vue'
 
 const config = {

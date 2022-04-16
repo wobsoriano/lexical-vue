@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-// @ts-expect-error: TODO: Types
+// @ts-expect-error: TODO: Missing types
 import { registerCodeHighlighting } from '@lexical/code'
 import { useEditor } from '../composables/useEditor'
 

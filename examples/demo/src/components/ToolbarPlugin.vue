@@ -1,13 +1,34 @@
 <script setup lang="ts">
+import type {
+  RangeSelection,
+} from 'lexical'
 import {
+  $getSelection,
+  $isRangeSelection,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
+  FORMAT_ELEMENT_COMMAND,
+  FORMAT_TEXT_COMMAND,
   REDO_COMMAND,
+  SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
-import { mergeRegister } from '@lexical/utils'
+import {
+  $isAtNodeEnd,
+  $isParentElementRTL,
+} from '@lexical/selection'
+import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import { useEditor } from 'lexical-vue'
 import { defineComponent, h, onMounted, onUnmounted, ref } from 'vue'
+import { $isListNode, ListNode } from '@lexical/list'
+import { $isHeadingNode, HeadingNode } from '@lexical/rich-text'
+import {
+  $isCodeNode,
+  getDefaultCodeLanguage,
+  // @ts-expect-error: TODO: Missing types
+} from '@lexical/code'
+import { $isLinkNode } from '@lexical/link'
+import BlockOptionsDropdownList from './BlockOptionsDropdownList.vue'
 
 const LowPriority = 1
 
@@ -40,32 +61,109 @@ const editor = useEditor()
 const canUndo = ref(false)
 const canRedo = ref(false)
 const blockType = ref('paragraph')
+const selectedElementKey = ref()
+const codeLanguage = ref('')
+const isRTL = ref(false)
 const isLink = ref(false)
 const isBold = ref(false)
 const isItalic = ref(false)
 const isUnderline = ref(false)
 const isStrikethrough = ref(false)
 const isCode = ref(false)
+const showBlockOptionsDropDown = ref(false)
+
+function getSelectedNode(selection: RangeSelection) {
+  const anchor = selection.anchor
+  const focus = selection.focus
+  const anchorNode = selection.anchor.getNode()
+  const focusNode = selection.focus.getNode()
+  if (anchorNode === focusNode)
+    return anchorNode
+
+  const isBackward = selection.isBackward()
+  if (isBackward)
+    return $isAtNodeEnd(focus) ? anchorNode : focusNode
+
+  else
+    return $isAtNodeEnd(anchor) ? focusNode : anchorNode
+}
+
+const updateToolbar = () => {
+  const selection = $getSelection() as RangeSelection
+  if ($isRangeSelection(selection)) {
+    const anchorNode = selection.anchor.getNode()
+    const element
+        = anchorNode.getKey() === 'root'
+          ? anchorNode
+          : anchorNode.getTopLevelElementOrThrow()
+    const elementKey = element.getKey()
+    const elementDOM = editor.getElementByKey(elementKey)
+    if (elementDOM !== null) {
+      selectedElementKey.value = elementKey
+      if ($isListNode(element)) {
+        const parentList = $getNearestNodeOfType(anchorNode, ListNode) as ListNode
+        blockType.value = parentList ? parentList.getTag() : (element as ListNode).getTag()
+      }
+      else {
+        blockType.value = $isHeadingNode(element)
+          ? (element as ListNode).getTag()
+          : element.getType()
+        if ($isCodeNode(element)) {
+          // @ts-expect-error: TODO: Missing types
+          codeLanguage.value = element.getLanguage() || getDefaultCodeLanguage()
+        }
+      }
+    }
+    // Update text format
+    isBold.value = selection.hasFormat('bold')
+    isItalic.value = selection.hasFormat('italic')
+    isUnderline.value = selection.hasFormat('underline')
+    isStrikethrough.value = selection.hasFormat('strikethrough')
+    isCode.value = selection.hasFormat('code')
+    isRTL.value = $isParentElementRTL(selection)
+
+    // Update links
+    const node = getSelectedNode(selection)
+    const parent = node.getParent()
+    if ($isLinkNode(parent) || $isLinkNode(node))
+      isLink.value = true
+    else
+      isLink.value = false
+  }
+}
 
 let unregisterMergeListener: () => void
 
 onMounted(() => {
-  unregisterMergeListener = mergeRegister(editor.registerCommand(
-    CAN_UNDO_COMMAND,
-    (payload: boolean) => {
-      canUndo.value = payload
-      return false
-    },
-    LowPriority,
-  ),
-  editor.registerCommand(
-    CAN_REDO_COMMAND,
-    (payload: boolean) => {
-      canRedo.value = payload
-      return false
-    },
-    LowPriority,
-  ))
+  unregisterMergeListener = mergeRegister(
+    editor.registerUpdateListener(({ editorState }) => {
+      editorState.read(() => {
+        updateToolbar()
+      })
+    }),
+    editor.registerCommand(
+      SELECTION_CHANGE_COMMAND,
+      () => {
+        updateToolbar()
+        return false
+      },
+      LowPriority,
+    ), editor.registerCommand(
+      CAN_UNDO_COMMAND,
+      (payload: boolean) => {
+        canUndo.value = payload
+        return false
+      },
+      LowPriority,
+    ),
+    editor.registerCommand(
+      CAN_REDO_COMMAND,
+      (payload: boolean) => {
+        canRedo.value = payload
+        return false
+      },
+      LowPriority,
+    ))
 })
 
 onUnmounted(() => {
@@ -91,40 +189,53 @@ const Divider = defineComponent({
     </button>
     <Divider />
     <template v-if="supportedBlockTypes.has(blockType)">
-      <button class="toolbar-item block-controls" aria-label="Formatting Options">
+      <button class="toolbar-item block-controls" aria-label="Formatting Options" @click="showBlockOptionsDropDown = !showBlockOptionsDropDown">
         <span :class="`icon block-type ${blockType}`" />
         <span class="text">{{ blockTypeToBlockName[blockType] }}</span>
         <i class="chevron-down" />
       </button>
+      <Teleport to="body">
+        <BlockOptionsDropdownList
+          v-if="showBlockOptionsDropDown"
+          v-model:showBlockOptionsDropDown="showBlockOptionsDropDown"
+          :block-type="blockType"
+          :toolbar-ref="toolbarRef"
+        />
+      </Teleport>
     </template>
     <Divider />
     <button
       :class="`toolbar-item spaced ${isBold ? 'active' : ''}`"
       aria-label="Format Bold"
+      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')"
     >
       <i class="format bold" />
     </button>
     <button
       :class="`toolbar-item spaced ${isItalic ? 'active' : ''}`"
       aria-label="Format Italics"
+      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')"
     >
       <i class="format italic" />
     </button>
     <button
       :class="`toolbar-item spaced ${isUnderline ? 'active' : ''}`"
       aria-label="Format Underline"
+      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')"
     >
       <i class="format underline" />
     </button>
     <button
       :class="`toolbar-item spaced ${isStrikethrough ? 'active' : ''}`"
       aria-label="Format Strikethrough"
+      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')"
     >
       <i class="format strikethrough" />
     </button>
     <button
       :class="`toolbar-item spaced ${isCode ? 'active' : ''}`"
       aria-label="Insert Code"
+      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')"
     >
       <i class="format code" />
     </button>
@@ -136,27 +247,30 @@ const Divider = defineComponent({
     </button>
     <Divider />
     <button
-
       class="toolbar-item spaced"
       aria-label="Left Align"
+      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')"
     >
       <i class="format left-align" />
     </button>
     <button
       class="toolbar-item spaced"
       aria-label="Center Align"
+      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')"
     >
       <i class="format center-align" />
     </button>
     <button
       class="toolbar-item spaced"
       aria-label="Right Align"
+      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')"
     >
       <i class="format right-align" />
     </button>
     <button
       class="toolbar-item"
       aria-label="Justify Align"
+      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')"
     >
       <i class="format justify-align" />
     </button>
