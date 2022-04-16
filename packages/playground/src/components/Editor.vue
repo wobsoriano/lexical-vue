@@ -3,6 +3,7 @@ import {
   LexicalAutoFocusPlugin,
   LexicalComposer,
   LexicalContentEditable,
+  LexicalHashtagPlugin,
   LexicalHistoryPlugin,
   LexicalLinkPlugin,
   LexicalListPlugin,
@@ -14,6 +15,7 @@ import { ListItemNode, ListNode } from '@lexical/list'
 // @ts-expect-error: TODO: Missing types
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
+import { HashtagNode } from '@lexical/hashtag'
 
 import exampleTheme from '../themes/example'
 import ToolbarPlugin from './ToolbarPlugin.vue'
@@ -38,6 +40,7 @@ const config = {
     TableRowNode,
     AutoLinkNode,
     LinkNode,
+    HashtagNode,
   ],
 }
 </script>
@@ -65,6 +68,7 @@ const config = {
         <LexicalLinkPlugin />
         <AutoLinkPlugin />
         <ListMaxIndentLevelPlugin :max-depth="7" />
+        <LexicalHashtagPlugin />
       </div>
     </div>
   </LexicalComposer>

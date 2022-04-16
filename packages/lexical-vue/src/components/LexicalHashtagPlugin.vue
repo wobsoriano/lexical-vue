@@ -263,7 +263,7 @@ const getHashtagMatch = (text: string) => {
 }
 
 // @ts-expect-error: TODO: isTextNode not in TextNode
-useLexicalTextEntity(getHashtagMatch, HashtagNode, createHashtagNode)
+useLexicalTextEntity<HashtagNode>(getHashtagMatch, HashtagNode, createHashtagNode)
 </script>
 
 <template />

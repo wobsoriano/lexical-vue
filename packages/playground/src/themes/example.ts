@@ -23,12 +23,10 @@ const exampleTheme: EditorThemeClasses = {
   },
   image: 'editor-image',
   link: 'editor-link',
+  hashtag: 'editor-text-hashtag',
   text: {
     bold: 'editor-text-bold',
     italic: 'editor-text-italic',
-    // @ts-expect-error: TODO: Missing types
-    overflowed: 'editor-text-overflowed',
-    hashtag: 'editor-text-hashtag',
     underline: 'editor-text-underline',
     strikethrough: 'editor-text-strikethrough',
     underlineStrikethrough: 'editor-text-underlineStrikethrough',
