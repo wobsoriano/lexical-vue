@@ -77,8 +77,8 @@ export function useAutoLink(
   editor: LexicalEditor,
   matchers: Array<LinkMatcher>,
   onChange?: ChangeHandler,
-): void {
-  watchEffect(() => {
+) {
+  watchEffect((onInvalidate) => {
     if (!editor.hasNodes([AutoLinkNode])) {
       throw new Error(
         'LexicalAutoLinkPlugin: AutoLinkNode, TableCellNode or TableRowNode not registered on editor',
@@ -112,6 +112,10 @@ export function useAutoLink(
         handleLinkEdit(linkNode, matchers, onChangeWrapped)
       }),
     )
+
+    onInvalidate(() => {
+      unregisterListener()
+    })
   })
 
   onUnmounted(() => {

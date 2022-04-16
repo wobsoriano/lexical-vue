@@ -14,13 +14,16 @@ export function useHistory(
   const historyState = computed<HistoryState>(
     () => getRealValue(externalHistoryState) || createEmptyHistoryState(),
   )
-  let listener: () => void
+  let unregisterListener: () => void
 
-  watchEffect(() => {
-    listener = registerHistory(editor, historyState.value, getRealValue(delay) || 1000)
+  watchEffect((onInvalidate) => {
+    unregisterListener = registerHistory(editor, historyState.value, getRealValue(delay) || 1000)
+    onInvalidate(() => {
+      unregisterListener()
+    })
   })
 
   onUnmounted(() => {
-    listener?.()
+    unregisterListener?.()
   })
 }

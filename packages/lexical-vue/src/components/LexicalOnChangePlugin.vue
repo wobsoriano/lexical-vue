@@ -23,7 +23,7 @@ const emit = defineEmits<{
 let unregisterListener: () => void
 const getRoot = $getRoot
 
-watchEffect(() => {
+watchEffect((onInvalidate) => {
   unregisterListener = editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {
     if (
       props.ignoreSelectionChange
@@ -40,6 +40,10 @@ watchEffect(() => {
     editorState.read(() => {
       emit('update:modelValue', getRoot().getTextContent())
     })
+  })
+
+  onInvalidate(() => {
+    unregisterListener()
   })
 })
 

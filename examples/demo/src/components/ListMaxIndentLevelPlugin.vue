@@ -9,7 +9,7 @@ import {
   INDENT_CONTENT_COMMAND,
 } from 'lexical'
 import { useEditor } from 'lexical-vue'
-import { onMounted, onUnmounted, watchEffect } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 const props = withDefaults(defineProps<{
   maxDepth?: number

@@ -352,7 +352,7 @@ const isPlaying = ref(false)
 
 let unregisterListener: () => void
 
-watchEffect(() => {
+watchEffect((onInvalidate) => {
   content.value = generateContent(editor.getEditorState())
 
   unregisterListener = editor.registerUpdateListener(({ editorState }) => {
@@ -368,13 +368,17 @@ watchEffect(() => {
       ]
     }
   })
+
+  onInvalidate(() => {
+    unregisterListener()
+  })
 })
 
 const totalEditorStates = computed(() => timeStampedEditorStates.value.length)
 
 let timeoutId: NodeJS.Timeout
 
-watchEffect(() => {
+watchEffect((onInvalidate) => {
   if (isPlaying.value) {
     const play = () => {
       const currentIndex = playingIndexRef.value
@@ -399,6 +403,10 @@ watchEffect(() => {
 
     play()
   }
+
+  onInvalidate(() => {
+    clearTimeout(timeoutId)
+  })
 })
 
 watchEffect(() => {
