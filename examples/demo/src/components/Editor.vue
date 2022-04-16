@@ -6,7 +6,6 @@ import {
   LexicalHistoryPlugin,
   LexicalLinkPlugin,
   LexicalListPlugin,
-  LexicalOnChangePlugin,
   LexicalRichTextPlugin,
 } from 'lexical-vue'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
@@ -58,7 +57,6 @@ const config = {
             </div>
           </template>
         </LexicalRichTextPlugin>
-        <LexicalOnChangePlugin />
         <LexicalHistoryPlugin />
         <TreeViewPlugin />
         <LexicalAutoFocusPlugin />
