@@ -22,25 +22,41 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 
 ```vue
 <script setup lang="ts">
+import { $getRoot, $getSelection } from 'lexical'
+import { ref } from 'vue'
+
 import {
   LexicalAutoFocusPlugin,
   LexicalComposer,
   LexicalContentEditable,
-  LexicalHashtagPlugin,
   LexicalHistoryPlugin,
   LexicalOnChangePlugin,
   LexicalPlainTextPlugin,
-  useEditor,
 } from 'lexical-vue'
 
-const theme = {
-  // Theme styling goes here
+const initialConfig = {
+  theme: {
+    // Theme styling goes here
+  },
+  onError(error) {
+    console.error(error)
+  },
 }
 
-const initialConfig = {
-  theme,
-  onError,
+// When the editor changes, you can get notified via the
+// LexicalOnChangePlugin!
+function onChange(editorState) {
+  editorState.read(() => {
+    // Read the contents of the EditorState here.
+    const root = $getRoot()
+    const selection = $getSelection()
+
+    console.log(root, selection)
+  })
 }
+
+// Two-way binding
+const content = ref('')
 </script>
 
 <template>
@@ -55,9 +71,8 @@ const initialConfig = {
         </div>
       </template>
     </LexicalPlainTextPlugin>
-    <LexicalOnChangePlugin v-model="content" />
+    <LexicalOnChangePlugin v-model="content" @change="onChange" />
     <LexicalHistoryPlugin />
-    <LexicalHashtagPlugin />
     <LexicalAutoFocusPlugin />
   </LexicalComposer>
 </template>
