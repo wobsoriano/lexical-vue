@@ -28,3 +28,6 @@ export {
 export {
   default as LexicalAutoLinkPlugin,
 } from './LexicalAutoLinkPlugin.vue'
+export {
+  default as LexicalLinkPlugin,
+} from './LexicalLinkPlugin.vue'
