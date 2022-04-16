@@ -31,3 +31,6 @@ export {
 export {
   default as LexicalLinkPlugin,
 } from './LexicalLinkPlugin.vue'
+export {
+  default as LexicalTablePlugin,
+} from './LexicalTablePlugin.vue'
