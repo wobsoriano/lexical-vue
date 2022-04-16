@@ -56,7 +56,7 @@ const config = {
           </template>
           <template #placeholder>
             <div class="editor-placeholder">
-              Enter some plain text...
+              Enter some text...
             </div>
           </template>
         </LexicalRichTextPlugin>

@@ -1,23 +1,77 @@
-TODO
+# lexical-vue
+
+> Note: Lexical is currently in early development and APIs and packages are likely to change quite often.
+
+[Lexical](https://github.com/facebook/lexical) components and composables for Vue applications.
+
+For documentation and more information about Lexical, be sure to visit the [Lexical website](https://lexical.dev/).
+
+Demo: https://lexical-vue-playground.vercel.app
+
+## Getting started with Vue
+
+> Requires Vue 3.2.0 or higher.
+
+Install `lexical` and `lexical-vue`:
+
+```bash
+pnpm add lexical lexical-vue # or npm or yarn
+```
+
+Below is an example of a basic plain text editor using `lexical` and `lexical-vue`.
 
 ```vue
+<script setup lang="ts">
+import { content, nextTick, onMounted } from 'vue'
+import {
+  LexicalComposer,
+  LexicalContentEditable,
+  LexicalHashtagPlugin,
+  LexicalHistoryPlugin,
+  LexicalOnChangePlugin,
+  LexicalPlainTextPlugin,
+  useEditor,
+} from 'lexical-vue'
+
+const theme = {
+  // Theme styling goes here
+}
+
+const initialConfig = {
+  theme,
+  onError,
+}
+
+const content = ref('')
+
+function MyCustomAutoFocusPlugin() {
+  const editor = useEditor()
+
+  onMounted(() => {
+    nextTick(() => {
+      // Focus the editor when the effect fires!
+      editor.focus()
+    })
+  })
+}
+</script>
+
 <template>
-  <div class="App">
-    <div className="editor-container">
-      <LexicalComposer :initial-config="config">
-        <PlainTextPlugin>
-          <template #contentEditable>
-            <ContentEditable />
-          </template>
-          <template #placeholder>
-            <div className="editor-placeholder">
-              Enter some plain text...
-            </div>
-          </template>
-        </PlainTextPlugin>
-        <OnChangePlugin @change="change" />
-      </LexicalComposer>
-    </div>
-  </div>
+  <LexicalComposer :initial-config="config">
+    <LexicalPlainTextPlugin>
+      <template #contentEditable>
+        <LexicalContentEditable />
+      </template>
+      <template #placeholder>
+        <div>
+          Enter some text...
+        </div>
+      </template>
+    </LexicalPlainTextPlugin>
+    <LexicalOnChangePlugin v-model="content" />
+    <LexicalHistoryPlugin />
+    <LexicalHashtagPlugin />
+    <MyCustomAutoFocusPlugin />
+  </LexicalComposer>
 </template>
 ```
