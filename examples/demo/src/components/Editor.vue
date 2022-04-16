@@ -8,7 +8,6 @@ import {
   LexicalListPlugin,
   LexicalOnChangePlugin,
   LexicalRichTextPlugin,
-  LexicalTreeViewPlugin,
 } from 'lexical-vue'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
@@ -16,12 +15,13 @@ import { ListItemNode, ListNode } from '@lexical/list'
 // @ts-expect-error: TODO: Missing types
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
-import { ref, watch } from 'vue'
+
 import exampleTheme from '../themes/example'
 import ToolbarPlugin from './ToolbarPlugin.vue'
 import CodeHighlightPlugin from './CodeHighlightPlugin.vue'
 import ListMaxIndentLevelPlugin from './ListMaxIndentLevelPlugin.vue'
 import AutoLinkPlugin from './AutoLinkPlugin.vue'
+import TreeViewPlugin from './TreeViewPlugin.vue'
 
 const config = {
   theme: exampleTheme,
@@ -41,12 +41,6 @@ const config = {
     LinkNode,
   ],
 }
-
-const model = ref('')
-
-watch(model, (val) => {
-  console.log('Editor value:', val)
-})
 </script>
 
 <template>
@@ -64,15 +58,9 @@ watch(model, (val) => {
             </div>
           </template>
         </LexicalRichTextPlugin>
-        <LexicalOnChangePlugin v-model="model" />
+        <LexicalOnChangePlugin />
         <LexicalHistoryPlugin />
-        <LexicalTreeViewPlugin
-          view-class-name="tree-view-output"
-          time-travel-panel-class-name="debug-timetravel-panel"
-          time-travel-button-class-name="debug-timetravel-button"
-          time-travel-panel-slider-class-name="debug-timetravel-panel-slider"
-          time-travel-panel-button-class-name="debug-timetravel-panel-button"
-        />
+        <TreeViewPlugin />
         <LexicalAutoFocusPlugin />
         <CodeHighlightPlugin />
         <LexicalListPlugin />
@@ -81,6 +69,5 @@ watch(model, (val) => {
         <ListMaxIndentLevelPlugin :max-depth="7" />
       </div>
     </div>
-    <!-- <Test /> -->
   </LexicalComposer>
 </template>

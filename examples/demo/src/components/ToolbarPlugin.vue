@@ -13,7 +13,6 @@ import {
   UNDO_COMMAND,
 } from 'lexical'
 import {
-  $isAtNodeEnd,
   $isParentElementRTL,
 } from '@lexical/selection'
 import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
@@ -27,9 +26,11 @@ import {
   getDefaultCodeLanguage,
   // @ts-expect-error: TODO: Missing types
 } from '@lexical/code'
-import { $isLinkNode } from '@lexical/link'
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
+import { getSelectedNode } from '../utils'
 import BlockOptionsDropdownList from './BlockOptionsDropdownList.vue'
 import CodeLanguageSelect from './CodeLanguageSelect.vue'
+import FloatingLinkEditor from './FloatingLinkEditor.vue'
 
 const LowPriority = 1
 
@@ -72,22 +73,6 @@ const isUnderline = ref(false)
 const isStrikethrough = ref(false)
 const isCode = ref(false)
 const showBlockOptionsDropDown = ref(false)
-
-function getSelectedNode(selection: RangeSelection) {
-  const anchor = selection.anchor
-  const focus = selection.focus
-  const anchorNode = selection.anchor.getNode()
-  const focusNode = selection.focus.getNode()
-  if (anchorNode === focusNode)
-    return anchorNode
-
-  const isBackward = selection.isBackward()
-  if (isBackward)
-    return $isAtNodeEnd(focus) ? anchorNode : focusNode
-
-  else
-    return $isAtNodeEnd(anchor) ? focusNode : anchorNode
-}
 
 const updateToolbar = () => {
   const selection = $getSelection() as RangeSelection
@@ -168,6 +153,14 @@ onMounted(() => {
 })
 
 const codeLanguages = getCodeLanguages() as string[]
+
+const insertLink = () => {
+  if (!isLink.value)
+    editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://')
+
+  else
+    editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
+}
 
 watch(codeLanguage, (value) => {
   editor.update(() => {
@@ -261,9 +254,13 @@ const Divider = defineComponent({
       <button
         :class="`toolbar-item spaced ${isLink ? 'active' : ''}`"
         aria-label="Insert Link"
+        @click="insertLink"
       >
         <i class="format link" />
       </button>
+      <Teleport to="body">
+        <FloatingLinkEditor v-if="isLink" :priority="1" />
+      </Teleport>
       <Divider />
       <button
         class="toolbar-item spaced"

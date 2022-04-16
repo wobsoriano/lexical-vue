@@ -9,7 +9,7 @@ const editor = useEditor()
 const props = withDefaults(defineProps<{
   ignoreInitialChange?: boolean
   ignoreSelectionChange?: boolean
-  modelValue: string
+  modelValue?: string
 }>(), {
   ignoreInitialChange: true,
   ignoreSelectionChange: false,

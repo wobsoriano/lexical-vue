@@ -9,7 +9,7 @@ import {
   INDENT_CONTENT_COMMAND,
 } from 'lexical'
 import { useEditor } from 'lexical-vue'
-import { onUnmounted, watchEffect } from 'vue'
+import { onMounted, onUnmounted, watchEffect } from 'vue'
 
 const props = withDefaults(defineProps<{
   maxDepth?: number
@@ -66,7 +66,7 @@ function isIndentPermitted(maxDepth: number) {
 const editor = useEditor()
 let unregisterListener: () => void
 
-watchEffect(() => {
+onMounted(() => {
   unregisterListener = editor.registerCommand(
     INDENT_CONTENT_COMMAND,
     () => !isIndentPermitted(props.maxDepth ?? 7),
