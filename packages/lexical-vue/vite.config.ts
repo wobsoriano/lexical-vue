@@ -23,12 +23,6 @@ const lexicalPlugins = [
   'rich-text',
 ]
 
-const globals: Record<string, string> = {}
-
-lexicalPlugins.forEach((plugin) => {
-  globals[`@lexical/${plugin}`] = `Lexical${plugin.charAt(0).toUpperCase() + plugin.slice(1)}`
-})
-
 export default defineConfig({
   plugins: [vue()],
   build: {
