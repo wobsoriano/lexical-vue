@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type { ListNode } from '@lexical/list'
 import { $getListDepth, $isListItemNode, $isListNode } from '@lexical/list'
+import type { RangeSelection } from 'lexical'
 import {
   $getSelection,
   $isElementNode,
@@ -15,7 +17,7 @@ const props = withDefaults(defineProps<{
   maxDepth: 7,
 })
 
-function getElementNodesInSelection(selection) {
+function getElementNodesInSelection(selection: RangeSelection) {
   const nodesInSelection = selection.getNodes()
 
   if (nodesInSelection.length === 0) {
@@ -33,7 +35,7 @@ function getElementNodesInSelection(selection) {
 const highPriority = 3
 
 function isIndentPermitted(maxDepth: number) {
-  const selection = $getSelection()
+  const selection = $getSelection() as RangeSelection
 
   if (!$isRangeSelection(selection))
     return false
@@ -44,11 +46,11 @@ function isIndentPermitted(maxDepth: number) {
 
   for (const elementNode of elementNodesInSelection) {
     if ($isListNode(elementNode)) {
-      totalDepth = Math.max($getListDepth(elementNode) + 1, totalDepth)
+      totalDepth = Math.max($getListDepth(elementNode as ListNode) + 1, totalDepth)
     }
     else if ($isListItemNode(elementNode)) {
-      const parent = elementNode.getParent()
-      if (!$isListNode(parent)) {
+      const parent = elementNode.getParent() as ListNode
+      if (!$isListNode(parent as ListNode)) {
         throw new Error(
           'ListMaxIndentLevelPlugin: A ListItemNode must have a ListNode for a parent.',
         )
