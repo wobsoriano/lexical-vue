@@ -75,3 +75,7 @@ function MyCustomAutoFocusPlugin() {
   </LexicalComposer>
 </template>
 ```
+
+## License
+
+MIT
