@@ -14,7 +14,7 @@ const test = () => {}
       <ul>
         <li>
           <a
-            href="https://github.com/wobsoriano/lexical-vue/tree/master/examples/demo"
+            href="https://github.com/wobsoriano/lexical-vue/tree/master/packages/playground"
             target="_blank"
             rel="noreferrer"
           >
