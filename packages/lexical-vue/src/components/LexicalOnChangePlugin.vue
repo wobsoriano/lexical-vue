@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted, watchEffect } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { $getRoot } from 'lexical'
 import { useEditor } from '../composables/useEditor'
@@ -23,7 +23,7 @@ const emit = defineEmits<{
 let unregisterListener: () => void
 const getRoot = $getRoot
 
-watchEffect((onInvalidate) => {
+onMounted(() => {
   unregisterListener = editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {
     if (
       props.ignoreSelectionChange
@@ -40,10 +40,6 @@ watchEffect((onInvalidate) => {
     editorState.read(() => {
       emit('update:modelValue', getRoot().getTextContent())
     })
-  })
-
-  onInvalidate(() => {
-    unregisterListener()
   })
 })
 
