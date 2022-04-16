@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RangeSelection } from 'lexical'
+import type { CommandListenerPriority, RangeSelection } from 'lexical'
 import {
   $getNodeByKey,
   $getSelection,
@@ -32,7 +32,7 @@ import BlockOptionsDropdownList from './BlockOptionsDropdownList.vue'
 import CodeLanguageSelect from './CodeLanguageSelect.vue'
 import FloatingLinkEditor from './FloatingLinkEditor.vue'
 
-const LowPriority = 1
+const LowPriority: CommandListenerPriority = 1
 
 const supportedBlockTypes = new Set([
   'paragraph',
@@ -259,7 +259,7 @@ const Divider = defineComponent({
         <i class="format link" />
       </button>
       <Teleport to="body">
-        <FloatingLinkEditor v-if="isLink" :priority="1" />
+        <FloatingLinkEditor v-if="isLink" :priority="LowPriority" />
       </Teleport>
       <Divider />
       <button
