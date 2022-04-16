@@ -5,7 +5,7 @@ import {
   $getSelection,
   CLEAR_EDITOR_COMMAND,
 } from 'lexical'
-import { getCurrentInstance, onBeforeMount, onMounted, onUnmounted, ref } from 'vue'
+import { getCurrentInstance, onMounted, onUnmounted, ref } from 'vue'
 import { COMMAND_PRIORITY_EDITOR } from '../utils'
 import { useEditor } from '../composables/useEditor'
 
@@ -15,19 +15,15 @@ const emit = defineEmits<{
 }>()
 let unregisterListener: () => void
 
-const emitExists = ref(false)
-
-onBeforeMount(() => {
-  const instance = getCurrentInstance()
-  emitExists.value = Boolean(instance?.attrs?.onClear)
-})
-
 onMounted(() => {
+  const instance = getCurrentInstance()
+  const emitExists = Boolean(instance?.attrs?.onClear)
+
   unregisterListener = editor.registerCommand(
     CLEAR_EDITOR_COMMAND,
     (_payload) => {
       editor.update(() => {
-        if (emitExists.value) {
+        if (emitExists) {
           const root = $getRoot()
           const selection = $getSelection()
           const paragraph = $createParagraphNode()
