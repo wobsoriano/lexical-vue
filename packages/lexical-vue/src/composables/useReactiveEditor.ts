@@ -17,5 +17,5 @@ export function useReactiveEditor() {
     unregisterListener()
   })
 
-  return editor
+  return editorRef
 }
