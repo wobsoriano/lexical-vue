@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type {
-  RangeSelection,
-} from 'lexical'
+import type { RangeSelection } from 'lexical'
 import {
+  $getNodeByKey,
   $getSelection,
   $isRangeSelection,
   CAN_REDO_COMMAND,
@@ -19,16 +18,18 @@ import {
 } from '@lexical/selection'
 import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import { useEditor } from 'lexical-vue'
-import { defineComponent, h, onMounted, onUnmounted, ref } from 'vue'
+import { defineComponent, h, onMounted, onUnmounted, ref, watch } from 'vue'
 import { $isListNode, ListNode } from '@lexical/list'
-import { $isHeadingNode, HeadingNode } from '@lexical/rich-text'
+import { $isHeadingNode } from '@lexical/rich-text'
 import {
   $isCodeNode,
+  getCodeLanguages,
   getDefaultCodeLanguage,
   // @ts-expect-error: TODO: Missing types
 } from '@lexical/code'
 import { $isLinkNode } from '@lexical/link'
 import BlockOptionsDropdownList from './BlockOptionsDropdownList.vue'
+import CodeLanguageSelect from './CodeLanguageSelect.vue'
 
 const LowPriority = 1
 
@@ -166,6 +167,20 @@ onMounted(() => {
     ))
 })
 
+const codeLanguages = getCodeLanguages() as string[]
+
+watch(codeLanguage, (value) => {
+  editor.update(() => {
+    if (selectedElementKey.value) {
+      const node = $getNodeByKey(selectedElementKey.value)
+      if ($isCodeNode(node)) {
+        // @ts-expect-error: TODO: Missing types
+        node.setLanguage(value)
+      }
+    }
+  })
+})
+
 onUnmounted(() => {
   unregisterMergeListener?.()
 })
@@ -204,75 +219,80 @@ const Divider = defineComponent({
       </Teleport>
     </template>
     <Divider />
-    <button
-      :class="`toolbar-item spaced ${isBold ? 'active' : ''}`"
-      aria-label="Format Bold"
-      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')"
-    >
-      <i class="format bold" />
-    </button>
-    <button
-      :class="`toolbar-item spaced ${isItalic ? 'active' : ''}`"
-      aria-label="Format Italics"
-      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')"
-    >
-      <i class="format italic" />
-    </button>
-    <button
-      :class="`toolbar-item spaced ${isUnderline ? 'active' : ''}`"
-      aria-label="Format Underline"
-      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')"
-    >
-      <i class="format underline" />
-    </button>
-    <button
-      :class="`toolbar-item spaced ${isStrikethrough ? 'active' : ''}`"
-      aria-label="Format Strikethrough"
-      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')"
-    >
-      <i class="format strikethrough" />
-    </button>
-    <button
-      :class="`toolbar-item spaced ${isCode ? 'active' : ''}`"
-      aria-label="Insert Code"
-      @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')"
-    >
-      <i class="format code" />
-    </button>
-    <button
-      :class="`toolbar-item spaced ${isLink ? 'active' : ''}`"
-      aria-label="Insert Link"
-    >
-      <i class="format link" />
-    </button>
-    <Divider />
-    <button
-      class="toolbar-item spaced"
-      aria-label="Left Align"
-      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')"
-    >
-      <i class="format left-align" />
-    </button>
-    <button
-      class="toolbar-item spaced"
-      aria-label="Center Align"
-      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')"
-    >
-      <i class="format center-align" />
-    </button>
-    <button
-      class="toolbar-item spaced"
-      aria-label="Right Align"
-      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')"
-    >
-      <i class="format right-align" />
-    </button>
-    <button
-      class="toolbar-item"
-      aria-label="Justify Align"
-      @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')"
-    >
-      <i class="format justify-align" />
-    </button>
+    <template v-if="blockType === 'code'">
+      <CodeLanguageSelect v-model="codeLanguage" :code-languages="codeLanguages" />
+    </template>
+    <template v-else>
+      <button
+        :class="`toolbar-item spaced ${isBold ? 'active' : ''}`"
+        aria-label="Format Bold"
+        @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')"
+      >
+        <i class="format bold" />
+      </button>
+      <button
+        :class="`toolbar-item spaced ${isItalic ? 'active' : ''}`"
+        aria-label="Format Italics"
+        @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')"
+      >
+        <i class="format italic" />
+      </button>
+      <button
+        :class="`toolbar-item spaced ${isUnderline ? 'active' : ''}`"
+        aria-label="Format Underline"
+        @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')"
+      >
+        <i class="format underline" />
+      </button>
+      <button
+        :class="`toolbar-item spaced ${isStrikethrough ? 'active' : ''}`"
+        aria-label="Format Strikethrough"
+        @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')"
+      >
+        <i class="format strikethrough" />
+      </button>
+      <button
+        :class="`toolbar-item spaced ${isCode ? 'active' : ''}`"
+        aria-label="Insert Code"
+        @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')"
+      >
+        <i class="format code" />
+      </button>
+      <button
+        :class="`toolbar-item spaced ${isLink ? 'active' : ''}`"
+        aria-label="Insert Link"
+      >
+        <i class="format link" />
+      </button>
+      <Divider />
+      <button
+        class="toolbar-item spaced"
+        aria-label="Left Align"
+        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')"
+      >
+        <i class="format left-align" />
+      </button>
+      <button
+        class="toolbar-item spaced"
+        aria-label="Center Align"
+        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')"
+      >
+        <i class="format center-align" />
+      </button>
+      <button
+        class="toolbar-item spaced"
+        aria-label="Right Align"
+        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')"
+      >
+        <i class="format right-align" />
+      </button>
+      <button
+        class="toolbar-item"
+        aria-label="Justify Align"
+        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')"
+      >
+        <i class="format justify-align" />
+      </button>
+    </template>
   </div>
 </template>
