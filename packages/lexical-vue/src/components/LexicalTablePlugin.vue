@@ -18,12 +18,9 @@ import {
 } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
+import { COMMAND_PRIORITY_EDITOR } from '../utils'
 
 const editor = useEditor()
-
-// TODO: Not available in lexical 0.2.1 yet
-// https://github.com/facebook/lexical/blob/main/packages/lexical/src/LexicalEditor.js
-const COMMAND_PRIORITY_EDITOR = 0
 
 let unregisterListener: () => void
 let unregisterMutationListener: () => void

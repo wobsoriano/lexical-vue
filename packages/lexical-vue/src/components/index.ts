@@ -34,3 +34,6 @@ export {
 export {
   default as LexicalTablePlugin,
 } from './LexicalTablePlugin.vue'
+export {
+  default as LexicalClearEditorPlugin,
+} from './LexicalClearEditorPlugin.vue'
