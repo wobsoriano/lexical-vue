@@ -24,6 +24,7 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 <script setup lang="ts">
 import { content, nextTick, onMounted } from 'vue'
 import {
+  LexicalAutoFocusPlugin,
   LexicalComposer,
   LexicalContentEditable,
   LexicalHashtagPlugin,
@@ -40,19 +41,6 @@ const theme = {
 const initialConfig = {
   theme,
   onError,
-}
-
-const content = ref('')
-
-function MyCustomAutoFocusPlugin() {
-  const editor = useEditor()
-
-  onMounted(() => {
-    nextTick(() => {
-      // Focus the editor when the effect fires!
-      editor.focus()
-    })
-  })
 }
 </script>
 
@@ -71,7 +59,7 @@ function MyCustomAutoFocusPlugin() {
     <LexicalOnChangePlugin v-model="content" />
     <LexicalHistoryPlugin />
     <LexicalHashtagPlugin />
-    <MyCustomAutoFocusPlugin />
+    <LexicalAutoFocusPlugin />
   </LexicalComposer>
 </template>
 ```
