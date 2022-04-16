@@ -80,6 +80,11 @@ For a more complex example, check the [rich text editor playground](https://gith
 
 I'm converting most of [@lexical/react](https://github.com/facebook/lexical/tree/main/packages/lexical-react) plugins into Vue 3 components. Check them all [here](https://github.com/wobsoriano/lexical-vue/tree/master/packages/lexical-vue/src/components).
 
+## Credits
+
+- [Lexical](https://github.com/facebook/lexical)
+- [Vite](https://vitejs.dev/)
+
 ## License
 
 MIT
