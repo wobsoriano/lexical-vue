@@ -124,7 +124,7 @@ Lexical auto-scrolls its contenteditable container while typing. This plugin can
 <div ref="containerWithScrollRef">
   <LexicalComposer>
     ...
-    <LexicalAutoScrollPlugin scrollRef="containerWithScrollRef" />
+    <LexicalAutoScrollPlugin :scrollRef="containerWithScrollRef" />
   </LexicalComposer>
 </div>
 ```
