@@ -1,4 +1,4 @@
-import type { CommandListenerLowPriority, LexicalEditor } from 'lexical'
+import type { LexicalEditor } from 'lexical'
 
 import {
   $handleListInsertParagraph,
@@ -17,8 +17,7 @@ import {
   OUTDENT_CONTENT_COMMAND,
 } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
-
-const LowPriority: CommandListenerLowPriority = 1
+import { COMMAND_PRIORITY_LOW } from '../utils'
 
 export function useList(editor: LexicalEditor): void {
   let unregisterListener: () => void
@@ -34,7 +33,7 @@ export function useList(editor: LexicalEditor): void {
 
           return false
         },
-        LowPriority,
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         OUTDENT_CONTENT_COMMAND,
@@ -45,7 +44,7 @@ export function useList(editor: LexicalEditor): void {
 
           return false
         },
-        LowPriority,
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         INSERT_ORDERED_LIST_COMMAND,
@@ -53,7 +52,7 @@ export function useList(editor: LexicalEditor): void {
           insertList(editor, 'ol')
           return true
         },
-        LowPriority,
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         INSERT_UNORDERED_LIST_COMMAND,
@@ -61,7 +60,7 @@ export function useList(editor: LexicalEditor): void {
           insertList(editor, 'ul')
           return true
         },
-        LowPriority,
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         REMOVE_LIST_COMMAND,
@@ -69,7 +68,7 @@ export function useList(editor: LexicalEditor): void {
           removeList(editor)
           return true
         },
-        LowPriority,
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         INSERT_PARAGRAPH_COMMAND,
@@ -80,7 +79,7 @@ export function useList(editor: LexicalEditor): void {
 
           return false
         },
-        LowPriority,
+        COMMAND_PRIORITY_LOW,
       ),
     )
   })
