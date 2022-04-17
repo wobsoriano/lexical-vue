@@ -11,8 +11,6 @@
     "serve": "vitepress serve docs"
   },
   "devDependencies": {
-    "lexical": "^0.2.1",
-    "lexical-vue": "workspace:*",
     "vitepress": "^0.22.3"
   }
 }

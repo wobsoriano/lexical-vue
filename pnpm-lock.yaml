@@ -56,12 +56,8 @@ importers:
 
   packages/docs:
     specifiers:
-      lexical: ^0.2.1
-      lexical-vue: workspace:*
       vitepress: ^0.22.3
     devDependencies:
-      lexical: 0.2.1
-      lexical-vue: link:../lexical-vue
       vitepress: 0.22.3
 
   packages/lexical-vue:
