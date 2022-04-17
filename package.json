@@ -4,10 +4,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "deploy": "turbo run build --scope=playground --include-dependencies --no-deps",
+    "deploy:playground": "turbo run build --scope=playground --include-dependencies --no-deps",
     "deploy:docs": "turbo run build --scope=docs --include-dependencies --no-deps",
-    "playground": "pnpm -C packages/playground",
-    "lexical-vue": "pnpm -C packages/lexical-vue",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
