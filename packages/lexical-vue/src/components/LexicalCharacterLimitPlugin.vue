@@ -7,27 +7,16 @@ const editor = useEditor()
 
 const CHARACTER_LIMIT = 5
 
-let textEncoderInstance: TextEncoder
+let textEncoderInstance: TextEncoder | null = null
 function textEncoder(): null | TextEncoder {
   if (window.TextEncoder === undefined)
     return null
 
-  if (!textEncoderInstance)
+  if (textEncoderInstance === null)
     textEncoderInstance = new window.TextEncoder()
 
   return textEncoderInstance
 }
-
-const remainingCharacters = ref(0)
-const setRemainingCharacters = (payload: number) => {
-  remainingCharacters.value = payload
-}
-
-const props = withDefaults(defineProps<{
-  charset?: 'UTF-8' | 'UTF-16'
-}>(), {
-  charset: 'UTF-16',
-})
 
 function utf8Length(text: string) {
   const currentTextEncoder = textEncoder()
@@ -37,6 +26,17 @@ function utf8Length(text: string) {
     return text.length + (m ? m.length : 0)
   }
   return currentTextEncoder.encode(text).length
+}
+
+const props = withDefaults(defineProps<{
+  charset?: 'UTF-8' | 'UTF-16'
+}>(), {
+  charset: 'UTF-16',
+})
+
+const remainingCharacters = ref(0)
+const setRemainingCharacters = (payload: number) => {
+  remainingCharacters.value = payload
 }
 
 const characterLimitProps = computed(

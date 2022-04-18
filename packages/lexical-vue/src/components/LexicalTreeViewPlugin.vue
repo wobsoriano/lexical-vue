@@ -333,7 +333,7 @@ function $getSelectionStartEnd(node: TextNode, selection: RangeSelection): [numb
   ]
 }
 
-const props = defineProps<{
+defineProps<{
   timeTravelButtonClassName: string
   timeTravelPanelButtonClassName: string
   timeTravelPanelClassName: string
