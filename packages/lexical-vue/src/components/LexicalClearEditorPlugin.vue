@@ -4,9 +4,9 @@ import {
   $getRoot,
   $getSelection,
   CLEAR_EDITOR_COMMAND,
+  COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
-import { getCurrentInstance, onMounted, onUnmounted, ref } from 'vue'
-import { COMMAND_PRIORITY_EDITOR } from '../utils'
+import { getCurrentInstance, onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
 const editor = useEditor()

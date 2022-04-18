@@ -9,10 +9,10 @@ import {
   $getSelection,
   $isElementNode,
   $setSelection,
+  COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
-import { COMMAND_PRIORITY_EDITOR } from '../utils'
 
 function toggleLink(url?: string) {
   const selection = $getSelection()

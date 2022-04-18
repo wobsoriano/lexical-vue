@@ -12,12 +12,12 @@ import {
 } from '@lexical/list'
 import { mergeRegister } from '@lexical/utils'
 import {
+  COMMAND_PRIORITY_LOW,
   INDENT_CONTENT_COMMAND,
   INSERT_PARAGRAPH_COMMAND,
   OUTDENT_CONTENT_COMMAND,
 } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
-import { COMMAND_PRIORITY_LOW } from '../utils'
 
 export function useList(editor: LexicalEditor): void {
   let unregisterListener: () => void
