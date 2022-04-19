@@ -12,11 +12,11 @@ import {
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import { ListItemNode, ListNode } from '@lexical/list'
-// @ts-expect-error: TODO: Missing types
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { HashtagNode } from '@lexical/hashtag'
 
+import type { LexicalNode } from 'lexical'
 import exampleTheme from '../themes/example'
 import ToolbarPlugin from './ToolbarPlugin.vue'
 import CodeHighlightPlugin from './CodeHighlightPlugin.vue'
@@ -26,8 +26,9 @@ import TreeViewPlugin from './TreeViewPlugin.vue'
 
 const config = {
   theme: exampleTheme,
-  onError() {},
-  // Any custom nodes go here
+  onError(err: Error) {
+    throw err
+  },
   nodes: [
     HeadingNode,
     ListNode,

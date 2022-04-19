@@ -1,7 +1,10 @@
 {
-  "extends": "tsconfig/lexical-vue.json",
+  "extends": "../../tsconfig.json",
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
     "declarationDir": "./dist/types",
   }
 }

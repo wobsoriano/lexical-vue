@@ -7,7 +7,7 @@ import { useEditor } from '../composables/useEditor'
 const editor = useEditor()
 
 const props = defineProps<{
-  scrollRef?: HTMLElement
+  scrollRef: HTMLElement | null
 }>()
 
 let unregisterListener: () => void

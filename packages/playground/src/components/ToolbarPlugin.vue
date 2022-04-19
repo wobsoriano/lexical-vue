@@ -22,9 +22,10 @@ import { $isListNode, ListNode } from '@lexical/list'
 import { $isHeadingNode } from '@lexical/rich-text'
 import {
   $isCodeNode,
-  getCodeLanguages,
-  getDefaultCodeLanguage,
   // @ts-expect-error: TODO: Missing types
+  getCodeLanguages,
+  // @ts-expect-error: TODO: Missing types
+  getDefaultCodeLanguage,
 } from '@lexical/code'
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
 import { getSelectedNode } from '../utils'
@@ -57,7 +58,7 @@ const blockTypeToBlockName = {
   ul: 'Bulleted List',
 }
 
-const toolbarRef = ref<HTMLDivElement>()
+const toolbarRef = ref<HTMLDivElement | null>(null)
 const editor = useEditor()
 
 const canUndo = ref(false)

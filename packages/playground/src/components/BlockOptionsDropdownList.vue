@@ -23,14 +23,13 @@ import {
 } from '@lexical/rich-text'
 import {
   $createCodeNode,
-  // @ts-expect-error: TODO: Missing types
 } from '@lexical/code'
 
-const dropDownRef = ref<HTMLDivElement>()
+const dropDownRef = ref<HTMLDivElement | null>(null)
 const editor = useEditor()
 
 const props = withDefaults(defineProps<{
-  toolbarRef?: HTMLDivElement
+  toolbarRef: HTMLDivElement | null
   blockType?: string
 }>(), {
   blockType: 'paragraph',

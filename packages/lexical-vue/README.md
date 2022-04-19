@@ -15,7 +15,7 @@ Demo: https://lexical-vue-playground.vercel.app
 Install `lexical` and `lexical-vue`:
 
 ```bash
-pnpm add lexical lexical-vue # or npm or yarn
+npm install lexical lexical-vue # or pnpm or yarn
 ```
 
 Below is an example of a basic plain text editor using `lexical` and `lexical-vue`.

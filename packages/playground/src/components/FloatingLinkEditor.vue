@@ -8,8 +8,8 @@ import { useEditor } from 'lexical-vue'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { getSelectedNode } from '../utils'
 
-const editorRef = ref<HTMLDivElement>()
-const inputRef = ref<HTMLInputElement>()
+const editorRef = ref<HTMLDivElement | null>(null)
+const inputRef = ref<HTMLInputElement | null>(null)
 const mouseDownRef = ref(false)
 const linkUrl = ref('')
 const isEditMode = ref(false)

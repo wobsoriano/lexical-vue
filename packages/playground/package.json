@@ -15,13 +15,12 @@
     "@lexical/table": "^0.2.2",
     "lexical": "^0.2.2",
     "lexical-vue": "workspace:*",
-    "vue": "^3.2.33"
+    "vue": "^3.2.25"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
-    "tsconfig": "workspace:*",
-    "typescript": "^4.6.3",
+    "typescript": "^4.5.4",
     "vite": "^2.9.5",
-    "vue-tsc": "^0.34.6"
+    "vue-tsc": "^0.34.7"
   }
 }
