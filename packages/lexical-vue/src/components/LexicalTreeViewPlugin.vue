@@ -346,8 +346,8 @@ const timeStampedEditorStates = ref<[number, EditorState][]>([])
 const content = ref('')
 const timeTravelEnabled = ref(false)
 const playingIndexRef = ref(0)
-const treeElementRef = ref<HTMLPreElement>()
-const inputRef = ref<HTMLInputElement >()
+const treeElementRef = ref<HTMLPreElement | null>(null)
+const inputRef = ref<HTMLInputElement | null>(null)
 const isPlaying = ref(false)
 
 let unregisterListener: () => void

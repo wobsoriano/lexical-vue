@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
-const root = ref<HTMLElement>()
+const root = ref<HTMLElement | null>(null)
 const editor = useEditor()
 
 withDefaults(defineProps<{

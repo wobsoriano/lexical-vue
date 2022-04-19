@@ -25,12 +25,13 @@ const editor = useEditor()
 let unregisterListener: () => void
 let unregisterMutationListener: () => void
 
+if (!editor.hasNodes([TableNode, TableCellNode, TableRowNode])) {
+  throw new Error(
+    'TablePlugin: TableNode, TableCellNode or TableRowNode not registered on editor',
+  )
+}
+
 onMounted(() => {
-  if (!editor.hasNodes([TableNode, TableCellNode, TableRowNode])) {
-    throw new Error(
-      'TablePlugin: TableNode, TableCellNode or TableRowNode not registered on editor',
-    )
-  }
   unregisterListener = editor.registerCommand(
     INSERT_TABLE_COMMAND,
     (payload: Grid) => {
