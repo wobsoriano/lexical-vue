@@ -54,7 +54,7 @@ importers:
       vue: 3.2.33
       vue-tsc: 0.34.6_typescript@4.6.3
 
-  packages/docs:
+  docs:
     specifiers:
       vitepress: ^0.22.3
     devDependencies:

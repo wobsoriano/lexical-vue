@@ -4,7 +4,6 @@
   "private": true,
   "main": "index.js",
   "files": [
-    "base.json",
-    "lexical-vue.json"
+    "base.json"
   ]
 }
