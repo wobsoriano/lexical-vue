@@ -23,7 +23,6 @@ import {
 } from '@lexical/rich-text'
 import {
   $createCodeNode,
-  // @ts-expect-error: TODO: Missing types
 } from '@lexical/code'
 
 const dropDownRef = ref<HTMLDivElement>()

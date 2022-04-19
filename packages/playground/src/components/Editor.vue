@@ -12,7 +12,6 @@ import {
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import { ListItemNode, ListNode } from '@lexical/list'
-// @ts-expect-error: TODO: Missing types
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { HashtagNode } from '@lexical/hashtag'
