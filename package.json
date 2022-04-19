@@ -6,8 +6,8 @@
     "dev": "turbo run dev --parallel",
     "deploy:playground": "turbo run build --scope=playground --include-dependencies --no-deps",
     "docs": "vitepress dev docs",
-    "build:docs": "vitepress build docs",
-    "serve": "vitepress serve docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
