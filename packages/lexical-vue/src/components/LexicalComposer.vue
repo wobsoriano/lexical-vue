@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { onMounted, provide } from 'vue'
-import type { EditorState, EditorThemeClasses, LexicalNode } from 'lexical'
+import type { EditorState, EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
 import { createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
 
 const props = defineProps<{
   initialConfig: {
-    readOnly?: boolean
     namespace?: string
-    nodes?: LexicalNode[]
-    editorState?: EditorState | undefined
+    editorState?: EditorState
     theme?: EditorThemeClasses
-    disableEvents?: boolean | undefined
     context?: unknown
+    parentEditor?: LexicalEditor
+    nodes?: LexicalNode[]
     onError: (error: Error) => void
+    disableEvents?: boolean
+    readOnly?: boolean
   }
 }>()
 
