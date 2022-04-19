@@ -58,7 +58,7 @@ const blockTypeToBlockName = {
   ul: 'Bulleted List',
 }
 
-const toolbarRef = ref<HTMLDivElement>()
+const toolbarRef = ref<HTMLDivElement | null>(null)
 const editor = useEditor()
 
 const canUndo = ref(false)
