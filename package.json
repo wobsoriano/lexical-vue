@@ -5,7 +5,9 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "deploy:playground": "turbo run build --scope=playground --include-dependencies --no-deps",
-    "deploy:docs": "turbo run build --scope=docs --include-dependencies --no-deps",
+    "docs": "vitepress dev docs",
+    "build:docs": "vitepress build docs",
+    "serve": "vitepress serve docs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -22,6 +24,7 @@
     "turbo": "latest",
     "typescript": "^4.5.4",
     "vite": "^2.9.5",
+    "vitepress": "^0.22.3",
     "vue": "^3.2.25",
     "vue-tsc": "^0.34.7"
   }
