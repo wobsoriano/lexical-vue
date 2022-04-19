@@ -14,14 +14,15 @@
     "@lexical/clipboard": "^0.2.2",
     "@lexical/hashtag": "^0.2.2",
     "@lexical/selection": "^0.2.2",
+    "@lexical/table": "^0.2.2",
     "@lexical/utils": "^0.2.2",
     "@vitejs/plugin-vue": "^2.3.1",
     "eslint": "^8.13.0",
     "lexical": "^0.2.2",
     "turbo": "latest",
-    "typescript": "^4.6.3",
+    "typescript": "^4.5.4",
     "vite": "^2.9.5",
-    "vue": "^3.2.33",
-    "vue-tsc": "^0.34.6"
+    "vue": "^3.2.25",
+    "vue-tsc": "^0.34.7"
   }
 }

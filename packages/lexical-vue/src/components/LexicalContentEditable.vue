@@ -7,7 +7,7 @@ const editor = useEditor()
 
 withDefaults(defineProps<{
   ariaActivedescendant?: string
-  ariaAutocomplete?: string
+  ariaAutocomplete?: 'none' | 'inline' | 'list' | 'both'
   ariaControls?: string
   ariaDescribedby?: string
   ariaExpanded?: boolean
@@ -15,7 +15,7 @@ withDefaults(defineProps<{
   ariaLabelledby?: string
   ariaMultiline?: boolean
   ariaOwns?: string
-  ariaRequired?: string
+  ariaRequired?: boolean
   autoCapitalize?: boolean
   autoComplete?: boolean
   autoCorrect?: boolean
@@ -51,15 +51,15 @@ onUnmounted(() => {
   <div
     :id="id"
     ref="root"
-    :aria-activedescendant="isReadOnly ? null : ariaActivedescendant"
-    :aria-autocomplete="isReadOnly ? null : ariaAutocomplete"
-    :aria-controls="isReadOnly ? null : ariaControls"
+    :aria-activedescendant="isReadOnly ? undefined : ariaActivedescendant"
+    :aria-autocomplete="isReadOnly ? undefined : ariaAutocomplete"
+    :aria-controls="isReadOnly ? undefined : ariaControls"
     :aria-describedby="ariaDescribedby"
-    :aria-expanded="isReadOnly ? null : role === 'combobox' ? !!ariaExpanded ? ariaExpanded : undefined : null"
+    :aria-expanded="isReadOnly ? undefined : role === 'combobox' ? !!ariaExpanded ? ariaExpanded : undefined : undefined"
     :aria-label="ariaLabel"
     :aria-labelledby="ariaLabelledby"
     :aria-multiline="ariaMultiline"
-    :aria-owns="isReadOnly ? null : ariaOwns"
+    :aria-owns="isReadOnly ? undefined : ariaOwns"
     :aria-required="ariaRequired"
     :autocapitalize="`${autoCapitalize}`"
     :autocomplete="autoComplete"

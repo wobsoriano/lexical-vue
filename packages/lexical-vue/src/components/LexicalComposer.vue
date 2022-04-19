@@ -11,7 +11,7 @@ const props = defineProps<{
     theme?: EditorThemeClasses
     context?: unknown
     parentEditor?: LexicalEditor
-    nodes?: LexicalNode[]
+    nodes?: Array<LexicalNode>
     onError: (error: Error) => void
     disableEvents?: boolean
     readOnly?: boolean
