@@ -1,5 +1,5 @@
 import type { LexicalEditor } from 'lexical'
-import { computed, h, onMounted, onUnmounted, ref } from 'vue'
+import { Teleport, computed, h, onMounted, onUnmounted, ref } from 'vue'
 
 export function useDecorators(editor: LexicalEditor) {
   const decorators = ref(editor.getDecorators())
@@ -27,7 +27,7 @@ export function useDecorators(editor: LexicalEditor) {
       if (element !== null) {
         decoratedTeleports.push(
           // @ts-expect-error: Incompatible types
-          h('Teleport', {
+          h(Teleport, {
             to: element,
           }, [vueDecorator]),
         )
