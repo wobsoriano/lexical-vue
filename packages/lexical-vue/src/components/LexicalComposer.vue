@@ -7,7 +7,7 @@ import { editorKey } from '../composables/inject'
 const props = defineProps<{
   initialConfig: {
     namespace?: string
-    nodes?: Array<LexicalNode>
+    nodes?: Array<InstanceType<typeof LexicalNode>>
     readOnly?: boolean
     theme?: EditorThemeClasses
   }
