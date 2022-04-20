@@ -44,5 +44,9 @@ export {
   default as LexicalAutoScrollPlugin,
 } from './LexicalAutoScrollPlugin.vue'
 export {
+  default as LexicalDecoratedTeleports,
+} from './LexicalDecoratedTeleports.vue'
+export {
   default as LexicalHashtagPlugin,
 } from './LexicalHashtagPlugin.vue'
+export * from './LexicalDecoratorBlockNode'
