@@ -45,7 +45,7 @@ export {
 } from './LexicalAutoScrollPlugin.vue'
 export {
   default as LexicalDecoratedTeleports,
-} from './LexicalDecoratedTeleports.vue'
+} from './LexicalDecoratedTeleports'
 export {
   default as LexicalHashtagPlugin,
 } from './LexicalHashtagPlugin.vue'
