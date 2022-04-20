@@ -7,18 +7,22 @@ import { editorKey } from '../composables/inject'
 const props = defineProps<{
   initialConfig: {
     namespace?: string
-    editorState?: EditorState
-    theme?: EditorThemeClasses
-    context?: unknown
-    parentEditor?: LexicalEditor
     nodes?: Array<LexicalNode>
-    onError: (error: Error) => void
-    disableEvents?: boolean
     readOnly?: boolean
+    theme?: EditorThemeClasses
   }
 }>()
 
-const editor = createEditor(props.initialConfig)
+const emits = defineEmits<{
+  (e: 'error', error: Error): void
+}>()
+
+const editor = createEditor({
+  ...props.initialConfig,
+  onError(error) {
+    emits('error', error)
+  },
+})
 
 provide(editorKey, editor)
 

@@ -80,7 +80,7 @@ const formatLargeHeading = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection)) {
-        // @ts-expect-error: TODO: Missing types
+        // @ts-expect-error: Internal types
         $wrapLeafNodesInElements(selection, () => $createHeadingNode('h1'))
       }
     })
@@ -94,7 +94,7 @@ const formatSmallHeading = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection)) {
-        // @ts-expect-error: TODO: Missing types
+        // @ts-expect-error: Internal types
         $wrapLeafNodesInElements(selection, () => $createHeadingNode('h2'))
       }
     })
@@ -128,7 +128,7 @@ const formatQuote = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection)) {
-        // @ts-expect-error: TODO: Missing types
+        // @ts-expect-error: Internal types
         $wrapLeafNodesInElements(selection, () => $createQuoteNode())
       }
     })
@@ -142,7 +142,7 @@ const formatCode = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection)) {
-        // @ts-expect-error: TODO: Missing types
+        // @ts-expect-error: Internal types
         $wrapLeafNodesInElements(selection, () => $createCodeNode())
       }
     })

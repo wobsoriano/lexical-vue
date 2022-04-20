@@ -30,6 +30,7 @@ import { getSelectedNode } from '../utils'
 import BlockOptionsDropdownList from './BlockOptionsDropdownList.vue'
 import CodeLanguageSelect from './CodeLanguageSelect.vue'
 import FloatingLinkEditor from './FloatingLinkEditor.vue'
+import Divider from './Divider'
 
 const LowPriority: CommandListenerPriority = 1
 
@@ -175,14 +176,6 @@ watch(codeLanguage, (value) => {
 
 onUnmounted(() => {
   unregisterMergeListener?.()
-})
-
-const Divider = defineComponent({
-  render() {
-    return h('div', {
-      class: 'divider',
-    })
-  },
 })
 </script>
 
