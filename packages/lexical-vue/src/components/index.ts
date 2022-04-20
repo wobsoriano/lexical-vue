@@ -50,3 +50,6 @@ export {
   default as LexicalHashtagPlugin,
 } from './LexicalHashtagPlugin.vue'
 export * from './LexicalDecoratorBlockNode'
+export {
+  default as LexicalBlockWithAlignableContents,
+} from './LexicalBlockWithAlignableContents.vue'

@@ -8,7 +8,7 @@ import {
   $setSelection,
 } from 'lexical'
 import type { Ref } from 'vue'
-import { onUnmounted, ref, watchEffect } from 'vue'
+import { onUnmounted, readonly, ref, watchEffect } from 'vue'
 import { getRealValue } from '../utils'
 import { useEditor } from './useEditor'
 
@@ -58,7 +58,7 @@ export function useLexicalNodeSelection(
     })
   }
 
-  const clearSelected = () => {
+  const clearSelection = () => {
     editor.update(() => {
       const selection = $getSelection()
       if ($isNodeSelection(selection))
@@ -67,8 +67,8 @@ export function useLexicalNodeSelection(
   }
 
   return {
-    isSelected,
+    isSelected: readonly(isSelected),
     setSelected,
-    clearSelected,
+    clearSelection,
   }
 }
