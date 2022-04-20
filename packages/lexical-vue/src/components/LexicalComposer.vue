@@ -13,14 +13,14 @@ const props = defineProps<{
   }
 }>()
 
-const emits = defineEmits<{
+const emit = defineEmits<{
   (e: 'error', error: Error): void
 }>()
 
 const editor = createEditor({
   ...props.initialConfig,
   onError(error) {
-    emits('error', error)
+    emit('error', error)
   },
 })
 
