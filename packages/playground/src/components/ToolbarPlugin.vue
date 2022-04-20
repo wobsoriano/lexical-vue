@@ -22,9 +22,7 @@ import { $isListNode, ListNode } from '@lexical/list'
 import { $isHeadingNode } from '@lexical/rich-text'
 import {
   $isCodeNode,
-  // @ts-expect-error: TODO: Missing types
   getCodeLanguages,
-  // @ts-expect-error: TODO: Missing types
   getDefaultCodeLanguage,
 } from '@lexical/code'
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
@@ -96,7 +94,7 @@ const updateToolbar = () => {
           ? (element as ListNode).getTag()
           : element.getType()
         if ($isCodeNode(element)) {
-          // @ts-expect-error: TODO: Missing types
+          // @ts-expect-error: Missing internal types
           codeLanguage.value = element.getLanguage() || getDefaultCodeLanguage()
         }
       }
@@ -168,7 +166,7 @@ watch(codeLanguage, (value) => {
     if (selectedElementKey.value) {
       const node = $getNodeByKey(selectedElementKey.value)
       if ($isCodeNode(node)) {
-        // @ts-expect-error: TODO: Missing types
+        // @ts-expect-error: Missing internal types
         node.setLanguage(value)
       }
     }
