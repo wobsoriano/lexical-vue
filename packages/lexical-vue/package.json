@@ -1,6 +1,6 @@
 {
   "name": "lexical-vue",
-  "version": "0.0.8-beta.7",
+  "version": "0.0.9-beta.1",
   "description": "Lexical components and composables for Vue applications.",
   "publishConfig": {
     "directory": "package"
