@@ -10,7 +10,7 @@ Demo: https://lexical-vue-playground.vercel.app
 
 ## Getting started with Vue
 
-> Requires Vue 3.2.0 or higher.
+> Requires Vue 3.
 
 Install `lexical` and `lexical-vue`:
 

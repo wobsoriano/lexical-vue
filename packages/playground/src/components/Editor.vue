@@ -16,7 +16,6 @@ import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { HashtagNode } from '@lexical/hashtag'
 
-import type { LexicalNode } from 'lexical'
 import exampleTheme from '../themes/example'
 import ToolbarPlugin from './ToolbarPlugin.vue'
 import CodeHighlightPlugin from './CodeHighlightPlugin.vue'
