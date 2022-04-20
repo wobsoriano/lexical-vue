@@ -25,9 +25,6 @@ import TreeViewPlugin from './TreeViewPlugin.vue'
 
 const config = {
   theme: exampleTheme,
-  onError(err: Error) {
-    throw err
-  },
   nodes: [
     HeadingNode,
     ListNode,
@@ -43,10 +40,14 @@ const config = {
     HashtagNode,
   ],
 }
+
+const onError = (error: Error) => {
+  throw error
+}
 </script>
 
 <template>
-  <LexicalComposer :initial-config="config">
+  <LexicalComposer :initial-config="config" @error="onError">
     <div class="editor-container">
       <ToolbarPlugin />
       <div className="editor-inner">

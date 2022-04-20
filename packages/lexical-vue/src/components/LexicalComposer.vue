@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, provide } from 'vue'
-import type { EditorState, EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
+import type { EditorThemeClasses, LexicalNode } from 'lexical'
 import { createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
 
