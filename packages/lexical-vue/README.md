@@ -38,10 +38,11 @@ const config = {
   theme: {
     // Theme styling goes here
   },
-  onError(error) {
-    console.error(error)
-  },
 }
+
+const onError = (error) => {
+  throw error
+},
 
 // When the editor changes, you can get notified via the
 // LexicalOnChangePlugin!
@@ -60,7 +61,7 @@ const content = ref('')
 </script>
 
 <template>
-  <LexicalComposer :initial-config="config">
+  <LexicalComposer :initial-config="config" @error="onError">
     <LexicalPlainTextPlugin>
       <template #contentEditable>
         <LexicalContentEditable />
