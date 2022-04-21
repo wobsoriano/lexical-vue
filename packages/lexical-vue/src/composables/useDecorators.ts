@@ -1,8 +1,9 @@
 import type { LexicalEditor } from 'lexical'
+import type { Component } from 'vue'
 import { Teleport, computed, h, onMounted, onUnmounted, ref } from 'vue'
 
 export function useDecorators(editor: LexicalEditor) {
-  const decorators = ref(editor.getDecorators())
+  const decorators = ref<Record<string, Component>>(editor.getDecorators())
 
   let unregisterListener: () => void
 
