@@ -12,7 +12,7 @@
       "cache": false
     },
     "preview": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "cache": false
     }
   }
