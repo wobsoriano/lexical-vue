@@ -39,7 +39,6 @@ const onDelete = (event: KeyboardEvent) => {
     event.preventDefault()
     editor.update(() => {
       const node = $getNodeByKey(props.nodeKey)
-      // @ts-expect-error: Internal types
       if ($isDecoratorNode(node) && node.isTopLevel())
         node?.remove()
 
