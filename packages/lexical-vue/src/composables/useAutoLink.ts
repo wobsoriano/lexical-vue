@@ -31,13 +31,12 @@ function handleLinkEdit(
   onChange: ChangeHandler,
 ): void {
   // Check children are simple text
-  // @ts-expect-error: TODO: Internal lexical types
+
   const children = linkNode.getChildren()
   const childrenLength = children.length
   for (let i = 0; i < childrenLength; i++) {
     const child = children[i]
     if (!$isTextNode(child) || !child.isSimpleText()) {
-      // @ts-expect-error: TODO: Internal lexical types
       replaceWithChildren(linkNode)
       onChange(null, linkNode.getURL())
       return
@@ -45,20 +44,18 @@ function handleLinkEdit(
   }
 
   // Check text content fully matches
-  // @ts-expect-error: TODO: Internal lexical types
+
   const text = linkNode.getTextContent()
   const match = findFirstMatch(text, matchers)
   if (match === null || match.text !== text) {
-    // @ts-expect-error: TODO: Internal lexical types
     replaceWithChildren(linkNode)
     onChange(null, linkNode.getURL())
     return
   }
 
   // Check neighbors
-  // @ts-expect-error: TODO: Internal lexical types
+
   if (!isPreviousNodeValid(linkNode) || !isNextNodeValid(linkNode)) {
-    // @ts-expect-error: TODO: Internal lexical types
     replaceWithChildren(linkNode)
     onChange(null, linkNode.getURL())
     return
@@ -84,20 +81,17 @@ export function useAutoLink(
         'LexicalAutoLinkPlugin: AutoLinkNode, TableCellNode or TableRowNode not registered on editor',
       )
     }
-
     // @ts-expect-error: TODO: Internal lexical types
     const onChangeWrapped = (...args) => {
-      if (onChange) {
-        // @ts-expect-error: TODO: Internal lexical types
+      if (onChange)
+      // @ts-expect-error: TODO: Internal lexical types
         onChange(...args)
-      }
     }
 
     unregisterListener = mergeRegister(
       editor.registerNodeTransform(TextNode, (textNode: TextNode) => {
         const parent = textNode.getParentOrThrow()
         if ($isAutoLinkNode(parent)) {
-          // @ts-expect-error: TODO: Internal lexical types
           handleLinkEdit(parent, matchers, onChangeWrapped)
         }
         else if (!$isLinkNode(parent)) {
@@ -107,7 +101,7 @@ export function useAutoLink(
           handleBadNeighbors(textNode, onChangeWrapped)
         }
       }),
-      // @ts-expect-error: TODO: Internal lexical types
+
       editor.registerNodeTransform(AutoLinkNode, (linkNode: AutoLinkNode) => {
         handleLinkEdit(linkNode, matchers, onChangeWrapped)
       }),
@@ -137,10 +131,9 @@ function findFirstMatch(
 
 function isPreviousNodeValid(node: LexicalNode): boolean {
   let previousNode = node.getPreviousSibling()
-  if ($isElementNode(previousNode)) {
-    // @ts-expect-error: TODO: Internal lexical types
+  if ($isElementNode(previousNode))
+
     previousNode = previousNode.getLastDescendant()
-  }
 
   return (
     previousNode === null
@@ -151,10 +144,9 @@ function isPreviousNodeValid(node: LexicalNode): boolean {
 
 function isNextNodeValid(node: LexicalNode): boolean {
   let nextNode = node.getNextSibling()
-  if ($isElementNode(nextNode)) {
-    // @ts-expect-error: TODO: Internal lexical types
+  if ($isElementNode(nextNode))
+
     nextNode = nextNode.getFirstDescendant()
-  }
 
   return (
     nextNode === null
@@ -215,9 +207,9 @@ function handleLinkCreation(
         )
       }
       const linkNode = $createAutoLinkNode(match.url)
-      // @ts-expect-error: TODO: Internal lexical types
+
       linkNode.append($createTextNode(match.text))
-      // @ts-expect-error: TODO: Internal lexical types
+
       middleNode.replace(linkNode)
       onChange(match.url, null)
     }
@@ -235,15 +227,13 @@ function handleBadNeighbors(textNode: TextNode, onChange: ChangeHandler): void {
   const nextSibling = textNode.getNextSibling()
   const text = textNode.getTextContent()
   if ($isAutoLinkNode(previousSibling) && !text.startsWith(' ')) {
-    // @ts-expect-error: TODO: Internal lexical types
     replaceWithChildren(previousSibling)
-    // @ts-expect-error: TODO: Internal lexical types
+
     onChange(null, previousSibling.getURL())
   }
   if ($isAutoLinkNode(nextSibling) && !text.endsWith(' ')) {
-    // @ts-expect-error: TODO: Internal lexical types
     replaceWithChildren(nextSibling)
-    // @ts-expect-error: TODO: Internal lexical types
+
     onChange(null, nextSibling.getURL())
   }
 }

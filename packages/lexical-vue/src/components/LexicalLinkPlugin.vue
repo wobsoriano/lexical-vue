@@ -43,7 +43,6 @@ function toggleLink(url?: string) {
         // if the first node is a LinkNode or if its
         // parent is a LinkNode, we update the URL.
         if ($isLinkNode(firstNode)) {
-          // @ts-expect-error: TODO: Internal lexical types
           firstNode.setURL(url)
           return
         }
@@ -53,7 +52,6 @@ function toggleLink(url?: string) {
             // set parent to be the current linkNode
             // so that other nodes in the same parent
             // aren't handled separately below.
-            // @ts-expect-error: TODO: Internal lexical types
             parent.setURL(url)
             return
           }
@@ -65,50 +63,38 @@ function toggleLink(url?: string) {
       nodes.forEach((node) => {
         const parent = node.getParent()
         if (
-        // @ts-expect-error: TODO: Internal lexical types
           parent === linkNode
           || !parent
-          // @ts-expect-error: TODO: Internal lexical types
           || ($isElementNode(node) && !node.isInline())
         )
           return
 
-        // @ts-expect-error: TODO: Internal lexical types
         if (!parent.is(prevParent)) {
           // @ts-expect-error: TODO: Internal lexical types
           prevParent = parent
           linkNode = $createLinkNode(url)
           if ($isLinkNode(parent)) {
-            if (!node.getPreviousSibling()) {
-              // @ts-expect-error: TODO: Internal lexical types
+            if (!node.getPreviousSibling())
               parent.insertBefore(linkNode)
-            }
-            else {
-              // @ts-expect-error: TODO: Internal lexical types
+
+            else
               parent.insertAfter(linkNode)
-            }
           }
           else {
-            // @ts-expect-error: TODO: Internal lexical types
             node.insertBefore(linkNode)
           }
         }
         if ($isLinkNode(node)) {
           if (linkNode) {
-            // @ts-expect-error: TODO: Internal lexical types
             const children = node.getChildren()
-            for (let i = 0; i < children.length; i++) {
-              // @ts-expect-error: TODO: Internal lexical types
+            for (let i = 0; i < children.length; i++)
               linkNode.append(children[i])
-            }
           }
           node.remove()
           return
         }
-        if (linkNode) {
-          // @ts-expect-error: TODO: Internal lexical types
+        if (linkNode)
           linkNode.append(node)
-        }
       })
     }
   }
