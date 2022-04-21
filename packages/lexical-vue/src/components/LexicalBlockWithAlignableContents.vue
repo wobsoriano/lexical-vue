@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {
-  ElementFormatType, LexicalEditor, LexicalNode,
+  ElementFormatType, LexicalNode,
   NodeKey,
 } from 'lexical'
 import {
@@ -21,14 +21,15 @@ import {
 } from 'lexical'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useLexicalNodeSelection } from '../composables/useLexicalNodeSelection'
+import { useEditor } from '../composables/useEditor'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 
 const props = defineProps<{
-  editor: LexicalEditor
   format?: ElementFormatType
   nodeKey: NodeKey
 }>()
 
+const editor = useEditor()
 const { isSelected, setSelected, clearSelection }
     = useLexicalNodeSelection(props.nodeKey)
 const containerRef = ref<HTMLDivElement | null>(null)
@@ -36,7 +37,7 @@ const containerRef = ref<HTMLDivElement | null>(null)
 const onDelete = (event: KeyboardEvent) => {
   if (isSelected.value && $isNodeSelection($getSelection())) {
     event.preventDefault()
-    props.editor.update(() => {
+    editor.update(() => {
       const node = $getNodeByKey(props.nodeKey)
       // @ts-expect-error: Internal types
       if ($isDecoratorNode(node) && node.isTopLevel())
@@ -52,7 +53,7 @@ let unregisterListener: () => void
 
 onMounted(() => {
   unregisterListener = mergeRegister(
-    props.editor.registerCommand(
+    editor.registerCommand(
       FORMAT_ELEMENT_COMMAND,
       (payload) => {
         if (isSelected.value) {
@@ -84,7 +85,7 @@ onMounted(() => {
       },
       COMMAND_PRIORITY_LOW,
     ),
-    props.editor.registerCommand(
+    editor.registerCommand(
       CLICK_COMMAND,
       (event: MouseEvent) => {
         event.preventDefault()
@@ -99,12 +100,12 @@ onMounted(() => {
       },
       COMMAND_PRIORITY_LOW,
     ),
-    props.editor.registerCommand(
+    editor.registerCommand(
       KEY_DELETE_COMMAND,
       onDelete,
       COMMAND_PRIORITY_LOW,
     ),
-    props.editor.registerCommand(
+    editor.registerCommand(
       KEY_BACKSPACE_COMMAND,
       onDelete,
       COMMAND_PRIORITY_LOW,
