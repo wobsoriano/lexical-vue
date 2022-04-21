@@ -92,12 +92,11 @@ const updateToolbar = () => {
       }
       else {
         blockType.value = $isHeadingNode(element)
+          // @ts-expect-error: Missing internal types
           ? (element as ListNode).getTag()
           : element.getType()
-        if ($isCodeNode(element)) {
-          // @ts-expect-error: Missing internal types
+        if ($isCodeNode(element))
           codeLanguage.value = element.getLanguage() || getDefaultCodeLanguage()
-        }
       }
     }
     // Update text format
@@ -166,10 +165,8 @@ watch(codeLanguage, (value) => {
   editor.update(() => {
     if (selectedElementKey.value) {
       const node = $getNodeByKey(selectedElementKey.value)
-      if ($isCodeNode(node)) {
-        // @ts-expect-error: Missing internal types
+      if ($isCodeNode(node))
         node.setLanguage(value)
-      }
     }
   })
 })

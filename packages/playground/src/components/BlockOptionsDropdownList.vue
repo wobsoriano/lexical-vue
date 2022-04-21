@@ -79,10 +79,8 @@ const formatLargeHeading = () => {
     editor.update(() => {
       const selection = $getSelection()
 
-      if ($isRangeSelection(selection)) {
-        // @ts-expect-error: Internal types
+      if ($isRangeSelection(selection))
         $wrapLeafNodesInElements(selection, () => $createHeadingNode('h1'))
-      }
     })
   }
   emit('update:showBlockOptionsDropDown', false)
@@ -93,10 +91,8 @@ const formatSmallHeading = () => {
     editor.update(() => {
       const selection = $getSelection()
 
-      if ($isRangeSelection(selection)) {
-        // @ts-expect-error: Internal types
+      if ($isRangeSelection(selection))
         $wrapLeafNodesInElements(selection, () => $createHeadingNode('h2'))
-      }
     })
   }
   emit('update:showBlockOptionsDropDown', false)
@@ -127,10 +123,8 @@ const formatQuote = () => {
     editor.update(() => {
       const selection = $getSelection()
 
-      if ($isRangeSelection(selection)) {
-        // @ts-expect-error: Internal types
+      if ($isRangeSelection(selection))
         $wrapLeafNodesInElements(selection, () => $createQuoteNode())
-      }
     })
   }
   emit('update:showBlockOptionsDropDown', false)
@@ -141,10 +135,8 @@ const formatCode = () => {
     editor.update(() => {
       const selection = $getSelection()
 
-      if ($isRangeSelection(selection)) {
-        // @ts-expect-error: Internal types
+      if ($isRangeSelection(selection))
         $wrapLeafNodesInElements(selection, () => $createCodeNode())
-      }
     })
   }
   emit('update:showBlockOptionsDropDown', false)

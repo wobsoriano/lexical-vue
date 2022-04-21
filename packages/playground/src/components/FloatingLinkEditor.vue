@@ -45,7 +45,6 @@ const updateLinkEditor = () => {
       linkUrl.value = (parent as LinkNode).getURL()
 
     else if ($isLinkNode(node))
-    // @ts-expect-error: TODO: Internal types
       linkUrl.value = node.getURL()
 
     else
