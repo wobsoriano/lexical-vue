@@ -8,12 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@lexical/code": "^0.2.3",
-    "@lexical/link": "^0.2.3",
-    "@lexical/list": "^0.2.3",
-    "@lexical/rich-text": "^0.2.3",
-    "@lexical/table": "^0.2.3",
-    "lexical": "^0.2.3",
+    "@lexical/code": "^0.2.4",
+    "@lexical/link": "^0.2.4",
+    "@lexical/list": "^0.2.4",
+    "@lexical/rich-text": "^0.2.4",
+    "@lexical/table": "^0.2.4",
+    "lexical": "^0.2.4",
     "lexical-vue": "workspace:*",
     "vue": "^3.2.25"
   },
