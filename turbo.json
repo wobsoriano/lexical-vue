@@ -9,8 +9,6 @@
       ]
     },
     "dev": {
-      "dependsOn": ["lexical-vue#build"],
-      "outputs": [""],
       "cache": false
     }
   }
