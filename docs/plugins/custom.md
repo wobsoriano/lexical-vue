@@ -1,5 +1,9 @@
 # Creating decorator nodes
 
+::: warning WARNING
+Lexical Vue decorators uses the Teleport component so make sure you've installed Vue >= 3.2.0.
+:::
+
 Decorator node is a way to embed non-text components into the editor. It can be media embeds like videos, tweets, instagram posts or more complex components with its own internal state.
 
 Here's an example of how you can create a decorator node for embedding a video:
