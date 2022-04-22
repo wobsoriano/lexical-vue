@@ -3,11 +3,12 @@ import { onMounted, provide } from 'vue'
 import type { EditorThemeClasses, LexicalNode } from 'lexical'
 import { createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
+import type { Class } from '../utils'
 
 const props = defineProps<{
   initialConfig: {
     namespace?: string
-    nodes?: (new (...args: any[]) => LexicalNode)[]
+    nodes?: Class<LexicalNode>[]
     readOnly?: boolean
     theme?: EditorThemeClasses
   }
