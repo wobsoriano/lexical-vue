@@ -103,10 +103,9 @@ onMounted(() => {
       // Adding custom command that will be handled by this plugin
       editor.update(() => {
         const selection = $getSelection()
-        if (selection !== null) {
-          const url: string = payload
+        if (selection !== null)
           selection.insertNodes([$createVideoNode(url)])
-        }
+
       })
 
       // Returning true indicates that command is handled and no further propagation is required
