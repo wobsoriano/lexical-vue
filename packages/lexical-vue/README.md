@@ -87,10 +87,27 @@ I'm converting most of [@lexical/react](https://github.com/facebook/lexical/tree
 
 - [Creating custom decorator nodes](https://lexical-vue.vercel.app/plugins/custom.html)
 
+## Contributing
+
+1. Create a new branch
+   - `git checkout -b my-new-branch`
+2. Commit your changes
+   - `git commit -a -m 'Description of the changes'`
+     - There are many ways of doing this and this is just a suggestion
+3. Push your branch to GitHub
+   - `git push origin my-new-branch`
+4. Go to the repository page in GitHub and click on "Compare & pull request"
+   - The [GitHub CLI](https://cli.github.com/manual/gh_pr_create) allows you to skip the web interface for this step (and much more)
+
+## Documentation
+
+https://lexical-vue.vercel.app
+
 ## Credits
 
 - [Lexical](https://github.com/facebook/lexical)
 - [Vite](https://vitejs.dev/)
+- [Vercel](https://vercel.com/)
 
 ## License
 
