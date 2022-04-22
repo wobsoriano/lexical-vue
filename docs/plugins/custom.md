@@ -6,8 +6,6 @@ Here's an example of how you can create a decorator node for embedding a video:
 
 ```vue
 <script setup lang="ts">
-import { computed } from 'vue'
-
 defineProps<{
   url: string
 }>()
