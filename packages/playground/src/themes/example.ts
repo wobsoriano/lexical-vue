@@ -1,6 +1,6 @@
 import type { EditorThemeClasses } from 'lexical'
 
-// @ts-expect-error: Incompatible list tags
+// @ts-expect-error: Internal types
 const exampleTheme: EditorThemeClasses = {
   ltr: 'ltr',
   rtl: 'rtl',
