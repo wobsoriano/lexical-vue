@@ -262,7 +262,6 @@ const getHashtagMatch = (text: string) => {
   return { end: endOffset, start: startOffset }
 }
 
-// @ts-expect-error: TODO: isTextNode not in TextNode
 useLexicalTextEntity<HashtagNode>(getHashtagMatch, HashtagNode, createHashtagNode)
 </script>
 
