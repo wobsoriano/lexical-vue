@@ -1,4 +1,4 @@
-# Plugins
+# Available Plugins
 
 Vue-based plugins are using Lexical editor instance from `<LexicalComposer>` component:
 

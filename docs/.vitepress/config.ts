@@ -35,7 +35,8 @@ function getGuideSidebar() {
     {
       text: 'Plugins',
       children: [
-        { text: 'Available Plugins', link: '/plugins' },
+        { text: 'Available Plugins', link: '/plugins/available-plugins' },
+        { text: 'Custom', link: '/plugins/custom' },
       ],
     },
   ]
