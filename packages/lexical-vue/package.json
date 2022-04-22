@@ -39,7 +39,8 @@
     "build": "rimraf dist && vue-tsc && vite build",
     "release": "bumpp --commit --push --tag && pnpm publish",
     "prepublishOnly": "rimraf ./package && pnpm run build && clean-publish",
-    "postpublish": "rimraf ./package"
+    "postpublish": "rimraf ./package",
+    "typecheck": "tsc"
   },
   "peerDependencies": {
     "lexical": "^0.2.4",

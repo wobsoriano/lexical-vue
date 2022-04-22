@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "typecheck": "turbo run typecheck --parallel",
     "preview": "turbo run preview",
     "playground:deploy": "turbo run build --scope=playground --include-dependencies --no-deps",
     "docs": "vitepress dev docs",
