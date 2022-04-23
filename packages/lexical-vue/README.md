@@ -1,6 +1,6 @@
 # Lexical Vue
 
-** ⚠️ Lexical is currently in early development and APIs and packages are likely to change quite often. **
+**⚠️ Lexical is currently in early development and APIs and packages are likely to change quite often.**
 
 [![npm version](https://badge.fury.io/js/lexical-vue.svg)](https://badge.fury.io/js/lexical-vue)
 [![bundle size](https://badgen.net/bundlephobia/minzip/lexical-vue)](https://bundlephobia.com/result?p=lexical-vue)
