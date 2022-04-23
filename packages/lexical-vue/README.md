@@ -2,8 +2,8 @@
 
 ** ⚠️ Lexical is currently in early development and APIs and packages are likely to change quite often. **
 
-[![npm version](https://badge.fury.io/js/pinia-shared-state.svg)](https://badge.fury.io/js/pinia-shared-state)
-[![bundle size](https://badgen.net/bundlephobia/minzip/pinia-shared-state)](https://bundlephobia.com/result?p=pinia-shared-state)
+[![npm version](https://badge.fury.io/js/lexical-vue.svg)](https://badge.fury.io/js/lexical-vue)
+[![bundle size](https://badgen.net/bundlephobia/minzip/lexical-vue)](https://bundlephobia.com/result?p=lexical-vue)
 
 [Lexical](https://github.com/facebook/lexical) components and composables for Vue applications.
 
