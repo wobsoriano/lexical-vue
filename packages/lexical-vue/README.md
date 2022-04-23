@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/lexical-vue.svg)](https://badge.fury.io/js/lexical-vue)
 [![bundle size](https://badgen.net/bundlephobia/minzip/lexical-vue)](https://bundlephobia.com/result?p=lexical-vue)
 
-[Lexical](https://github.com/facebook/lexical) components and composables for Vue applications.
+A rich text editor for Vue based on [Lexical](https://github.com/facebook/lexical).
 
 For documentation and more information about Lexical, be sure to visit the [Lexical website](https://lexical.dev/).
 
