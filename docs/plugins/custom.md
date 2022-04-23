@@ -8,29 +8,9 @@ Decorator node is a way to embed non-text components into the editor. It can be 
 
 Here's an example of how you can create a decorator node for embedding a video:
 
-```vue
-<script setup lang="ts">
-defineProps<{
-  url: string
-}>()
-</script>
-
-<template>
-  <iframe
-    width="560"
-    height="315"
-    :src="url"
-    frameborder="0"
-    allowfullscreen="true"
-    title="YouTube video"
-  />
-</template>
-```
-
-```tsx
-// VideoNode.tsx
+```ts
 import type { Component } from 'vue'
-import VideoPlayer from './VideoPlayer.vue'
+import { h } from 'vue'
 
 export class VideoNode extends DecoratorNode<Component> {
   __url: string
@@ -63,9 +43,15 @@ export class VideoNode extends DecoratorNode<Component> {
     writable.__url = url
   }
 
-  decorate(editor: LexicalEditor): Component {
-    // Using https://github.com/vuejs/babel-plugin-jsx
-    return <VideoPlayer url={this.__url} />
+  decorate(): Component {
+    return h('iframe', {
+      src: this.__url,
+      frameborder: '0',
+      width: 560,
+      height: 315,
+      allowfullScreen: true,
+      title: 'A youtube vid'
+    })
   }
 }
 
