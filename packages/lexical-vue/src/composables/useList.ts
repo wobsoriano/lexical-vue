@@ -27,10 +27,7 @@ export function useList(editor: LexicalEditor): void {
       editor.registerCommand(
         INDENT_CONTENT_COMMAND,
         () => {
-          const hasHandledIndention = indentList()
-          if (hasHandledIndention)
-            return true
-
+          indentList()
           return false
         },
         COMMAND_PRIORITY_LOW,
@@ -38,10 +35,7 @@ export function useList(editor: LexicalEditor): void {
       editor.registerCommand(
         OUTDENT_CONTENT_COMMAND,
         () => {
-          const hasHandledIndention = outdentList()
-          if (hasHandledIndention)
-            return true
-
+          outdentList()
           return false
         },
         COMMAND_PRIORITY_LOW,
