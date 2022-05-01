@@ -1,6 +1,5 @@
 import type { EditorThemeClasses } from 'lexical'
 
-// @ts-expect-error: Internal types
 const exampleTheme: EditorThemeClasses = {
   ltr: 'ltr',
   rtl: 'rtl',
