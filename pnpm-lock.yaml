@@ -12,7 +12,7 @@ importers:
       '@lexical/utils': ^0.2.5
       '@vitejs/plugin-vue': ^2.3.1
       eslint: ^8.13.0
-      lexical: ^0.2.5
+      lexical: 0.2.5
       turbo: latest
       typescript: ^4.5.4
       vite: ^2.9.5
@@ -57,7 +57,7 @@ importers:
       '@vitejs/plugin-vue': ^2.3.1
       bumpp: ^7.1.1
       clean-publish: ^4.0.0
-      lexical: ^0.2.5
+      lexical: 0.2.5
       rimraf: ^3.0.2
       typescript: ^4.5.4
       vite: ^2.9.5
@@ -99,7 +99,7 @@ importers:
       '@lexical/rich-text': ^0.2.5
       '@lexical/table': ^0.2.5
       '@vitejs/plugin-vue': ^2.3.1
-      lexical: ^0.2.5
+      lexical: 0.2.5
       lexical-vue: workspace:*
       typescript: ^4.5.4
       vite: ^2.9.5
