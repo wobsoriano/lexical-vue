@@ -33,6 +33,7 @@ importers:
       '@lexical/history': ^0.2.9
       '@lexical/link': ^0.2.9
       '@lexical/list': ^0.2.9
+      '@lexical/mark': ^0.2.9
       '@lexical/markdown': ^0.2.9
       '@lexical/overflow': ^0.2.9
       '@lexical/plain-text': ^0.2.9
@@ -59,6 +60,7 @@ importers:
       '@lexical/history': 0.2.9_lexical@0.2.9
       '@lexical/link': 0.2.9_lexical@0.2.9
       '@lexical/list': 0.2.9_lexical@0.2.9
+      '@lexical/mark': 0.2.9_lexical@0.2.9
       '@lexical/markdown': 0.2.9_x7mwlqpevs2px73fbx6ru52twi
       '@lexical/overflow': 0.2.9_lexical@0.2.9
       '@lexical/plain-text': 0.2.9_aaa3v4vlhbtmgd7fkx7ibjyikm
@@ -493,6 +495,15 @@ packages:
 
   /@lexical/list/0.2.9_lexical@0.2.9:
     resolution: {integrity: sha512-Qb60Dzon98ve9/6grX0jQL9JulqXsrW0QcqdJE7G8am7WJvUn5VVNrf1ea/J6YFAyI30lRoDpsYuDal27rTyZQ==}
+    peerDependencies:
+      lexical: 0.2.9
+    dependencies:
+      '@lexical/utils': 0.2.9_lexical@0.2.9
+      lexical: 0.2.9
+    dev: false
+
+  /@lexical/mark/0.2.9_lexical@0.2.9:
+    resolution: {integrity: sha512-SKiBssee9wuCGcqom7NvFJ0Mx3xyLVUPFA2Z5Bc/ubIagyeVxesfoHbyLsae8vWgRHUBqIOpemmXb5kNGbgBBQ==}
     peerDependencies:
       lexical: 0.2.9
     dependencies:

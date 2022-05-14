@@ -10,6 +10,7 @@ import type {
   TextNode,
 } from 'lexical'
 
+import { $isMarkNode } from '@lexical/mark'
 import {
   $getRoot,
   $getSelection,
@@ -72,15 +73,17 @@ function generateContent(editorState: EditorState): string {
   const selectionString = editorState.read(() => {
     const selection = $getSelection()
 
-    visitTree($getRoot(), (node: RootNode, indent: string[]) => {
+    visitTree($getRoot(), (node, indent) => {
       const nodeKey = node.getKey()
       const nodeKeyDisplay = `(${nodeKey})`
       const typeDisplay = node.getType() || ''
       const isSelected = node.isSelected()
-
+      const idsDisplay = $isMarkNode(node)
+        ? ` id: [ ${node.getIDs().join(', ')} ] `
+        : ''
       res += `${isSelected ? SYMBOLS.selectedLine : ' '} ${indent.join(
         ' ',
-      )} ${nodeKeyDisplay} ${typeDisplay} ${printNode(node)}\n`
+      )} ${nodeKeyDisplay} ${typeDisplay} ${idsDisplay} ${printNode(node)}\n`
 
       res += printSelectedCharsLine({
         indent,
