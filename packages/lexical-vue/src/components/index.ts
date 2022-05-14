@@ -53,3 +53,6 @@ export * from './LexicalDecoratorBlockNode'
 export {
   default as LexicalBlockWithAlignableContents,
 } from './LexicalBlockWithAlignableContents.vue'
+export {
+  default as LexicalCheckListPlugin,
+} from './LexicalCheckListPlugin.vue'
