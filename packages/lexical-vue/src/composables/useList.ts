@@ -43,7 +43,7 @@ export function useList(editor: LexicalEditor): void {
       editor.registerCommand(
         INSERT_ORDERED_LIST_COMMAND,
         () => {
-          insertList(editor, 'ol')
+          insertList(editor, 'number')
           return true
         },
         COMMAND_PRIORITY_LOW,
@@ -51,7 +51,7 @@ export function useList(editor: LexicalEditor): void {
       editor.registerCommand(
         INSERT_UNORDERED_LIST_COMMAND,
         () => {
-          insertList(editor, 'ul')
+          insertList(editor, 'bullet')
           return true
         },
         COMMAND_PRIORITY_LOW,

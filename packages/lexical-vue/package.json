@@ -43,7 +43,7 @@
     "typecheck": "tsc"
   },
   "peerDependencies": {
-    "lexical": "^0.2.5",
+    "lexical": "^0.2.9",
     "vue": "^3.2.0"
   },
   "dependencies": {
