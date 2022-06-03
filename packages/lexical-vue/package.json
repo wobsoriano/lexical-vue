@@ -1,6 +1,6 @@
 {
   "name": "lexical-vue",
-  "version": "0.1.0-beta.9",
+  "version": "0.1.0",
   "description": "An extensible Vue 3 web text-editor based on Lexical.",
   "publishConfig": {
     "directory": "package"
