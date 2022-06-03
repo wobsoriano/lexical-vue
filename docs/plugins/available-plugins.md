@@ -2,7 +2,7 @@
 
 Vue-based plugins are using Lexical editor instance from `<LexicalComposer>` component:
 
-```vue
+```html
 <LexicalComposer :initial-config="config">
   <LexicalPlainTextPlugin>
     <template #contentEditable>
@@ -21,7 +21,7 @@ Vue-based plugins are using Lexical editor instance from `<LexicalComposer>` com
 
 Vue wrapper for `@lexical/plain-text` that adds major features for plain text editing, including typing, deletion and copy/pasting.
 
-```vue
+```html
 <LexicalPlainTextPlugin>
   <template #contentEditable>
     <LexicalContentEditable />
@@ -36,7 +36,7 @@ Vue wrapper for `@lexical/plain-text` that adds major features for plain text ed
 
 Vue wrapper for `@lexical/rich-text` that adds major features for rich text editing, including typing, deletion, copy/pasting, indent/outdent and bold/italic/underline/strikethrough text formatting.
 
-```vue
+```html
 <LexicalRichTextPlugin>
   <template #contentEditable>
     <LexicalContentEditable />
@@ -51,7 +51,7 @@ Vue wrapper for `@lexical/rich-text` that adds major features for rich text edit
 
 Plugin that emits `change` whenever Lexical state is updated. Using `ignoreInitialChange` (`true` by default) and `ignoreSelectionChange` (`false` by default) can give more granular control over changes that are causing the `change` event. It also supports two-way binding of the updated content.
 
-```vue
+```html
 <LexicalOnChangePlugin v-model="content" @change="onChange" />
 ```
 
@@ -59,7 +59,7 @@ Plugin that emits `change` whenever Lexical state is updated. Using `ignoreIniti
 
 Vue wrapper for `@lexical/history` that adds support for history stack management and `undo` / `redo` commands.
 
-```vue
+```html
 <LexicalHistoryPlugin />
 ```
 
@@ -67,7 +67,7 @@ Vue wrapper for `@lexical/history` that adds support for history stack managemen
 
 Vue wrapper for `@lexical/link` that adds support for links, including `toggleLink` command support that toggles link for selected text.
 
-```vue
+```html
 <LexicalLinkPlugin />
 ```
 
@@ -75,7 +75,7 @@ Vue wrapper for `@lexical/link` that adds support for links, including `toggleLi
 
 Vue wrapper for `@lexical/list` that adds support for lists (ordered and unordered).
 
-```vue
+```html
 <LexicalLinkPlugin />
 ```
 
@@ -83,7 +83,7 @@ Vue wrapper for `@lexical/list` that adds support for lists (ordered and unorder
 
 Vue wrapper for `@lexical/table` that adds support for tables.
 
-```vue
+```html
 <LexicalTablePlugin />
 ```
 
@@ -91,7 +91,7 @@ Vue wrapper for `@lexical/table` that adds support for tables.
 
 Plugin will convert text into links based on passed matchers list. In example below whenever user types url-like string it will automaticaly convert it into a link node.
 
-```vue
+```html
 <script setup>
 const URL_MATCHER
   = /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
@@ -120,7 +120,7 @@ const MATCHERS = [
 
 Lexical auto-scrolls its contenteditable container while typing. This plugin can be used for cases when other element up in a DOM tree needs to be scrolled (e.g. when editor is rendered within dialog with limited height):
 
-```vue
+```html
 <div ref="containerWithScrollRef">
   <LexicalComposer>
     ...
