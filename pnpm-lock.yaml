@@ -7,7 +7,7 @@ importers:
       '@antfu/eslint-config': ^0.20.2
       '@vitejs/plugin-vue': ^2.3.1
       eslint: ^8.13.0
-      turbo: latest
+      turbo: ^1.2.16
       typescript: ^4.5.4
       vite: ^2.9.5
       vitepress: ^0.22.3
@@ -17,7 +17,7 @@ importers:
       '@antfu/eslint-config': 0.20.6_jzhokl4shvj5szf5bgr66kln2a
       '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
       eslint: 8.13.0
-      turbo: 1.2.9
+      turbo: 1.2.16
       typescript: 4.6.3
       vite: 2.9.5
       vitepress: 0.22.3
@@ -26,50 +26,50 @@ importers:
 
   packages/lexical-vue:
     specifiers:
-      '@lexical/clipboard': ^0.2.9
-      '@lexical/code': ^0.2.9
-      '@lexical/dragon': ^0.2.9
-      '@lexical/hashtag': ^0.2.9
-      '@lexical/history': ^0.2.9
-      '@lexical/link': ^0.2.9
-      '@lexical/list': ^0.2.9
-      '@lexical/mark': ^0.2.9
-      '@lexical/markdown': ^0.2.9
-      '@lexical/overflow': ^0.2.9
-      '@lexical/plain-text': ^0.2.9
-      '@lexical/rich-text': ^0.2.9
-      '@lexical/selection': ^0.2.9
-      '@lexical/table': ^0.2.9
-      '@lexical/text': ^0.2.9
-      '@lexical/utils': ^0.2.9
+      '@lexical/clipboard': ^0.3.0
+      '@lexical/code': ^0.3.0
+      '@lexical/dragon': ^0.3.0
+      '@lexical/hashtag': ^0.3.0
+      '@lexical/history': ^0.3.0
+      '@lexical/link': ^0.3.0
+      '@lexical/list': ^0.3.0
+      '@lexical/mark': ^0.3.0
+      '@lexical/markdown': ^0.3.0
+      '@lexical/overflow': ^0.3.0
+      '@lexical/plain-text': ^0.3.0
+      '@lexical/rich-text': ^0.3.0
+      '@lexical/selection': ^0.3.0
+      '@lexical/table': ^0.3.0
+      '@lexical/text': ^0.3.0
+      '@lexical/utils': ^0.3.0
       '@types/node': ^17.0.24
       '@vitejs/plugin-vue': ^2.3.1
       bumpp: ^7.1.1
       clean-publish: ^4.0.0
-      lexical: 0.2.9
+      lexical: 0.3.0
       rimraf: ^3.0.2
       typescript: ^4.5.4
       vite: ^2.9.5
       vue: ^3.2.25
       vue-tsc: ^0.34.7
     dependencies:
-      '@lexical/clipboard': 0.2.9_lexical@0.2.9
-      '@lexical/code': 0.2.9_lexical@0.2.9
-      '@lexical/dragon': 0.2.9_lexical@0.2.9
-      '@lexical/hashtag': 0.2.9_lexical@0.2.9
-      '@lexical/history': 0.2.9_lexical@0.2.9
-      '@lexical/link': 0.2.9_lexical@0.2.9
-      '@lexical/list': 0.2.9_lexical@0.2.9
-      '@lexical/mark': 0.2.9_lexical@0.2.9
-      '@lexical/markdown': 0.2.9_x7mwlqpevs2px73fbx6ru52twi
-      '@lexical/overflow': 0.2.9_lexical@0.2.9
-      '@lexical/plain-text': 0.2.9_aaa3v4vlhbtmgd7fkx7ibjyikm
-      '@lexical/rich-text': 0.2.9_aaa3v4vlhbtmgd7fkx7ibjyikm
-      '@lexical/selection': 0.2.9_lexical@0.2.9
-      '@lexical/table': 0.2.9_lexical@0.2.9
-      '@lexical/text': 0.2.9_lexical@0.2.9
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/clipboard': 0.3.0_lexical@0.3.0
+      '@lexical/code': 0.3.0_lexical@0.3.0
+      '@lexical/dragon': 0.3.0_lexical@0.3.0
+      '@lexical/hashtag': 0.3.0_lexical@0.3.0
+      '@lexical/history': 0.3.0_lexical@0.3.0
+      '@lexical/link': 0.3.0_lexical@0.3.0
+      '@lexical/list': 0.3.0_lexical@0.3.0
+      '@lexical/mark': 0.3.0_lexical@0.3.0
+      '@lexical/markdown': 0.3.0_qgw3s6zqaryf4gughy3n3tdwsy
+      '@lexical/overflow': 0.3.0_lexical@0.3.0
+      '@lexical/plain-text': 0.3.0_kxtjfxb4aeguxq2ay3k6f4cbse
+      '@lexical/rich-text': 0.3.0_kxtjfxb4aeguxq2ay3k6f4cbse
+      '@lexical/selection': 0.3.0_lexical@0.3.0
+      '@lexical/table': 0.3.0_lexical@0.3.0
+      '@lexical/text': 0.3.0_lexical@0.3.0
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
       vue: 3.2.33
     devDependencies:
       '@types/node': 17.0.25
@@ -83,33 +83,33 @@ importers:
 
   packages/playground:
     specifiers:
-      '@lexical/clipboard': ^0.2.9
-      '@lexical/code': ^0.2.9
-      '@lexical/hashtag': ^0.2.9
-      '@lexical/link': ^0.2.9
-      '@lexical/list': ^0.2.9
-      '@lexical/rich-text': ^0.2.9
-      '@lexical/selection': ^0.2.9
-      '@lexical/table': ^0.2.9
-      '@lexical/utils': ^0.2.9
+      '@lexical/clipboard': ^0.3.0
+      '@lexical/code': ^0.3.0
+      '@lexical/hashtag': ^0.3.0
+      '@lexical/link': ^0.3.0
+      '@lexical/list': ^0.3.0
+      '@lexical/rich-text': ^0.3.0
+      '@lexical/selection': ^0.3.0
+      '@lexical/table': ^0.3.0
+      '@lexical/utils': ^0.3.0
       '@vitejs/plugin-vue': ^2.3.1
-      lexical: 0.2.9
+      lexical: 0.3.0
       lexical-vue: workspace:*
       typescript: ^4.5.4
       vite: ^2.9.5
       vue: ^3.2.25
       vue-tsc: ^0.34.7
     dependencies:
-      '@lexical/clipboard': 0.2.9_lexical@0.2.9
-      '@lexical/code': 0.2.9_lexical@0.2.9
-      '@lexical/hashtag': 0.2.9_lexical@0.2.9
-      '@lexical/link': 0.2.9_lexical@0.2.9
-      '@lexical/list': 0.2.9_lexical@0.2.9
-      '@lexical/rich-text': 0.2.9_aaa3v4vlhbtmgd7fkx7ibjyikm
-      '@lexical/selection': 0.2.9_lexical@0.2.9
-      '@lexical/table': 0.2.9_lexical@0.2.9
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/clipboard': 0.3.0_lexical@0.3.0
+      '@lexical/code': 0.3.0_lexical@0.3.0
+      '@lexical/hashtag': 0.3.0_lexical@0.3.0
+      '@lexical/link': 0.3.0_lexical@0.3.0
+      '@lexical/list': 0.3.0_lexical@0.3.0
+      '@lexical/rich-text': 0.3.0_kxtjfxb4aeguxq2ay3k6f4cbse
+      '@lexical/selection': 0.3.0_lexical@0.3.0
+      '@lexical/table': 0.3.0_lexical@0.3.0
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
       lexical-vue: link:../lexical-vue
       vue: 3.2.33
     devDependencies:
@@ -438,165 +438,174 @@ packages:
       type-detect: 4.0.8
     dev: true
 
-  /@lexical/clipboard/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-NJmjdKW7GVNOVSUmEeyKkWolJbTvC/4fbdk/pdAF4gJR5YgiadD8E4CcXpLU79AvmlYrMrskphbG/Ustc/N+Ew==}
+  /@lexical/clipboard/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-1PYfJJ9dT9BkeV6/P85Rh7+I8EmYlIpccyc+MCp6LIPX8KJDt6Yn3yziB00iIl59HKr61q8GnduBHVvBXWtfKw==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/selection': 0.2.9_lexical@0.2.9
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/html': 0.3.0_lexical@0.3.0
+      '@lexical/selection': 0.3.0_lexical@0.3.0
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/code/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-WPasHiWq20EoursEq0nzSox63eQGCUyolfaSSmyaDcvxGa/E3m0Bifbkalbg5MCDdUmH5nva+xpI7CojxjrE0A==}
+  /@lexical/code/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-jsDx0bD7N1kz14ftBaRmEt6nCQ7czVBBMZCDcQXRJLZBucMMGsaDt4PSAvDCHwlapsRT4DJqz20tLVtSkXyyeg==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
       prismjs: 1.28.0
     dev: false
 
-  /@lexical/dragon/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-leOAz+fAxLumF0LKaaraVo6/3IcfOrOBJ8jZK+wK86wCEtgUyF6zEpfMo/WHXp4fd1ZQ6gQywgRtZYDSOsC0ug==}
+  /@lexical/dragon/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-dwFwL/DAu/zqBEWLoLxa0hMLiGhDa8RNC2/3uU9SD8DHdlv5Wf8w2t8uRPLCCvOJ+u8fsLTBAYhcD00BxLS1fQ==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/hashtag/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-lSx1pr+eOuzwFzaouO1lyakp5+ympvHMbykX7RyZyFD6cF6RysmYL4vJWRyJh+6Y+1nPcCWBgE73OiQd/XA1IA==}
+  /@lexical/hashtag/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-pEU7RQCSN7SwUwzgoZXhZBR2u3vGlbJcvPkKG0eTnsj4VTO9H2gPNMa1JfyJzn+Bo7n6Ub3y8pNfOXqv1eRu0Q==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/history/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-XUFRI5qx6nlVSLOcVRWDF+RpKIne5xVJ1ROOYV06ees6eNsTS0+lf/Q/pXGqEt0fyWkJHTD6KieI0JNkYFb0xA==}
+  /@lexical/history/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-nRV4KyRuhK6cAgZxUVDLRHnsSpmpqMZ8wXXxRqyPe3ue1feVr9LDcekkw0YRanDF2dvY/hSfpLqDEgdJUk5Wcg==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/link/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-ArhFTJcGM+w185i01E5Vi4i2ItIkut41gUzhcSX/QmJHuRyMhJc7N3se5zuGxFVTAELY5WFn0l3XNJwhfdx7Hg==}
+  /@lexical/html/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-MvAknImciM01uHAgsPILRItuU2yNtB8teHn9ThoYoQwbDCjReAJnLaslWKOuI1J7mj8fqUiJYrvyfYsNID/1RA==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/list/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-Qb60Dzon98ve9/6grX0jQL9JulqXsrW0QcqdJE7G8am7WJvUn5VVNrf1ea/J6YFAyI30lRoDpsYuDal27rTyZQ==}
+  /@lexical/link/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-tFpOW8Ib4UH+kRxg5vF/VYZkT7em2/624VfNBYLjgInVDykLedsWmO0LU+NJuf8cj+aVFgSlDzybHA//5Q8hyw==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/mark/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-SKiBssee9wuCGcqom7NvFJ0Mx3xyLVUPFA2Z5Bc/ubIagyeVxesfoHbyLsae8vWgRHUBqIOpemmXb5kNGbgBBQ==}
+  /@lexical/list/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-Kej3ov5EwGh4jOUELFey7aa3kK9biZPKVQMeUuOSfSxdoSmi2ybyempr3L6tHUuUOIWKBzUsKifGOUp4WS9fng==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/markdown/0.2.9_x7mwlqpevs2px73fbx6ru52twi:
-    resolution: {integrity: sha512-kOJhffTz14jTLnWQ3Ip7CXWUDfSq8BarrqA9GMAXh2XPtKidyBpZJT9WOcMSgAcfW6iax1cd4thXK8HiZEWn8w==}
+  /@lexical/mark/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-TPERIygP7PuoF2+bmoToIdgA48DgL1gHnXoqLMVvBH1h6e2f5oEgz9rc2fLuO6PUfIcJuJg2mvZexnmrBRfyIw==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/code': 0.2.9_lexical@0.2.9
-      '@lexical/link': 0.2.9_lexical@0.2.9
-      '@lexical/list': 0.2.9_lexical@0.2.9
-      '@lexical/rich-text': 0.2.9_aaa3v4vlhbtmgd7fkx7ibjyikm
-      '@lexical/text': 0.2.9_lexical@0.2.9
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
+    dev: false
+
+  /@lexical/markdown/0.3.0_qgw3s6zqaryf4gughy3n3tdwsy:
+    resolution: {integrity: sha512-buZCEQJLQj2PumkySLt2qS8SDTOSjstzNLAnDnMmKiu8gGrGw9v7GiTFZVrzXClh6AAhZztb7bZGS0vB3WuU2g==}
+    peerDependencies:
+      lexical: 0.3.0
+    dependencies:
+      '@lexical/code': 0.3.0_lexical@0.3.0
+      '@lexical/link': 0.3.0_lexical@0.3.0
+      '@lexical/list': 0.3.0_lexical@0.3.0
+      '@lexical/rich-text': 0.3.0_kxtjfxb4aeguxq2ay3k6f4cbse
+      '@lexical/text': 0.3.0_lexical@0.3.0
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     transitivePeerDependencies:
       - '@lexical/clipboard'
       - '@lexical/selection'
     dev: false
 
-  /@lexical/overflow/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-e0x4CogylWEhQnnUAVGgoraQs/43eXMp15dinwlCdHoODbz22R7f4eI2cPETiBpCf2Cr68zmW1ShxXXjnZV1hA==}
+  /@lexical/overflow/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-WwZuBvlXgHtDAoiT7LFy9EyFilKSLWIAzEbxNtp3Z8dYz7RC1Soksz1uadRfsfj6Vk12/1VqvBGQSo8XPQrD7g==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/plain-text/0.2.9_aaa3v4vlhbtmgd7fkx7ibjyikm:
-    resolution: {integrity: sha512-4Q5T5buXoZ2sict7q1OymqbslCxmgqZnU7SVxN5a2FZ08TAZH3LlJtxYc5p9pGiyXMSvWsWdhgCf6bTsK/PnFg==}
+  /@lexical/plain-text/0.3.0_kxtjfxb4aeguxq2ay3k6f4cbse:
+    resolution: {integrity: sha512-+Vk8yHK/l4J8QdjNF6O/qvT+Oxr/sA4faocNDx/SMT3oBm4t+sgzOhfWjGpFlJduNSPaGnMrozFTMYKLPHAnBw==}
     peerDependencies:
-      '@lexical/clipboard': 0.2.9
-      '@lexical/selection': 0.2.9
-      '@lexical/utils': 0.2.9
-      lexical: 0.2.9
+      '@lexical/clipboard': 0.3.0
+      '@lexical/selection': 0.3.0
+      '@lexical/utils': 0.3.0
+      lexical: 0.3.0
     dependencies:
-      '@lexical/clipboard': 0.2.9_lexical@0.2.9
-      '@lexical/selection': 0.2.9_lexical@0.2.9
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/clipboard': 0.3.0_lexical@0.3.0
+      '@lexical/selection': 0.3.0_lexical@0.3.0
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/rich-text/0.2.9_aaa3v4vlhbtmgd7fkx7ibjyikm:
-    resolution: {integrity: sha512-yC+TEZ8faLPhVQ/j8aqUEQTeRAaSvc2av8RVEVZpdnPbBbTQ6LAkYna1GPNYkfw27AG9cmpFShUq+dgUnr2eUw==}
+  /@lexical/rich-text/0.3.0_kxtjfxb4aeguxq2ay3k6f4cbse:
+    resolution: {integrity: sha512-svGsOEsBvEcVUMpyeziqlhLK/ZM9YbjsbZuzTMalRUSHUHzZy3zaTgYhO0IScOqJDdtMoTntsdaTR/emzzGMrg==}
     peerDependencies:
-      '@lexical/clipboard': 0.2.9
-      '@lexical/selection': 0.2.9
-      '@lexical/utils': 0.2.9
-      lexical: 0.2.9
+      '@lexical/clipboard': 0.3.0
+      '@lexical/selection': 0.3.0
+      '@lexical/utils': 0.3.0
+      lexical: 0.3.0
     dependencies:
-      '@lexical/clipboard': 0.2.9_lexical@0.2.9
-      '@lexical/selection': 0.2.9_lexical@0.2.9
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/clipboard': 0.3.0_lexical@0.3.0
+      '@lexical/selection': 0.3.0_lexical@0.3.0
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/selection/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-p3CmTietnPh1eU2gPv50eBmnZYgo4/eIQK4hsZ4vmYaB0LH9rIycYQXifRqKzAwqEyJ6Ou/UxBNey4O8JhEYaw==}
+  /@lexical/selection/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-m3ULdodKRhctyaH9uPHriivjwgz6GbLcNn8d9u0xVxDhLF3hRqMppLaS19GCCvyS8cUAS3vV+/8SWrokmIWdUA==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/table/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-zzzhGCHS1nJqpQ+wnV72o2LQL//LpzS6fSpHDrujBcy+Ei/yMX5QaiSb/CDGlu4VPHoIp0uDJO+ZQcnQAhRZIA==}
+  /@lexical/table/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-xPdpchFZPSJbW3JyrQQVQfJhOlnXic4lXcVFmy2eMv4Qmr1CFeJRNi4Xq3mbeMj5+XzjVc9jkU1c0HrIA9YEog==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/utils': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/utils': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/text/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-b9EguY4l4Txh6DW274Wdk2BGGaqdW2LbM1TeGqUkRqnlc7ZasGEpWSNnaW/etGrGjItX5YLKAYTmPZubA6ag6g==}
+  /@lexical/text/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-Rw3mQhKYFrCPTNfZg7apW01hgR7JHlfhr7zdi19Vnnsjs+MFC6olAiLvToOuGThEXv+xP/Q6UxcP8y0HraseSA==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dev: false
 
-  /@lexical/utils/0.2.9_lexical@0.2.9:
-    resolution: {integrity: sha512-S5DZhrZi9KqhN4P/9M6WJ80L1H1LVBlupdyqDDSM1DlFjoCL35v4KoBxXnAHm8wIGjT+skPbPPbeKDmGLOveCQ==}
+  /@lexical/utils/0.3.0_lexical@0.3.0:
+    resolution: {integrity: sha512-jJN5N6uEude6Pkoq1nnl40jez5yJFKb8PDGHN6QBFDcomj2eWrhjAdi56OVwcDPe/fmY378qnCGf65NuYehnKg==}
     peerDependencies:
-      lexical: 0.2.9
+      lexical: 0.3.0
     dependencies:
-      '@lexical/list': 0.2.9_lexical@0.2.9
-      '@lexical/table': 0.2.9_lexical@0.2.9
-      lexical: 0.2.9
+      '@lexical/list': 0.3.0_lexical@0.3.0
+      '@lexical/table': 0.3.0_lexical@0.3.0
+      lexical: 0.3.0
     dev: false
 
   /@nodelib/fs.scandir/2.1.5:
@@ -2324,8 +2333,8 @@ packages:
       type-check: 0.4.0
     dev: true
 
-  /lexical/0.2.9:
-    resolution: {integrity: sha512-9FLGDPwjUDzMZguCbHtOB5APmh5jSfWTiNGqocVPVG8WehjyEjiH2e3r7H2dEnP6YlfH6G9Bq+KGwN+dKL3nqw==}
+  /lexical/0.3.0:
+    resolution: {integrity: sha512-hfRIkIAXngYQverRqb5P3QiQto/RP2XDZP2h53L26kzX5OrV9FrjzsyapORfTpMZOgjkvKfnG+29WydrY50udA==}
     dev: false
 
   /lilconfig/2.0.5:
@@ -2984,128 +2993,128 @@ packages:
       typescript: 4.6.3
     dev: true
 
-  /turbo-darwin-64/1.2.9:
-    resolution: {integrity: sha512-rVwDQpi6p0GwTiqSsvtA1b3RvKl8l2y+ElZ3EKGiIIJYZt1D6wBMJoADaZ9uZ/LWkT+WKfAWNtKdwRmuBAOS6g==}
+  /turbo-darwin-64/1.2.16:
+    resolution: {integrity: sha512-dyitLQJdH3uLVdlH9jAkP4LqEO/K+wOXjUqOzjTciRLjQPzmsNY60/bmFHODADK4eBBl1nxbtn7tmmoT4vS1qA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64/1.2.9:
-    resolution: {integrity: sha512-j7NgQHkQWWODw1I/saiqmjjD54uGAEq0qTTtLI3RoLaA+yI+awXmHwsiHRqsvGSyGJlBoKBcbxXkekLf21q3GA==}
+  /turbo-darwin-arm64/1.2.16:
+    resolution: {integrity: sha512-Ex6uM4HU7rGXdhvJMpzNpp6qxglJ98nWeIi5qR/lBXHLjK3UCvSW8BEALArUJYJTXS9FZBq1a5LowFqXYsfDcA==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-freebsd-64/1.2.9:
-    resolution: {integrity: sha512-+tLb3iCOrIeGrcOJZYey5mD9qgNgKYuwRRg6FeX/6TDITvZXcCS50A2uRbaD/PQzQKs1lHcshiCe/DRtbvJ63g==}
+  /turbo-freebsd-64/1.2.16:
+    resolution: {integrity: sha512-onRGKMvog8B3XDssSBIAg+FrEq9pcBoAybP7bpi/uYIH1L/WQ7YMmLn88X9JX19ehYuVOVZrjap4jWH2GIkU8A==}
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-freebsd-arm64/1.2.9:
-    resolution: {integrity: sha512-gwI8jocTf036kc9GI1BebzftxrkT5pewHPA2iqvAXAJpX01G1x1iGcl8/uIbkbL5hp038nu+l2Kb+lRI96sJuA==}
+  /turbo-freebsd-arm64/1.2.16:
+    resolution: {integrity: sha512-S0EqPqxwnJuVNNXRgcHB0r8ai8LSrpHdihVJKRM7WYmIR7isccBEf/G9agrt73sCXwjvenxFs4HDR7cSvGt14Q==}
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-32/1.2.9:
-    resolution: {integrity: sha512-Rm47bIsCHIae/DkXJ58YrWvdh8o4Ug9U4VnTDb9byXrz2B7624ol9XdfpXv429z7LXkQR1+WnwCMwFB4K6DyuQ==}
+  /turbo-linux-32/1.2.16:
+    resolution: {integrity: sha512-ecbqmGOxgTWePGrowtwyvZGfvwaLxFWmPK21cU0PS+fzoZBaVmzYmniTdd/2EkGCw7TOPhtiT22v96fWcnRycA==}
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64/1.2.9:
-    resolution: {integrity: sha512-8Gqi+TzEdmOmxxAukU0NO0JlIqdm98C97u9qEsxWrXTFL/xL21gKCixqsBTEO7JOISC4M8VjArxjSsITRbkD5g==}
+  /turbo-linux-64/1.2.16:
+    resolution: {integrity: sha512-q6gtdMWCzM0Sktkd73zcaQjNoeM1MjtrbwQBctWN/Sgj0eiPBPnzpIvokvx98x7RLf4qyI99/mlme0Dn5fx21A==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm/1.2.9:
-    resolution: {integrity: sha512-OS+XCWiGFbuM7UNBVQdVbIJqxhVu9Sr2WxQgDcGZpCYn32yLLPlWDDGL0Cl/EG006J9k+VS1e4OzyM6kfMxS9Q==}
+  /turbo-linux-arm/1.2.16:
+    resolution: {integrity: sha512-du7uvExELNb89V3g7iM0XP21fR1Yl3EoHRcOfQz32oUqnS7idCKvbEowM9LtiluQl1dKcOIJjn1nlvvsqzkhOg==}
     cpu: [arm]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64/1.2.9:
-    resolution: {integrity: sha512-FVIeM7koUtyu1cNAJhPYjb90kL/ICdWoJr4PoZZYnqty5sxLsBg75bVErEDQeDzKQvwXLlcax2lEzHvaSyn/wg==}
+  /turbo-linux-arm64/1.2.16:
+    resolution: {integrity: sha512-gUf67tYJ/N09WAZTTmtUWYrqm381tZxiulnRGAIM+iRsaTrweyUKZaYXwJvlPpI/cQOw25wCG9/IyvxLeagL8A==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-mips64le/1.2.9:
-    resolution: {integrity: sha512-2zVBnOVivWGpl51qO/lycfw7euM4b04AXYUmhsWkUN3FygIwyNgjuiMU8rxQOlu9VGX8X+WXkX2gfbgTovTeFw==}
+  /turbo-linux-mips64le/1.2.16:
+    resolution: {integrity: sha512-U5BM+Ql3z13uRtwMmKH/8eL+9DdTgyijC2gaX4xP0RTlcN7WfAstg8Fg/Tn2Vw9vtpVDdxwpw7dvX4kw2ghhpA==}
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-ppc64le/1.2.9:
-    resolution: {integrity: sha512-EGgKyzf8IhodOF32BvE3Zlgbr/dSGuUbemC9RGSuhF1F1PMnP1nYS/t3JWN5QKZU4O2uWiIyLdC/0ZjtcGAcZQ==}
+  /turbo-linux-ppc64le/1.2.16:
+    resolution: {integrity: sha512-HQWSCmVZyc5chw7Ie2ZcfZPfmM06mbEEu0Wl11Y5QWh1ZzhPNQHs/TsF4I9r146wHi62XgcrKFjkw4ARZiWsLA==}
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-32/1.2.9:
-    resolution: {integrity: sha512-XrMJMUtewlfksBUB0R7Tyw16IoqshVl6f/3R2ccMccddEMcvak0oW03FK9n+Y4F+wyIoJ22AVhu8jMv+HgEehA==}
+  /turbo-windows-32/1.2.16:
+    resolution: {integrity: sha512-0ZtPz5FK2qZjznMG4vvRyaabrhO8BgbN+tBx1wjXSuoICTAjYi5TwRVVRh59c3x7qQmR21Cv33CrhLBPRfeAlg==}
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64/1.2.9:
-    resolution: {integrity: sha512-ewhj4MrqcMpW/keag4xG7YRLTJ7PzcqBc6Kc96OGD2qfK/uJV/r7H3Xt09WuYHRWwPgGEeNn8utpqdqbYfCVDw==}
+  /turbo-windows-64/1.2.16:
+    resolution: {integrity: sha512-j8iAIixq/rGfBpHNbYOosxMasZrGuMzLILEuQGDxZgKNpYgobJ15QFHQlGR9sit1b8qPU5zZX4CtByRtkgH1Bw==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64/1.2.9:
-    resolution: {integrity: sha512-B8BoNb/yZWAyKwQUbs2+UFzLmOu/WGv/+ADT6SQfI8jOaTenS7Od4bbMsGJT0iXcqv+v8TcWKX83KmQ6gxBQpg==}
+  /turbo-windows-arm64/1.2.16:
+    resolution: {integrity: sha512-4GpcJG3B8R9WDhwfT8fu6ZmOOfseCg6Q1cy/G8/zpJQk769yYcSnD8MgQhYgHB58aVFxZcMxBvLL6UA0UrpgWA==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo/1.2.9:
-    resolution: {integrity: sha512-aPGzZqmUHE9yx9TS7wcAJnDmXiuQSNXDwU5b1KrgNlFuID18TL443wna79p7k4awmf4Yuhu1cSZIvO+se72iVQ==}
+  /turbo/1.2.16:
+    resolution: {integrity: sha512-PPUa2COKgFkyb6N3uF9AnIY3l9FZkF15QQ3U1K2wpI01D3gyGKQO0Q3DUQ4ipmciP0teBfL7H+l/QTrUA9IVvQ==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.2.9
-      turbo-darwin-arm64: 1.2.9
-      turbo-freebsd-64: 1.2.9
-      turbo-freebsd-arm64: 1.2.9
-      turbo-linux-32: 1.2.9
-      turbo-linux-64: 1.2.9
-      turbo-linux-arm: 1.2.9
-      turbo-linux-arm64: 1.2.9
-      turbo-linux-mips64le: 1.2.9
-      turbo-linux-ppc64le: 1.2.9
-      turbo-windows-32: 1.2.9
-      turbo-windows-64: 1.2.9
-      turbo-windows-arm64: 1.2.9
+      turbo-darwin-64: 1.2.16
+      turbo-darwin-arm64: 1.2.16
+      turbo-freebsd-64: 1.2.16
+      turbo-freebsd-arm64: 1.2.16
+      turbo-linux-32: 1.2.16
+      turbo-linux-64: 1.2.16
+      turbo-linux-arm: 1.2.16
+      turbo-linux-arm64: 1.2.16
+      turbo-linux-mips64le: 1.2.16
+      turbo-linux-ppc64le: 1.2.16
+      turbo-windows-32: 1.2.16
+      turbo-windows-64: 1.2.16
+      turbo-windows-arm64: 1.2.16
     dev: true
 
   /type-check/0.4.0:

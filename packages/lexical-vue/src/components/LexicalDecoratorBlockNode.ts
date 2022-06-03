@@ -6,22 +6,21 @@ import type { Component } from 'vue'
 export class DecoratorBlockNode extends DecoratorNode<Component> {
   __format?: ElementFormatType
 
-  createDOM(): HTMLElement {
+  createDOM() {
     return document.createElement('div')
   }
 
-  updateDOM(): false {
+  updateDOM() {
     return false
   }
 
-  setFormat(format: ElementFormatType): void {
+  setFormat(format: ElementFormatType) {
     const self = this.getWritable()
-    // @ts-expect-error: Internal types
     self.__format = format
   }
 }
 
-export function $createDecoratorBlockNode(): DecoratorBlockNode {
+export function $createDecoratorBlockNode() {
   return new DecoratorBlockNode()
 }
 

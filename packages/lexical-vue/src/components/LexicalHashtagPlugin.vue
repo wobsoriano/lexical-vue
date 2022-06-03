@@ -246,8 +246,7 @@ onMounted(() => {
     throw new Error('HashtagPlugin: HashtagNode not registered on editor')
 })
 
-const createHashtagNode = (textNode: TextNode): HashtagNode => {
-  // @ts-expect-error: TODO: isTextNode not in TextNode
+const createHashtagNode = (textNode: TextNode) => {
   return $createHashtagNode(textNode.getTextContent())
 }
 
