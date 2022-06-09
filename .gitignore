@@ -6,3 +6,5 @@ package-lock.json
 .DS_Store
 dist
 .turbo
+.idea
+pnpm-lock.yaml

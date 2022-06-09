@@ -56,3 +56,6 @@ export {
 export {
   default as LexicalCheckListPlugin,
 } from './LexicalCheckListPlugin.vue'
+export {
+  default as LexicalMarkdownShortcutPlugin,
+} from './LexicalMarkdownShortcutPlugin.vue'
