@@ -8,7 +8,7 @@ import {
   TableRowNode,
   applyTableHandlers,
 } from '@lexical/table'
-import type { ElementNode, GridSelection, NodeKey, RangeSelection } from 'lexical'
+import type { ElementNode, NodeKey } from 'lexical'
 import {
   $createParagraphNode,
   $getNodeByKey,
