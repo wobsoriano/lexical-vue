@@ -1,10 +1,11 @@
 import { registerDragonSupport } from '@lexical/dragon'
+import type { InitialEditorStateType } from '@lexical/plain-text'
 import { registerPlainText } from '@lexical/plain-text'
 import { mergeRegister } from '@lexical/utils'
-import type { EditorState, LexicalEditor } from 'lexical'
+import type { LexicalEditor } from 'lexical'
 import { onUnmounted } from 'vue'
 
-export function usePlainTextSetup(editor: LexicalEditor, initialEditorState?: null | string | EditorState | (() => void)) {
+export function usePlainTextSetup(editor: LexicalEditor, initialEditorState?: InitialEditorStateType) {
   const unsub = mergeRegister(
     registerPlainText(editor, initialEditorState),
     registerDragonSupport(editor),
