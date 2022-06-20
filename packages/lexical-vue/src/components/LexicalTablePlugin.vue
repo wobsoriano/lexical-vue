@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Grid, TableSelection } from '@lexical/table'
+import type { InsertTableCommandPayload, TableSelection } from '@lexical/table'
 import {
   $createTableNodeWithDimensions,
   INSERT_TABLE_COMMAND,
@@ -8,7 +8,7 @@ import {
   TableRowNode,
   applyTableHandlers,
 } from '@lexical/table'
-import type { ElementNode, GridSelection, NodeKey, RangeSelection } from 'lexical'
+import type { ElementNode, NodeKey } from 'lexical'
 import {
   $createParagraphNode,
   $getNodeByKey,
@@ -32,21 +32,21 @@ if (!editor.hasNodes([TableNode, TableCellNode, TableRowNode])) {
 }
 
 onMounted(() => {
-  unregisterListener = editor.registerCommand(
+  unregisterListener = editor.registerCommand<InsertTableCommandPayload>(
     INSERT_TABLE_COMMAND,
-    (payload: Grid) => {
-      const { columns, rows } = payload
-      const selection = $getSelection() as RangeSelection | GridSelection
+    ({ columns, rows, includeHeaders }) => {
+      const selection = $getSelection()
       if (!$isRangeSelection(selection))
         return true
 
       const focus = selection.focus
-      const focusNode = focus.getNode() as ElementNode
+      const focusNode = focus.getNode()
 
       if (focusNode !== null) {
         const tableNode = $createTableNodeWithDimensions(
           Number(rows),
           Number(columns),
+          includeHeaders,
         )
         if ($isRootNode(focusNode)) {
           const target = focusNode.getChildAtIndex(focus.offset)
@@ -82,7 +82,7 @@ onMounted(() => {
       if (mutation === 'created') {
         editor.update(() => {
           const tableElement = editor.getElementByKey(nodeKey)
-          const tableNode = $getNodeByKey(nodeKey) as TableNode | null
+          const tableNode = $getNodeByKey<TableNode>(nodeKey)
 
           if (tableElement && tableNode) {
             const tableSelection = applyTableHandlers(

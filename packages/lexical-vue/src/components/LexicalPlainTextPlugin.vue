@@ -6,6 +6,7 @@ import { usePlainTextSetup } from '../composables/usePlainTextSetup'
 import Decorators from './LexicalDecoratedTeleports'
 
 const props = defineProps<{
+  // TODO: Remove in 0.4
   initialEditorState?: null | string | EditorState | (() => void)
 }>()
 

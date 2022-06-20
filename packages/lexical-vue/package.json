@@ -1,6 +1,6 @@
 {
   "name": "lexical-vue",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "An extensible Vue 3 web text-editor based on Lexical.",
   "publishConfig": {
     "directory": "package"
@@ -43,26 +43,26 @@
     "typecheck": "tsc"
   },
   "peerDependencies": {
-    "lexical": "^0.3.0",
+    "lexical": "^0.3.5",
     "vue": "^3.2.0"
   },
   "dependencies": {
-    "@lexical/clipboard": "^0.3.0",
-    "@lexical/code": "^0.3.0",
-    "@lexical/dragon": "^0.3.0",
-    "@lexical/hashtag": "^0.3.0",
-    "@lexical/history": "^0.3.0",
-    "@lexical/link": "^0.3.0",
-    "@lexical/list": "^0.3.0",
-    "@lexical/mark": "^0.3.0",
-    "@lexical/markdown": "^0.3.0",
-    "@lexical/overflow": "^0.3.0",
-    "@lexical/plain-text": "^0.3.0",
-    "@lexical/rich-text": "^0.3.0",
-    "@lexical/selection": "^0.3.0",
-    "@lexical/table": "^0.3.0",
-    "@lexical/text": "^0.3.0",
-    "@lexical/utils": "^0.3.0",
+    "@lexical/clipboard": "^0.3.5",
+    "@lexical/code": "^0.3.5",
+    "@lexical/dragon": "^0.3.5",
+    "@lexical/hashtag": "^0.3.5",
+    "@lexical/history": "^0.3.5",
+    "@lexical/link": "^0.3.5",
+    "@lexical/list": "^0.3.5",
+    "@lexical/mark": "^0.3.5",
+    "@lexical/markdown": "^0.3.5",
+    "@lexical/overflow": "^0.3.5",
+    "@lexical/plain-text": "^0.3.5",
+    "@lexical/rich-text": "^0.3.5",
+    "@lexical/selection": "^0.3.5",
+    "@lexical/table": "^0.3.5",
+    "@lexical/text": "^0.3.5",
+    "@lexical/utils": "^0.3.5",
     "lexical": "0.3.0",
     "vue": "^3.2.25"
   },
