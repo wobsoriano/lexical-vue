@@ -19,16 +19,8 @@ const PLAYGROUND_TRANSFORMERS: Transformer[] = [
   ...TEXT_FORMAT_TRANSFORMERS,
   ...TEXT_MATCH_TRANSFORMERS,
 ]
-console.log('ELEMENT_TRANSFORMERS', ELEMENT_TRANSFORMERS)
 
 const editor = useEditor()
-console.log('editor._nodes', editor._nodes)
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-window.nodes = editor._nodes
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-window.HeadingNode = HeadingNode
 </script>
 
 <template>

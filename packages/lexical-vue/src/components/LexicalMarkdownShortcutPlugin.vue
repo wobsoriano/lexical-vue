@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { TRANSFORMERS, registerMarkdownShortcuts } from '@lexical/markdown'
-import type { LexicalNode } from 'lexical'
-import type { ElementTransformer, Transformer } from '@lexical/markdown'
-import { onUnmounted, watchEffect } from 'vue'
+import type { Transformer } from '@lexical/markdown'
+import { defineProps, onUnmounted, watchEffect } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
-const DEFAULT_TRANSFORMERS = [...TRANSFORMERS]
-
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   transformers?: Transformer[]
-}>()
+}>(), {
+  transformers: () => [...TRANSFORMERS],
+})
 const editor = useEditor()
 let unregisterListener: () => void
 watchEffect((onInvalidate) => {
@@ -23,9 +22,4 @@ onUnmounted(() => {
   unregisterListener?.()
 })
 </script>
-<template>
-
-</template>
-<style scoped>
-
-</style>
+<template />
