@@ -22,6 +22,7 @@ import CodeHighlightPlugin from './CodeHighlightPlugin.vue'
 import ListMaxIndentLevelPlugin from './ListMaxIndentLevelPlugin.vue'
 import AutoLinkPlugin from './AutoLinkPlugin.vue'
 import TreeViewPlugin from './TreeViewPlugin.vue'
+import MarkdownShortcutPlugin from './MarkdownShortcutPlugin.vue'
 
 const config = {
   theme: exampleTheme,
@@ -70,6 +71,7 @@ const onError = (error: Error) => {
         <AutoLinkPlugin />
         <ListMaxIndentLevelPlugin :max-depth="7" />
         <LexicalHashtagPlugin />
+        <MarkdownShortcutPlugin />
       </div>
     </div>
   </LexicalComposer>

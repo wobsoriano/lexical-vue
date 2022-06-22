@@ -88,6 +88,7 @@ importers:
       '@lexical/hashtag': ^0.3.5
       '@lexical/link': ^0.3.5
       '@lexical/list': ^0.3.5
+      '@lexical/markdown': ^0.3.5
       '@lexical/rich-text': ^0.3.5
       '@lexical/selection': ^0.3.5
       '@lexical/table': ^0.3.5
@@ -105,6 +106,7 @@ importers:
       '@lexical/hashtag': 0.3.5_lexical@0.3.0
       '@lexical/link': 0.3.5_lexical@0.3.0
       '@lexical/list': 0.3.5_lexical@0.3.0
+      '@lexical/markdown': 0.3.5_d5o4qx3p53qg4ghlqwlth5qnry
       '@lexical/rich-text': 0.3.5_5wy2p2xfcgmxl536zkeipubt5m
       '@lexical/selection': 0.3.5_lexical@0.3.0
       '@lexical/table': 0.3.5_lexical@0.3.0
