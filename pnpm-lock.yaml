@@ -10,7 +10,7 @@ importers:
       turbo: ^1.2.16
       typescript: ^4.5.4
       vite: ^2.9.5
-      vitepress: 1.0.0-alpha.1
+      vitepress: 1.0.0-alpha.2
       vue: ^3.2.25
       vue-tsc: ^0.34.7
     devDependencies:
@@ -20,7 +20,7 @@ importers:
       turbo: 1.2.16
       typescript: 4.6.3
       vite: 2.9.5
-      vitepress: 1.0.0-alpha.1
+      vitepress: 1.0.0-alpha.2
       vue: 3.2.33
       vue-tsc: 0.34.7_typescript@4.6.3
 
@@ -868,6 +868,10 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.2.33
       '@vue/shared': 3.2.33
+
+  /@vue/devtools-api/6.1.4:
+    resolution: {integrity: sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==}
+    dev: true
 
   /@vue/reactivity-transform/3.2.33:
     resolution: {integrity: sha512-4UL5KOIvSQb254aqenW4q34qMXbfZcmEsV/yVidLUgvwYQQ/D21bGX3DlgPUGI3c4C+iOnNmDCkIxkILoX/Pyw==}
@@ -3310,14 +3314,15 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/1.0.0-alpha.1:
-    resolution: {integrity: sha512-yA0QIl+mB3fQ2j+keQVa0DTT0waP2AeWM/p9VYfUAT9vOkQEGass4/oYmMGPCQrBwCaO3cpOxJL3ZFVooyvybQ==}
+  /vitepress/1.0.0-alpha.2:
+    resolution: {integrity: sha512-twSsmx2DI/3XgZZ8KLyRAH8RgK2Zj4kJx/kwhZhimwndYqQDrtcIaAcuV+P3FKukZ+cYtm9yt9qohz631jKx4A==}
     engines: {node: '>=14.6.0'}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.0.0
       '@docsearch/js': 3.0.0
       '@vitejs/plugin-vue': 2.3.3_vite@2.9.9+vue@3.2.33
+      '@vue/devtools-api': 6.1.4
       '@vueuse/core': 8.6.0_vue@3.2.33
       body-scroll-lock: 4.0.0-beta.0
       shiki: 0.10.1
