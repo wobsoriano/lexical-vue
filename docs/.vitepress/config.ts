@@ -2,26 +2,21 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   lang: 'en-US',
-  title: 'Lexical Vue',
-  description: 'Lexical components and composables for Vue applications.',
+  title: 'lexical-vue',
+  description: 'An extensible text editor for Vue.',
   lastUpdated: true,
 
   themeConfig: {
     socialLinks: [
       { icon: 'github', link: 'https://github.com/wobsoriano/lexical-vue' },
     ],
-    // repo: 'wobsoriano/lexical-vue',
-    // docsDir: 'docs',
-    // editLinks: true,
-    // editLinkText: 'Edit this page on GitHub',
     lastUpdatedText: 'Last Updated',
     nav: [
-      { text: 'Guide', link: '/', activeMatch: '^/$|^/guide/' },
+      { text: 'Docs', link: '/docs/introduction', activeMatch: '/docs/' },
       { text: 'Playground', link: 'https://lexical-vue-playground.vercel.app' },
     ],
     sidebar: {
-      '/guide/': getGuideSidebar(),
-      '/': getGuideSidebar(),
+      '/docs/': sidebarDocs(),
     },
     footer: {
       message: 'Released under the MIT License.',
@@ -29,20 +24,22 @@ export default defineConfig({
   },
 })
 
-function getGuideSidebar() {
+function sidebarDocs() {
   return [
     {
-      text: 'Introduction',
+      text: 'About',
+      collapsible: true,
       items: [
-        { text: 'What is Lexical Vue?', link: '/' },
-        { text: 'Getting Started', link: '/guide/getting-started' },
+        { text: 'Introduction', link: '/docs/introduction' },
+        { text: 'Getting Started', link: '/docs/getting-started' },
       ],
     },
     {
       text: 'Plugins',
+      collapsible: true,
       items: [
-        { text: 'Available Plugins', link: '/plugins/available-plugins' },
-        { text: 'Custom', link: '/plugins/custom' },
+        { text: 'Available Plugins', link: '/docs/available-plugins' },
+        { text: 'Custom', link: '/docs/custom' },
       ],
     },
   ]
