@@ -13,7 +13,7 @@ hero:
       link: /docs/introduction
     - theme: alt
       text: View on GitHub
-      link: https://github.com/wobsoriano/vuse-gesture
+      link: https://github.com/wobsoriano/lexical-vue
 
 features:
   - title: Reliable
