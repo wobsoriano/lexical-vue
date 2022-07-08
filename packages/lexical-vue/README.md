@@ -87,7 +87,7 @@ I'm converting most of [@lexical/react](https://github.com/facebook/lexical/tree
 
 ### Creating custom Lexical nodes with Vue
 
-- [Creating custom decorator nodes](https://lexical-vue.vercel.app/plugins/custom.html)
+- [Creating custom decorator nodes](https://lexical-vue.vercel.app/docs/custom.html)
 
 ## Contributing
 
