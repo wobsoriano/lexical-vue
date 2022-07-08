@@ -9,7 +9,7 @@ export function useDecorators(editor: LexicalEditor) {
 
   onMounted(() => {
     unregisterListener = editor.registerDecoratorListener((nextDecorators) => {
-      decorators.value = nextDecorators
+      decorators.value = nextDecorators as Record<string, Component>
     })
   })
 
