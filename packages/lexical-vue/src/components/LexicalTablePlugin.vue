@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { InsertTableCommandPayload, TableSelection } from '@lexical/table'
+import type { HTMLTableElementWithWithTableSelectionState, InsertTableCommandPayload, TableSelection } from '@lexical/table'
 import {
   $createTableNodeWithDimensions,
   INSERT_TABLE_COMMAND,
@@ -81,7 +81,7 @@ onMounted(() => {
     for (const [nodeKey, mutation] of nodeMutations) {
       if (mutation === 'created') {
         editor.update(() => {
-          const tableElement = editor.getElementByKey(nodeKey)
+          const tableElement = editor.getElementByKey(nodeKey) as HTMLTableElementWithWithTableSelectionState
           const tableNode = $getNodeByKey<TableNode>(nodeKey)
 
           if (tableElement && tableNode) {
