@@ -59,16 +59,13 @@ onMounted(() => {
           const selection = $getSelection()
           if ($isNodeSelection(selection)) {
             const node = $getNodeByKey(props.nodeKey) as LexicalNode | undefined
-            if ($isDecoratorBlockNode(node)) {
-              // @ts-expect-error: Internal types
+            if ($isDecoratorBlockNode(node))
               node?.setFormat(payload)
-            }
           }
           else if ($isRangeSelection(selection)) {
             const nodes = selection!.getNodes()
             for (const node of nodes) {
               if ($isDecoratorBlockNode(node)) {
-                // @ts-expect-error: Internal types
                 node.setFormat(payload)
               }
               else {
