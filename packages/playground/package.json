@@ -19,7 +19,7 @@
     "@lexical/selection": "^0.3.7",
     "@lexical/table": "^0.3.7",
     "@lexical/utils": "^0.3.7",
-    "lexical": "0.3.0",
+    "lexical": "0.3.7",
     "lexical-vue": "workspace:*",
     "vue": "^3.2.25"
   },

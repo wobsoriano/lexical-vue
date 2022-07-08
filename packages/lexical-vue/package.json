@@ -63,7 +63,7 @@
     "@lexical/table": "^0.3.7",
     "@lexical/text": "^0.3.7",
     "@lexical/utils": "^0.3.7",
-    "lexical": "0.3.0",
+    "lexical": "0.3.7",
     "vue": "^3.2.25"
   },
   "devDependencies": {
