@@ -70,7 +70,6 @@ onMounted(() => {
               }
               else {
                 const element = $getNearestBlockElementAncestorOrThrow(node)
-                // @ts-expect-error: Internal types
                 element.setFormat(payload)
               }
             }
