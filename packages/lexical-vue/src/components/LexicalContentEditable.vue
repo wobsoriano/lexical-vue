@@ -28,18 +28,18 @@ withDefaults(defineProps<{
 }>(), {
   role: 'textbox',
   spellcheck: true,
-  enableGrammarly: true,
 })
 const isReadOnly = ref(true)
-let unregisterListener: () => void
 
 onMounted(() => {
-  if (root.value)
+  if (root.value) {
     editor.setRootElement(root.value)
+    isReadOnly.value = editor.isReadOnly()
+  }
+})
 
-  unregisterListener = editor.registerReadOnlyListener((currentIsReadOnly) => {
-    isReadOnly.value = currentIsReadOnly
-  })
+const unregisterListener = editor.registerReadOnlyListener((currentIsReadOnly) => {
+  isReadOnly.value = currentIsReadOnly
 })
 
 onUnmounted(() => {
@@ -68,6 +68,5 @@ onUnmounted(() => {
     :role="isReadOnly ? undefined : role"
     :spellcheck="spellcheck"
     :tabindex="tabindex"
-    :data-enable-grammarly="enableGrammarly"
   />
 </template>
