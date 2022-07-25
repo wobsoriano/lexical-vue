@@ -100,20 +100,20 @@ const formatSmallHeading = () => {
 
 const formatBulletList = () => {
   if (props.blockType !== 'ul')
-    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, null)
+    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
 
   else
-    editor.dispatchCommand(REMOVE_LIST_COMMAND, null)
+    editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
 
   emit('update:showBlockOptionsDropDown', false)
 }
 
 const formatNumberedList = () => {
   if (props.blockType !== 'ol')
-    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, null)
+    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
 
   else
-    editor.dispatchCommand(REMOVE_LIST_COMMAND, null)
+    editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
 
   emit('update:showBlockOptionsDropDown', false)
 }
