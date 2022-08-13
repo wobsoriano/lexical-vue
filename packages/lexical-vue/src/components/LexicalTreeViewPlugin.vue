@@ -6,8 +6,6 @@ import type {
   LexicalNode,
   NodeSelection,
   RangeSelection,
-  RootNode,
-  TextNode,
 } from 'lexical'
 
 import { $isMarkNode } from '@lexical/mark'
@@ -20,17 +18,20 @@ import {
   $isTextNode,
 } from 'lexical'
 import { computed, onUnmounted, ref, watchEffect } from 'vue'
+import type { LinkNode } from '@lexical/link'
+import { $isLinkNode } from '@lexical/link'
 import { useEditor } from '../composables/useEditor'
 
-const NON_SINGLE_WIDTH_CHARS_REPLACEMENT: Record<string, string> = Object.freeze({
-  '\t': '\\t',
-  '\n': '\\n',
-})
+const NON_SINGLE_WIDTH_CHARS_REPLACEMENT: Readonly<Record<string, string>>
+  = Object.freeze({
+    '\t': '\\t',
+    '\n': '\\n',
+  })
 const NON_SINGLE_WIDTH_CHARS_REGEX = new RegExp(
   Object.keys(NON_SINGLE_WIDTH_CHARS_REPLACEMENT).join('|'),
   'g',
 )
-const SYMBOLS = Object.freeze({
+const SYMBOLS: Record<string, string> = Object.freeze({
   ancestorHasNextSibling: '|',
   ancestorIsLastChild: ' ',
   hasNextSibling: '├',
@@ -43,6 +44,7 @@ function printRangeSelection(selection: RangeSelection): string {
   let res = ''
 
   const formatText = printFormatProperties(selection)
+
   res += `: range ${formatText !== '' ? `{ ${formatText} }` : ''}`
 
   const anchor = selection.anchor
@@ -56,6 +58,7 @@ function printRangeSelection(selection: RangeSelection): string {
   res += `\n  └ focus { key: ${focus.key}, offset: ${
     focusOffset === null ? 'null' : focusOffset
   }, type: ${focus.type} }`
+
   return res
 }
 
@@ -73,7 +76,7 @@ function generateContent(editorState: EditorState): string {
   const selectionString = editorState.read(() => {
     const selection = $getSelection()
 
-    visitTree($getRoot(), (node, indent) => {
+    visitTree($getRoot(), (node: LexicalNode, indent: Array<string>) => {
       const nodeKey = node.getKey()
       const nodeKeyDisplay = `(${nodeKey})`
       const typeDisplay = node.getType() || ''
@@ -81,6 +84,7 @@ function generateContent(editorState: EditorState): string {
       const idsDisplay = $isMarkNode(node)
         ? ` id: [ ${node.getIDs().join(', ')} ] `
         : ''
+
       res += `${isSelected ? SYMBOLS.selectedLine : ' '} ${indent.join(
         ' ',
       )} ${nodeKeyDisplay} ${typeDisplay} ${idsDisplay} ${printNode(node)}\n`
@@ -90,7 +94,7 @@ function generateContent(editorState: EditorState): string {
         isSelected,
         node,
         nodeKeyDisplay,
-        selection: selection as RangeSelection,
+        selection,
         typeDisplay,
       })
     })
@@ -98,22 +102,26 @@ function generateContent(editorState: EditorState): string {
     return selection === null
       ? ': null'
       : $isRangeSelection(selection)
-        ? printRangeSelection(selection as RangeSelection)
+        ? printRangeSelection(selection)
         : $isGridSelection(selection)
-          ? printGridSelection(selection as GridSelection)
-          : printObjectSelection(selection as NodeSelection)
+          ? printGridSelection(selection)
+          : printObjectSelection(selection)
   })
 
   return `${res}\n selection${selectionString}`
 }
 
-function visitTree(currentNode: ElementNode, visitor: (arg0: RootNode, indent: string[]) => void, indent: string[] = []) {
+function visitTree(
+  currentNode: ElementNode,
+  visitor: (node: LexicalNode, indentArr: Array<string>) => void,
+  indent: Array<string> = [],
+) {
   const childNodes = currentNode.getChildren()
   const childNodesLength = childNodes.length
 
   childNodes.forEach((childNode, i) => {
     visitor(
-      childNode as RootNode,
+      childNode,
       indent.concat(
         i === childNodesLength - 1
           ? SYMBOLS.isLastChild
@@ -123,7 +131,7 @@ function visitTree(currentNode: ElementNode, visitor: (arg0: RootNode, indent: s
 
     if ($isElementNode(childNode)) {
       visitTree(
-        childNode as ElementNode,
+        childNode,
         visitor,
         indent.concat(
           i === childNodesLength - 1
@@ -142,40 +150,57 @@ function normalize(text: string) {
   )
 }
 
-function printNode(node: TextNode | RootNode) {
+// TODO Pass via props to allow customizability
+function printNode(node: LexicalNode) {
   if ($isTextNode(node)) {
     const text = node.getTextContent(true)
     const title = text.length === 0 ? '(empty)' : `"${normalize(text)}"`
-    const properties = printAllProperties(node as TextNode)
+    const properties = printAllTextNodeProperties(node)
     return [title, properties.length !== 0 ? `{ ${properties} }` : null]
       .filter(Boolean)
       .join(' ')
       .trim()
   }
-
-  return ''
+  else if ($isLinkNode(node)) {
+    const link = node.getURL()
+    const title = link.length === 0 ? '(empty)' : `"${normalize(link)}"`
+    const properties = printAllLinkNodeProperties(node)
+    return [title, properties.length !== 0 ? `{ ${properties} }` : null]
+      .filter(Boolean)
+      .join(' ')
+      .trim()
+  }
+  else {
+    return ''
+  }
 }
 
 const FORMAT_PREDICATES = [
-  (node: TextNode) => node.hasFormat('bold') && 'Bold',
-  (node: TextNode) => node.hasFormat('code') && 'Code',
-  (node: TextNode) => node.hasFormat('italic') && 'Italic',
-  (node: TextNode) => node.hasFormat('strikethrough') && 'Strikethrough',
-  (node: TextNode) => node.hasFormat('underline') && 'Underline',
+  (node: LexicalNode | RangeSelection) => node.hasFormat('bold') && 'Bold',
+  (node: LexicalNode | RangeSelection) => node.hasFormat('code') && 'Code',
+  (node: LexicalNode | RangeSelection) => node.hasFormat('italic') && 'Italic',
+  (node: LexicalNode | RangeSelection) =>
+    node.hasFormat('strikethrough') && 'Strikethrough',
+  (node: LexicalNode | RangeSelection) =>
+    node.hasFormat('subscript') && 'Subscript',
+  (node: LexicalNode | RangeSelection) =>
+    node.hasFormat('superscript') && 'Superscript',
+  (node: LexicalNode | RangeSelection) =>
+    node.hasFormat('underline') && 'Underline',
 ]
 
 const DETAIL_PREDICATES = [
-  (node: TextNode) => node.isDirectionless() && 'Directionless',
-  (node: TextNode) => node.isUnmergeable() && 'Unmergeable',
+  (node: LexicalNode) => node.isDirectionless() && 'Directionless',
+  (node: LexicalNode) => node.isUnmergeable() && 'Unmergeable',
 ]
 
 const MODE_PREDICATES = [
-  (node: TextNode) => node.isToken() && 'Token',
-  (node: TextNode) => node.isSegmented() && 'Segmented',
-  (node: TextNode) => node.isInert() && 'Inert',
+  (node: LexicalNode) => node.isToken() && 'Token',
+  (node: LexicalNode) => node.isSegmented() && 'Segmented',
+  (node: LexicalNode) => node.isInert() && 'Inert',
 ]
 
-function printAllProperties(node: TextNode) {
+function printAllTextNodeProperties(node: LexicalNode) {
   return [
     printFormatProperties(node),
     printDetailProperties(node),
@@ -185,35 +210,62 @@ function printAllProperties(node: TextNode) {
     .join(', ')
 }
 
-function printDetailProperties(nodeOrSelection: TextNode) {
+function printAllLinkNodeProperties(node: LinkNode) {
+  return [printTargetProperties(node), printRelProperties(node)]
+    .filter(Boolean)
+    .join(', ')
+}
+
+function printDetailProperties(nodeOrSelection: LexicalNode) {
   let str = DETAIL_PREDICATES.map(predicate => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
     .toLocaleLowerCase()
+
   if (str !== '')
     str = `detail: ${str}`
 
   return str
 }
 
-function printModeProperties(nodeOrSelection: TextNode) {
+function printModeProperties(nodeOrSelection: LexicalNode) {
   let str = MODE_PREDICATES.map(predicate => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
     .toLocaleLowerCase()
+
   if (str !== '')
     str = `mode: ${str}`
 
   return str
 }
 
-function printFormatProperties(nodeOrSelection: TextNode | NodeSelection | RangeSelection) {
-  let str = FORMAT_PREDICATES.map(predicate => predicate(nodeOrSelection as TextNode))
+function printFormatProperties(nodeOrSelection: LexicalNode | RangeSelection) {
+  let str = FORMAT_PREDICATES.map(predicate => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
     .toLocaleLowerCase()
+
   if (str !== '')
     str = `format: ${str}`
+
+  return str
+}
+
+function printTargetProperties(node: LinkNode) {
+  let str = node.getTarget()
+  // TODO Fix nullish on LinkNode
+  if (str != null)
+    str = `target: ${str}`
+
+  return str
+}
+
+function printRelProperties(node: LinkNode) {
+  let str = node.getRel()
+  // TODO Fix nullish on LinkNode
+  if (str != null)
+    str = `rel: ${str}`
 
   return str
 }
@@ -226,11 +278,11 @@ function printSelectedCharsLine({
   selection,
   typeDisplay,
 }: {
-  indent: string[]
+  indent: Array<string>
   isSelected: boolean
-  node: LexicalNode | null | undefined
+  node: LexicalNode
   nodeKeyDisplay: string
-  selection: RangeSelection
+  selection: GridSelection | NodeSelection | RangeSelection | null
   typeDisplay: string
 }) {
   // No selection or node is not selected.
@@ -245,14 +297,15 @@ function printSelectedCharsLine({
   // No selected characters.
   const anchor = selection.anchor
   const focus = selection.focus
+
   if (
-    node?.getTextContent() === ''
+    node.getTextContent() === ''
     || (anchor.getNode() === selection.focus.getNode()
       && anchor.offset === focus.offset)
   )
     return ''
 
-  const [start, end] = $getSelectionStartEnd(node as TextNode, selection)
+  const [start, end] = $getSelectionStartEnd(node, selection)
 
   if (start === end)
     return ''
@@ -266,9 +319,10 @@ function printSelectedCharsLine({
     ...indent.slice(0, indent.length - 1),
     selectionLastIndent,
   ]
-  const unselectedChars = Array(start).fill(' ')
+  const unselectedChars = Array(start + 1).fill(' ')
   const selectedChars = Array(end - start).fill(SYMBOLS.selectedChar)
   const paddingLength = typeDisplay.length + 3 // 2 for the spaces around + 1 for the double quote.
+
   const nodePrintSpaces = Array(nodeKeyDisplay.length + paddingLength).fill(
     ' ',
   )
@@ -282,7 +336,10 @@ function printSelectedCharsLine({
   )
 }
 
-function $getSelectionStartEnd(node: TextNode, selection: RangeSelection): [number, number] {
+function $getSelectionStartEnd(
+  node: LexicalNode,
+  selection: RangeSelection | GridSelection,
+): [number, number] {
   const anchor = selection.anchor
   const focus = selection.focus
   const textContent = node.getTextContent(true)
@@ -290,10 +347,12 @@ function $getSelectionStartEnd(node: TextNode, selection: RangeSelection): [numb
 
   let start = -1
   let end = -1
+
   // Only one node is being selected.
   if (anchor.type === 'text' && focus.type === 'text') {
     const anchorNode = anchor.getNode()
     const focusNode = focus.getNode()
+
     if (
       anchorNode === focusNode
       && node === anchorNode
@@ -338,9 +397,9 @@ function $getSelectionStartEnd(node: TextNode, selection: RangeSelection): [numb
 
 defineProps<{
   timeTravelButtonClassName: string
+  timeTravelPanelSliderClassName: string
   timeTravelPanelButtonClassName: string
   timeTravelPanelClassName: string
-  timeTravelPanelSliderClassName: string
   viewClassName: string
 }>()
 const editor = useEditor()
@@ -379,7 +438,7 @@ watchEffect((onInvalidate) => {
 
 const totalEditorStates = computed(() => timeStampedEditorStates.value.length)
 
-let timeoutId: NodeJS.Timeout
+let timeoutId: ReturnType<typeof setTimeout>
 
 watchEffect((onInvalidate) => {
   if (isPlaying.value) {
