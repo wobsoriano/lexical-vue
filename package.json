@@ -1,5 +1,6 @@
 {
   "name": "monorepo",
+  "workspaces": ["packages/*"],
   "private": true,
   "scripts": {
     "build": "turbo run build",
