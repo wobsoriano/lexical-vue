@@ -5,8 +5,14 @@
   "publishConfig": {
     "directory": "package"
   },
-  "author": "Robert Soriano <sorianorobertc@gmail.com>",
+  "keywords": [
+    "vue",
+    "lexical",
+    "editor",
+    "rich-text"
+  ],
   "license": "MIT",
+  "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "homepage": "https://github.com/wobsoriano/lexical-vue#readme",
   "repository": {
     "type": "git",
@@ -15,25 +21,19 @@
   "bugs": {
     "url": "https://github.com/wobsoriano/lexical-vue/issues"
   },
-  "keywords": [
-    "vue",
-    "lexical",
-    "editor",
-    "rich-text"
-  ],
-  "sideEffects": false,
+  "main": "./dist/lexical-vue.cjs.js",
+  "module": "./dist/lexical-vue.es.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "require": "./dist/lexical-vue.cjs.js",
       "import": "./dist/lexical-vue.es.js"
     }
   },
-  "main": "./dist/lexical-vue.cjs.js",
-  "module": "./dist/lexical-vue.es.js",
-  "types": "./dist/types/index.d.ts",
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
     "dev": "vite build --watch",
     "build": "rimraf dist && vue-tsc && vite build",
