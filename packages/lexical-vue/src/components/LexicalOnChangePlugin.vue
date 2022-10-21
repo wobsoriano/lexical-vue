@@ -4,8 +4,6 @@ import type { EditorState, LexicalEditor } from 'lexical'
 import { $getRoot } from 'lexical'
 import { useEditor } from '../composables/useEditor'
 
-const editor = useEditor()
-
 const props = withDefaults(defineProps<{
   ignoreInitialChange?: boolean
   ignoreSelectionChange?: boolean
@@ -19,6 +17,8 @@ const emit = defineEmits<{
   (e: 'change', editorState: EditorState, editor: LexicalEditor): void
   (e: 'update:modelValue', payload: string): void
 }>()
+
+const editor = useEditor()
 
 let unregisterListener: () => void
 const getRoot = $getRoot

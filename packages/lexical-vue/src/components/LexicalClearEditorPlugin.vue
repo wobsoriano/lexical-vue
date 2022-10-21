@@ -9,10 +9,10 @@ import {
 import { getCurrentInstance, onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
-const editor = useEditor()
 const emit = defineEmits<{
   (e: 'clear'): void
 }>()
+const editor = useEditor()
 let unregisterListener: () => void
 
 onMounted(() => {

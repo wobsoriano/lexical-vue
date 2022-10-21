@@ -22,6 +22,13 @@ import type { LinkNode } from '@lexical/link'
 import { $isLinkNode } from '@lexical/link'
 import { useEditor } from '../composables/useEditor'
 
+defineProps<{
+  timeTravelButtonClassName: string
+  timeTravelPanelSliderClassName: string
+  timeTravelPanelButtonClassName: string
+  timeTravelPanelClassName: string
+  viewClassName: string
+}>()
 const NON_SINGLE_WIDTH_CHARS_REPLACEMENT: Readonly<Record<string, string>>
   = Object.freeze({
     '\t': '\\t',
@@ -394,13 +401,6 @@ function $getSelectionStartEnd(
   ]
 }
 
-defineProps<{
-  timeTravelButtonClassName: string
-  timeTravelPanelSliderClassName: string
-  timeTravelPanelButtonClassName: string
-  timeTravelPanelClassName: string
-  viewClassName: string
-}>()
 const editor = useEditor()
 
 const timeStampedEditorStates = ref<[number, EditorState][]>([])

@@ -25,9 +25,6 @@ import {
   $createCodeNode,
 } from '@lexical/code'
 
-const dropDownRef = ref<HTMLDivElement | null>(null)
-const editor = useEditor()
-
 const props = withDefaults(defineProps<{
   toolbarRef: HTMLDivElement | null
   blockType?: string
@@ -37,6 +34,8 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{
   (e: 'update:showBlockOptionsDropDown', value: boolean): void
 }>()
+const dropDownRef = ref<HTMLDivElement | null>(null)
+const editor = useEditor()
 
 onMounted(() => {
   if (props.toolbarRef && dropDownRef.value) {

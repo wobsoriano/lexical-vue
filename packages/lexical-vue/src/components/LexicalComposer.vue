@@ -6,8 +6,6 @@ import { editorKey } from '../composables/inject'
 import type { Class } from '../utils'
 import type { InitialEditorStateType } from './index'
 
-const HISTORY_MERGE_OPTIONS = { tag: 'history-merge' }
-
 const props = defineProps<{
   initialConfig: {
     namespace?: string
@@ -21,6 +19,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'error', error: Error): void
 }>()
+
+const HISTORY_MERGE_OPTIONS = { tag: 'history-merge' }
 
 const editor = createEditor({
   editable: false,

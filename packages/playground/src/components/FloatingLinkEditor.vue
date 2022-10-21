@@ -8,6 +8,9 @@ import { useEditor } from 'lexical-vue'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { getSelectedNode } from '../utils'
 
+const props = defineProps<{
+  priority: CommandListenerPriority
+}>()
 const editorRef = ref<HTMLDivElement | null>(null)
 const inputRef = ref<HTMLInputElement | null>(null)
 const mouseDownRef = ref(false)
@@ -16,10 +19,6 @@ const isEditMode = ref(false)
 const lastSelection = ref<RangeSelection | NodeSelection | GridSelection | null>(null)
 
 const editor = useEditor()
-
-const props = defineProps<{
-  priority: CommandListenerPriority
-}>()
 
 function positionEditorElement(editor: HTMLDivElement, rect: DOMRect | null) {
   if (!rect) {

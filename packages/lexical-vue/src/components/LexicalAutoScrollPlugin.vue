@@ -4,11 +4,11 @@ import { $getSelection, $isRangeSelection } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
-const editor = useEditor()
-
 const props = defineProps<{
   scrollRef: HTMLElement | null
 }>()
+
+const editor = useEditor()
 
 let unregisterListener: () => void
 

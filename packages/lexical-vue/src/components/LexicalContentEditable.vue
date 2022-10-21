@@ -2,9 +2,6 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
-const root = ref<HTMLElement | null>(null)
-const editor = useEditor()
-
 withDefaults(defineProps<{
   ariaActivedescendant?: string
   ariaAutocomplete?: 'none' | 'inline' | 'list' | 'both'
@@ -29,6 +26,9 @@ withDefaults(defineProps<{
   role: 'textbox',
   spellcheck: true,
 })
+const root = ref<HTMLElement | null>(null)
+const editor = useEditor()
+
 const editable = ref(true)
 
 onMounted(() => {
