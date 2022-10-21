@@ -15,7 +15,7 @@ import {
   REMOVE_LIST_COMMAND,
 } from '@lexical/list'
 import {
-  $wrapLeafNodesInElements,
+  $wrapNodes,
 } from '@lexical/selection'
 import {
   $createHeadingNode,
@@ -68,7 +68,7 @@ const formatParagraph = () => {
       const selection = $getSelection() as RangeSelection
 
       if ($isRangeSelection(selection))
-        $wrapLeafNodesInElements(selection, () => $createParagraphNode())
+        $wrapNodes(selection, () => $createParagraphNode())
     })
   }
   emit('update:showBlockOptionsDropDown', false)
@@ -80,7 +80,7 @@ const formatLargeHeading = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection))
-        $wrapLeafNodesInElements(selection, () => $createHeadingNode('h1'))
+        $wrapNodes(selection, () => $createHeadingNode('h1'))
     })
   }
   emit('update:showBlockOptionsDropDown', false)
@@ -92,7 +92,7 @@ const formatSmallHeading = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection))
-        $wrapLeafNodesInElements(selection, () => $createHeadingNode('h2'))
+        $wrapNodes(selection, () => $createHeadingNode('h2'))
     })
   }
   emit('update:showBlockOptionsDropDown', false)
@@ -124,7 +124,7 @@ const formatQuote = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection))
-        $wrapLeafNodesInElements(selection, () => $createQuoteNode())
+        $wrapNodes(selection, () => $createQuoteNode())
     })
   }
   emit('update:showBlockOptionsDropDown', false)
@@ -136,7 +136,7 @@ const formatCode = () => {
       const selection = $getSelection()
 
       if ($isRangeSelection(selection))
-        $wrapLeafNodesInElements(selection, () => $createCodeNode())
+        $wrapNodes(selection, () => $createCodeNode())
     })
   }
   emit('update:showBlockOptionsDropDown', false)

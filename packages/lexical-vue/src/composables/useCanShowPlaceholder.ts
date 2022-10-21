@@ -5,14 +5,14 @@ import type { LexicalEditor } from 'lexical'
 export function useCanShowPlaceholder(editor: LexicalEditor) {
   const initialState = editor
     .getEditorState()
-    .read($canShowPlaceholderCurry(editor.isComposing()))
+    .read($canShowPlaceholderCurry(editor.isComposing(), editor.isEditable()))
 
   const canShowPlaceholder = ref(initialState)
 
   const unregisterListener = editor.registerUpdateListener(({ editorState }) => {
     const isComposing = editor.isComposing()
     canShowPlaceholder.value = editorState.read(
-      $canShowPlaceholderCurry(isComposing),
+      $canShowPlaceholderCurry(isComposing, editor.isEditable()),
     )
   })
 

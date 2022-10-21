@@ -13,7 +13,7 @@ import {
   $getRoot,
   $getSelection,
   $isElementNode,
-  $isGridSelection,
+  DEPRECATED_$isGridSelection,
   $isRangeSelection,
   $isTextNode,
 } from 'lexical'
@@ -103,7 +103,7 @@ function generateContent(editorState: EditorState): string {
       ? ': null'
       : $isRangeSelection(selection)
         ? printRangeSelection(selection)
-        : $isGridSelection(selection)
+        : DEPRECATED_$isGridSelection(selection)
           ? printGridSelection(selection)
           : printObjectSelection(selection)
   })
@@ -153,7 +153,7 @@ function normalize(text: string) {
 // TODO Pass via props to allow customizability
 function printNode(node: LexicalNode) {
   if ($isTextNode(node)) {
-    const text = node.getTextContent(true)
+    const text = node.getTextContent()
     const title = text.length === 0 ? '(empty)' : `"${normalize(text)}"`
     const properties = printAllTextNodeProperties(node)
     return [title, properties.length !== 0 ? `{ ${properties} }` : null]
@@ -197,7 +197,6 @@ const DETAIL_PREDICATES = [
 const MODE_PREDICATES = [
   (node: LexicalNode) => node.isToken() && 'Token',
   (node: LexicalNode) => node.isSegmented() && 'Segmented',
-  (node: LexicalNode) => node.isInert() && 'Inert',
 ]
 
 function printAllTextNodeProperties(node: LexicalNode) {
@@ -342,7 +341,7 @@ function $getSelectionStartEnd(
 ): [number, number] {
   const anchor = selection.anchor
   const focus = selection.focus
-  const textContent = node.getTextContent(true)
+  const textContent = node.getTextContent()
   const textLength = textContent.length
 
   let start = -1
@@ -470,10 +469,9 @@ watchEffect((onInvalidate) => {
     clearTimeout(timeoutId)
   })
 })
-
+let element: HTMLPreElement | null = null
 watchEffect(() => {
-  const element = treeElementRef.value
-
+  element = treeElementRef.value
   if (element) {
     // @ts-expect-error: Internal field
     element.__lexicalEditor = editor
@@ -483,8 +481,10 @@ watchEffect(() => {
 onUnmounted(() => {
   unregisterListener?.()
   clearTimeout(timeoutId)
-  // @ts-expect-error: Internal field
-  element.__lexicalEditor = null
+  if (element) {
+    // @ts-expect-error: Internal field
+    element.__lexicalEditor = null
+  }
 })
 
 const enableTimeTravel = () => {
