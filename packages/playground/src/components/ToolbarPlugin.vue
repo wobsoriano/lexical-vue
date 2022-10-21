@@ -44,7 +44,7 @@ const supportedBlockTypes = new Set([
   'ol',
 ])
 
-const blockTypeToBlockName = {
+const blockTypeToBlockName: Record<string, string> = {
   code: 'Code Block',
   h1: 'Large Heading',
   h2: 'Small Heading',
@@ -178,10 +178,10 @@ onUnmounted(() => {
 
 <template>
   <div ref="toolbarRef" class="toolbar">
-    <button :disabled="!canUndo" class="toolbar-item spaced" aria-label="Undo" @click="editor.dispatchCommand(UNDO_COMMAND)">
+    <button :disabled="!canUndo" class="toolbar-item spaced" aria-label="Undo" @click="editor.dispatchCommand(UNDO_COMMAND, undefined)">
       <i class="format undo" />
     </button>
-    <button :disabled="!canRedo" class="toolbar-item spaced" aria-label="Redo" @click="editor.dispatchCommand(REDO_COMMAND)">
+    <button :disabled="!canRedo" class="toolbar-item spaced" aria-label="Redo" @click="editor.dispatchCommand(REDO_COMMAND, undefined)">
       <i class="format redo" />
     </button>
     <Divider />
