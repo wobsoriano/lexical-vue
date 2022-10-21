@@ -1,7 +1,5 @@
 # Lexical Vue
 
-**⚠️ Lexical is currently in early development and APIs and packages are likely to change quite often.**
-
 [![npm (tag)](https://img.shields.io/npm/v/lexical-vue?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/lexical-vue) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/lexical-vue?style=flat&colorA=000000&colorB=000000) ![NPM](https://img.shields.io/npm/l/lexical-vue?style=flat&colorA=000000&colorB=000000)
 
 An extensible Vue 3 web text-editor based on [Lexical](https://github.com/facebook/lexical).
