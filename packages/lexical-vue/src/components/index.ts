@@ -1,4 +1,4 @@
-import {EditorState, LexicalEditor} from 'lexical'
+import type { EditorState, LexicalEditor } from 'lexical'
 
 export type InitialEditorStateType =
     | null

@@ -13,9 +13,9 @@ import {
   $getRoot,
   $getSelection,
   $isElementNode,
-  DEPRECATED_$isGridSelection,
   $isRangeSelection,
   $isTextNode,
+  DEPRECATED_$isGridSelection,
 } from 'lexical'
 import { computed, onUnmounted, ref, watchEffect } from 'vue'
 import type { LinkNode } from '@lexical/link'

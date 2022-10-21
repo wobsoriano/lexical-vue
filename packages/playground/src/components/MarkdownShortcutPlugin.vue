@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { LexicalMarkdownShortcutPlugin } from 'lexical-vue'
+import { LexicalMarkdownShortcutPlugin, useEditor } from 'lexical-vue'
 import type {
   ElementTransformer,
   TextMatchTransformer,
@@ -12,7 +12,6 @@ import {
   TEXT_MATCH_TRANSFORMERS,
 } from '@lexical/markdown'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
-import { useEditor } from 'lexical-vue'
 const PLAYGROUND_TRANSFORMERS: Transformer[] = [
   CHECK_LIST,
   ...ELEMENT_TRANSFORMERS,
@@ -24,7 +23,7 @@ const editor = useEditor()
 </script>
 
 <template>
-  <LexicalMarkdownShortcutPlugin :transformers="PLAYGROUND_TRANSFORMERS"/>
+  <LexicalMarkdownShortcutPlugin :transformers="PLAYGROUND_TRANSFORMERS" />
 </template>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {$createParagraphNode, $createTextNode, $getRoot} from 'lexical'
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
 import {
   LexicalAutoFocusPlugin,
   LexicalComposer,
@@ -10,11 +10,11 @@ import {
   LexicalListPlugin,
   LexicalRichTextPlugin,
 } from 'lexical-vue'
-import {$createHeadingNode, $createQuoteNode, HeadingNode, QuoteNode} from '@lexical/rich-text'
+import { $createHeadingNode, $createQuoteNode, HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
-import {$createListItemNode, $createListNode, ListItemNode, ListNode} from '@lexical/list'
+import { $createListItemNode, $createListNode, ListItemNode, ListNode } from '@lexical/list'
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
-import {$createLinkNode, AutoLinkNode, LinkNode} from '@lexical/link'
+import { $createLinkNode, AutoLinkNode, LinkNode } from '@lexical/link'
 import { HashtagNode } from '@lexical/hashtag'
 
 import exampleTheme from '../themes/example'
@@ -26,20 +26,20 @@ import TreeViewPlugin from './TreeViewPlugin.vue'
 import MarkdownShortcutPlugin from './MarkdownShortcutPlugin.vue'
 
 function prePopulatedRichText() {
-  const root = $getRoot();
+  const root = $getRoot()
   if (root.getFirstChild() === null) {
-    const heading = $createHeadingNode('h1');
-    heading.append($createTextNode('Welcome to the playground'));
-    root.append(heading);
-    const quote = $createQuoteNode();
+    const heading = $createHeadingNode('h1')
+    heading.append($createTextNode('Welcome to the playground'))
+    root.append(heading)
+    const quote = $createQuoteNode()
     quote.append(
       $createTextNode(
-          `In case you were wondering what the black box at the bottom is – it's the debug view, showing the current state of editor. ` +
-          `You can disable it by pressing on the settings control in the bottom-left of your screen and toggling the debug view setting.`,
+        'In case you were wondering what the black box at the bottom is – it\'s the debug view, showing the current state of editor. '
+          + 'You can disable it by pressing on the settings control in the bottom-left of your screen and toggling the debug view setting.',
       ),
-    );
-    root.append(quote);
-    const paragraph = $createParagraphNode();
+    )
+    root.append(quote)
+    const paragraph = $createParagraphNode()
     paragraph.append(
       $createTextNode('The playground is a demo environment built with '),
       $createTextNode('@lexical/react').toggleFormat('code'),
@@ -49,59 +49,59 @@ function prePopulatedRichText() {
       $createTextNode(' with '),
       $createTextNode('different').toggleFormat('italic'),
       $createTextNode(' formats.'),
-    );
-    root.append(paragraph);
-    const paragraph2 = $createParagraphNode();
+    )
+    root.append(paragraph)
+    const paragraph2 = $createParagraphNode()
     paragraph2.append(
       $createTextNode(
-          'Make sure to check out the various plugins in the toolbar. You can also use #hashtags or @-mentions too!',
+        'Make sure to check out the various plugins in the toolbar. You can also use #hashtags or @-mentions too!',
       ),
-    );
-    root.append(paragraph2);
-    const paragraph3 = $createParagraphNode();
+    )
+    root.append(paragraph2)
+    const paragraph3 = $createParagraphNode()
     paragraph3.append(
-      $createTextNode(`If you'd like to find out more about Lexical, you can:`),
-    );
-    root.append(paragraph3);
-    const list = $createListNode('bullet');
+      $createTextNode('If you\'d like to find out more about Lexical, you can:'),
+    )
+    root.append(paragraph3)
+    const list = $createListNode('bullet')
     list.append(
       $createListItemNode().append(
-        $createTextNode(`Visit the `),
+        $createTextNode('Visit the '),
         $createLinkNode('https://lexical.dev/').append(
           $createTextNode('Lexical website'),
         ),
-        $createTextNode(` for documentation and more information.`),
+        $createTextNode(' for documentation and more information.'),
       ),
       $createListItemNode().append(
-        $createTextNode(`Check out the code on our `),
+        $createTextNode('Check out the code on our '),
         $createLinkNode('https://github.com/facebook/lexical').append(
           $createTextNode('GitHub repository'),
         ),
-        $createTextNode(`.`),
+        $createTextNode('.'),
       ),
       $createListItemNode().append(
-        $createTextNode(`Playground code can be found `),
+        $createTextNode('Playground code can be found '),
         $createLinkNode(
           'https://github.com/facebook/lexical/tree/main/packages/lexical-playground',
         ).append($createTextNode('here')),
-        $createTextNode(`.`),
+        $createTextNode('.'),
       ),
       $createListItemNode().append(
-        $createTextNode(`Join our `),
+        $createTextNode('Join our '),
         $createLinkNode('https://discord.com/invite/KmG4wQnnD9').append(
           $createTextNode('Discord Server'),
         ),
-        $createTextNode(` and chat with the team.`),
+        $createTextNode(' and chat with the team.'),
       ),
-    );
-    root.append(list);
-    const paragraph4 = $createParagraphNode();
+    )
+    root.append(list)
+    const paragraph4 = $createParagraphNode()
     paragraph4.append(
       $createTextNode(
-          `Lastly, we're constantly adding cool new features to this playground. So make sure you check back here when you next get a chance :).`,
+        'Lastly, we\'re constantly adding cool new features to this playground. So make sure you check back here when you next get a chance :).',
       ),
-    );
-    root.append(paragraph4);
+    )
+    root.append(paragraph4)
   }
 }
 
