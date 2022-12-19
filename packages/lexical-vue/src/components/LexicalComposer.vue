@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, provide } from 'vue'
-import type { EditorState, EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
+import type { EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
 import { $createParagraphNode, $getRoot, $getSelection, createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
 import type { Class } from '../utils'
@@ -37,10 +37,10 @@ function initializeEditor(
   editor: LexicalEditor,
   initialEditorState?: InitialEditorStateType,
 ): void {
-  if (initialEditorState === null) {
+  if (initialEditorState === null)
+    return
 
-  }
-  else if (initialEditorState === undefined) {
+  if (initialEditorState === undefined) {
     editor.update(() => {
       const root = $getRoot()
       if (root.isEmpty()) {

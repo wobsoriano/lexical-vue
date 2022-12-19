@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {
-  ElementFormatType, LexicalNode,
+  ElementFormatType,
   NodeKey,
 } from 'lexical'
 import {
@@ -19,7 +19,7 @@ import {
   KEY_BACKSPACE_COMMAND,
   KEY_DELETE_COMMAND,
 } from 'lexical'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref, watchPostEffect } from 'vue'
 import { useLexicalNodeSelection } from '../composables/useLexicalNodeSelection'
 import { useEditor } from '../composables/useEditor'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
@@ -30,8 +30,7 @@ const props = defineProps<{
 }>()
 
 const editor = useEditor()
-const { isSelected, setSelected, clearSelection }
-    = useLexicalNodeSelection(props.nodeKey)
+const { isSelected, setSelected, clearSelection } = useLexicalNodeSelection(props.nodeKey)
 const containerRef = ref<HTMLDivElement | null>(null)
 
 const onDelete = (event: KeyboardEvent) => {
@@ -48,43 +47,45 @@ const onDelete = (event: KeyboardEvent) => {
   return false
 }
 
-let unregisterListener: () => void
-
-onMounted(() => {
-  unregisterListener = mergeRegister(
-    editor.registerCommand(
+watchPostEffect((onInvalidate) => {
+  const unregisterListener = mergeRegister(
+    editor.registerCommand<ElementFormatType>(
       FORMAT_ELEMENT_COMMAND,
-      (payload) => {
+      (formatType) => {
         if (isSelected.value) {
           const selection = $getSelection()
+
           if ($isNodeSelection(selection)) {
-            const node = $getNodeByKey(props.nodeKey) as LexicalNode | undefined
-            if ($isDecoratorBlockNode(node))
-              node?.setFormat(payload)
+            const node = $getNodeByKey(props.nodeKey)
+
+            if (node && $isDecoratorBlockNode(node))
+              node.setFormat(formatType)
           }
           else if ($isRangeSelection(selection)) {
-            const nodes = selection!.getNodes()
+            const nodes = selection.getNodes()
+
             for (const node of nodes) {
               if ($isDecoratorBlockNode(node)) {
-                node.setFormat(payload)
+                node.setFormat(formatType)
               }
               else {
                 const element = $getNearestBlockElementAncestorOrThrow(node)
-                element.setFormat(payload)
+                element.setFormat(formatType)
               }
             }
           }
+
           return true
         }
         return false
       },
       COMMAND_PRIORITY_LOW,
     ),
-    editor.registerCommand(
+    editor.registerCommand<MouseEvent>(
       CLICK_COMMAND,
-      (event: MouseEvent) => {
-        event.preventDefault()
+      (event) => {
         if (event.target === containerRef.value) {
+          event.preventDefault()
           if (!event.shiftKey)
             clearSelection()
 
@@ -106,10 +107,8 @@ onMounted(() => {
       COMMAND_PRIORITY_LOW,
     ),
   )
-})
 
-onUnmounted(() => {
-  unregisterListener?.()
+  onInvalidate(unregisterListener)
 })
 </script>
 

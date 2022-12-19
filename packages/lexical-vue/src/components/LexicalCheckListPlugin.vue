@@ -34,10 +34,9 @@ import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
 const editor = useEditor()
-let unregisterListener: () => void
 
 onMounted(() => {
-  unregisterListener = mergeRegister(
+  const unregisterListener = mergeRegister(
     editor.registerCommand(
       INSERT_CHECK_LIST_COMMAND,
       () => {
@@ -48,14 +47,14 @@ onMounted(() => {
     ),
     editor.registerCommand(
       KEY_ARROW_DOWN_COMMAND,
-      (event: any) => {
+      (event) => {
         return handleArrownUpOrDown(event, editor, false)
       },
       COMMAND_PRIORITY_LOW,
     ),
     editor.registerCommand(
       KEY_ARROW_UP_COMMAND,
-      (event: any) => {
+      (event) => {
         return handleArrownUpOrDown(event, editor, true)
       },
       COMMAND_PRIORITY_LOW,
@@ -77,7 +76,7 @@ onMounted(() => {
     ),
     editor.registerCommand(
       KEY_SPACE_COMMAND,
-      (event: any) => {
+      (event) => {
         const activeItem = getActiveCheckListItem()
         if (activeItem != null) {
           editor.update(() => {
@@ -95,7 +94,7 @@ onMounted(() => {
     ),
     editor.registerCommand(
       KEY_ARROW_LEFT_COMMAND,
-      (event: any) => {
+      (event) => {
         return editor.getEditorState().read(() => {
           const selection = $getSelection()
           if ($isRangeSelection(selection) && selection.isCollapsed()) {
@@ -108,15 +107,21 @@ onMounted(() => {
                 node => $isElementNode(node) && !node.isInline(),
               )
 
-              if (
-                $isListItemNode(elementNode!)
-                  && (isElement || elementNode.getFirstDescendant() === anchorNode)
-              ) {
-                const domNode = editor.getElementByKey(elementNode.__key)
-                if (domNode != null && document.activeElement !== domNode) {
-                  domNode.focus()
-                  event.preventDefault()
-                  return true
+              if ($isListItemNode(elementNode)) {
+                const parent = elementNode.getParent()
+                if (
+                  $isListNode(parent)
+                    && parent.getListType() === 'check'
+                    && (isElement
+                      || elementNode.getFirstDescendant() === anchorNode)
+                ) {
+                  const domNode = editor.getElementByKey(elementNode.__key)
+
+                  if (domNode != null && document.activeElement !== domNode) {
+                    domNode.focus()
+                    event.preventDefault()
+                    return true
+                  }
                 }
               }
             }
@@ -129,10 +134,10 @@ onMounted(() => {
     ),
     listenPointerDown(),
   )
-})
 
-onUnmounted(() => {
-  unregisterListener?.()
+  onUnmounted(() => {
+    unregisterListener?.()
+  })
 })
 
 let listenersCount = 0
@@ -152,7 +157,7 @@ function listenPointerDown() {
   }
 }
 
-function handleCheckItemEvent(event: PointerEvent, callback: any) {
+function handleCheckItemEvent(event: PointerEvent, callback: () => void) {
   const target = event.target
   if (!(target instanceof HTMLElement))
     return
@@ -183,14 +188,15 @@ function handleCheckItemEvent(event: PointerEvent, callback: any) {
 }
 
 function handleClick(event: PointerEvent) {
-  handleCheckItemEvent(event, () => {
-    const editor = findEditor(event.target)
+  handleCheckItemEvent(event as PointerEvent, () => {
+    const domNode = event.target as HTMLElement
+    const editor = findEditor(domNode)
+
     if (editor !== null) {
       editor.update(() => {
-        const node = $getNearestNodeFromDOMNode(event.target as Node)
+        const node = $getNearestNodeFromDOMNode(domNode)
         if ($isListItemNode(node!)) {
-          // @ts-expect-error: Internal field
-          event.target.focus()
+          domNode.focus()
           node.toggleChecked()
         }
       })
@@ -198,17 +204,20 @@ function handleClick(event: PointerEvent) {
   })
 }
 
-function handlePointerDown(event: any) {
+function handlePointerDown(event: PointerEvent) {
   handleCheckItemEvent(event, () => {
     // Prevents caret moving when clicking on check mark
     event.preventDefault()
   })
 }
 
-function findEditor(target: any) {
-  let node = target
+function findEditor(target: Node) {
+  let node: ParentNode | Node | null = target
+
   while (node) {
+    // @ts-expect-error internal field
     if (node.__lexicalEditor)
+    // @ts-expect-error internal field
       return (node.__lexicalEditor)
 
     node = node.parentNode

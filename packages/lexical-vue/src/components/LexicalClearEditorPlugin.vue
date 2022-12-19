@@ -13,13 +13,12 @@ const emit = defineEmits<{
   (e: 'clear'): void
 }>()
 const editor = useEditor()
-let unregisterListener: () => void
 
 onMounted(() => {
   const instance = getCurrentInstance()
   const emitExists = Boolean(instance?.attrs?.onClear)
 
-  unregisterListener = editor.registerCommand(
+  const unregisterListener = editor.registerCommand(
     CLEAR_EDITOR_COMMAND,
     (_payload) => {
       editor.update(() => {
@@ -40,10 +39,8 @@ onMounted(() => {
     },
     COMMAND_PRIORITY_EDITOR,
   )
-})
 
-onUnmounted(() => {
-  unregisterListener?.()
+  onUnmounted(unregisterListener)
 })
 </script>
 

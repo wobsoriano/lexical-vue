@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { EditorState } from 'lexical'
 import { useCanShowPlaceholder } from '../composables/useCanShowPlaceholder'
 import { useEditor } from '../composables/useEditor'
 import { useRichTextSetup } from '../composables/useRichTextSetup'

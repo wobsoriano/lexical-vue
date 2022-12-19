@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { GridSelection, RangeSelection } from 'lexical'
 import { $getSelection, $isRangeSelection } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables/useEditor'
@@ -18,7 +17,7 @@ onMounted(() => {
     if (!scrollElement || !tags.has('scroll-into-view'))
       return
 
-    const selection = editorState.read(() => $getSelection()) as RangeSelection | GridSelection
+    const selection = editorState.read(() => $getSelection())
     if (!$isRangeSelection(selection) || !selection.isCollapsed())
       return
 

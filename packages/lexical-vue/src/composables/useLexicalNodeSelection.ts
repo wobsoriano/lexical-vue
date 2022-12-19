@@ -1,4 +1,4 @@
-import type { LexicalEditor, NodeKey, NodeSelection } from 'lexical'
+import type { LexicalEditor, NodeKey } from 'lexical'
 
 import {
   $createNodeSelection,
@@ -7,9 +7,8 @@ import {
   $isNodeSelection,
   $setSelection,
 } from 'lexical'
-import type { Ref } from 'vue'
-import { onUnmounted, readonly, ref, watchEffect } from 'vue'
-import { getRealValue } from '../utils'
+import { readonly, ref, unref, watchPostEffect } from 'vue'
+import type { MaybeRef } from '../utils'
 import { useEditor } from './useEditor'
 
 function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {
@@ -23,15 +22,14 @@ function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {
 }
 
 export function useLexicalNodeSelection(
-  key: Ref<NodeKey> | NodeKey,
+  key: MaybeRef<NodeKey>,
 ) {
   const editor = useEditor()
-  const isSelected = ref(isNodeSelected(editor, getRealValue(key)))
-  let unregisterListener: () => void
+  const isSelected = ref(isNodeSelected(editor, unref(key)))
 
-  watchEffect((onInvalidate) => {
-    unregisterListener = editor.registerUpdateListener(() => {
-      isSelected.value = isNodeSelected(editor, getRealValue(key))
+  watchPostEffect((onInvalidate) => {
+    const unregisterListener = editor.registerUpdateListener(() => {
+      isSelected.value = isNodeSelected(editor, unref(key))
     })
 
     onInvalidate(() => {
@@ -39,22 +37,18 @@ export function useLexicalNodeSelection(
     })
   })
 
-  onUnmounted(() => {
-    unregisterListener?.()
-  })
-
   const setSelected = (selected: boolean) => {
     editor.update(() => {
       let selection = $getSelection()
-      const realKeyVal = getRealValue(key)
+      const realKeyVal = unref(key)
       if (!$isNodeSelection(selection)) {
         selection = $createNodeSelection()
         $setSelection(selection)
       }
       if (selected)
-        (selection as NodeSelection).add(realKeyVal)
+        (selection).add(realKeyVal)
       else
-        (selection as NodeSelection).delete(realKeyVal)
+        (selection).delete(realKeyVal)
     })
   }
 
@@ -62,7 +56,7 @@ export function useLexicalNodeSelection(
     editor.update(() => {
       const selection = $getSelection()
       if ($isNodeSelection(selection))
-        (selection as NodeSelection).clear()
+        (selection).clear()
     })
   }
 
