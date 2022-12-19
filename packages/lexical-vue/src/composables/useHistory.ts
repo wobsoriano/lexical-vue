@@ -1,22 +1,22 @@
 import type { HistoryState } from '@lexical/history'
 import type { LexicalEditor } from 'lexical'
-import type { Ref } from 'vue'
-import { computed, watchEffect } from 'vue'
+import { computed, unref, watchPostEffect } from 'vue'
 
 import { createEmptyHistoryState, registerHistory } from '@lexical/history'
-import { getRealValue } from '../utils'
+import type { MaybeRef } from '../utils'
 
 export function useHistory(
-  editor: LexicalEditor,
-  externalHistoryState?: Ref<HistoryState> | HistoryState,
-  delay?: Ref<number> | number,
+  editor: MaybeRef<LexicalEditor>,
+  externalHistoryState?: MaybeRef<HistoryState>,
+  delay?: MaybeRef<number>,
 ) {
   const historyState = computed<HistoryState>(
-    () => getRealValue(externalHistoryState) || createEmptyHistoryState(),
+    () => unref(externalHistoryState) || createEmptyHistoryState(),
   )
 
-  watchEffect((onInvalidate) => {
-    const unregisterListener = registerHistory(editor, historyState.value, getRealValue(delay) || 1000)
+  watchPostEffect((onInvalidate) => {
+    const unregisterListener = registerHistory(unref(editor), historyState.value, unref(delay) || 1000)
+
     onInvalidate(() => {
       unregisterListener()
     })
