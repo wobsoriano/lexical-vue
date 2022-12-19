@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useEditor } from '../composables/useEditor'
 
 withDefaults(defineProps<{
@@ -29,7 +29,7 @@ withDefaults(defineProps<{
 const root = ref<HTMLElement | null>(null)
 const editor = useEditor()
 
-const editable = ref(true)
+const editable = ref(false)
 
 onMounted(() => {
   if (root.value) {

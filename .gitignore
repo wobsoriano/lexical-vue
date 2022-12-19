@@ -8,3 +8,4 @@ dist
 .turbo
 .idea
 pnpm-lock.yaml
+.vscode

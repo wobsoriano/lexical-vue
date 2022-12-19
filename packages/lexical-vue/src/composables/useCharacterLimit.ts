@@ -87,7 +87,6 @@ function findOffset(
   maxCharacters: number,
   strlen: (input: string) => number,
 ): number {
-  // @ts-expect-error: TODO: https://github.com/microsoft/TypeScript/issues/48523
   const Segmenter = Intl.Segmenter
   let offsetUtf16 = 0
   let offset = 0
