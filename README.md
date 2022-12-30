@@ -1,7 +1,5 @@
 # Lexical Vue
 
-[![npm (tag)](https://img.shields.io/npm/v/lexical-vue?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/lexical-vue) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/lexical-vue?style=flat&colorA=000000&colorB=000000) ![NPM](https://img.shields.io/npm/l/lexical-vue?style=flat&colorA=000000&colorB=000000)
-
 An extensible Vue 3 web text-editor based on [Lexical](https://github.com/facebook/lexical).
 
 For documentation and more information about Lexical, be sure to visit the [Lexical website](https://lexical.dev/).
@@ -80,8 +78,6 @@ const content = ref('')
 ```
 
 For a more complex example, check the [rich text editor playground](https://github.com/wobsoriano/lexical-vue/tree/master/packages/playground).
-
-I'm converting most of [@lexical/react](https://github.com/facebook/lexical/tree/main/packages/lexical-react) plugins into Vue 3 components. Check them all [here](https://github.com/wobsoriano/lexical-vue/tree/master/packages/lexical-vue/src/components).
 
 ### Creating custom Lexical nodes with Vue
 
