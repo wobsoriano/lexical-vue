@@ -56,7 +56,6 @@ importers:
       unbuild: 1.0.2
       vitepress: 1.0.0-alpha.33_@types+node@18.11.18
       vue: 3.2.45
-    publishDirectory: package
 
   playground:
     specifiers:
