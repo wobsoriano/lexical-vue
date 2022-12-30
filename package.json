@@ -61,7 +61,7 @@
     "@lexical/utils": "^0.7.5"
   },
   "peerDependencies": {
-    "lexical": "^0.7.0",
+    "lexical": "^0.7.5",
     "vue": "^3.2.0"
   },
   "devDependencies": {
