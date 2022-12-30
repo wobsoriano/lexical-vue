@@ -55,7 +55,10 @@
   "scripts": {
     "build": "unbuild",
     "release": "bumpp && npm publish",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
   },
   "peerDependencies": {
     "lexical": "^0.7.5",
