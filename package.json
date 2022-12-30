@@ -56,6 +56,7 @@
     "build": "unbuild",
     "release": "bumpp && npm publish",
     "prepublishOnly": "pnpm run build",
+    "lint": "eslint .",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs"
