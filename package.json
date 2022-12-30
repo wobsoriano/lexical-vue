@@ -59,9 +59,7 @@
     "dev": "vite build --watch",
     "build": "unbuild",
     "release": "bumpp --commit --push --tag && npm publish",
-    "prepublishOnly": "rimraf ./package && pnpm run build && clean-publish",
-    "postpublish": "rimraf ./package",
-    "typecheck": "tsc"
+    "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
     "lexical": "^0.7.5",
@@ -90,19 +88,12 @@
     "@types/node": "^18.11.18",
     "@vitejs/plugin-vue": "^4.0.0",
     "bumpp": "^8.2.1",
-    "clean-publish": "^4.0.2",
     "eslint": "^8.30.0",
     "lexical": "0.7.5",
-    "rimraf": "^3.0.2",
     "typescript": "^4.9.4",
     "unbuild": "^1.0.2",
     "vite": "^4.0.3",
     "vitepress": "1.0.0-alpha.33",
-    "vue": "^3.2.45",
-    "vue-tsc": "^1.0.18"
-  },
-  "clean-publish": {
-    "withoutPublish": true,
-    "tempDir": "package"
+    "vue": "^3.2.45"
   }
 }
