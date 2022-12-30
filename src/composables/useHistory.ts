@@ -3,7 +3,7 @@ import type { LexicalEditor } from 'lexical'
 import { computed, unref, watchPostEffect } from 'vue'
 
 import { createEmptyHistoryState, registerHistory } from '@lexical/history'
-import type { MaybeRef } from '../utils'
+import type { MaybeRef } from '../types'
 
 export function useHistory(
   editor: MaybeRef<LexicalEditor>,

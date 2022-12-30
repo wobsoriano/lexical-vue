@@ -21,7 +21,7 @@ import {
   $isTextNode,
   TextNode,
 } from 'lexical'
-import type { MaybeRef } from '../utils'
+import type { MaybeRef } from '../types'
 
 type ChangeHandler = (url: string | null, prevUrl: string | null) => void
 

@@ -4,7 +4,7 @@ import type { TextNode } from 'lexical'
 import { registerLexicalTextEntity } from '@lexical/text'
 import { mergeRegister } from '@lexical/utils'
 import { onMounted, onUnmounted } from 'vue'
-import type { Class } from '../utils'
+import type { Class } from '../types'
 import { useEditor } from './useEditor'
 
 export function useLexicalTextEntity<N extends TextNode>(

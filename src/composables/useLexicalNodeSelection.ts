@@ -8,7 +8,7 @@ import {
   $setSelection,
 } from 'lexical'
 import { readonly, ref, unref, watchPostEffect } from 'vue'
-import type { MaybeRef } from '../utils'
+import type { MaybeRef } from '../types'
 import { useEditor } from './useEditor'
 
 function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {

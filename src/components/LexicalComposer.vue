@@ -3,8 +3,7 @@ import { onMounted, provide } from 'vue'
 import type { EditorThemeClasses, LexicalEditor, LexicalNode } from 'lexical'
 import { $createParagraphNode, $getRoot, $getSelection, createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
-import type { Class } from '../utils'
-import type { InitialEditorStateType } from './index'
+import type { Class, InitialEditorStateType } from '../types'
 
 const props = defineProps<{
   initialConfig: {

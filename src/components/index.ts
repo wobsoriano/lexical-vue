@@ -1,10 +1,3 @@
-import type { EditorState, LexicalEditor } from 'lexical'
-
-export type InitialEditorStateType =
-    | null
-    | string
-    | EditorState
-    | ((editor: LexicalEditor) => void)
 export {
   default as LexicalContentEditable,
 } from './LexicalContentEditable.vue'
