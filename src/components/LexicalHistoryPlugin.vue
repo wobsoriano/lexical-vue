@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { HistoryState } from '@lexical/history'
-import { useEditor } from '../composables/useEditor'
-import { useHistory } from '../composables/useHistory'
+import { useEditor, useHistory } from '../composables'
 
 const props = defineProps<{
   externalHistoryState?: HistoryState

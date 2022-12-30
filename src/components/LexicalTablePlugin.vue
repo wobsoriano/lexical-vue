@@ -18,7 +18,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 const editor = useEditor()
 

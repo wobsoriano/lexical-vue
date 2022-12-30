@@ -2,7 +2,7 @@
 import { TRANSFORMERS, registerMarkdownShortcuts } from '@lexical/markdown'
 import type { Transformer } from '@lexical/markdown'
 import { defineProps, onMounted, onUnmounted } from 'vue'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 const props = withDefaults(defineProps<{
   transformers?: Transformer[]

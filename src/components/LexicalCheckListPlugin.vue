@@ -31,7 +31,7 @@ import {
 } from '@lexical/list'
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
 import { onMounted, onUnmounted } from 'vue'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 const editor = useEditor()
 

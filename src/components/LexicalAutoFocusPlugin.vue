@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onMounted } from 'vue'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 const props = defineProps<{
   defaultSelection?: 'rootStart' | 'rootEnd'

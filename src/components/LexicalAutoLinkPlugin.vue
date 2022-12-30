@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { LinkMatcher } from '../composables/useAutoLink'
-import { useAutoLink } from '../composables/useAutoLink'
-import { useEditor } from '../composables/useEditor'
+import { type LinkMatcher, useAutoLink, useEditor } from '../composables'
 const props = defineProps<{
   matchers: LinkMatcher[]
 }>()

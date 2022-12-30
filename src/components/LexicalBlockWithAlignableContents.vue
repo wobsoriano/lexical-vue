@@ -20,8 +20,7 @@ import {
   KEY_DELETE_COMMAND,
 } from 'lexical'
 import { ref, watchPostEffect } from 'vue'
-import { useLexicalNodeSelection } from '../composables/useLexicalNodeSelection'
-import { useEditor } from '../composables/useEditor'
+import { useEditor, useLexicalNodeSelection } from '../composables'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 
 const props = defineProps<{

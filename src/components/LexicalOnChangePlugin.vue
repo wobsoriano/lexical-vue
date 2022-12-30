@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted } from 'vue'
 import type { EditorState, LexicalEditor } from 'lexical'
 import { $getRoot } from 'lexical'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 const props = withDefaults(defineProps<{
   ignoreInitialChange?: boolean

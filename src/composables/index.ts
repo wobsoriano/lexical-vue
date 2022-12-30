@@ -1,5 +1,6 @@
 export {
   useAutoLink,
+  type LinkMatcher,
 } from './useAutoLink'
 export {
   useCanShowPlaceholder,

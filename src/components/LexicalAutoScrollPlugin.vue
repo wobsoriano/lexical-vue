@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { $getSelection, $isRangeSelection } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 const props = defineProps<{
   scrollRef: HTMLElement | null

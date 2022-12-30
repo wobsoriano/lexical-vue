@@ -1,6 +1,5 @@
 import { defineComponent } from 'vue'
-import { useDecorators } from '../composables/useDecorators'
-import { useEditor } from '../composables/useEditor'
+import { useDecorators, useEditor } from '../composables'
 
 export default defineComponent({
   name: 'LexicalDecoratedTeleports',

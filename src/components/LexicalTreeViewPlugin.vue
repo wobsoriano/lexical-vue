@@ -20,7 +20,7 @@ import {
 import { computed, onUnmounted, ref, watchEffect } from 'vue'
 import type { LinkNode } from '@lexical/link'
 import { $isLinkNode } from '@lexical/link'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 defineProps<{
   timeTravelButtonClassName: string

@@ -3,8 +3,7 @@ import type { TextNode } from 'lexical'
 
 import { $createHashtagNode, HashtagNode } from '@lexical/hashtag'
 import { onMounted } from 'vue'
-import { useEditor } from '../composables/useEditor'
-import { useLexicalTextEntity } from '../composables/useLexicalTextEntity'
+import { useEditor, useLexicalTextEntity } from '../composables'
 
 function getHashtagRegexStringChars(): {
   alpha: string

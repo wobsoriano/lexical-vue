@@ -7,7 +7,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import { getCurrentInstance, onMounted, onUnmounted } from 'vue'
-import { useEditor } from '../composables/useEditor'
+import { useEditor } from '../composables'
 
 const emit = defineEmits<{
   (e: 'clear'): void
