@@ -1313,7 +1313,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.0.3
+      vite: 4.0.3_@types+node@18.11.18
       vue: 3.2.45
     dev: true
 

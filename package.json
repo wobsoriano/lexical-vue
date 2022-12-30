@@ -54,6 +54,7 @@
   ],
   "scripts": {
     "build": "unbuild",
+    "dev": "pnpm build && pnpm --filter playground dev",
     "release": "bumpp && npm publish",
     "prepublishOnly": "pnpm run build",
     "lint": "eslint .",
