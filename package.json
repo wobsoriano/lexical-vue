@@ -3,9 +3,6 @@
   "type": "module",
   "version": "0.2.5",
   "description": "An extensible Vue 3 web text-editor based on Lexical.",
-  "publishConfig": {
-    "directory": "package"
-  },
   "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/wobsoriano/lexical-vue#readme",
@@ -58,7 +55,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "unbuild",
-    "release": "bumpp --commit --push --tag && npm publish",
+    "release": "bumpp && npm publish",
     "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
