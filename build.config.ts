@@ -1,4 +1,5 @@
 import { defineBuildConfig } from 'unbuild'
+import vue from '@vitejs/plugin-vue'
 
 const lexicalPlugins = [
   'clipboard',
@@ -21,15 +22,22 @@ const lexicalPlugins = [
 
 export default defineBuildConfig({
   entries: [
-    { builder: 'mkdist', input: './src/', ext: 'js', format: 'esm' },
-    { builder: 'mkdist', input: './src/', ext: 'cjs', format: 'cjs' },
+    'src/index',
   ],
   declaration: true,
   clean: true,
-  // Externals property here is unnecessary because of mkdist but just in case...
   externals: [
     'lexical',
     'vue',
     ...lexicalPlugins.map(plugin => `@lexical/${plugin}`),
   ],
+  rollup: {
+    emitCJS: true,
+  },
+  hooks: {
+    'rollup:options': function (_ctx, options) {
+      if (Array.isArray(options.plugins))
+        options.plugins.push(vue())
+    },
+  },
 })

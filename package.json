@@ -1,5 +1,6 @@
 {
   "name": "lexical-vue",
+  "type": "module",
   "version": "0.3.3",
   "description": "An extensible Vue 3 web text-editor based on Lexical.",
   "author": "Robert Soriano <sorianorobertc@gmail.com>",
@@ -23,11 +24,11 @@
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "import": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
@@ -77,12 +78,12 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.34.0",
     "@types/node": "^18.11.18",
+    "@vitejs/plugin-vue": "^4.0.0",
     "bumpp": "^8.2.1",
     "eslint": "^8.30.0",
     "lexical": "0.7.5",
     "typescript": "^4.9.4",
     "unbuild": "^1.0.2",
-    "vitepress": "1.0.0-alpha.33",
-    "vue": "^3.2.45"
+    "vitepress": "1.0.0-alpha.33"
   }
 }
