@@ -10,7 +10,7 @@ export default defineConfig({
   dts: false,
   outExtension({ format }) {
     return {
-      js: format === 'esm' ? '.mjs' : `.${format}`,
+      js: format === 'esm' ? '.mjs' : '.js',
     }
   },
   esbuildPlugins: [vuePlugin()],
