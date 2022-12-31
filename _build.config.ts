@@ -24,8 +24,8 @@ export default defineBuildConfig({
   entries: [
     'src/index',
   ],
-  declaration: false,
-  clean: false,
+  declaration: true,
+  clean: true,
   externals: [
     'lexical',
     'vue',
