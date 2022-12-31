@@ -1,3 +1,5 @@
+import LexicalDecoratedTeleports from './LexicalDecoratedTeleports'
+
 export {
   default as LexicalContentEditable,
 } from './LexicalContentEditable.vue'
@@ -44,8 +46,8 @@ export {
   default as LexicalAutoScrollPlugin,
 } from './LexicalAutoScrollPlugin.vue'
 export {
-  default as LexicalDecoratedTeleports,
-} from './LexicalDecoratedTeleports'
+  LexicalDecoratedTeleports,
+}
 export {
   default as LexicalHashtagPlugin,
 } from './LexicalHashtagPlugin.vue'
