@@ -23,21 +23,21 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
+      "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./components": {
       "types": "./dist/components/index.d.ts",
-      "require": "./dist/components/index.cjs",
+      "require": "./dist/components/index.js",
       "import": "./dist/components/index.mjs"
     },
     "./composables": {
       "types": "./dist/composables/index.d.ts",
-      "require": "./dist/composables/index.cjs",
+      "require": "./dist/composables/index.js",
       "import": "./dist/composables/index.mjs"
     }
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "typesVersions": {
