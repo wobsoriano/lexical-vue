@@ -26,9 +26,6 @@ export default defineBuildConfig({
   ],
   declaration: true,
   clean: true,
-  rollup: {
-    cjsBridge: true,
-  },
   // Externals property here is unnecessary because of mkdist but just in case...
   externals: [
     'lexical',
