@@ -21,8 +21,8 @@ const lexicalPlugins = [
 
 export default defineBuildConfig({
   entries: [
-    { builder: 'mkdist', input: './src/' },
-    { builder: 'mkdist', input: './src/', ext: 'js', format: 'cjs' },
+    { builder: 'mkdist', input: './src/', ext: 'js', format: 'esm' },
+    { builder: 'mkdist', input: './src/', ext: 'cjs', format: 'cjs' },
   ],
   declaration: true,
   clean: true,
