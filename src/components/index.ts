@@ -61,3 +61,6 @@ export {
 export {
   default as LexicalMarkdownShortcutPlugin,
 } from './LexicalMarkdownShortcutPlugin.vue'
+export {
+  default as LexicalTabIndentationPlugin,
+} from './LexicalTabIndentationPlugin.vue'
