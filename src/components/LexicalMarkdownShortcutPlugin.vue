@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { TRANSFORMERS, registerMarkdownShortcuts } from '@lexical/markdown'
 import type { Transformer } from '@lexical/markdown'
-import { defineProps, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables'
 
 const props = withDefaults(defineProps<{
