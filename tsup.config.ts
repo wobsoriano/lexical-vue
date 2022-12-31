@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsup'
-import vuePlugin from 'esbuild-plugin-vue'
+import vuePlugin from 'unplugin-vue/esbuild'
 
 export default defineConfig({
   entry: ['src/index.ts'],
