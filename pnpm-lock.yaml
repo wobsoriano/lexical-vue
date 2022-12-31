@@ -30,6 +30,7 @@ importers:
       unbuild: ^1.0.2
       vitepress: 1.0.0-alpha.33
       vue: ^3.2.45
+      vue-tsc: ^1.0.18
     dependencies:
       '@lexical/clipboard': 0.7.5_lexical@0.7.5
       '@lexical/code': 0.7.5_lexical@0.7.5
@@ -58,6 +59,7 @@ importers:
       unbuild: 1.0.2
       vitepress: 1.0.0-alpha.33_@types+node@18.11.18
       vue: 3.2.45
+      vue-tsc: 1.0.18_typescript@4.9.4
 
   playground:
     specifiers:
