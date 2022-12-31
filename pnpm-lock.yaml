@@ -22,7 +22,6 @@ importers:
       '@lexical/text': ^0.7.5
       '@lexical/utils': ^0.7.5
       '@types/node': ^18.11.18
-      '@vitejs/plugin-vue': ^4.0.0
       bumpp: ^8.2.1
       concurrently: ^7.6.0
       esbuild-plugin-vue: ^0.2.4
@@ -53,7 +52,6 @@ importers:
     devDependencies:
       '@antfu/eslint-config': 0.34.0_lzzuuodtsqwxnvqeq4g4likcqa
       '@types/node': 18.11.18
-      '@vitejs/plugin-vue': 4.0.0_vue@3.2.45
       bumpp: 8.2.1
       concurrently: 7.6.0
       esbuild-plugin-vue: 0.2.4
@@ -998,17 +996,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.0.3_@types+node@18.11.18
-      vue: 3.2.45
-    dev: true
-
-  /@vitejs/plugin-vue/4.0.0_vue@3.2.45:
-    resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: ^4.0.0
-      vue: ^3.2.25
-    dependencies:
+      vite: 4.0.3
       vue: 3.2.45
     dev: true
 

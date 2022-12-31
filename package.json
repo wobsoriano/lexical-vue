@@ -70,7 +70,6 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.34.0",
     "@types/node": "^18.11.18",
-    "@vitejs/plugin-vue": "^4.0.0",
     "bumpp": "^8.2.1",
     "concurrently": "^7.6.0",
     "esbuild-plugin-vue": "^0.2.4",
