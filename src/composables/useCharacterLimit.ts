@@ -14,7 +14,7 @@ import {
   $isTextNode,
   $setSelection,
 } from 'lexical'
-import { onMounted, onUnmounted } from 'vue'
+import { useMounted } from './useMounted'
 
 interface OptionalProps {
   remainingCharacters?: (characters: number) => void
@@ -25,26 +25,23 @@ export function useCharacterLimit(
   editor: LexicalEditor,
   maxCharacters: number,
   optional: OptionalProps = Object.freeze({}),
-): void {
+) {
   const {
     strlen = input => input.length, // UTF-16
     remainingCharacters = (_characters) => {},
   } = optional
-  let unregisterListener: () => void
 
-  onMounted(() => {
+  useMounted(() => {
     if (!editor.hasNodes([OverflowNode])) {
       throw new Error(
         'useCharacterLimit: OverflowNode not registered on editor',
       )
     }
-  })
 
-  onMounted(() => {
     let text = editor.getEditorState().read($rootTextContent)
     let lastComputedTextLength = 0
 
-    unregisterListener = mergeRegister(
+    return mergeRegister(
       editor.registerTextContentListener((currentText: string) => {
         text = currentText
       }),
@@ -75,10 +72,6 @@ export function useCharacterLimit(
         lastComputedTextLength = textLength
       }),
     )
-  })
-
-  onUnmounted(() => {
-    unregisterListener?.()
   })
 }
 

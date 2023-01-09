@@ -17,13 +17,11 @@ import {
   INSERT_PARAGRAPH_COMMAND,
   OUTDENT_CONTENT_COMMAND,
 } from 'lexical'
-import { onMounted, onUnmounted } from 'vue'
+import { useMounted } from './useMounted'
 
-export function useList(editor: LexicalEditor): void {
-  let unregisterListener: () => void
-
-  onMounted(() => {
-    unregisterListener = mergeRegister(
+export function useList(editor: LexicalEditor) {
+  useMounted(() => {
+    return mergeRegister(
       editor.registerCommand(
         INDENT_CONTENT_COMMAND,
         () => {
@@ -76,9 +74,5 @@ export function useList(editor: LexicalEditor): void {
         COMMAND_PRIORITY_LOW,
       ),
     )
-  })
-
-  onUnmounted(() => {
-    unregisterListener?.()
   })
 }

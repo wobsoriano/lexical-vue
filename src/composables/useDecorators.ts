@@ -1,20 +1,15 @@
 import type { LexicalEditor } from 'lexical'
 import type { Component } from 'vue'
-import { Teleport, computed, h, onMounted, onUnmounted, ref, unref } from 'vue'
+import { Teleport, computed, h, ref, unref } from 'vue'
+import { useMounted } from './useMounted'
 
 export function useDecorators(editor: LexicalEditor) {
   const decorators = ref<Record<string, Component>>(editor.getDecorators())
 
-  let unregisterListener: () => void
-
-  onMounted(() => {
-    unregisterListener = editor.registerDecoratorListener((nextDecorators) => {
+  useMounted(() => {
+    return editor.registerDecoratorListener((nextDecorators) => {
       decorators.value = nextDecorators as Record<string, Component>
     })
-  })
-
-  onUnmounted(() => {
-    unregisterListener?.()
   })
 
   // Return decorators defined as Vue Teleports

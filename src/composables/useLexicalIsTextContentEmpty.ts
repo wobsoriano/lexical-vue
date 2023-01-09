@@ -1,6 +1,7 @@
-import { onUnmounted, readonly, ref } from 'vue'
+import { readonly, ref } from 'vue'
 import { $isRootTextContentEmptyCurry } from '@lexical/text'
 import type { LexicalEditor } from 'lexical'
+import { useMounted } from './useMounted'
 
 export function useLexicalIsTextContentEmpty(editor: LexicalEditor, trim?: boolean) {
   const isEmpty = ref(
@@ -9,15 +10,13 @@ export function useLexicalIsTextContentEmpty(editor: LexicalEditor, trim?: boole
       .read($isRootTextContentEmptyCurry(editor.isComposing(), trim)),
   )
 
-  const unregisterListener = editor.registerUpdateListener(({ editorState }) => {
-    const isComposing = editor.isComposing()
-    isEmpty.value = editorState.read(
-      $isRootTextContentEmptyCurry(isComposing, trim),
-    )
-  })
-
-  onUnmounted(() => {
-    unregisterListener()
+  useMounted(() => {
+    return editor.registerUpdateListener(({ editorState }) => {
+      const isComposing = editor.isComposing()
+      isEmpty.value = editorState.read(
+        $isRootTextContentEmptyCurry(isComposing, trim),
+      )
+    })
   })
 
   return readonly(isEmpty)

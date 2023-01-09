@@ -5,7 +5,7 @@
  */
 import type { LinkAttributes } from '@lexical/link'
 import type { ElementNode, LexicalEditor, LexicalNode } from 'lexical'
-import { unref, watchEffect } from 'vue'
+import { unref, watchPostEffect } from 'vue'
 
 import {
   $createAutoLinkNode,
@@ -249,7 +249,7 @@ export function useAutoLink(
   matchers: MaybeRef<Array<LinkMatcher>>,
   onChange?: ChangeHandler,
 ) {
-  watchEffect((onInvalidate) => {
+  watchPostEffect((onInvalidate) => {
     if (!editor.hasNodes([AutoLinkNode])) {
       throw new Error(
         'LexicalAutoLinkPlugin: AutoLinkNode not registered on editor',

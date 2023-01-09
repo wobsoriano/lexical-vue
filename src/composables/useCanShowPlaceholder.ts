@@ -1,7 +1,8 @@
-import { onMounted, onUnmounted, readonly, ref } from 'vue'
+import { readonly, ref } from 'vue'
 import { $canShowPlaceholderCurry } from '@lexical/text'
 import type { LexicalEditor } from 'lexical'
 import { mergeRegister } from '@lexical/utils'
+import { useMounted } from './useMounted'
 
 function canShowPlaceholderFromCurrentEditorState(
   editor: LexicalEditor,
@@ -26,10 +27,8 @@ export function useCanShowPlaceholder(editor: LexicalEditor) {
     canShowPlaceholder.value = currentCanShowPlaceholder
   }
 
-  let unregisterListener: () => void
-
-  onMounted(() => {
-    unregisterListener = mergeRegister(
+  useMounted(() => {
+    return mergeRegister(
       editor.registerUpdateListener(() => {
         resetCanShowPlaceholder()
       }),
@@ -37,10 +36,6 @@ export function useCanShowPlaceholder(editor: LexicalEditor) {
         resetCanShowPlaceholder()
       }),
     )
-  })
-
-  onUnmounted(() => {
-    unregisterListener()
   })
 
   return readonly(canShowPlaceholder)
