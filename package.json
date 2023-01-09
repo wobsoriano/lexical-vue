@@ -34,7 +34,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup && pnpm build:dts",
+    "build": "tsup --onSuccess \"pnpm build:dts\"",
     "build:dts": "vue-tsc --declaration --emitDeclarationOnly",
     "dev": "tsup --watch --onSuccess \"pnpm build:dts && pnpm --filter playground dev\"",
     "release": "bumpp && npm publish",
