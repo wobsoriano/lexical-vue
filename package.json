@@ -34,10 +34,9 @@
     "dist"
   ],
   "scripts": {
-    "build:fast": "tsup",
+    "build": "tsup && pnpm build:dts",
     "build:dts": "vue-tsc --declaration --emitDeclarationOnly",
-    "build": "pnpm build:dts && pnpm build:fast",
-    "dev": "concurrently \"pnpm build --watch\" \"pnpm --filter playground dev\"",
+    "dev": "tsup --watch --onSuccess \"pnpm build:dts && pnpm --filter playground dev\"",
     "release": "bumpp && npm publish",
     "prepublishOnly": "pnpm run build",
     "lint": "eslint .",
@@ -71,7 +70,6 @@
     "@antfu/eslint-config": "^0.34.0",
     "@types/node": "^18.11.18",
     "bumpp": "^8.2.1",
-    "concurrently": "^7.6.0",
     "eslint": "^8.30.0",
     "lexical": "0.7.5",
     "tsup": "^6.5.0",
