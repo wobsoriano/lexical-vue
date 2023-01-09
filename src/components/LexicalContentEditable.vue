@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useEditor } from '../composables'
+import { useMounted } from '../composables/useMounted'
 
 withDefaults(defineProps<{
   ariaActivedescendant?: string
@@ -31,19 +32,15 @@ const editor = useEditor()
 
 const editable = ref(false)
 
-onMounted(() => {
+useMounted(() => {
   if (root.value) {
     editor.setRootElement(root.value)
     editable.value = editor.isEditable()
   }
-})
 
-const unregisterListener = editor.registerEditableListener((currentIsEditable) => {
-  editable.value = currentIsEditable
-})
-
-onUnmounted(() => {
-  unregisterListener?.()
+  return editor.registerEditableListener((currentIsEditable) => {
+    editable.value = currentIsEditable
+  })
 })
 </script>
 

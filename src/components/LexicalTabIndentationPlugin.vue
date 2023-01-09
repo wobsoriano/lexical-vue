@@ -7,13 +7,13 @@ import {
   KEY_TAB_COMMAND,
   OUTDENT_CONTENT_COMMAND,
 } from 'lexical'
-import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables'
+import { useMounted } from '../composables/useMounted'
 
 const editor = useEditor()
 
-onMounted(() => {
-  const unregisterListener = editor.registerCommand<KeyboardEvent>(
+useMounted(() => {
+  return editor.registerCommand<KeyboardEvent>(
     KEY_TAB_COMMAND,
     (event) => {
       const selection = $getSelection()
@@ -30,10 +30,6 @@ onMounted(() => {
     },
     COMMAND_PRIORITY_EDITOR,
   )
-
-  onUnmounted(() => {
-    unregisterListener()
-  })
 })
 </script>
 

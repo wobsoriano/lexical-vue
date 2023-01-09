@@ -17,13 +17,10 @@ import {
   $isRootNode,
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
-import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables'
+import { useMounted } from '../composables/useMounted'
 
 const editor = useEditor()
-
-let unregisterListener: () => void
-let unregisterMutationListener: () => void
 
 if (!editor.hasNodes([TableNode, TableCellNode, TableRowNode])) {
   throw new Error(
@@ -31,8 +28,8 @@ if (!editor.hasNodes([TableNode, TableCellNode, TableRowNode])) {
   )
 }
 
-onMounted(() => {
-  unregisterListener = editor.registerCommand<InsertTableCommandPayload>(
+useMounted(() => {
+  return editor.registerCommand<InsertTableCommandPayload>(
     INSERT_TABLE_COMMAND,
     ({ columns, rows, includeHeaders }) => {
       const selection = $getSelection()
@@ -74,10 +71,10 @@ onMounted(() => {
   )
 })
 
-onMounted(() => {
+useMounted(() => {
   const tableSelections = new Map<NodeKey, TableSelection>()
 
-  unregisterMutationListener = editor.registerMutationListener(TableNode, (nodeMutations) => {
+  return editor.registerMutationListener(TableNode, (nodeMutations) => {
     for (const [nodeKey, mutation] of nodeMutations) {
       if (mutation === 'created') {
         editor.update(() => {
@@ -104,11 +101,6 @@ onMounted(() => {
       }
     }
   })
-})
-
-onUnmounted(() => {
-  unregisterListener?.()
-  unregisterMutationListener?.()
 })
 </script>
 

@@ -7,17 +7,16 @@ import {
 import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
-import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables'
+import { useMounted } from '../composables/useMounted'
 
 const editor = useEditor()
-let unregisterListener: () => void
 
-onMounted(() => {
+useMounted(() => {
   if (!editor.hasNodes([LinkNode]))
     throw new Error('LinkPlugin: LinkNode not registered on editor')
 
-  unregisterListener = editor.registerCommand(
+  return editor.registerCommand(
     TOGGLE_LINK_COMMAND,
     (payload) => {
       if (typeof payload === 'string' || payload === null) {
@@ -31,10 +30,6 @@ onMounted(() => {
     },
     COMMAND_PRIORITY_EDITOR,
   )
-})
-
-onUnmounted(() => {
-  unregisterListener?.()
 })
 </script>
 

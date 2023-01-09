@@ -19,8 +19,9 @@ import {
   KEY_BACKSPACE_COMMAND,
   KEY_DELETE_COMMAND,
 } from 'lexical'
-import { ref, watchPostEffect } from 'vue'
+import { ref } from 'vue'
 import { useEditor, useLexicalNodeSelection } from '../composables'
+import { useMounted } from '../composables/useMounted'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 
 const props = defineProps<{
@@ -46,8 +47,8 @@ const onDelete = (event: KeyboardEvent) => {
   return false
 }
 
-watchPostEffect((onInvalidate) => {
-  const unregisterListener = mergeRegister(
+useMounted(() => {
+  return mergeRegister(
     editor.registerCommand<ElementFormatType>(
       FORMAT_ELEMENT_COMMAND,
       (formatType) => {
@@ -106,8 +107,6 @@ watchPostEffect((onInvalidate) => {
       COMMAND_PRIORITY_LOW,
     ),
   )
-
-  onInvalidate(unregisterListener)
 })
 </script>
 

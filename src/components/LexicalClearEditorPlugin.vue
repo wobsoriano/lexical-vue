@@ -6,19 +6,20 @@ import {
   CLEAR_EDITOR_COMMAND,
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
-import { getCurrentInstance, onMounted, onUnmounted } from 'vue'
+import { useAttrs } from 'vue'
 import { useEditor } from '../composables'
+import { useMounted } from '../composables/useMounted'
 
 const emit = defineEmits<{
   (e: 'clear'): void
 }>()
 const editor = useEditor()
+const attrs = useAttrs()
 
-onMounted(() => {
-  const instance = getCurrentInstance()
-  const emitExists = Boolean(instance?.attrs?.onClear)
+useMounted(() => {
+  const emitExists = Boolean(attrs.onClear)
 
-  const unregisterListener = editor.registerCommand(
+  return editor.registerCommand(
     CLEAR_EDITOR_COMMAND,
     (_payload) => {
       editor.update(() => {
@@ -39,8 +40,6 @@ onMounted(() => {
     },
     COMMAND_PRIORITY_EDITOR,
   )
-
-  onUnmounted(unregisterListener)
 })
 </script>
 

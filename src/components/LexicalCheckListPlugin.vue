@@ -30,13 +30,13 @@ import {
   insertList,
 } from '@lexical/list'
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
-import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables'
+import { useMounted } from '../composables/useMounted'
 
 const editor = useEditor()
 
-onMounted(() => {
-  const unregisterListener = mergeRegister(
+useMounted(() => {
+  return mergeRegister(
     editor.registerCommand(
       INSERT_CHECK_LIST_COMMAND,
       () => {
@@ -134,10 +134,6 @@ onMounted(() => {
     ),
     listenPointerDown(),
   )
-
-  onUnmounted(() => {
-    unregisterListener?.()
-  })
 })
 
 let listenersCount = 0

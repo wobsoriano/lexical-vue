@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { $getSelection, $isRangeSelection } from 'lexical'
-import { onMounted, onUnmounted } from 'vue'
 import { useEditor } from '../composables'
+import { useMounted } from '../composables/useMounted'
 
 const props = defineProps<{
   scrollRef: HTMLElement | null
@@ -9,10 +9,8 @@ const props = defineProps<{
 
 const editor = useEditor()
 
-let unregisterListener: () => void
-
-onMounted(() => {
-  unregisterListener = editor.registerUpdateListener(({ tags, editorState }) => {
+useMounted(() => {
+  return editor.registerUpdateListener(({ tags, editorState }) => {
     const scrollElement = props.scrollRef
     if (!scrollElement || !tags.has('scroll-into-view'))
       return
@@ -33,9 +31,5 @@ onMounted(() => {
     else if (rect.top < scrollRect.top)
       anchorElement.scrollIntoView()
   })
-})
-
-onUnmounted(() => {
-  unregisterListener?.()
 })
 </script>
