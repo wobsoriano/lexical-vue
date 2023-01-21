@@ -17,8 +17,7 @@ import {
   $isRootNode,
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
-import { useEditor } from '../composables'
-import { useMounted } from '../composables/useMounted'
+import { useEditor, useMounted } from '../composables'
 
 const editor = useEditor()
 

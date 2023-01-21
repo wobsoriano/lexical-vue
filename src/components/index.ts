@@ -64,3 +64,9 @@ export {
 export {
   default as LexicalTabIndentationPlugin,
 } from './LexicalTabIndentationPlugin.vue'
+export {
+  default as LexicalPopoverMenu,
+} from './LexicalPopoverMenu.vue'
+export {
+  default as LexicalTypaheadMenuPlugin,
+} from './LexicalTypaheadMenuPlugin.vue'
