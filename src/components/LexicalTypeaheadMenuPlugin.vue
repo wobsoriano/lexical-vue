@@ -31,7 +31,7 @@ function setResolution(value: Resolution | null) {
 const anchorElementRef = useMenuAnchorRef(
   resolution,
   setResolution,
-  // anchorClassName: props.anchorClassName,
+  props.anchorClassName,
 )
 
 const closeTypeahead = () => {
