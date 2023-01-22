@@ -1,3 +1,4 @@
+import type { TextNode } from 'lexical'
 import type { VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import LexicalTypeaheadMenuPlugin from '../components/LexicalTypeaheadMenuPlugin.vue'
@@ -18,11 +19,20 @@ export function useLexicalTypeaheadMenuPlugin<Option extends TypeaheadOption>() 
   const wrapper = defineComponent((
     props: Props<Option>,
     { slots }) => {
-    return () => h(LexicalTypeaheadMenuPlugin as any, props, slots)
+    return () => h(LexicalTypeaheadMenuPlugin, props, slots)
   })
 
   return wrapper as typeof wrapper & {
     new (): {
+      $emit: {
+        (e: 'close'): void
+        (e: 'selectOption', payload: {
+          close: () => void
+          option: Option
+          textNodeContainingQuery: TextNode | null
+          matchingString: string
+        }): void
+      }
       $slots: {
         default: (arg: {
           listItemProps: {
