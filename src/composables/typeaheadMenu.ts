@@ -75,7 +75,7 @@ export function useMenuAnchorRef(
     const rootElement = editor.getRootElement()
     const containerDiv = anchorElementRef.value
 
-    if (rootElement !== null && resolution !== null) {
+    if (rootElement !== null && unref(resolution) !== null) {
       const { left, top, width, height } = unref(resolution as Resolution).getRect()
       containerDiv.style.top = `${top + window.pageYOffset}px`
       containerDiv.style.left = `${left + window.pageXOffset}px`
@@ -100,7 +100,7 @@ export function useMenuAnchorRef(
 
   useEffect(() => {
     const rootElement = editor.getRootElement()
-    if (resolution !== null) {
+    if (unref(resolution) !== null) {
       positionMenu()
       return () => {
         if (rootElement !== null)
@@ -114,7 +114,7 @@ export function useMenuAnchorRef(
   })
 
   const onVisibilityChange = (isInView: boolean) => {
-    if (resolution !== null) {
+    if (unref(resolution) !== null) {
       if (!isInView)
         setResolution(null)
     }
