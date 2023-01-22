@@ -2,7 +2,7 @@ import type { TextNode } from 'lexical'
 import type { VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import LexicalTypeaheadMenuPlugin from '../components/LexicalTypeaheadMenuPlugin.vue'
-import type { TypeaheadOption } from './typeaheadMenu'
+import type { Resolution, TypeaheadOption } from './typeaheadMenu'
 
 type ExtractComponentProps<TComponent> =
   TComponent extends new () => {
@@ -26,6 +26,8 @@ export function useLexicalTypeaheadMenuPlugin<Option extends TypeaheadOption>() 
     new (): {
       $emit: {
         (e: 'close'): void
+        (e: 'open', payload: Resolution): void
+        (e: 'queryChange', payload: string | null): void
         (e: 'selectOption', payload: {
           close: () => void
           option: Option
