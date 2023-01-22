@@ -5,7 +5,7 @@
  */
 import type { LinkAttributes } from '@lexical/link'
 import type { ElementNode, LexicalEditor, LexicalNode } from 'lexical'
-import { unref, watchPostEffect } from 'vue'
+import { unref } from 'vue'
 
 import {
   $createAutoLinkNode,
@@ -22,6 +22,7 @@ import {
   TextNode,
 } from 'lexical'
 import type { MaybeRef } from '../types'
+import { useEffect } from './useEffect'
 
 type ChangeHandler = (url: string | null, prevUrl: string | null) => void
 
@@ -249,7 +250,7 @@ export function useAutoLink(
   matchers: MaybeRef<Array<LinkMatcher>>,
   onChange?: ChangeHandler,
 ) {
-  watchPostEffect((onInvalidate) => {
+  useEffect(() => {
     if (!editor.hasNodes([AutoLinkNode])) {
       throw new Error(
         'LexicalAutoLinkPlugin: AutoLinkNode not registered on editor',
@@ -261,7 +262,7 @@ export function useAutoLink(
         onChange(url, prevUrl)
     }
 
-    const unregisterListener = mergeRegister(
+    return mergeRegister(
       editor.registerNodeTransform(TextNode, (textNode: TextNode) => {
         const parent = textNode.getParentOrThrow()
         if ($isAutoLinkNode(parent)) {
@@ -279,7 +280,5 @@ export function useAutoLink(
         handleLinkEdit(linkNode, unref(matchers), onChangeWrapped)
       }),
     )
-
-    onInvalidate(unregisterListener)
   })
 }
