@@ -69,4 +69,4 @@ export {
 } from './LexicalPopoverMenu.vue'
 export {
   default as LexicalTypaheadMenuPlugin,
-} from './LexicalTypaheadMenuPlugin.vue'
+} from './LexicalTypeaheadMenuPlugin.vue'
