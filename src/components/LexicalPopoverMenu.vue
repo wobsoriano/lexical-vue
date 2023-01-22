@@ -25,6 +25,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void
   (e: 'selectOption', payload: {
+    close: () => void
     option: TypeaheadOption
     textNodeContainingQuery: TextNode | null
     matchingString: string
@@ -111,6 +112,9 @@ const selectOptionAndCleanUp = (selectedEntry: TypeaheadOption) => {
     )
 
     emit('selectOption', {
+      close() {
+        emit('close')
+      },
       option: selectedEntry,
       textNodeContainingQuery,
       matchingString: props.resolution.match.matchingString,

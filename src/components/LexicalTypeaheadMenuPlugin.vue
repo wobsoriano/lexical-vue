@@ -16,6 +16,7 @@ const emit = defineEmits<{
   (e: 'open', payload: Resolution): void
   (e: 'queryChange', payload: string | null): void
   (e: 'selectOption', payload: {
+    close: () => void
     option: TypeaheadOption
     textNodeContainingQuery: TextNode | null
     matchingString: string
