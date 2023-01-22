@@ -1,3 +1,4 @@
+import type { VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import LexicalTypeaheadMenuPlugin from '../components/LexicalTypeaheadMenuPlugin.vue'
 import type { TypeaheadOption } from './typeaheadMenu'
@@ -20,5 +21,20 @@ export function useLexicalTypeaheadMenuPlugin<Option extends TypeaheadOption>() 
     return () => h(LexicalTypeaheadMenuPlugin as any, props, slots)
   })
 
-  return wrapper
+  return wrapper as typeof wrapper & {
+    new (): {
+      $slots: {
+        default: (arg: {
+          listItemProps: {
+            options: Option[]
+            selectOptionAndCleanUp: (selectedEntry: Option) => void
+            selectedIndex: number | null
+            setHighlightedIndex: (index: number) => void
+          }
+          anchorElementRef: HTMLElement
+          matchString: string
+        }) => VNode[]
+      }
+    }
+  }
 }
