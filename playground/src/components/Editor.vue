@@ -42,7 +42,9 @@ function prePopulatedRichText() {
     const paragraph = $createParagraphNode()
     paragraph.append(
       $createTextNode('The playground is a demo environment built with '),
-      $createTextNode('@lexical/react').toggleFormat('code'),
+      $createTextNode('lexical').toggleFormat('code'),
+      $createTextNode(' and '),
+      $createTextNode('lexical-vue').toggleFormat('code'),
       $createTextNode('.'),
       $createTextNode(' Try typing in '),
       $createTextNode('some text').toggleFormat('bold'),
@@ -73,23 +75,23 @@ function prePopulatedRichText() {
         $createTextNode(' for documentation and more information.'),
       ),
       $createListItemNode().append(
-        $createTextNode('Check out the code on our '),
-        $createLinkNode('https://github.com/facebook/lexical').append(
-          $createTextNode('GitHub repository'),
+        $createTextNode('Check out the code on the '),
+        $createLinkNode('https://github.com/wobsoriano/lexical-vue').append(
+          $createTextNode('lexical-vue GitHub repository'),
         ),
         $createTextNode('.'),
       ),
       $createListItemNode().append(
         $createTextNode('Playground code can be found '),
         $createLinkNode(
-          'https://github.com/facebook/lexical/tree/main/packages/lexical-playground',
+          'https://github.com/wobsoriano/lexical-vue/tree/main/playground',
         ).append($createTextNode('here')),
         $createTextNode('.'),
       ),
       $createListItemNode().append(
-        $createTextNode('Join our '),
+        $createTextNode('Join the '),
         $createLinkNode('https://discord.com/invite/KmG4wQnnD9').append(
-          $createTextNode('Discord Server'),
+          $createTextNode('Lexical Discord Server'),
         ),
         $createTextNode(' and chat with the team.'),
       ),
