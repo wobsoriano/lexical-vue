@@ -33,6 +33,7 @@ import {
 } from 'lexical-vue'
 
 const config = {
+  editable: true,
   theme: {
     // Theme styling goes here
   },
