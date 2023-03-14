@@ -24,7 +24,7 @@ export function useDecorators(editor: LexicalEditor) {
         decoratedTeleports.push(
           h(Teleport, {
             to: element,
-          }, () => [vueDecorator]),
+          }, vueDecorator),
         )
       }
     }
