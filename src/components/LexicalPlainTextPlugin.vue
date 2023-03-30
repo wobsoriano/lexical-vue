@@ -8,7 +8,7 @@ usePlainTextSetup(editor)
 </script>
 
 <template>
-  <slot name="contentEditable" />
   <slot v-if="showPlaceholder" name="placeholder" />
+  <slot name="contentEditable" />
   <Decorators />
 </template>
