@@ -24,6 +24,8 @@ import ListMaxIndentLevelPlugin from './ListMaxIndentLevelPlugin.vue'
 import AutoLinkPlugin from './AutoLinkPlugin.vue'
 import TreeViewPlugin from './TreeViewPlugin.vue'
 import MarkdownShortcutPlugin from './MarkdownShortcutPlugin.vue'
+import EmojisPlugin from './EmojisPlugin.vue'
+import { EmojiNode } from './EmojiNode'
 
 function prePopulatedRichText() {
   const root = $getRoot()
@@ -122,6 +124,7 @@ const config = {
     AutoLinkNode,
     LinkNode,
     HashtagNode,
+    EmojiNode,
   ],
   editable: true,
   editorState: prePopulatedRichText,
@@ -157,6 +160,7 @@ const onError = (error: Error) => {
         <ListMaxIndentLevelPlugin :max-depth="7" />
         <LexicalHashtagPlugin />
         <MarkdownShortcutPlugin />
+        <EmojisPlugin />
       </div>
     </div>
   </LexicalComposer>
