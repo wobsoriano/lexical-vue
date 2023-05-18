@@ -45,38 +45,38 @@
     "docs:serve": "vitepress serve docs"
   },
   "peerDependencies": {
-    "lexical": "^0.9.0",
+    "lexical": "^0.10.0",
     "vue": "^3.2.0"
   },
   "dependencies": {
-    "@lexical/clipboard": "^0.9.1",
-    "@lexical/code": "^0.9.1",
-    "@lexical/dragon": "^0.9.1",
-    "@lexical/hashtag": "^0.9.1",
-    "@lexical/history": "^0.9.1",
-    "@lexical/link": "^0.9.1",
-    "@lexical/list": "^0.9.1",
-    "@lexical/mark": "^0.9.1",
-    "@lexical/markdown": "^0.9.1",
-    "@lexical/overflow": "^0.9.1",
-    "@lexical/plain-text": "^0.9.1",
-    "@lexical/rich-text": "^0.9.1",
-    "@lexical/selection": "^0.9.1",
-    "@lexical/table": "^0.9.1",
-    "@lexical/text": "^0.9.1",
-    "@lexical/utils": "^0.9.1"
+    "@lexical/clipboard": "^0.10.0",
+    "@lexical/code": "^0.10.0",
+    "@lexical/dragon": "^0.10.0",
+    "@lexical/hashtag": "^0.10.0",
+    "@lexical/history": "^0.10.0",
+    "@lexical/link": "^0.10.0",
+    "@lexical/list": "^0.10.0",
+    "@lexical/mark": "^0.10.0",
+    "@lexical/markdown": "^0.10.0",
+    "@lexical/overflow": "^0.10.0",
+    "@lexical/plain-text": "^0.10.0",
+    "@lexical/rich-text": "^0.10.0",
+    "@lexical/selection": "^0.10.0",
+    "@lexical/table": "^0.10.0",
+    "@lexical/text": "^0.10.0",
+    "@lexical/utils": "^0.10.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.2",
-    "@types/node": "^18.15.11",
+    "@antfu/eslint-config": "^0.38.6",
+    "@types/node": "^18.16.13",
     "bumpp": "^9.1.0",
-    "eslint": "^8.37.0",
-    "lexical": "0.9.1",
+    "eslint": "^8.40.0",
+    "lexical": "0.10.0",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.2",
+    "typescript": "^5.0.4",
     "unplugin-vue": "^4.1.0",
-    "vitepress": "1.0.0-alpha.64",
-    "vue": "^3.2.47",
-    "vue-tsc": "^1.2.0"
+    "vitepress": "1.0.0-alpha.76",
+    "vue": "^3.3.4",
+    "vue-tsc": "^1.6.5"
   }
 }
