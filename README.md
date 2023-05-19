@@ -39,9 +39,9 @@ const config = {
   },
 }
 
-const onError = (error) => {
+function onError(error) {
   throw error
-},
+}
 
 // When the editor changes, you can get notified via the
 // LexicalOnChangePlugin!
@@ -54,9 +54,6 @@ function onChange(editorState) {
     console.log(root, selection)
   })
 }
-
-// Two-way binding
-const content = ref('')
 </script>
 
 <template>
@@ -71,7 +68,7 @@ const content = ref('')
         </div>
       </template>
     </LexicalPlainTextPlugin>
-    <LexicalOnChangePlugin v-model="content" @change="onChange" />
+    <LexicalOnChangePlugin @change="onChange" />
     <LexicalHistoryPlugin />
     <LexicalAutoFocusPlugin />
   </LexicalComposer>
