@@ -35,13 +35,13 @@ const anchorElementRef = useMenuAnchorRef(
   props.anchorClassName,
 )
 
-const closeTypeahead = () => {
+function closeTypeahead() {
   setResolution(null)
   if (resolution.value !== null)
     emit('close')
 }
 
-const openTypeahead = (res: Resolution) => {
+function openTypeahead(res: Resolution) {
   setResolution(res)
   if (resolution.value === null)
     emit('open', res)

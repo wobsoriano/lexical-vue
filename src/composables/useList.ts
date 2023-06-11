@@ -21,40 +21,39 @@ export function useList(editor: LexicalEditor) {
       editor.registerCommand(
         INSERT_ORDERED_LIST_COMMAND,
         () => {
-          insertList(editor, 'number');
-          return true;
+          insertList(editor, 'number')
+          return true
         },
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         INSERT_UNORDERED_LIST_COMMAND,
         () => {
-          insertList(editor, 'bullet');
-          return true;
+          insertList(editor, 'bullet')
+          return true
         },
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         REMOVE_LIST_COMMAND,
         () => {
-          removeList(editor);
-          return true;
+          removeList(editor)
+          return true
         },
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         INSERT_PARAGRAPH_COMMAND,
         () => {
-          const hasHandledInsertParagraph = $handleListInsertParagraph();
+          const hasHandledInsertParagraph = $handleListInsertParagraph()
 
-          if (hasHandledInsertParagraph) {
-            return true;
-          }
+          if (hasHandledInsertParagraph)
+            return true
 
-          return false;
+          return false
         },
         COMMAND_PRIORITY_LOW,
       ),
-    );
+    )
   })
 }

@@ -130,7 +130,7 @@ const config = {
   editorState: prePopulatedRichText,
 }
 
-const onError = (error: Error) => {
+function onError(error: Error) {
   throw error
 }
 </script>

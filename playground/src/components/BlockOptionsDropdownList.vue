@@ -45,7 +45,7 @@ onMounted(() => {
   }
 })
 
-const handle = (event: Event) => {
+function handle(event: Event) {
   const target = event.target as Node
 
   if (!dropDownRef.value?.contains(target) && !props.toolbarRef?.contains(target))
@@ -61,7 +61,7 @@ onUnmounted(() => {
   document.removeEventListener('click', handle)
 })
 
-const formatParagraph = () => {
+function formatParagraph() {
   if (props.blockType !== 'paragraph') {
     editor.update(() => {
       const selection = $getSelection() as RangeSelection
@@ -73,7 +73,7 @@ const formatParagraph = () => {
   emit('update:showBlockOptionsDropDown', false)
 }
 
-const formatLargeHeading = () => {
+function formatLargeHeading() {
   if (props.blockType !== 'h1') {
     editor.update(() => {
       const selection = $getSelection()
@@ -85,7 +85,7 @@ const formatLargeHeading = () => {
   emit('update:showBlockOptionsDropDown', false)
 }
 
-const formatSmallHeading = () => {
+function formatSmallHeading() {
   if (props.blockType !== 'h2') {
     editor.update(() => {
       const selection = $getSelection()
@@ -97,7 +97,7 @@ const formatSmallHeading = () => {
   emit('update:showBlockOptionsDropDown', false)
 }
 
-const formatBulletList = () => {
+function formatBulletList() {
   if (props.blockType !== 'ul')
     editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
 
@@ -107,7 +107,7 @@ const formatBulletList = () => {
   emit('update:showBlockOptionsDropDown', false)
 }
 
-const formatNumberedList = () => {
+function formatNumberedList() {
   if (props.blockType !== 'ol')
     editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
 
@@ -117,7 +117,7 @@ const formatNumberedList = () => {
   emit('update:showBlockOptionsDropDown', false)
 }
 
-const formatQuote = () => {
+function formatQuote() {
   if (props.blockType !== 'quote') {
     editor.update(() => {
       const selection = $getSelection()
@@ -129,7 +129,7 @@ const formatQuote = () => {
   emit('update:showBlockOptionsDropDown', false)
 }
 
-const formatCode = () => {
+function formatCode() {
   if (props.blockType !== 'code') {
     editor.update(() => {
       const selection = $getSelection()

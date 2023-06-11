@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type LinkMatcher, useAutoLink, useEditor } from '../composables'
+
 const props = defineProps<{
   matchers: LinkMatcher[]
 }>()

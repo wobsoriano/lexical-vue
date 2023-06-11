@@ -487,7 +487,7 @@ onUnmounted(() => {
   }
 })
 
-const enableTimeTravel = () => {
+function enableTimeTravel() {
   const rootElement = editor.getRootElement()
   if (rootElement !== null) {
     rootElement.contentEditable = 'false'
@@ -496,7 +496,7 @@ const enableTimeTravel = () => {
   }
 }
 
-const updateEditorState = (e: Event) => {
+function updateEditorState(e: Event) {
   const editorStateIndex = Number((e.target as HTMLInputElement).value)
   const timeStampedEditorState
                 = timeStampedEditorStates.value[editorStateIndex]
@@ -506,7 +506,7 @@ const updateEditorState = (e: Event) => {
   }
 }
 
-const exit = () => {
+function exit() {
   const rootElement = editor.getRootElement()
   if (rootElement) {
     rootElement.contentEditable = 'true'
@@ -532,7 +532,7 @@ const exit = () => {
     >
       Time Travel
     </button>
-    <pre ref="treeElement">{{ content }}</pre>
+    <pre ref="treeElementRef">{{ content }}</pre>
     <div v-if="timeTravelEnabled" :class="timeTravelPanelClassName">
       <button :class="timeTravelPanelButtonClassName" @click="isPlaying = !isPlaying">
         {{ isPlaying ? 'Pause' : 'Play' }}

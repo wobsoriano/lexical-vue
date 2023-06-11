@@ -33,7 +33,7 @@ const editor = useEditor()
 const { isSelected, setSelected, clearSelection } = useLexicalNodeSelection(props.nodeKey)
 const containerRef = ref<HTMLDivElement | null>(null)
 
-const onDelete = (event: KeyboardEvent) => {
+function onDelete(event: KeyboardEvent) {
   if (isSelected.value && $isNodeSelection($getSelection())) {
     event.preventDefault()
     editor.update(() => {

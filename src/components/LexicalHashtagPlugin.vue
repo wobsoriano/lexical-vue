@@ -245,11 +245,11 @@ onMounted(() => {
     throw new Error('HashtagPlugin: HashtagNode not registered on editor')
 })
 
-const createHashtagNode = (textNode: TextNode) => {
+function createHashtagNode(textNode: TextNode) {
   return $createHashtagNode(textNode.getTextContent())
 }
 
-const getHashtagMatch = (text: string) => {
+function getHashtagMatch(text: string) {
   const matchArr = REGEX.exec(text)
   if (matchArr === null)
     return null

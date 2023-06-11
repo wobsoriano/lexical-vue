@@ -8,7 +8,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
 }>()
 
-const change = (e: Event) => {
+function change(e: Event) {
   emit('update:modelValue', (e.target as HTMLSelectElement).value)
 }
 </script>

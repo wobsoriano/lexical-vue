@@ -37,7 +37,7 @@ function utf8Length(text: string) {
 }
 
 const remainingCharacters = ref(0)
-const setRemainingCharacters = (payload: number) => {
+function setRemainingCharacters(payload: number) {
   remainingCharacters.value = payload
 }
 

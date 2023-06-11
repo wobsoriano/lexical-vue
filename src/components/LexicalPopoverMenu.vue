@@ -104,7 +104,7 @@ function getFullMatchOffset(
   return triggerOffset
 }
 
-const selectOptionAndCleanUp = (selectedEntry: TypeaheadOption) => {
+function selectOptionAndCleanUp(selectedEntry: TypeaheadOption) {
   editor.update(() => {
     const textNodeContainingQuery = splitNodeContainingQuery(
       editor,
@@ -122,7 +122,7 @@ const selectOptionAndCleanUp = (selectedEntry: TypeaheadOption) => {
   })
 }
 
-const updateSelectedIndex = (index: number) => {
+function updateSelectedIndex(index: number) {
   const rootElem = editor.getRootElement()
   if (rootElem !== null) {
     rootElem.setAttribute(
@@ -141,7 +141,7 @@ watchPostEffect(() => {
     updateSelectedIndex(0)
 })
 
-const scrollIntoViewIfNeeded = (target: HTMLElement) => {
+function scrollIntoViewIfNeeded(target: HTMLElement) {
   const container = document.getElementById('typeahead-menu')
 
   if (container) {

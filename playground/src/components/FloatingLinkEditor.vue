@@ -35,7 +35,7 @@ function positionEditorElement(editor: HTMLDivElement, rect: DOMRect | null) {
   }
 }
 
-const updateLinkEditor = () => {
+function updateLinkEditor() {
   const selection = $getSelection()
   if ($isRangeSelection(selection)) {
     const node = getSelectedNode(selection as RangeSelection)
@@ -129,11 +129,11 @@ onUnmounted(() => {
   unregisterListener?.()
 })
 
-const onMouseDown = (e: MouseEvent) => {
+function onMouseDown(e: MouseEvent) {
   e.preventDefault()
 }
 
-const onEnter = () => {
+function onEnter() {
   if (lastSelection.value !== null) {
     if (linkUrl.value !== '')
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl.value)

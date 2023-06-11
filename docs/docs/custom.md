@@ -122,7 +122,7 @@ import { INSERT_VIDEO_COMMAND } from './VideoNode'
 
 const editor = useEditor()
 
-const insertVideo = (url: string) => {
+function insertVideo(url: string) {
   editor.dispatchCommand(INSERT_VIDEO_COMMAND, url)
 }
 </script>
