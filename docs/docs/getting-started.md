@@ -13,7 +13,6 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 ```vue
 <script setup lang="ts">
 import { $getRoot, $getSelection } from 'lexical'
-import { ref } from 'vue'
 
 import {
   LexicalAutoFocusPlugin,
@@ -45,9 +44,6 @@ function onChange(editorState) {
     console.log(root, selection)
   })
 }
-
-// Two-way binding
-const content = ref('')
 </script>
 
 <template>
@@ -62,7 +58,7 @@ const content = ref('')
         </div>
       </template>
     </LexicalPlainTextPlugin>
-    <LexicalOnChangePlugin v-model="content" @change="onChange" />
+    <LexicalOnChangePlugin @change="onChange" />
     <LexicalHistoryPlugin />
     <LexicalAutoFocusPlugin />
   </LexicalComposer>

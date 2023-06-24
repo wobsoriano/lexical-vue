@@ -49,10 +49,10 @@ Vue wrapper for `@lexical/rich-text` that adds major features for rich text edit
 
 ## `LexicalOnChangePlugin`
 
-Plugin that emits `change` whenever Lexical state is updated. Using `ignoreInitialChange` (`true` by default) and `ignoreSelectionChange` (`false` by default) can give more granular control over changes that are causing the `change` event. It also supports two-way binding of the updated content.
+Plugin that emits `change` whenever Lexical state is updated. Using `ignoreInitialChange` (`true` by default) and `ignoreSelectionChange` (`false` by default) can give more granular control over changes that are causing the `change` event.
 
 ```html
-<LexicalOnChangePlugin v-model="content" @change="onChange" />
+<LexicalOnChangePlugin @change="onChange" />
 ```
 
 ## `LexicalHistoryPlugin`
