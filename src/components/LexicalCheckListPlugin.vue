@@ -32,6 +32,7 @@ import {
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
 import { useEditor } from '../composables'
 import { useMounted } from '../composables/useMounted'
+import { incrementCheckListListenersCount, decrementCheckListListenersCount } from '../composables/listenerManager'
 
 const editor = useEditor()
 
@@ -136,16 +137,15 @@ useMounted(() => {
   )
 })
 
-let listenersCount = 0
 function listenPointerDown() {
-  if (listenersCount++ === 0) {
+  if (incrementCheckListListenersCount()) {
     // @ts-expect-error: speculation ambiguous
     document.addEventListener('click', handleClick)
     document.addEventListener('pointerdown', handlePointerDown)
   }
 
   return () => {
-    if (--listenersCount === 0) {
+    if (decrementCheckListListenersCount()) {
       // @ts-expect-error: speculation ambiguous
       document.removeEventListener('click', handleClick)
       document.removeEventListener('pointerdown', handlePointerDown)
