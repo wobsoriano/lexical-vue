@@ -32,7 +32,7 @@ import {
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
 import { useEditor } from '../composables'
 import { useMounted } from '../composables/useMounted'
-import { incrementCheckListListenersCount, decrementCheckListListenersCount } from '../composables/listenerManager'
+import { decrementCheckListListenersCount, incrementCheckListListenersCount } from '../composables/listenerManager'
 
 const editor = useEditor()
 
@@ -62,7 +62,7 @@ useMounted(() => {
     ),
     editor.registerCommand(
       KEY_ESCAPE_COMMAND,
-      (event) => {
+      (_event) => {
         const activeItem = getActiveCheckListItem()
         if (activeItem != null) {
           const rootElement = editor.getRootElement()
