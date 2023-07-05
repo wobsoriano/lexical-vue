@@ -1,9 +1,9 @@
 let handleClickAndPointerDownListenersCount = 0
 
-function incrementClickAndPointerDownListenersCount() {
-  return handleClickAndPointerDownListenersCount ++ === 0
+export function incrementCheckListListenersCount() {
+  return handleClickAndPointerDownListenersCount++ === 0
 }
 
-function decrementClickAndPointerDownListenersCount() {
+export function decrementCheckListListenersCount() {
   return --handleClickAndPointerDownListenersCount === 0
 }
