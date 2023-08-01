@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { CreateEditorArgs } from 'lexical'
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
 import {
   LexicalAutoFocusPlugin,
@@ -109,7 +110,7 @@ function prePopulatedRichText() {
   }
 }
 
-const config = {
+const config: CreateEditorArgs = {
   theme: exampleTheme,
   nodes: [
     HeadingNode,
@@ -127,7 +128,7 @@ const config = {
     EmojiNode,
   ],
   editable: true,
-  editorState: prePopulatedRichText,
+  editorState: prePopulatedRichText as any,
 }
 
 function onError(error: Error) {
