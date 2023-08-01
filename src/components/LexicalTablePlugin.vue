@@ -19,6 +19,16 @@ import {
 } from 'lexical'
 import { useEditor, useMounted } from '../composables'
 
+const props = withDefaults(defineProps<{
+  hasCellMerge?: boolean
+  hasCellBackgroundColor?: boolean
+  hasTabHandler?: boolean
+}>(), {
+  hasCellMerge: true,
+  hasCellBackgroundColor: true,
+  hasTabHandler: true,
+})
+
 const editor = useEditor()
 
 if (!editor.hasNodes([TableNode, TableCellNode, TableRowNode])) {
@@ -85,6 +95,7 @@ useMounted(() => {
               tableNode,
               tableElement,
               editor,
+              props.hasTabHandler,
             )
 
             tableSelections.set(nodeKey, tableSelection)
