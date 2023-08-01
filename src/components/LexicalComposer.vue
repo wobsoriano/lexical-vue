@@ -1,23 +1,12 @@
 <script setup lang="ts">
 import { onMounted, provide } from 'vue'
-import type { EditorThemeClasses, Klass, LexicalEditor, LexicalNode } from 'lexical'
+import type { CreateEditorArgs, LexicalEditor } from 'lexical'
 import { $createParagraphNode, $getRoot, $getSelection, createEditor } from 'lexical'
 import { editorKey } from '../composables/inject'
 import type { InitialEditorStateType } from '../types'
 
 const props = defineProps<{
-  initialConfig: {
-    namespace?: string
-    nodes?: (Klass<LexicalNode> | {
-      replace: Klass<LexicalNode>
-      with: <T extends { new (...args: any): any }>(
-        node: InstanceType<T>,
-      ) => LexicalNode
-    })[]
-    editable?: boolean
-    theme?: EditorThemeClasses
-    editorState?: InitialEditorStateType
-  }
+  initialConfig: CreateEditorArgs
 }>()
 
 const emit = defineEmits<{
