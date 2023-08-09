@@ -64,7 +64,10 @@
     "@lexical/selection": "^0.11.3",
     "@lexical/table": "^0.11.3",
     "@lexical/text": "^0.11.3",
-    "@lexical/utils": "^0.11.3"
+    "@lexical/utils": "^0.11.3",
+    "@lexical/yjs": "^0.11.3",
+    "y-websocket": "^1.5.0",
+    "yjs": "^13.6.7"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.40.0",
