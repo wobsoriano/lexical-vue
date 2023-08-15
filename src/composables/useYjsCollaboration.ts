@@ -25,12 +25,10 @@ import {
 } from 'lexical'
 import type { Doc, Transaction, YEvent } from 'yjs'
 import { UndoManager } from 'yjs'
-import type { ComputedRef, Ref } from 'vue'
+import type { ComputedRef } from 'vue'
 import { computed, ref, toRaw } from 'vue'
 import type { InitialEditorStateType } from '../types'
 import { useEffect } from './useEffect'
-
-export type CursorsContainerRef = Ref<HTMLElement | null>
 
 export function useYjsCollaboration(
   editor: LexicalEditor,
@@ -40,11 +38,10 @@ export function useYjsCollaboration(
   name: string,
   color: string,
   shouldBootstrap: boolean,
-  cursorsContainerRef?: CursorsContainerRef,
   initialEditorState?: InitialEditorStateType,
   excludedProperties?: ExcludedProperties,
   awarenessData?: object,
-): [null, ComputedRef<Binding>] {
+): ComputedRef<Binding> {
   const isReloadingDoc = ref(false)
   const doc = ref(docMap.get(id))
 
@@ -152,15 +149,6 @@ export function useYjsCollaboration(
       removeListener()
     }
   })
-  const cursorsContainer = computed(() => {
-    const el = (element: null | HTMLElement) => {
-      binding.value.cursorsContainer = element
-    }
-
-    console.log(el)
-
-    return null
-  })
 
   useEffect(() => {
     return editor.registerCommand(
@@ -187,7 +175,7 @@ export function useYjsCollaboration(
     )
   })
 
-  return [cursorsContainer.value, binding]
+  return binding
 }
 
 export function useYjsFocusTracking(

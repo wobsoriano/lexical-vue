@@ -10,7 +10,8 @@ import { WebsocketProvider } from 'y-websocket'
 
 import exampleTheme from '../themes/example'
 
-// FOR IVAN: important that config.editorState is null and that LexicalCollaborationPlugin should-bootstrap
+// TODO IVAN: important that config.editorState is null and that LexicalCollaborationPlugin should-bootstrap
+// TODO IVAN: clean up this example
 const config = {
   editorState: null,
   editable: true,

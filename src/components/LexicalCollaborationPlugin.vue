@@ -2,8 +2,7 @@
 import type { Doc } from 'yjs'
 
 import type { ExcludedProperties, Provider } from '@lexical/yjs'
-import { computed, watchEffect } from 'vue'
-import type { CursorsContainerRef } from '../composables'
+import { type Ref, computed, watchEffect } from 'vue'
 import {
   useEditor,
   useEffect,
@@ -13,6 +12,8 @@ import {
 } from '../composables'
 import type { InitialEditorStateType } from '../types'
 import collaborationContext from '../composables/useCollaborationContext'
+
+type CursorsContainerRef = Ref<HTMLElement | null>
 
 const props = defineProps<{
   id: string
@@ -49,7 +50,7 @@ useEffect(() => {
 
 const provider = computed(() => props.providerFactory(props.id, collaborationContext.value.yjsDocMap))
 
-const [cursors, binding] = useYjsCollaboration(
+const binding = useYjsCollaboration(
   editor,
   props.id,
   provider.value,
@@ -57,7 +58,6 @@ const [cursors, binding] = useYjsCollaboration(
   collaborationContext.value.name,
   collaborationContext.value.color,
   props.shouldBootstrap,
-  props.cursorsContainerRef,
   props.initialEditorState,
   props.excludedProperties,
   props.awarenessData,
@@ -75,8 +75,11 @@ useYjsFocusTracking(
   collaborationContext.value.color,
   props.awarenessData,
 )
-
-defineExpose({
-  cursors,
-})
 </script>
+
+<template>
+  <!-- TODO IVAN: fix positioning and make customizable with avatar e.g. -->
+  <Teleport :to="cursorsContainerRef || 'body'">
+    <div :ref="(elem) => binding.cursorsContainer = (elem as HTMLElement | null)" />
+  </Teleport>
+</template>
