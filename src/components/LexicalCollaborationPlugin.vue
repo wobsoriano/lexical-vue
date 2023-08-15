@@ -2,7 +2,7 @@
 import type { Doc } from 'yjs'
 
 import type { ExcludedProperties, Provider } from '@lexical/yjs'
-import { computed, watch, watchEffect } from 'vue'
+import { computed, watchEffect } from 'vue'
 import type { CursorsContainerRef } from '../composables'
 import {
   useEditor,
@@ -47,9 +47,7 @@ useEffect(() => {
   }
 })
 
-const provider = computed(() =>
-  props.providerFactory(props.id, collaborationContext.value.yjsDocMap),
-)
+const provider = computed(() => props.providerFactory(props.id, collaborationContext.value.yjsDocMap))
 
 const [cursors, binding] = useYjsCollaboration(
   editor,
@@ -65,14 +63,11 @@ const [cursors, binding] = useYjsCollaboration(
   props.awarenessData,
 )
 
-watch(
-  () => binding,
-  (b) => {
-    collaborationContext.value.clientID = b.clientID
-  },
-)
+watchEffect(() => {
+  collaborationContext.value.clientID = binding.value.clientID
+})
 
-useYjsHistory(editor, binding)
+useYjsHistory(editor, binding.value)
 useYjsFocusTracking(
   editor,
   provider.value,

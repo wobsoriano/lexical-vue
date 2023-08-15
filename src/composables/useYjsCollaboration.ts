@@ -25,8 +25,8 @@ import {
 } from 'lexical'
 import type { Doc, Transaction, YEvent } from 'yjs'
 import { UndoManager } from 'yjs'
-import type { Ref } from 'vue'
-import { computed, ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
+import { computed, ref, toRaw } from 'vue'
 import type { InitialEditorStateType } from '../types'
 import { useEffect } from './useEffect'
 
@@ -44,11 +44,11 @@ export function useYjsCollaboration(
   initialEditorState?: InitialEditorStateType,
   excludedProperties?: ExcludedProperties,
   awarenessData?: object,
-): [null, Binding] {
+): [null, ComputedRef<Binding>] {
   const isReloadingDoc = ref(false)
   const doc = ref(docMap.get(id))
 
-  const binding = createBinding(editor, provider, id, doc.value, docMap, excludedProperties)
+  const binding = computed(() => createBinding(editor, provider, id, toRaw(doc.value), docMap, excludedProperties))
 
   const connect = () => {
     provider.connect()
@@ -64,7 +64,7 @@ export function useYjsCollaboration(
   }
 
   useEffect(() => {
-    const { root } = binding
+    const { root } = binding.value
     const { awareness } = provider
 
     const onStatus = ({ status }: { status: string }) => {
@@ -85,19 +85,18 @@ export function useYjsCollaboration(
     }
 
     const onAwarenessUpdate = () => {
-      syncCursorPositions(binding, provider)
+      syncCursorPositions(binding.value, provider)
     }
 
     const onYjsTreeChanges = (
       // The below `any` type is taken directly from the vendor types for YJS.
-
       events: Array<YEvent<any>>,
       transaction: Transaction,
     ) => {
       const origin = transaction.origin
-      if (origin !== binding) {
+      if (toRaw(origin) !== binding.value) {
         const isFromUndoManger = origin instanceof UndoManager
-        syncYjsChangesToLexical(binding, provider, events, isFromUndoManger)
+        syncYjsChangesToLexical(binding.value, provider, events, isFromUndoManger)
       }
     }
 
@@ -110,7 +109,7 @@ export function useYjsCollaboration(
     )
 
     const onProviderDocReload = (ydoc: Doc) => {
-      clearEditorSkipCollab(editor, binding)
+      clearEditorSkipCollab(editor, binding.value)
       doc.value = ydoc
       docMap.set(id, ydoc)
       isReloadingDoc.value = true
@@ -126,7 +125,7 @@ export function useYjsCollaboration(
       ({ prevEditorState, editorState, dirtyLeaves, dirtyElements, normalizedNodes, tags }) => {
         if (tags.has('skip-collab') === false) {
           syncLexicalUpdateToYjs(
-            binding,
+            binding.value,
             provider,
             prevEditorState,
             editorState,
@@ -154,9 +153,11 @@ export function useYjsCollaboration(
     }
   })
   const cursorsContainer = computed(() => {
-    const ref = (element: null | HTMLElement) => {
-      binding.cursorsContainer = element
+    const el = (element: null | HTMLElement) => {
+      binding.value.cursorsContainer = element
     }
+
+    console.log(el)
 
     return null
   })
