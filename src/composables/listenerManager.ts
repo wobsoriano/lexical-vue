@@ -1,10 +1,16 @@
-let handleClickAndPointerDownListenersRegistered = false
+let handleClickAndPointerDownListenersCount = 0
+let handleClickAndPointerDownListenersUnregister: (() => void) | undefined
 
-export function registerClickAndPointerListenersIfUnregistered(register: () => void, unregister: () => void) {
-  if (handleClickAndPointerDownListenersRegistered)
-    return () => {}
+export function registerClickAndPointerListeners(register: () => void, unregister: () => void) {
+  if (handleClickAndPointerDownListenersCount++ === 0) {
+    register()
+    handleClickAndPointerDownListenersUnregister = unregister
+  }
 
-  handleClickAndPointerDownListenersRegistered = true
-  register()
-  return unregister
+  return () => {
+    if (--handleClickAndPointerDownListenersCount === 0) {
+      handleClickAndPointerDownListenersUnregister?.()
+      handleClickAndPointerDownListenersUnregister = undefined
+    }
+  }
 }

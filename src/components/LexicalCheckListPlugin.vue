@@ -32,7 +32,7 @@ import {
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
 import { useEditor } from '../composables'
 import { useMounted } from '../composables/useMounted'
-import { registerClickAndPointerListenersIfUnregistered } from '../composables/listenerManager'
+import { registerClickAndPointerListeners } from '../composables/listenerManager'
 
 const editor = useEditor()
 
@@ -138,7 +138,7 @@ useMounted(() => {
 })
 
 function listenPointerDown() {
-  return registerClickAndPointerListenersIfUnregistered(() => {
+  return registerClickAndPointerListeners(() => {
     // @ts-expect-error: speculation ambiguous
     document.addEventListener('click', handleClick)
     document.addEventListener('pointerdown', handlePointerDown)
