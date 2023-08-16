@@ -1,9 +1,10 @@
-let handleClickAndPointerDownListenersCount = 0
+let handleClickAndPointerDownListenersRegistered = false
 
-export function incrementCheckListListenersCount() {
-  return handleClickAndPointerDownListenersCount++ === 0
-}
+export function registerClickAndPointerListenersIfUnregistered(register: () => void, unregister: () => void) {
+  if (handleClickAndPointerDownListenersRegistered)
+    return () => {}
 
-export function decrementCheckListListenersCount() {
-  return --handleClickAndPointerDownListenersCount === 0
+  handleClickAndPointerDownListenersRegistered = true
+  register()
+  return unregister
 }

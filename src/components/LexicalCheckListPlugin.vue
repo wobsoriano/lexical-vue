@@ -32,7 +32,7 @@ import {
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
 import { useEditor } from '../composables'
 import { useMounted } from '../composables/useMounted'
-import { decrementCheckListListenersCount, incrementCheckListListenersCount } from '../composables/listenerManager'
+import { registerClickAndPointerListenersIfUnregistered } from '../composables/listenerManager'
 
 const editor = useEditor()
 
@@ -138,19 +138,15 @@ useMounted(() => {
 })
 
 function listenPointerDown() {
-  if (incrementCheckListListenersCount()) {
+  return registerClickAndPointerListenersIfUnregistered(() => {
     // @ts-expect-error: speculation ambiguous
     document.addEventListener('click', handleClick)
     document.addEventListener('pointerdown', handlePointerDown)
-  }
-
-  return () => {
-    if (decrementCheckListListenersCount()) {
-      // @ts-expect-error: speculation ambiguous
-      document.removeEventListener('click', handleClick)
-      document.removeEventListener('pointerdown', handlePointerDown)
-    }
-  }
+  }, () => {
+    // @ts-expect-error: speculation ambiguous
+    document.removeEventListener('click', handleClick)
+    document.removeEventListener('pointerdown', handlePointerDown)
+  })
 }
 
 function handleCheckItemEvent(event: PointerEvent, callback: () => void) {
