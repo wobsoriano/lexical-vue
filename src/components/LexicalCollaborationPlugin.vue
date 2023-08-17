@@ -77,7 +77,6 @@ useYjsFocusTracking(
 </script>
 
 <template>
-  <!-- TODO IVAN: fix positioning and make customizable with avatar e.g. -->
   <Teleport :to="cursorsContainerRef || 'body'">
     <div :ref="(element) => binding.cursorsContainer = (element as HTMLElement | null)" />
   </Teleport>
