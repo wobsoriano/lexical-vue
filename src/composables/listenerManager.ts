@@ -1,9 +1,16 @@
 let handleClickAndPointerDownListenersCount = 0
+let handleClickAndPointerDownListenersUnregister: (() => void) | undefined
 
-export function incrementCheckListListenersCount() {
-  return handleClickAndPointerDownListenersCount++ === 0
-}
+export function registerClickAndPointerListeners(register: () => void, unregister: () => void) {
+  if (handleClickAndPointerDownListenersCount++ === 0) {
+    register()
+    handleClickAndPointerDownListenersUnregister = unregister
+  }
 
-export function decrementCheckListListenersCount() {
-  return --handleClickAndPointerDownListenersCount === 0
+  return () => {
+    if (--handleClickAndPointerDownListenersCount === 0) {
+      handleClickAndPointerDownListenersUnregister?.()
+      handleClickAndPointerDownListenersUnregister = undefined
+    }
+  }
 }
