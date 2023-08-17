@@ -60,7 +60,7 @@ importers:
         specifier: ^0.11.3
         version: 0.11.3(lexical@0.11.3)(yjs@13.6.7)
       yjs:
-        specifier: '>=13.5.22'
+        specifier: ^13.5.22
         version: 13.6.7
     devDependencies:
       '@antfu/eslint-config':
