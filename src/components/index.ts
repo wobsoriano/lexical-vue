@@ -70,3 +70,6 @@ export {
 export {
   default as LexicalTypeaheadMenuPlugin,
 } from './LexicalTypeaheadMenuPlugin.vue'
+export {
+  default as LexicalCollaborationPlugin,
+} from './LexicalCollaborationPlugin.vue'

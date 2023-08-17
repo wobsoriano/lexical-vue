@@ -46,7 +46,8 @@
   },
   "peerDependencies": {
     "lexical": "^0.11.0",
-    "vue": "^3.2.0"
+    "vue": "^3.2.0",
+    "yjs": "^13.5.22"
   },
   "dependencies": {
     "@lexical/clipboard": "^0.11.3",
@@ -64,7 +65,8 @@
     "@lexical/selection": "^0.11.3",
     "@lexical/table": "^0.11.3",
     "@lexical/text": "^0.11.3",
-    "@lexical/utils": "^0.11.3"
+    "@lexical/utils": "^0.11.3",
+    "@lexical/yjs": "^0.11.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.40.0",
