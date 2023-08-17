@@ -59,11 +59,8 @@ importers:
       '@lexical/yjs':
         specifier: ^0.11.3
         version: 0.11.3(lexical@0.11.3)(yjs@13.6.7)
-      y-websocket:
-        specifier: ^1.5.0
-        version: 1.5.0(yjs@13.6.7)
       yjs:
-        specifier: ^13.6.7
+        specifier: '>=13.5.22'
         version: 13.6.7
     devDependencies:
       '@antfu/eslint-config':
@@ -111,6 +108,9 @@ importers:
       vue:
         specifier: ^3.3.4
         version: 3.3.4
+      y-websocket:
+        specifier: ^1.5.0
+        version: 1.5.0(yjs@13.6.7)
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^4.2.3

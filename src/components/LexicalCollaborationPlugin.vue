@@ -2,7 +2,7 @@
 import type { Doc } from 'yjs'
 
 import type { ExcludedProperties, Provider } from '@lexical/yjs'
-import { type Ref, computed, watchEffect } from 'vue'
+import { computed, watchEffect } from 'vue'
 import {
   useEditor,
   useEffect,
@@ -13,21 +13,20 @@ import {
 import type { InitialEditorStateType } from '../types'
 import collaborationContext from '../composables/useCollaborationContext'
 
-type CursorsContainerRef = Ref<HTMLElement | null>
-
 const props = defineProps<{
   id: string
   providerFactory: (id: string, yjsDocMap: Map<string, Doc>) => Provider
   shouldBootstrap: boolean
   username?: string
   cursorColor?: string
-  cursorsContainerRef?: CursorsContainerRef
+  cursorsContainerRef?: HTMLElement | null
   initialEditorState?: InitialEditorStateType
   excludedProperties?: ExcludedProperties
   // `awarenessData` parameter allows arbitrary data to be added to the awareness.
   awarenessData?: object
 }>()
 
+// Set username and cursor color
 watchEffect(() => {
   if (props.username !== undefined)
     collaborationContext.value.name = props.username
@@ -80,6 +79,6 @@ useYjsFocusTracking(
 <template>
   <!-- TODO IVAN: fix positioning and make customizable with avatar e.g. -->
   <Teleport :to="cursorsContainerRef || 'body'">
-    <div :ref="(elem) => binding.cursorsContainer = (elem as HTMLElement | null)" />
+    <div :ref="(element) => binding.cursorsContainer = (element as HTMLElement | null)" />
   </Teleport>
 </template>
