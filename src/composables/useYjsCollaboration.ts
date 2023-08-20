@@ -329,7 +329,7 @@ function clearEditorSkipCollab(editor: LexicalEditor, binding: Binding) {
     const cursor = cursorsArr[i]
     const selection = cursor.selection
 
-    if (selection && selection.selections != null) {
+    if (selection && selection.selections !== null) {
       const selections = selection.selections
 
       for (let j = 0; j < selections.length; j++) cursorsContainer.removeChild(selections[i])
