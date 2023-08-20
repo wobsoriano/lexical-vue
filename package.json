@@ -69,7 +69,7 @@
     "@lexical/yjs": "^0.11.3"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.40.0",
+    "@antfu/eslint-config": "^0.40.2",
     "@types/node": "^20.4.5",
     "bumpp": "^9.2.0",
     "eslint": "^8.47.0",
