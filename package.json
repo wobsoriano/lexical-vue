@@ -45,7 +45,7 @@
     "docs:serve": "vitepress serve docs"
   },
   "peerDependencies": {
-    "lexical": "^0.11.0",
+    "lexical": "^0.12.0",
     "vue": "^3.2.0",
     "yjs": "^13.5.22"
   },
