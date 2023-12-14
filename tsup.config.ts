@@ -10,5 +10,9 @@ export default defineConfig({
   clean: true,
   external: [/@lexical/],
   dts: false,
-  esbuildPlugins: [vuePlugin()],
+  esbuildPlugins: [
+    vuePlugin({
+      isProduction: true,
+    }),
+  ],
 })
