@@ -120,9 +120,9 @@ useEffect(() => {
 
       if (
         !$isRangeSelection(selection)
-          || !selection.isCollapsed()
-          || text === null
-          || range === null
+        || !selection.isCollapsed()
+        || text === null
+        || range === null
       ) {
         closeTypeahead()
         return
@@ -133,7 +133,7 @@ useEffect(() => {
 
       if (
         match !== null
-          && !isSelectionOnEntityBoundary(match.leadOffset)
+        && !isSelectionOnEntityBoundary(match.leadOffset)
       ) {
         const isRangePositioned = tryToPositionRange(match.leadOffset, range)
         if (isRangePositioned !== null) {

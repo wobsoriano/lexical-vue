@@ -55,7 +55,7 @@ export function useCharacterLimit(
         const textLengthAboveThreshold
           = textLength > maxCharacters
           || (lastComputedTextLength !== null
-            && lastComputedTextLength > maxCharacters)
+          && lastComputedTextLength > maxCharacters)
         const diff = maxCharacters - textLength
         remainingCharacters(diff)
         if (lastComputedTextLength === null || textLengthAboveThreshold) {
@@ -130,7 +130,7 @@ function $wrapOverflowedNodes(offset: number): void {
         if (
           $isRangeSelection(selection)
           && (!selection.anchor.getNode().isAttached()
-            || !selection.focus.getNode().isAttached())
+          || !selection.focus.getNode().isAttached())
         ) {
           if ($isTextNode(previousSibling))
             previousSibling.select()

@@ -307,7 +307,7 @@ function printSelectedCharsLine({
   if (
     node.getTextContent() === ''
     || (anchor.getNode() === selection.focus.getNode()
-      && anchor.offset === focus.offset)
+    && anchor.offset === focus.offset)
   )
     return ''
 
@@ -396,8 +396,8 @@ function $getSelectionStartEnd(
   return [
     start + numNonSingleWidthCharBeforeSelection,
     end
-      + numNonSingleWidthCharBeforeSelection
-      + numNonSingleWidthCharInSelection,
+    + numNonSingleWidthCharBeforeSelection
+    + numNonSingleWidthCharInSelection,
   ]
 }
 

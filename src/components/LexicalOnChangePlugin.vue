@@ -21,8 +21,8 @@ useMounted(() => {
   return editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {
     if (
       props.ignoreSelectionChange
-        && dirtyElements.size === 0
-        && dirtyLeaves.size === 0
+      && dirtyElements.size === 0
+      && dirtyLeaves.size === 0
     )
       return
 

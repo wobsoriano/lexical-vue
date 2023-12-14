@@ -133,7 +133,8 @@ onMounted(() => {
         return false
       },
       LowPriority,
-    ), editor.registerCommand(
+    ),
+    editor.registerCommand(
       CAN_UNDO_COMMAND,
       (payload: boolean) => {
         canUndo.value = payload
@@ -148,7 +149,8 @@ onMounted(() => {
         return false
       },
       LowPriority,
-    ))
+    ),
+  )
 })
 
 const codeLanguages = getCodeLanguages() as string[]

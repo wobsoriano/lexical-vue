@@ -95,7 +95,6 @@ onMounted(() => {
         const selection = $getSelection()
         if (selection !== null)
           selection.insertNodes([$createVideoNode(url)])
-
       })
 
       // Returning true indicates that command is handled and no further propagation is required
