@@ -90,7 +90,7 @@
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "unplugin-vue": "^4.5.2",
-    "vitepress": "^1.0.0-rc.4",
+    "vitepress": "^1.0.0-rc.31",
     "vue": "^3.3.11",
     "vue-tsc": "^1.8.25"
   }
