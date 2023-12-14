@@ -112,9 +112,9 @@ useMounted(() => {
                 const parent = elementNode.getParent()
                 if (
                   $isListNode(parent)
-                    && parent.getListType() === 'check'
-                    && (isElement
-                      || elementNode.getFirstDescendant() === anchorNode)
+                  && parent.getListType() === 'check'
+                  && (isElement
+                  || elementNode.getFirstDescendant() === anchorNode)
                 ) {
                   const domNode = editor.getElementByKey(elementNode.__key)
 

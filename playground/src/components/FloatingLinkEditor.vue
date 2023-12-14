@@ -59,9 +59,9 @@ function updateLinkEditor() {
   const rootElement = editor.getRootElement()
   if (
     selection !== null
-      && !nativeSelection?.isCollapsed
-      && rootElement !== null
-      && rootElement.contains(nativeSelection!.anchorNode)
+    && !nativeSelection?.isCollapsed
+    && rootElement !== null
+    && rootElement.contains(nativeSelection!.anchorNode)
   ) {
     const domRange = nativeSelection?.getRangeAt(0)
     let rect

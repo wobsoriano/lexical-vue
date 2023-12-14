@@ -18,7 +18,8 @@ interface Props<Option extends TypeaheadOption> extends Omit<ExtractComponentPro
 export function useLexicalTypeaheadMenuPlugin<Option extends TypeaheadOption>() {
   const wrapper = defineComponent((
     props: Props<Option>,
-    { slots }) => {
+    { slots },
+  ) => {
     return () => h(LexicalTypeaheadMenuPlugin, props, slots)
   })
 

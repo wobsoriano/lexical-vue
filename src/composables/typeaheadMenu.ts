@@ -32,13 +32,13 @@ export class TypeaheadOption {
 
 export function useBasicTypeaheadTriggerMatch(
   trigger: string,
-  { minLength = 1, maxLength = 75 }: { minLength?: number; maxLength?: number },
+  { minLength = 1, maxLength = 75 }: { minLength?: number, maxLength?: number },
 ): TriggerFn {
   return (text: string) => {
     const validChars = `[^${trigger}${PUNCTUATION}\\s]`
     const TypeaheadTriggerRegex = new RegExp(
       '(^|\\s|\\()('
-        + `[${
+      + `[${
         trigger
         }]`
         + `((?:${

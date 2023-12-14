@@ -73,7 +73,7 @@ function isPreviousNodeValid(node: LexicalNode): boolean {
     previousNode === null
     || $isLineBreakNode(previousNode)
     || ($isTextNode(previousNode)
-      && endsWithSeparator(previousNode.getTextContent()))
+    && endsWithSeparator(previousNode.getTextContent()))
   )
 }
 

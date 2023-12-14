@@ -6,7 +6,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'change', value: { url: string | null; prevUrl: string | null }): void
+  (e: 'change', value: { url: string | null, prevUrl: string | null }): void
 }>()
 
 const editor = useEditor()

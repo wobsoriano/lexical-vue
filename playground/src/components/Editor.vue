@@ -38,7 +38,7 @@ function prePopulatedRichText() {
     quote.append(
       $createTextNode(
         'In case you were wondering what the black box at the bottom is – it\'s the debug view, showing the current state of editor. '
-          + 'You can disable it by pressing on the settings control in the bottom-left of your screen and toggling the debug view setting.',
+        + 'You can disable it by pressing on the settings control in the bottom-left of your screen and toggling the debug view setting.',
       ),
     )
     root.append(quote)

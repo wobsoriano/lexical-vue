@@ -1,10 +1,10 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "compilerOptions": {
     "declaration": true,
+    "declarationDir": "./dist",
     "emitDeclarationOnly": true,
-    "isolatedModules": true,
-    "declarationDir": "./dist"
-  }
+    "isolatedModules": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

@@ -284,7 +284,8 @@ const listItemProps = computed(
     selectOptionAndCleanUp,
     selectedIndex: selectedIndex.value,
     setHighlightedIndex: updateSelectedIndex,
-  }))
+  }),
+)
 </script>
 
 <template>
