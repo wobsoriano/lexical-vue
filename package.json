@@ -22,19 +22,31 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup --onSuccess \"pnpm build:dts\"",
+    "build": "tsup --onSuccess \"pnpm build:dts && shx cp ./dist/index.d.ts ./dist/index.d.cts\"",
     "build:dts": "vue-tsc --declaration --emitDeclarationOnly",
     "dev": "tsup --watch --onSuccess \"pnpm build:dts && pnpm --filter playground dev\"",
     "release": "bumpp && npm publish",
@@ -74,11 +86,12 @@
     "bumpp": "^9.2.0",
     "eslint": "^8.47.0",
     "lexical": "0.12.0",
-    "tsup": "^7.2.0",
-    "typescript": "^5.1.6",
-    "unplugin-vue": "^4.2.6",
+    "shx": "^0.3.4",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "unplugin-vue": "^4.5.2",
     "vitepress": "^1.0.0-rc.4",
-    "vue": "^3.3.4",
-    "vue-tsc": "^1.8.8"
+    "vue": "^3.3.11",
+    "vue-tsc": "^1.8.25"
   }
 }
