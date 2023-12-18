@@ -78,6 +78,10 @@ onMounted(() => {
 
   editor.setEditable(isEditable || false)
 })
+
+defineExpose({
+  editor,
+});
 </script>
 
 <template>
