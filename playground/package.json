@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "lexical": "0.12.0",
+    "lexical": "0.13.1",
     "lexical-vue": "workspace:*",
     "vue": "^3.3.4",
     "y-websocket": "^1.5.0"
