@@ -4,10 +4,13 @@ import Editor from './components/Editor.vue'
 
 <template>
   <div class="App">
-    <h1>Lexical Vue Demo</h1>
-    <p>Note: this is an experimental build of Lexical</p>
-    <Editor />
-    <div className="other">
+    <header>
+      <h1>Lexical Vue Demo</h1>
+    </header>
+    <div class="editor-shell">
+      <Editor />
+    </div>
+    <!-- <div className="other">
       <h2>View source</h2>
       <ul>
         <li>
@@ -20,6 +23,6 @@ import Editor from './components/Editor.vue'
           </a>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
