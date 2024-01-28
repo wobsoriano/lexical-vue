@@ -1,38 +1,38 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TOption extends MenuOption">
 import type { LexicalEditor, RangeSelection, TextNode } from 'lexical'
 import { $getSelection, $isRangeSelection, $isTextNode } from 'lexical'
-import { ref } from 'vue'
-import type { Resolution, TriggerFn, TypeaheadOption } from '../composables'
-import { useEditor, useEffect, useMenuAnchorRef } from '../composables'
-import LexicalPopoverMenu from './LexicalPopoverMenu.vue'
+import { ref, watchEffect } from 'vue'
+import { useLexicalComposer } from '../../composables'
+import { type MenuOption, type MenuResolution, useMenuAnchorRef } from '../LexicalMenu'
+import { LexicalMenu } from '../LexicalMenu'
+import type { TypeaheadMenuPluginProps } from './index'
 
-const props = defineProps<{
-  anchorClassName?: string
-  triggerFn: TriggerFn
-  options: Array<TypeaheadOption>
-}>()
+const props = defineProps<TypeaheadMenuPluginProps<TOption>>()
+
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'open', payload: Resolution): void
+  (e: 'open', payload: MenuResolution): void
   (e: 'queryChange', payload: string | null): void
   (e: 'selectOption', payload: {
-    close: () => void
-    option: TypeaheadOption
+    option: TOption
     textNodeContainingQuery: TextNode | null
+    closeMenu: () => void
     matchingString: string
   }): void
 }>()
-const editor = useEditor()
-const resolution = ref<Resolution | null>(null)
 
-function setResolution(value: Resolution | null) {
-  resolution.value = value
+const editor = useLexicalComposer()
+const resolution = ref<MenuResolution | null>(null)
+
+function setResolution(payload: MenuResolution | null) {
+  resolution.value = payload
 }
 
 const anchorElementRef = useMenuAnchorRef(
   resolution,
   setResolution,
   props.anchorClassName,
+  props.parent,
 )
 
 function closeTypeahead() {
@@ -41,26 +41,10 @@ function closeTypeahead() {
     emit('close')
 }
 
-function openTypeahead(res: Resolution) {
+function openTypeahead(res: MenuResolution) {
   setResolution(res)
   if (resolution.value === null)
     emit('open', res)
-}
-
-function isSelectionOnEntityBoundary(offset: number): boolean {
-  if (offset !== 0)
-    return false
-
-  return editor.getEditorState().read(() => {
-    const selection = $getSelection()
-    if ($isRangeSelection(selection)) {
-      const anchor = selection.anchor
-      const anchorNode = anchor.getNode()
-      const prevSibling = anchorNode.getPreviousSibling()
-      return $isTextNode(prevSibling) && prevSibling.isTextEntity()
-    }
-    return false
-  })
 }
 
 function getTextUpToAnchor(selection: RangeSelection): string | null {
@@ -76,8 +60,12 @@ function getTextUpToAnchor(selection: RangeSelection): string | null {
   return anchorNode.getTextContent().slice(0, anchorOffset)
 }
 
-function tryToPositionRange(leadOffset: number, range: Range): boolean {
-  const domSelection = window.getSelection()
+function tryToPositionRange(
+  leadOffset: number,
+  range: Range,
+  editorWindow: Window,
+): boolean {
+  const domSelection = editorWindow.getSelection()
   if (domSelection === null || !domSelection.isCollapsed)
     return false
 
@@ -111,10 +99,30 @@ function getQueryTextForSearch(editor: LexicalEditor): string | null {
   return text
 }
 
-useEffect(() => {
+function isSelectionOnEntityBoundary(
+  editor: LexicalEditor,
+  offset: number,
+): boolean {
+  if (offset !== 0)
+    return false
+
+  return editor.getEditorState().read(() => {
+    const selection = $getSelection()
+    if ($isRangeSelection(selection)) {
+      const anchor = selection.anchor
+      const anchorNode = anchor.getNode()
+      const prevSibling = anchorNode.getPreviousSibling()
+      return $isTextNode(prevSibling) && prevSibling.isTextEntity()
+    }
+    return false
+  })
+}
+
+watchEffect((onInvalidate) => {
   const updateListener = () => {
     editor.getEditorState().read(() => {
-      const range = document.createRange()
+      const editorWindow = editor._window || window
+      const range = editorWindow.document.createRange()
       const selection = $getSelection()
       const text = getQueryTextForSearch(editor)
 
@@ -133,9 +141,13 @@ useEffect(() => {
 
       if (
         match !== null
-        && !isSelectionOnEntityBoundary(match.leadOffset)
+        && !isSelectionOnEntityBoundary(editor, match.leadOffset)
       ) {
-        const isRangePositioned = tryToPositionRange(match.leadOffset, range)
+        const isRangePositioned = tryToPositionRange(
+          match.leadOffset,
+          range,
+          editorWindow,
+        )
         if (isRangePositioned !== null) {
           openTypeahead({
             getRect: () => range.getBoundingClientRect(),
@@ -148,21 +160,26 @@ useEffect(() => {
     })
   }
 
-  return editor.registerUpdateListener(updateListener)
+  const removeUpdateListener = editor.registerUpdateListener(updateListener)
+
+  onInvalidate(removeUpdateListener)
 })
 </script>
 
 <template>
-  <LexicalPopoverMenu
-    v-if="resolution"
+  <LexicalMenu
     :anchor-element-ref="anchorElementRef"
-    :resolution="resolution"
+    :editor="editor"
+    :resolution="resolution!"
     :options="options"
-    @close="closeTypeahead"
-    @select-option="$emit('selectOption', $event)"
+    :menu-render-fn="menuRenderFn"
+    should-split-node-with-query
+    :command-priority="commandPriority"
+    :close="closeTypeahead"
+    @select-option="onSelectOption!"
   >
     <template #default="slotProps">
       <slot v-bind="slotProps" />
     </template>
-  </LexicalPopoverMenu>
+  </LexicalMenu>
 </template>

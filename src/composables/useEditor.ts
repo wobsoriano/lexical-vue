@@ -1,7 +1,7 @@
 import { inject } from 'vue'
 import { editorKey } from './inject'
 
-export function useEditor() {
+export function useLexicalComposer() {
   const editor = inject(editorKey)
 
   if (!editor)
@@ -9,3 +9,5 @@ export function useEditor() {
 
   return editor
 }
+
+export const useEditor = useLexicalComposer

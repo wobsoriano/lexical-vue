@@ -68,8 +68,8 @@ export {
   default as LexicalPopoverMenu,
 } from './LexicalPopoverMenu.vue'
 export {
-  default as LexicalTypeaheadMenuPlugin,
-} from './LexicalTypeaheadMenuPlugin.vue'
+  LexicalTypeaheadMenuPlugin,
+} from './LexicalTypeaheadMenuPlugin'
 export {
   default as LexicalCollaborationPlugin,
 } from './LexicalCollaborationPlugin.vue'
