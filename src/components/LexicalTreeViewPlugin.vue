@@ -1,34 +1,43 @@
 <script setup lang="ts">
 import type {
+  BaseSelection,
   EditorState,
   ElementNode,
-  GridSelection,
+  LexicalCommand,
+  LexicalEditor,
   LexicalNode,
-  NodeSelection,
   RangeSelection,
+  TextNode,
 } from 'lexical'
 
+import { $generateHtmlFromNodes } from '@lexical/html'
+import type { LinkNode } from '@lexical/link'
+import { $isLinkNode } from '@lexical/link'
 import { $isMarkNode } from '@lexical/mark'
+import type { TableSelection } from '@lexical/table'
+import { $isTableSelection } from '@lexical/table'
+import { mergeRegister } from '@lexical/utils'
 import {
   $getRoot,
   $getSelection,
   $isElementNode,
+  $isNodeSelection,
   $isRangeSelection,
   $isTextNode,
-  DEPRECATED_$isGridSelection,
 } from 'lexical'
-import { computed, onUnmounted, ref, watchEffect } from 'vue'
-import type { LinkNode } from '@lexical/link'
-import { $isLinkNode } from '@lexical/link'
-import { useEditor } from '../composables'
+import { computed, ref, watchEffect } from 'vue'
+
+import { useEditor, useLexicalCommandsLog } from '../composables'
 
 defineProps<{
+  treeTypeButtonClassName: string
   timeTravelButtonClassName: string
   timeTravelPanelSliderClassName: string
   timeTravelPanelButtonClassName: string
   timeTravelPanelClassName: string
   viewClassName: string
 }>()
+
 const NON_SINGLE_WIDTH_CHARS_REPLACEMENT: Readonly<Record<string, string>>
   = Object.freeze({
     '\t': '\\t',
@@ -69,15 +78,24 @@ function printRangeSelection(selection: RangeSelection): string {
   return res
 }
 
-function printObjectSelection(selection: NodeSelection): string {
-  return `: node\n  └ [${Array.from(selection._nodes).join(', ')}]`
-}
+function generateContent(
+  editor: LexicalEditor,
+  commandsLog: ReadonlyArray<LexicalCommand<unknown> & { payload: unknown }>,
+  exportDOM: boolean,
+): string {
+  const editorState = editor.getEditorState()
+  const editorConfig = editor._config
+  const compositionKey = editor._compositionKey
+  const editable = editor._editable
 
-function printGridSelection(selection: GridSelection): string {
-  return `: grid\n  └ { grid: ${selection.gridKey}, anchorCell: ${selection.anchor.key}, focusCell: ${selection.focus.key} }`
-}
+  if (exportDOM) {
+    let htmlString = ''
+    editorState.read(() => {
+      htmlString = printPrettyHTML($generateHtmlFromNodes(editor))
+    })
+    return htmlString
+  }
 
-function generateContent(editorState: EditorState): string {
   let res = ' root\n'
 
   const selectionString = editorState.read(() => {
@@ -110,12 +128,44 @@ function generateContent(editorState: EditorState): string {
       ? ': null'
       : $isRangeSelection(selection)
         ? printRangeSelection(selection)
-        : DEPRECATED_$isGridSelection(selection)
-          ? printGridSelection(selection)
-          : printObjectSelection(selection)
+        : $isTableSelection(selection)
+          ? printTableSelection(selection)
+          : printNodeSelection(selection)
   })
 
-  return `${res}\n selection${selectionString}`
+  res += `\n selection${selectionString}`
+
+  res += '\n\n commands:'
+
+  if (commandsLog.length) {
+    for (const { type, payload } of commandsLog) {
+      res += `\n  └ { type: ${type}, payload: ${
+        payload instanceof Event ? payload.constructor.name : payload
+      } }`
+    }
+  }
+  else {
+    res += '\n  └ None dispatched.'
+  }
+
+  res += '\n\n editor:'
+  res += `\n  └ namespace ${editorConfig.namespace}`
+  if (compositionKey !== null)
+    res += `\n  └ compositionKey ${compositionKey}`
+
+  res += `\n  └ editable ${String(editable)}`
+
+  return res
+}
+
+function printNodeSelection(selection: BaseSelection): string {
+  if (!$isNodeSelection(selection))
+    return ''
+  return `: node\n  └ [${Array.from(selection._nodes).join(', ')}]`
+}
+
+function printTableSelection(selection: TableSelection): string {
+  return `: table\n  └ { table: ${selection.tableKey}, anchorCell: ${selection.anchor.key}, focusCell: ${selection.focus.key} }`
 }
 
 function visitTree(
@@ -183,30 +233,30 @@ function printNode(node: LexicalNode) {
 }
 
 const FORMAT_PREDICATES = [
-  (node: LexicalNode | RangeSelection) => node.hasFormat('bold') && 'Bold',
-  (node: LexicalNode | RangeSelection) => node.hasFormat('code') && 'Code',
-  (node: LexicalNode | RangeSelection) => node.hasFormat('italic') && 'Italic',
-  (node: LexicalNode | RangeSelection) =>
+  (node: TextNode | RangeSelection) => node.hasFormat('bold') && 'Bold',
+  (node: TextNode | RangeSelection) => node.hasFormat('code') && 'Code',
+  (node: TextNode | RangeSelection) => node.hasFormat('italic') && 'Italic',
+  (node: TextNode | RangeSelection) =>
     node.hasFormat('strikethrough') && 'Strikethrough',
-  (node: LexicalNode | RangeSelection) =>
+  (node: TextNode | RangeSelection) =>
     node.hasFormat('subscript') && 'Subscript',
-  (node: LexicalNode | RangeSelection) =>
+  (node: TextNode | RangeSelection) =>
     node.hasFormat('superscript') && 'Superscript',
-  (node: LexicalNode | RangeSelection) =>
+  (node: TextNode | RangeSelection) =>
     node.hasFormat('underline') && 'Underline',
 ]
 
 const DETAIL_PREDICATES = [
-  (node: LexicalNode) => node.isDirectionless() && 'Directionless',
-  (node: LexicalNode) => node.isUnmergeable() && 'Unmergeable',
+  (node: TextNode) => node.isDirectionless() && 'Directionless',
+  (node: TextNode) => node.isUnmergeable() && 'Unmergeable',
 ]
 
 const MODE_PREDICATES = [
-  (node: LexicalNode) => node.isToken() && 'Token',
-  (node: LexicalNode) => node.isSegmented() && 'Segmented',
+  (node: TextNode) => node.isToken() && 'Token',
+  (node: TextNode) => node.isSegmented() && 'Segmented',
 ]
 
-function printAllTextNodeProperties(node: LexicalNode) {
+function printAllTextNodeProperties(node: TextNode) {
   return [
     printFormatProperties(node),
     printDetailProperties(node),
@@ -217,12 +267,16 @@ function printAllTextNodeProperties(node: LexicalNode) {
 }
 
 function printAllLinkNodeProperties(node: LinkNode) {
-  return [printTargetProperties(node), printRelProperties(node)]
+  return [
+    printTargetProperties(node),
+    printRelProperties(node),
+    printTitleProperties(node),
+  ]
     .filter(Boolean)
     .join(', ')
 }
 
-function printDetailProperties(nodeOrSelection: LexicalNode) {
+function printDetailProperties(nodeOrSelection: TextNode) {
   let str = DETAIL_PREDICATES.map(predicate => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
@@ -234,7 +288,7 @@ function printDetailProperties(nodeOrSelection: LexicalNode) {
   return str
 }
 
-function printModeProperties(nodeOrSelection: LexicalNode) {
+function printModeProperties(nodeOrSelection: TextNode) {
   let str = MODE_PREDICATES.map(predicate => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
@@ -246,7 +300,7 @@ function printModeProperties(nodeOrSelection: LexicalNode) {
   return str
 }
 
-function printFormatProperties(nodeOrSelection: LexicalNode | RangeSelection) {
+function printFormatProperties(nodeOrSelection: TextNode | RangeSelection) {
   let str = FORMAT_PREDICATES.map(predicate => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
@@ -276,6 +330,15 @@ function printRelProperties(node: LinkNode) {
   return str
 }
 
+function printTitleProperties(node: LinkNode) {
+  let str = node.getTitle()
+  // TODO Fix nullish on LinkNode
+  if (str != null)
+    str = `title: ${str}`
+
+  return str
+}
+
 function printSelectedCharsLine({
   indent,
   isSelected,
@@ -288,7 +351,7 @@ function printSelectedCharsLine({
   isSelected: boolean
   node: LexicalNode
   nodeKeyDisplay: string
-  selection: GridSelection | NodeSelection | RangeSelection | null
+  selection: BaseSelection | null
   typeDisplay: string
 }) {
   // No selection or node is not selected.
@@ -342,12 +405,39 @@ function printSelectedCharsLine({
   )
 }
 
+function printPrettyHTML(str: string) {
+  const div = document.createElement('div')
+  div.innerHTML = str.trim()
+  return prettifyHTML(div, 0).innerHTML
+}
+
+function prettifyHTML(node: Element, level: number) {
+  const indentBefore = Array.from({ length: level++ + 1 }).join('  ')
+  const indentAfter = Array.from({ length: level - 1 }).join('  ')
+  let textNode
+
+  for (let i = 0; i < node.children.length; i++) {
+    textNode = document.createTextNode(`\n${indentBefore}`)
+    node.insertBefore(textNode, node.children[i])
+    prettifyHTML(node.children[i], level)
+    if (node.lastElementChild === node.children[i]) {
+      textNode = document.createTextNode(`\n${indentAfter}`)
+      node.appendChild(textNode)
+    }
+  }
+
+  return node
+}
+
 function $getSelectionStartEnd(
   node: LexicalNode,
-  selection: RangeSelection | GridSelection,
+  selection: BaseSelection,
 ): [number, number] {
-  const anchor = selection.anchor
-  const focus = selection.focus
+  const anchorAndFocus = selection.getStartEndPoints()
+  if ($isNodeSelection(selection) || anchorAndFocus === null)
+    return [-1, -1]
+
+  const [anchor, focus] = anchorAndFocus
   const textContent = node.getTextContent()
   const textLength = textContent.length
 
@@ -406,29 +496,53 @@ const editor = useEditor()
 const timeStampedEditorStates = ref<[number, EditorState][]>([])
 const content = ref('')
 const timeTravelEnabled = ref(false)
+const showExportDOM = ref(false)
 const playingIndexRef = ref(0)
 const treeElementRef = ref<HTMLPreElement | null>(null)
 const inputRef = ref<HTMLInputElement | null>(null)
 const isPlaying = ref(false)
+const isLimited = ref(false)
+const showLimited = ref(false)
+const lastEditorStateRef = ref<EditorState | null>(null)
 
-let unregisterListener: () => void
+const commandsLog = useLexicalCommandsLog(editor)
+
+function generateTree(editorState: EditorState) {
+  const treeText = generateContent(editor, commandsLog.value, showExportDOM.value)
+
+  content.value = treeText
+
+  if (!timeTravelEnabled.value) {
+    timeStampedEditorStates.value = [
+      ...timeStampedEditorStates.value,
+      [Date.now(), editorState],
+    ]
+  }
+}
+
+watchEffect(() => {
+  const editorState = editor.getEditorState()
+
+  if (!showLimited.value && editorState._nodeMap.size < 1000)
+    content.value = generateContent(editor, commandsLog.value, showExportDOM.value)
+})
 
 watchEffect((onInvalidate) => {
-  content.value = generateContent(editor.getEditorState())
-
-  unregisterListener = editor.registerUpdateListener(({ editorState }) => {
-    const compositionKey = editor._compositionKey
-    const treeText = generateContent(editor.getEditorState())
-    const compositionText
-        = compositionKey !== null && `Composition key: ${compositionKey}`
-    content.value = [treeText, compositionText].filter(Boolean).join('\n\n')
-    if (!timeTravelEnabled.value) {
-      timeStampedEditorStates.value = [
-        ...timeStampedEditorStates.value,
-        [Date.now(), editorState],
-      ]
-    }
-  })
+  const unregisterListener = mergeRegister(
+    editor.registerUpdateListener(({ editorState }) => {
+      if (!showLimited.value && editorState._nodeMap.size > 1000) {
+        lastEditorStateRef.value = editorState
+        isLimited.value = true
+        if (!showLimited.value)
+          return
+      }
+      generateTree(editorState)
+    }),
+    editor.registerEditableListener(() => {
+      const treeText = generateContent(editor, commandsLog.value, showExportDOM.value)
+      content.value = treeText
+    }),
+  )
 
   onInvalidate(() => {
     unregisterListener()
@@ -443,10 +557,12 @@ watchEffect((onInvalidate) => {
   if (isPlaying.value) {
     const play = () => {
       const currentIndex = playingIndexRef.value
+
       if (currentIndex === totalEditorStates.value - 1) {
         isPlaying.value = false
         return
       }
+
       const currentTime = timeStampedEditorStates.value[currentIndex][0]
       const nextTime = timeStampedEditorStates.value[currentIndex + 1][0]
       const timeDiff = nextTime - currentTime
@@ -454,7 +570,8 @@ watchEffect((onInvalidate) => {
         playingIndexRef.value++
         const index = playingIndexRef.value
         const input = inputRef.value
-        if (input)
+
+        if (input !== null)
           input.value = String(index)
 
         editor.setEditorState(timeStampedEditorStates.value[index][1])
@@ -469,21 +586,20 @@ watchEffect((onInvalidate) => {
     clearTimeout(timeoutId)
   })
 })
+
 let element: HTMLPreElement | null = null
-watchEffect(() => {
+
+watchEffect((onInvalidate) => {
   element = treeElementRef.value
-  if (element) {
+
+  if (element !== null) {
     // @ts-expect-error: Internal field
     element.__lexicalEditor = editor
-  }
-})
 
-onUnmounted(() => {
-  unregisterListener?.()
-  clearTimeout(timeoutId)
-  if (element) {
-    // @ts-expect-error: Internal field
-    element.__lexicalEditor = null
+    onInvalidate(() => {
+    // @ts-expect-error Internal field
+      element.__lexicalEditor = null
+    })
   }
 })
 
@@ -525,16 +641,54 @@ function exit() {
 
 <template>
   <div :class="viewClassName">
+    <div v-if="showLimited && isLimited" style="padding: 20px">
+      <span style="margin-right: 20px;">
+        Detected large EditorState, this can impact debugging performance.
+      </span>
+
+      <button
+        style="background: transparent; border: 1px solid white; color: white; cursor: pointer; padding: 5px"
+        @click="{
+          showLimited = false;
+          const editorState = lastEditorStateRef;
+          if (editorState !== null) {
+            lastEditorStateRef = null;
+            generateTree(editorState);
+          }
+        }"
+      >
+        Show full tree
+      </button>
+    </div>
+
+    <div v-if="!showLimited">
+      <button
+        :class="treeTypeButtonClassName"
+        type="button"
+        @click="showExportDOM = !showExportDOM"
+      >
+        {{ showExportDOM ? 'Tree' : 'Export DOM' }}
+      </button>
+    </div>
+
     <button
-      v-if="!timeTravelEnabled && totalEditorStates > 2"
+      v-if="!timeTravelEnabled && (showLimited || !isLimited) && totalEditorStates > 2"
       :class="timeTravelButtonClassName"
       @click="enableTimeTravel"
     >
       Time Travel
     </button>
-    <pre ref="treeElementRef">{{ content }}</pre>
-    <div v-if="timeTravelEnabled" :class="timeTravelPanelClassName">
-      <button :class="timeTravelPanelButtonClassName" @click="isPlaying = !isPlaying">
+    <pre v-if="showLimited || !isLimited" ref="treeElementRef">{{ content }}</pre>
+    <div v-if="timeTravelEnabled && (showLimited || !isLimited)" :class="timeTravelPanelClassName">
+      <button
+        :class="timeTravelPanelButtonClassName"
+        @click="{
+          if (playingIndexRef === totalEditorStates - 1) {
+            playingIndexRef = 1;
+          }
+          isPlaying = !isPlaying;
+        }"
+      >
         {{ isPlaying ? 'Pause' : 'Play' }}
       </button>
       <input

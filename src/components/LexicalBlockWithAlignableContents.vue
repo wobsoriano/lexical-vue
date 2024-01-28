@@ -27,6 +27,8 @@ import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 const props = defineProps<{
   format?: ElementFormatType
   nodeKey: NodeKey
+  baseClass?: string
+  focusClass?: string
 }>()
 
 const editor = useEditor()
@@ -36,13 +38,9 @@ const containerRef = ref<HTMLDivElement | null>(null)
 function onDelete(event: KeyboardEvent) {
   if (isSelected.value && $isNodeSelection($getSelection())) {
     event.preventDefault()
-    editor.update(() => {
-      const node = $getNodeByKey(props.nodeKey)
-      if ($isDecoratorNode(node) && node.isTopLevel())
-        node?.remove()
-
-      setSelected(false)
-    })
+    const node = $getNodeByKey(props.nodeKey)
+    if ($isDecoratorNode(node))
+      node?.remove()
   }
   return false
 }
@@ -111,7 +109,11 @@ useMounted(() => {
 </script>
 
 <template>
-  <div ref="containerRef" :style="`text-align: ${format}`" :class="`embed-block${isSelected ? ' focused' : ''}`">
+  <div
+    ref="containerRef"
+    :style="`text-align: ${format}`"
+    :class="[baseClass, isSelected ? focusClass : '']"
+  >
     <slot />
   </div>
 </template>

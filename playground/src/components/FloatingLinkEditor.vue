@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { LinkNode } from '@lexical/link'
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
-import { mergeRegister } from '@lexical/utils'
-import type { CommandListenerPriority, GridSelection, LexicalNode, NodeSelection, RangeSelection } from 'lexical'
+import { $findMatchingParent, mergeRegister } from '@lexical/utils'
+import type { BaseSelection, CommandListenerPriority, LexicalNode, NodeSelection, RangeSelection } from 'lexical'
 import { $getSelection, $isRangeSelection, SELECTION_CHANGE_COMMAND } from 'lexical'
 import { useEditor } from 'lexical-vue'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
@@ -16,7 +15,7 @@ const inputRef = ref<HTMLInputElement | null>(null)
 const mouseDownRef = ref(false)
 const linkUrl = ref('')
 const isEditMode = ref(false)
-const lastSelection = ref<RangeSelection | NodeSelection | GridSelection | null>(null)
+const lastSelection = ref<BaseSelection | null>(null)
 
 const editor = useEditor()
 
@@ -38,14 +37,13 @@ function positionEditorElement(editor: HTMLDivElement, rect: DOMRect | null) {
 function updateLinkEditor() {
   const selection = $getSelection()
   if ($isRangeSelection(selection)) {
-    const node = getSelectedNode(selection as RangeSelection)
-    const parent = node.getParent() as LexicalNode | LinkNode | null
-    if ($isLinkNode(parent as LexicalNode))
-      linkUrl.value = (parent as LinkNode).getURL()
+    const node = getSelectedNode(selection)
+    const linkParent = $findMatchingParent(node, $isLinkNode)
 
+    if (linkParent)
+      linkUrl.value = linkParent.getURL()
     else if ($isLinkNode(node))
       linkUrl.value = node.getURL()
-
     else
       linkUrl.value = ''
   }
@@ -62,6 +60,7 @@ function updateLinkEditor() {
     && !nativeSelection?.isCollapsed
     && rootElement !== null
     && rootElement.contains(nativeSelection!.anchorNode)
+    && editor.isEditable()
   ) {
     const domRange = nativeSelection?.getRangeAt(0)
     let rect

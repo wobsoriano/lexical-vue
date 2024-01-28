@@ -13,7 +13,13 @@ import { $createEmojiNode, EmojiNode } from '../components/EmojiNode'
 
 const emojis: Map<string, [string, string]> = new Map([
   [':)', ['emoji happysmile', '🙂']],
+  [':D', ['emoji veryhappysmile', '😀']],
+  [':(', ['emoji unhappysmile', '🙁']],
   ['<3', ['emoji heart', '❤']],
+  ['🙂', ['emoji happysmile', '🙂']],
+  ['😀', ['emoji veryhappysmile', '😀']],
+  ['🙁', ['emoji unhappysmile', '🙁']],
+  ['❤', ['emoji heart', '❤']],
 ])
 
 function findAndTransformEmoji(node: TextNode): null | TextNode {
@@ -28,7 +34,6 @@ function findAndTransformEmoji(node: TextNode): null | TextNode {
 
       if (i === 0)
         [targetNode] = node.splitText(i + 2)
-
       else
         [, targetNode] = node.splitText(i, i + 2)
 

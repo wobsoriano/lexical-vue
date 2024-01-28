@@ -1,4 +1,4 @@
-import type { ElementNode, GridSelection, LexicalEditor, LexicalNode, RangeSelection } from 'lexical'
+import type { LexicalEditor, LexicalNode } from 'lexical'
 
 import {
   $createOverflowNode,
@@ -14,6 +14,8 @@ import {
   $isTextNode,
   $setSelection,
 } from 'lexical'
+import invariant from 'tiny-invariant'
+
 import { useMounted } from './useMounted'
 
 interface OptionalProps {
@@ -33,7 +35,8 @@ export function useCharacterLimit(
 
   useMounted(() => {
     if (!editor.hasNodes([OverflowNode])) {
-      throw new Error(
+      invariant(
+        false,
         'useCharacterLimit: OverflowNode not registered on editor',
       )
     }
@@ -83,11 +86,14 @@ function findOffset(
   const Segmenter = Intl.Segmenter
   let offsetUtf16 = 0
   let offset = 0
+
   if (typeof Segmenter === 'function') {
     const segmenter = new Segmenter()
     const graphemes = segmenter.segment(text)
+
     for (const { segment: grapheme } of graphemes) {
       const nextOffset = offset + strlen(grapheme)
+
       if (nextOffset > maxCharacters)
         break
 
@@ -98,9 +104,11 @@ function findOffset(
   else {
     const codepoints = Array.from(text)
     const codepointsLength = codepoints.length
+
     for (let i = 0; i < codepointsLength; i++) {
       const codepoint = codepoints[i]
       const nextOffset = offset + strlen(codepoint)
+
       if (nextOffset > maxCharacters)
         break
 
@@ -108,6 +116,7 @@ function findOffset(
       offsetUtf16 += codepoint.length
     }
   }
+
   return offsetUtf16
 }
 
@@ -115,17 +124,21 @@ function $wrapOverflowedNodes(offset: number): void {
   const dfsNodes = $dfs()
   const dfsNodesLength = dfsNodes.length
   let accumulatedLength = 0
+
   for (let i = 0; i < dfsNodesLength; i += 1) {
     const { node } = dfsNodes[i]
+
     if ($isOverflowNode(node)) {
       const previousLength = accumulatedLength
       const nextLength = accumulatedLength + node.getTextContentSize()
+
       if (nextLength <= offset) {
         const parent = node.getParent()
         const previousSibling = node.getPreviousSibling()
         const nextSibling = node.getNextSibling()
         $unwrapNode(node)
-        const selection = $getSelection() as RangeSelection | GridSelection
+        const selection = $getSelection()
+
         // Restore selection when the overflow children are removed
         if (
           $isRangeSelection(selection)
@@ -134,10 +147,8 @@ function $wrapOverflowedNodes(offset: number): void {
         ) {
           if ($isTextNode(previousSibling))
             previousSibling.select()
-
           else if ($isTextNode(nextSibling))
             nextSibling.select()
-
           else if (parent !== null)
             parent.select()
         }
@@ -153,6 +164,7 @@ function $wrapOverflowedNodes(offset: number): void {
           = $isTextNode(descendant) && descendant.isSimpleText()
         const firstDescendantDoesNotOverflow
           = previousPlusDescendantLength <= offset
+
         if (firstDescendantIsSimpleText || firstDescendantDoesNotOverflow)
           $unwrapNode(node)
       }
@@ -160,9 +172,11 @@ function $wrapOverflowedNodes(offset: number): void {
     else if ($isLeafNode(node)) {
       const previousAccumulatedLength = accumulatedLength
       accumulatedLength += node.getTextContentSize()
+
       if (accumulatedLength > offset && !$isOverflowNode(node.getParent())) {
         const previousSelection = $getSelection()
         let overflowNode
+
         // For simple text we can improve the limit accuracy by splitting the TextNode
         // on the split point
         if (
@@ -178,6 +192,7 @@ function $wrapOverflowedNodes(offset: number): void {
         else {
           overflowNode = $wrapNode(node)
         }
+
         if (previousSelection !== null)
           $setSelection(previousSelection)
 
@@ -197,6 +212,7 @@ function $wrapNode(node: LexicalNode): OverflowNode {
 function $unwrapNode(node: OverflowNode): LexicalNode | null {
   const children = node.getChildren()
   const childrenLength = children.length
+
   for (let i = 0; i < childrenLength; i++)
     node.insertBefore(children[i])
 
@@ -206,12 +222,14 @@ function $unwrapNode(node: OverflowNode): LexicalNode | null {
 
 export function mergePrevious(overflowNode: OverflowNode): void {
   const previousNode = overflowNode.getPreviousSibling()
+
   if (!$isOverflowNode(previousNode))
     return
 
   const firstChild = overflowNode.getFirstChild()
-  const previousNodeChildren = (previousNode as ElementNode).getChildren()
+  const previousNodeChildren = previousNode.getChildren()
   const previousNodeChildrenLength = previousNodeChildren.length
+
   if (firstChild === null) {
     overflowNode.append(...previousNodeChildren)
   }
@@ -220,12 +238,14 @@ export function mergePrevious(overflowNode: OverflowNode): void {
       firstChild.insertBefore(previousNodeChildren[i])
   }
 
-  const selection = $getSelection() as RangeSelection | GridSelection
+  const selection = $getSelection()
+
   if ($isRangeSelection(selection)) {
     const anchor = selection.anchor
     const anchorNode = anchor.getNode()
     const focus = selection.focus
     const focusNode = anchor.getNode()
+
     if (anchorNode.is(previousNode)) {
       anchor.set(overflowNode.getKey(), anchor.offset, 'element')
     }
@@ -236,6 +256,7 @@ export function mergePrevious(overflowNode: OverflowNode): void {
         'element',
       )
     }
+
     if (focusNode.is(previousNode)) {
       focus.set(overflowNode.getKey(), focus.offset, 'element')
     }
@@ -248,5 +269,5 @@ export function mergePrevious(overflowNode: OverflowNode): void {
     }
   }
 
-  previousNode?.remove()
+  previousNode.remove()
 }

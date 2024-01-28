@@ -3,6 +3,7 @@ import type { TextNode } from 'lexical'
 
 import { $createHashtagNode, HashtagNode } from '@lexical/hashtag'
 import { onMounted } from 'vue'
+import invariant from 'tiny-invariant'
 import { useEditor, useLexicalTextEntity } from '../composables'
 
 function getHashtagRegexStringChars(): {
@@ -242,7 +243,7 @@ const editor = useEditor()
 
 onMounted(() => {
   if (!editor.hasNodes([HashtagNode]))
-    throw new Error('HashtagPlugin: HashtagNode not registered on editor')
+    invariant(false, 'HashtagPlugin: HashtagNode not registered on editor')
 })
 
 function createHashtagNode(textNode: TextNode) {

@@ -10,6 +10,7 @@ import {
 } from 'lexical'
 import { useEditor } from 'lexical-vue'
 import { onMounted, onUnmounted } from 'vue'
+import invariant from 'tiny-invariant'
 
 const props = withDefaults(defineProps<{
   maxDepth?: number
@@ -50,11 +51,8 @@ function isIndentPermitted(maxDepth: number) {
     }
     else if ($isListItemNode(elementNode)) {
       const parent = elementNode.getParent() as ListNode
-      if (!$isListNode(parent as ListNode)) {
-        throw new Error(
-          'ListMaxIndentLevelPlugin: A ListItemNode must have a ListNode for a parent.',
-        )
-      }
+      if (!$isListNode(parent as ListNode))
+        invariant(false, 'ListMaxIndentLevelPlugin: A ListItemNode must have a ListNode for a parent.')
 
       totalDepth = Math.max($getListDepth(parent) + 1, totalDepth)
     }
