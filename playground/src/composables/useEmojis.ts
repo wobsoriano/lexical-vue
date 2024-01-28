@@ -9,12 +9,17 @@ import type { LexicalEditor } from 'lexical'
 import { TextNode } from 'lexical'
 
 import { useEffect } from 'lexical-vue'
-import invariant from 'tiny-invariant'
 import { $createEmojiNode, EmojiNode } from '../components/EmojiNode'
 
 const emojis: Map<string, [string, string]> = new Map([
   [':)', ['emoji happysmile', '🙂']],
+  [':D', ['emoji veryhappysmile', '😀']],
+  [':(', ['emoji unhappysmile', '🙁']],
   ['<3', ['emoji heart', '❤']],
+  ['🙂', ['emoji happysmile', '🙂']],
+  ['😀', ['emoji veryhappysmile', '😀']],
+  ['🙁', ['emoji unhappysmile', '🙁']],
+  ['❤', ['emoji heart', '❤']],
 ])
 
 function findAndTransformEmoji(node: TextNode): null | TextNode {
@@ -29,7 +34,6 @@ function findAndTransformEmoji(node: TextNode): null | TextNode {
 
       if (i === 0)
         [targetNode] = node.splitText(i + 2)
-
       else
         [, targetNode] = node.splitText(i, i + 2)
 
@@ -56,7 +60,7 @@ function textNodeTransform(node: TextNode): void {
 export default function useEmojis(editor: LexicalEditor): void {
   useEffect(() => {
     if (!editor.hasNodes([EmojiNode]))
-      invariant(false, 'EmojisPlugin: EmojiNode not registered on editor')
+      throw new Error('EmojisPlugin: EmojiNode not registered on editor')
 
     return editor.registerNodeTransform(TextNode, textNodeTransform)
   })
