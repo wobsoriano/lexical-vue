@@ -7,6 +7,7 @@ import {
 import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
+import invariant from 'tiny-invariant'
 import { useEditor } from '../composables'
 import { useMounted } from '../composables/useMounted'
 
@@ -14,7 +15,7 @@ const editor = useEditor()
 
 useMounted(() => {
   if (!editor.hasNodes([LinkNode]))
-    throw new Error('LinkPlugin: LinkNode not registered on editor')
+    invariant(false, 'LinkPlugin: LinkNode not registered on editor')
 
   return editor.registerCommand(
     TOGGLE_LINK_COMMAND,

@@ -9,6 +9,7 @@ import type { LexicalEditor } from 'lexical'
 import { TextNode } from 'lexical'
 
 import { useEffect } from 'lexical-vue'
+import invariant from 'tiny-invariant'
 import { $createEmojiNode, EmojiNode } from '../components/EmojiNode'
 
 const emojis: Map<string, [string, string]> = new Map([
@@ -55,7 +56,7 @@ function textNodeTransform(node: TextNode): void {
 export default function useEmojis(editor: LexicalEditor): void {
   useEffect(() => {
     if (!editor.hasNodes([EmojiNode]))
-      throw new Error('EmojisPlugin: EmojiNode not registered on editor')
+      invariant(false, 'EmojisPlugin: EmojiNode not registered on editor')
 
     return editor.registerNodeTransform(TextNode, textNodeTransform)
   })

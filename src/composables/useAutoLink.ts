@@ -6,6 +6,7 @@
 import type { LinkAttributes } from '@lexical/link'
 import type { ElementNode, LexicalEditor, LexicalNode } from 'lexical'
 import { unref } from 'vue'
+import invariant from 'tiny-invariant'
 
 import {
   $createAutoLinkNode,
@@ -251,11 +252,8 @@ export function useAutoLink(
   onChange?: ChangeHandler,
 ) {
   useEffect(() => {
-    if (!editor.hasNodes([AutoLinkNode])) {
-      throw new Error(
-        'LexicalAutoLinkPlugin: AutoLinkNode not registered on editor',
-      )
-    }
+    if (!editor.hasNodes([AutoLinkNode]))
+      invariant(false, 'LexicalAutoLinkPlugin: AutoLinkNode not registered on editor')
 
     const onChangeWrapped = (url: string | null, prevUrl: string | null) => {
       if (onChange)
