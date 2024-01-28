@@ -40,15 +40,17 @@ export function useLexicalNodeSelection(
   const setSelected = (selected: boolean) => {
     editor.update(() => {
       let selection = $getSelection()
-      const realKeyVal = unref(key)
+
       if (!$isNodeSelection(selection)) {
         selection = $createNodeSelection()
         $setSelection(selection)
       }
-      if (selected)
-        (selection).add(realKeyVal)
-      else
-        (selection).delete(realKeyVal)
+      if ($isNodeSelection(selection)) {
+        if (selected)
+          selection.add(unref(key))
+        else
+          selection.delete(unref(key))
+      }
     })
   }
 
