@@ -3,10 +3,9 @@ import vuePlugin from 'unplugin-vue/esbuild'
 
 export default defineConfig({
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm', 'iife'],
+  format: ['cjs', 'esm'],
   splitting: false,
   sourcemap: true,
-  globalName: 'LexicalVue',
   clean: true,
   external: [/@lexical/],
   dts: false,
