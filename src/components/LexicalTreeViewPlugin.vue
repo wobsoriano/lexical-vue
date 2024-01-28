@@ -679,7 +679,7 @@ function exit() {
       Time Travel
     </button>
     <pre v-if="showLimited || !isLimited" ref="treeElementRef">{{ content }}</pre>
-    <div v-if="timeTravelEnabled && showLimited || !isLimited" :class="timeTravelPanelClassName">
+    <div v-if="timeTravelEnabled && (showLimited || !isLimited)" :class="timeTravelPanelClassName">
       <button
         :class="timeTravelPanelButtonClassName"
         @click="{
