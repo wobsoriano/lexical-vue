@@ -155,7 +155,6 @@ export function useMenuAnchorRef(
   className?: string,
   parent: HTMLElement = document.body,
 ): Ref<HTMLElement> {
-  // const parent = toRef(parentProp)
   const editor = useLexicalComposer()
   const anchorElementRef = ref<HTMLElement>(document.createElement('div'))
   const positionMenu = () => {
