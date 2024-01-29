@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { $getSelection, $isRangeSelection } from 'lexical'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
 
 const props = defineProps<{
   scrollRef: HTMLElement | null
 }>()
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 useMounted(() => {
   return editor.registerUpdateListener(({ tags, editorState }) => {

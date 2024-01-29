@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import { useEditor } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue'
 import type {
   RangeSelection,
 } from 'lexical'
@@ -35,7 +35,7 @@ const emit = defineEmits<{
   (e: 'update:showBlockOptionsDropDown', value: boolean): void
 }>()
 const dropDownRef = ref<HTMLDivElement | null>(null)
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 onMounted(() => {
   if (props.toolbarRef && dropDownRef.value) {

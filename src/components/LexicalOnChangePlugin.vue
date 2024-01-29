@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { EditorState, LexicalEditor } from 'lexical'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
 
 const props = withDefaults(defineProps<{
@@ -15,7 +15,7 @@ const emit = defineEmits<{
   (e: 'change', editorState: EditorState, editor: LexicalEditor): void
 }>()
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 useMounted(() => {
   return editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState }) => {

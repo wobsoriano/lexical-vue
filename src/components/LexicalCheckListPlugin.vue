@@ -30,11 +30,11 @@ import {
   insertList,
 } from '@lexical/list'
 import { $findMatchingParent, mergeRegister } from '@lexical/utils'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
 import { registerClickAndPointerListeners } from '../composables/listenerManager'
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 useMounted(() => {
   return mergeRegister(

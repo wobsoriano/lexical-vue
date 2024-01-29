@@ -3,7 +3,7 @@ import type { Klass, TextNode } from 'lexical'
 
 import { registerLexicalTextEntity } from '@lexical/text'
 import { mergeRegister } from '@lexical/utils'
-import { useEditor } from './useEditor'
+import { useLexicalComposer } from './useLexicalComposer'
 import { useMounted } from './useMounted'
 
 export function useLexicalTextEntity<T extends TextNode>(
@@ -11,7 +11,7 @@ export function useLexicalTextEntity<T extends TextNode>(
   targetNode: Klass<T>,
   createNode: (textNode: TextNode) => T,
 ): void {
-  const editor = useEditor()
+  const editor = useLexicalComposer()
 
   useMounted(() => {
     return mergeRegister(

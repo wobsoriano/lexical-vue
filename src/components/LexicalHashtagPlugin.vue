@@ -4,7 +4,7 @@ import type { TextNode } from 'lexical'
 import { $createHashtagNode, HashtagNode } from '@lexical/hashtag'
 import { onMounted } from 'vue'
 import invariant from 'tiny-invariant'
-import { useEditor, useLexicalTextEntity } from '../composables'
+import { useLexicalComposer, useLexicalTextEntity } from '../composables'
 
 function getHashtagRegexStringChars(): {
   alpha: string
@@ -239,7 +239,7 @@ function getHashtagRegexString(): string {
 
 const REGEX = new RegExp(getHashtagRegexString(), 'i')
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 onMounted(() => {
   if (!editor.hasNodes([HashtagNode]))

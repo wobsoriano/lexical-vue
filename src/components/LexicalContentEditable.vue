@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
 
 withDefaults(defineProps<{
@@ -28,7 +28,7 @@ withDefaults(defineProps<{
   spellcheck: true,
 })
 const root = ref<HTMLElement | null>(null)
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 const editable = ref(false)
 

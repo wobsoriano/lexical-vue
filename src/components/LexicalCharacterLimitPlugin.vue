@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useCharacterLimit, useEditor } from '../composables'
+import { useCharacterLimit, useLexicalComposer } from '../composables'
 
 const props = withDefaults(defineProps<{
   charset?: 'UTF-8' | 'UTF-16'
@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<{
   charset: 'UTF-16',
 })
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 const CHARACTER_LIMIT = 5
 

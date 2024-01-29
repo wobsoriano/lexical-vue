@@ -4,7 +4,7 @@ import type { Doc } from 'yjs'
 import type { ExcludedProperties, Provider } from '@lexical/yjs'
 import { computed, watchEffect } from 'vue'
 import {
-  useEditor,
+  useLexicalComposer,
   useEffect,
   useYjsCollaboration,
   useYjsFocusTracking,
@@ -34,7 +34,7 @@ watchEffect(() => {
     collaborationContext.value.color = props.cursorColor
 })
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 useEffect(() => {
   collaborationContext.value.isCollabActive = true
