@@ -78,10 +78,10 @@ As any other custom Lexical node, decorator nodes need to be registered before t
 ```vue
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
-import { useEditor } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue'
 import { $createVideoNode, INSERT_VIDEO_COMMAND } from './VideoNode'
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 let unregisterListener: () => void
 
@@ -116,10 +116,10 @@ Then assuming we have a some UE insert a video into the editor:
 
 ```vue
 <script setup lang="ts">
-import { useEditor } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue'
 import { INSERT_VIDEO_COMMAND } from './VideoNode'
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 function insertVideo(url: string) {
   editor.dispatchCommand(INSERT_VIDEO_COMMAND, url)

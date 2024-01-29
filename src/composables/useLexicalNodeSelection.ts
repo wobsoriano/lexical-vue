@@ -9,7 +9,7 @@ import {
 } from 'lexical'
 import { readonly, ref, unref, watchPostEffect } from 'vue'
 import type { MaybeRef } from '../types'
-import { useEditor } from './useEditor'
+import { useLexicalComposer } from './useLexicalComposer'
 
 function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {
   return editor.getEditorState().read(() => {
@@ -24,7 +24,7 @@ function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {
 export function useLexicalNodeSelection(
   key: MaybeRef<NodeKey>,
 ) {
-  const editor = useEditor()
+  const editor = useLexicalComposer()
   const isSelected = ref(isNodeSelected(editor, unref(key)))
 
   watchPostEffect((onInvalidate) => {

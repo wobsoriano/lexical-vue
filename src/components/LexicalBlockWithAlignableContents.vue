@@ -20,7 +20,7 @@ import {
   KEY_DELETE_COMMAND,
 } from 'lexical'
 import { ref } from 'vue'
-import { useEditor, useLexicalNodeSelection } from '../composables'
+import { useLexicalComposer, useLexicalNodeSelection } from '../composables'
 import { useMounted } from '../composables/useMounted'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 
@@ -31,7 +31,7 @@ const props = defineProps<{
   focusClass?: string
 }>()
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 const { isSelected, setSelected, clearSelection } = useLexicalNodeSelection(props.nodeKey)
 const containerRef = ref<HTMLDivElement | null>(null)
 

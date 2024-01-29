@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { nextTick, onMounted } from 'vue'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 
 const props = defineProps<{
   defaultSelection?: 'rootStart' | 'rootEnd'
 }>()
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 onMounted(() => {
   nextTick(() => {

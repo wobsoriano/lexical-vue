@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type LinkMatcher, useAutoLink, useEditor } from '../composables'
+import { type LinkMatcher, useAutoLink, useLexicalComposer } from '../composables'
 
 const props = defineProps<{
   matchers: LinkMatcher[]
@@ -9,7 +9,7 @@ const emit = defineEmits<{
   (e: 'change', value: { url: string | null, prevUrl: string | null }): void
 }>()
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 useAutoLink(editor, props.matchers, (url: string | null, prevUrl: string | null) => {
   emit('change', {

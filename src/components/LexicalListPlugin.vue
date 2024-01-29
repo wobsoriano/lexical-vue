@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useEditor, useList } from '../composables'
+import { useLexicalComposer, useList } from '../composables'
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 useList(editor)
 </script>
 

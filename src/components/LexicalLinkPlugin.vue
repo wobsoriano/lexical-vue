@@ -13,13 +13,13 @@ import {
 } from 'lexical'
 import invariant from 'tiny-invariant'
 import { mergeRegister } from '@lexical/utils'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
 
 const props = defineProps<{
   validateUrl?: (url: string) => boolean
 }>()
-const editor = useEditor()
+const editor = useLexicalComposer()
 useMounted(() => {
   if (!editor.hasNodes([LinkNode]))
     invariant(false, 'LinkPlugin: LinkNode not registered on editor')

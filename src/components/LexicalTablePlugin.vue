@@ -29,7 +29,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import invariant from 'tiny-invariant'
-import { useEditor, useEffect, useMounted } from '../composables'
+import { useLexicalComposer, useEffect, useMounted } from '../composables'
 
 const props = withDefaults(defineProps<{
   hasCellMerge?: boolean
@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<{
   hasTabHandler: true,
 })
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 useMounted(() => {
   if (!editor.hasNodes([TableNode, TableCellNode, TableRowNode])) {

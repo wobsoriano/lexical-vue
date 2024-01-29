@@ -27,7 +27,7 @@ import {
 } from 'lexical'
 import { computed, ref, watchEffect } from 'vue'
 
-import { useEditor, useLexicalCommandsLog } from '../composables'
+import { useLexicalComposer, useLexicalCommandsLog } from '../composables'
 
 defineProps<{
   treeTypeButtonClassName: string
@@ -491,7 +491,7 @@ function $getSelectionStartEnd(
   ]
 }
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 const timeStampedEditorStates = ref<[number, EditorState][]>([])
 const content = ref('')

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useCanShowPlaceholder, useEditor, usePlainTextSetup } from '../composables'
+import { useCanShowPlaceholder, useLexicalComposer, usePlainTextSetup } from '../composables'
 import Decorators from './LexicalDecoratedTeleports'
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 const showPlaceholder = useCanShowPlaceholder(editor)
 usePlainTextSetup(editor)
 </script>

@@ -7,10 +7,10 @@ import {
   KEY_TAB_COMMAND,
   OUTDENT_CONTENT_COMMAND,
 } from 'lexical'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 useMounted(() => {
   return editor.registerCommand<KeyboardEvent>(

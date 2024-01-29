@@ -7,13 +7,13 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import { useAttrs } from 'vue'
-import { useEditor } from '../composables'
+import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
 
 const emit = defineEmits<{
   (e: 'clear'): void
 }>()
-const editor = useEditor()
+const editor = useLexicalComposer()
 const attrs = useAttrs()
 
 useMounted(() => {
