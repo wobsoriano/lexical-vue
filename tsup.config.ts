@@ -7,7 +7,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: [/@lexical/],
+  external: [/@lexical/, 'yjs'],
   dts: false,
   esbuildPlugins: [
     vuePlugin({
