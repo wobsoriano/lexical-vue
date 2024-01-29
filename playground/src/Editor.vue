@@ -8,14 +8,15 @@ import {
   LexicalRichTextPlugin,
 } from 'lexical-vue'
 
-import ToolbarPlugin from './ToolbarPlugin.vue'
-import CodeHighlightPlugin from './CodeHighlightPlugin.vue'
-import ListMaxIndentLevelPlugin from './ListMaxIndentLevelPlugin.vue'
-import AutoLinkPlugin from './AutoLinkPlugin.vue'
-import TreeViewPlugin from './TreeViewPlugin.vue'
-import MarkdownShortcutPlugin from './MarkdownShortcutPlugin.vue'
-import EmojisPlugin from './EmojisPlugin.vue'
-import ContentEditable from './ContentEditable.vue'
+import EmojisPlugin from './plugins/EmojisPlugin.vue'
+import EmojiPickerPlugin from './plugins/EmojiPickerPlugin.vue'
+import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
+import ToolbarPlugin from './plugins/ToolbarPlugin.vue'
+import CodeHighlightPlugin from './plugins/CodeHighlightPlugin.vue'
+import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin.vue'
+import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
+import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin.vue'
+import ContentEditable from './plugins/ContentEditable.vue'
 </script>
 
 <template>
@@ -46,6 +47,7 @@ import ContentEditable from './ContentEditable.vue'
       <ListMaxIndentLevelPlugin :max-depth="7" />
       <LexicalHashtagPlugin />
       <MarkdownShortcutPlugin />
+      <EmojiPickerPlugin />
       <EmojisPlugin />
     </div>
   </div>

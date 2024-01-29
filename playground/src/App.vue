@@ -2,15 +2,12 @@
 import type { CreateEditorArgs } from 'lexical'
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
 import { LexicalComposer } from 'lexical-vue'
-import { $createHeadingNode, $createQuoteNode, HeadingNode, QuoteNode } from '@lexical/rich-text'
-import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
-import { $createListItemNode, $createListNode, ListItemNode, ListNode } from '@lexical/list'
-import { CodeHighlightNode, CodeNode } from '@lexical/code'
-import { $createLinkNode, AutoLinkNode, LinkNode } from '@lexical/link'
-import { HashtagNode } from '@lexical/hashtag'
-import { EmojiNode } from './components/EmojiNode'
-import Editor from './components/Editor.vue'
+import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
+import { $createListItemNode, $createListNode } from '@lexical/list'
+import { $createLinkNode } from '@lexical/link'
+import Editor from './Editor.vue'
 import PlaygroundEditorTheme from './themes/PlaygroundEditorTheme'
+import PlaygroundNodes from './nodes/PlaygroundNodes'
 
 function prepopulatedRichText() {
   const root = $getRoot()
@@ -95,19 +92,7 @@ function prepopulatedRichText() {
 const config: CreateEditorArgs = {
   theme: PlaygroundEditorTheme,
   nodes: [
-    HeadingNode,
-    ListNode,
-    ListItemNode,
-    QuoteNode,
-    CodeNode,
-    CodeHighlightNode,
-    TableNode,
-    TableCellNode,
-    TableRowNode,
-    AutoLinkNode,
-    LinkNode,
-    HashtagNode,
-    EmojiNode,
+    ...PlaygroundNodes,
   ],
   editable: true,
   editorState: prepopulatedRichText as any,

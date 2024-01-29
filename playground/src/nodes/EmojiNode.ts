@@ -1,6 +1,8 @@
-/*!
- * Original code by Meta Platforms
- * MIT Licensed, Copyright (c) Meta Platforms, Inc. and affiliates, see https://github.com/facebook/lexical/blob/main/LICENSE for details
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 

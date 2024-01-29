@@ -91,7 +91,6 @@ export function useBasicTypeaheadTriggerMatch(
 
 export interface TypeaheadMenuPluginProps<TOption extends MenuOption> {
   options: Array<TOption>
-  menuRenderFn: MenuRenderFn<TOption>
   triggerFn: TriggerFn
   anchorClassName?: string
   commandPriority?: CommandListenerPriority

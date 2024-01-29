@@ -5,7 +5,7 @@ import type { BaseSelection, CommandListenerPriority, LexicalNode, NodeSelection
 import { $getSelection, $isRangeSelection, SELECTION_CHANGE_COMMAND } from 'lexical'
 import { useEditor } from 'lexical-vue'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
-import { getSelectedNode } from '../utils'
+import { getSelectedNode } from '../utils/getSelectedNode'
 
 const props = defineProps<{
   priority: CommandListenerPriority

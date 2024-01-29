@@ -64,12 +64,16 @@ export {
 export {
   default as LexicalTabIndentationPlugin,
 } from './LexicalTabIndentationPlugin.vue'
-export {
-  default as LexicalPopoverMenu,
-} from './LexicalPopoverMenu.vue'
+
 export {
   LexicalTypeaheadMenuPlugin,
+  useBasicTypeaheadTriggerMatch,
 } from './LexicalTypeaheadMenuPlugin'
+
+export {
+  MenuOption,
+} from './LexicalMenu'
+
 export {
   default as LexicalCollaborationPlugin,
 } from './LexicalCollaborationPlugin.vue'

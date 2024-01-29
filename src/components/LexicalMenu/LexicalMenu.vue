@@ -160,8 +160,8 @@ watchEffect((onInvalidate) => {
     props.editor.registerCommand(
       SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND,
       ({ option }) => {
-        if (option.ref && option.ref.value != null) {
-          scrollIntoViewIfNeeded(option.ref.value)
+        if (option.ref && option.ref != null) {
+          scrollIntoViewIfNeeded(option.ref)
           return true
         }
 
@@ -188,7 +188,7 @@ watchEffect((onInvalidate) => {
                 = selectedIndex.value !== props.options.length - 1 ? selectedIndex.value + 1 : 0
           updateSelectedIndex(newSelectedIndex)
           const option = props.options[newSelectedIndex]
-          if (option.ref != null && option.ref.value) {
+          if (option.ref != null && option.ref) {
             props.editor.dispatchCommand(
               SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND,
               {
@@ -213,8 +213,8 @@ watchEffect((onInvalidate) => {
                 = selectedIndex.value !== 0 ? selectedIndex.value! - 1 : props.options.length - 1
           updateSelectedIndex(newSelectedIndex)
           const option = props.options[newSelectedIndex]
-          if (option.ref != null && option.ref.value)
-            scrollIntoViewIfNeeded(option.ref.value)
+          if (option.ref != null && option.ref)
+            scrollIntoViewIfNeeded(option.ref)
 
           event.preventDefault()
           event.stopImmediatePropagation()
@@ -275,18 +275,16 @@ watchEffect((onInvalidate) => {
 
   onInvalidate(fn)
 })
-
-const listItemProps = computed(() => ({
-  options: props.options,
-  selectOptionAndCleanUp,
-  selectedIndex,
-  setHighlightedIndex,
-}))
 </script>
 
 <template>
   <slot
-    :list-item-props="listItemProps"
+    :list-item-props="{
+      options: props.options,
+      selectOptionAndCleanUp,
+      selectedIndex,
+      setHighlightedIndex,
+    }"
     :anchor-element-ref="anchorElementRef"
     :match-string="resolution.match ? resolution.match.matchingString : ''"
   />

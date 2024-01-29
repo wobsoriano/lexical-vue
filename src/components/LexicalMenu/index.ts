@@ -5,8 +5,8 @@ import type {
 import {
   createCommand,
 } from 'lexical'
-import type { Component, Ref } from 'vue'
-import { ref, watchEffect } from 'vue'
+import type { Component, ComponentPublicInstance, Ref } from 'vue'
+import { ref, toRef, watchEffect } from 'vue'
 import { useLexicalComposer } from '../../composables'
 
 export interface MenuTextMatch {
@@ -25,15 +25,16 @@ export const PUNCTUATION
 
 export class MenuOption {
   key: string
-  ref: Ref<HTMLElement | null>
+  ref: HTMLElement | null
 
   constructor(key: string) {
     this.key = key
-    this.ref = ref(null)
+    this.ref = null
+    this.setRefElement = this.setRefElement.bind(this)
   }
 
-  setRefElement(element: HTMLElement | null) {
-    this.ref.value = element
+  setRefElement(el: Element | ComponentPublicInstance | null) {
+    this.ref = el as HTMLElement
   }
 }
 
@@ -152,8 +153,9 @@ export function useMenuAnchorRef(
   resolution: Ref<MenuResolution | null>,
   setResolution: (r: MenuResolution | null) => void,
   className?: string,
-  parent: HTMLElement = document.body,
+  parentProp: HTMLElement = document.body,
 ): Ref<HTMLElement> {
+  const parent = toRef(parentProp)
   const editor = useLexicalComposer()
   const anchorElementRef = ref<HTMLElement>(document.createElement('div'))
   const positionMenu = () => {
@@ -204,7 +206,7 @@ export function useMenuAnchorRef(
         containerDiv.setAttribute('role', 'listbox')
         containerDiv.style.display = 'block'
         containerDiv.style.position = 'absolute'
-        parent.append(containerDiv)
+        parent.value.append(containerDiv)
       }
       anchorElementRef.value = containerDiv
       rootElement.setAttribute('aria-controls', 'typeahead-menu')

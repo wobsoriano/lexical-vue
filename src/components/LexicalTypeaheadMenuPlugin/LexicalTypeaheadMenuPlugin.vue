@@ -3,8 +3,8 @@ import type { LexicalEditor, RangeSelection, TextNode } from 'lexical'
 import { $getSelection, $isRangeSelection, $isTextNode } from 'lexical'
 import { ref, watchEffect } from 'vue'
 import { useLexicalComposer } from '../../composables'
-import { type MenuOption, type MenuResolution, useMenuAnchorRef } from '../LexicalMenu'
-import { LexicalMenu } from '../LexicalMenu'
+import type { MenuOption, MenuResolution } from '../LexicalMenu'
+import { LexicalMenu, useMenuAnchorRef } from '../LexicalMenu'
 import type { TypeaheadMenuPluginProps } from './index'
 
 const props = defineProps<TypeaheadMenuPluginProps<TOption>>()
@@ -168,15 +168,15 @@ watchEffect((onInvalidate) => {
 
 <template>
   <LexicalMenu
+    v-if="resolution !== null && editor !== null"
     :anchor-element-ref="anchorElementRef"
     :editor="editor"
     :resolution="resolution!"
     :options="options"
-    :menu-render-fn="menuRenderFn"
     should-split-node-with-query
     :command-priority="commandPriority"
     :close="closeTypeahead"
-    @select-option="onSelectOption!"
+    @select-option="$emit('selectOption', $event)"
   >
     <template #default="slotProps">
       <slot v-bind="slotProps" />

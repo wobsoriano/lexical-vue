@@ -26,11 +26,11 @@ import {
   getDefaultCodeLanguage,
 } from '@lexical/code'
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
-import { getSelectedNode } from '../utils'
-import BlockOptionsDropdownList from './BlockOptionsDropdownList.vue'
-import CodeLanguageSelect from './CodeLanguageSelect.vue'
+import { getSelectedNode } from '../utils/getSelectedNode'
+import BlockOptionsDropdownList from '../components/BlockOptionsDropdownList.vue'
+import CodeLanguageSelect from '../components/CodeLanguageSelect.vue'
+import Divider from '../components/Divider'
 import FloatingLinkEditor from './FloatingLinkEditor.vue'
-import Divider from './Divider'
 
 const LowPriority: CommandListenerPriority = 1
 
