@@ -175,9 +175,6 @@ watchEffect((onInvalidate) => {
 })
 
 watchEffect((onInvalidate) => {
-  if (!props.commandPriority || selectedIndex.value === null)
-    return
-
   const fn = mergeRegister(
     props.editor.registerCommand<KeyboardEvent>(
       KEY_ARROW_DOWN_COMMAND,
@@ -202,7 +199,7 @@ watchEffect((onInvalidate) => {
         }
         return true
       },
-      props.commandPriority,
+      props.commandPriority!,
     ),
     props.editor.registerCommand<KeyboardEvent>(
       KEY_ARROW_UP_COMMAND,
@@ -221,7 +218,7 @@ watchEffect((onInvalidate) => {
         }
         return true
       },
-      props.commandPriority,
+      props.commandPriority!,
     ),
     props.editor.registerCommand<KeyboardEvent>(
       KEY_ESCAPE_COMMAND,
@@ -232,7 +229,7 @@ watchEffect((onInvalidate) => {
         close()
         return true
       },
-      props.commandPriority,
+      props.commandPriority!,
     ),
     props.editor.registerCommand<KeyboardEvent>(
       KEY_TAB_COMMAND,
@@ -250,7 +247,7 @@ watchEffect((onInvalidate) => {
         selectOptionAndCleanUp(props.options[selectedIndex.value])
         return true
       },
-      props.commandPriority,
+      props.commandPriority!,
     ),
     props.editor.registerCommand(
       KEY_ENTER_COMMAND,
@@ -269,7 +266,7 @@ watchEffect((onInvalidate) => {
         selectOptionAndCleanUp(props.options[selectedIndex.value])
         return true
       },
-      props.commandPriority,
+      props.commandPriority!,
     ),
   )
 

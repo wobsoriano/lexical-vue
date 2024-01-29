@@ -1,13 +1,15 @@
 <script setup lang="ts" generic="TOption extends MenuOption">
 import type { LexicalEditor, RangeSelection, TextNode } from 'lexical'
-import { $getSelection, $isRangeSelection, $isTextNode } from 'lexical'
+import { $getSelection, $isRangeSelection, $isTextNode, COMMAND_PRIORITY_LOW } from 'lexical'
 import { ref, watchEffect } from 'vue'
 import { useLexicalComposer } from '../../composables'
 import type { MenuOption, MenuResolution } from '../LexicalMenu'
 import { LexicalMenu, useMenuAnchorRef } from '../LexicalMenu'
 import type { TypeaheadMenuPluginProps } from './index'
 
-const props = defineProps<TypeaheadMenuPluginProps<TOption>>()
+const props = withDefaults(defineProps<TypeaheadMenuPluginProps<TOption>>(), {
+  commandPriority: COMMAND_PRIORITY_LOW,
+})
 
 const emit = defineEmits<{
   (e: 'close'): void
