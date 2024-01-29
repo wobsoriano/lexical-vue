@@ -1,15 +1,9 @@
-/*!
- * Original code by Meta Platforms
- * MIT Licensed, Copyright (c) Meta Platforms, Inc. and affiliates, see https://github.com/facebook/lexical/blob/main/LICENSE for details
- *
- */
-
-import type { LexicalEditor } from 'lexical'
-
+<script setup lang="ts">
 import { TextNode } from 'lexical'
 
-import { useEffect } from 'lexical-vue'
-import { $createEmojiNode, EmojiNode } from '../components/EmojiNode'
+import { useLexicalComposer } from 'lexical-vue'
+import { onMounted, onUnmounted } from 'vue'
+import { $createEmojiNode, EmojiNode } from '../nodes/EmojiNode'
 
 const emojis: Map<string, [string, string]> = new Map([
   [':)', ['emoji happysmile', '🙂']],
@@ -57,11 +51,17 @@ function textNodeTransform(node: TextNode): void {
   }
 }
 
-export default function useEmojis(editor: LexicalEditor): void {
-  useEffect(() => {
-    if (!editor.hasNodes([EmojiNode]))
-      throw new Error('EmojisPlugin: EmojiNode not registered on editor')
+const editor = useLexicalComposer()
 
-    return editor.registerNodeTransform(TextNode, textNodeTransform)
-  })
-}
+onMounted(() => {
+  if (!editor.hasNodes([EmojiNode]))
+    throw new Error('EmojisPlugin: EmojiNode not registered on editor')
+
+  const fn = editor.registerNodeTransform(TextNode, textNodeTransform)
+
+  onUnmounted(fn)
+})
+</script>
+
+<template>
+</template>
