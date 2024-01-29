@@ -78,3 +78,7 @@ export {
 export {
   default as LexicalCollaborationPlugin,
 } from './LexicalCollaborationPlugin.vue'
+
+export {
+  default as LexicalClickableLinkPlugin,
+} from './LexicalClickableLinkPlugin.vue'

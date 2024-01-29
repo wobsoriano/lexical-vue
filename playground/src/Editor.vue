@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   LexicalAutoFocusPlugin,
+  LexicalClickableLinkPlugin,
   LexicalHashtagPlugin,
   LexicalHistoryPlugin,
   LexicalLinkPlugin,
@@ -51,6 +52,7 @@ import MentionsPlugin from './plugins/MentionsPlugin.vue'
       <EmojiPickerPlugin />
       <EmojisPlugin />
       <MentionsPlugin />
+      <LexicalClickableLinkPlugin />
     </div>
   </div>
 </template>
