@@ -17,6 +17,7 @@ import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin.vue'
 import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin.vue'
 import ContentEditable from './plugins/ContentEditable.vue'
+import MentionsPlugin from './plugins/MentionsPlugin.vue'
 </script>
 
 <template>
@@ -49,6 +50,7 @@ import ContentEditable from './plugins/ContentEditable.vue'
       <MarkdownShortcutPlugin />
       <EmojiPickerPlugin />
       <EmojisPlugin />
+      <MentionsPlugin />
     </div>
   </div>
 </template>

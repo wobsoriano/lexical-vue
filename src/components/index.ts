@@ -72,6 +72,7 @@ export {
 
 export {
   MenuOption,
+  type MenuTextMatch,
 } from './LexicalMenu'
 
 export {
