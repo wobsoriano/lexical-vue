@@ -8,7 +8,7 @@ import {
   $isRangeSelection,
   INDENT_CONTENT_COMMAND,
 } from 'lexical'
-import { useEditor } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue'
 import { onMounted, onUnmounted } from 'vue'
 import invariant from 'tiny-invariant'
 
@@ -61,7 +61,7 @@ function isIndentPermitted(maxDepth: number) {
   return totalDepth <= maxDepth
 }
 
-const editor = useEditor()
+const editor = useLexicalComposer()
 let unregisterListener: () => void
 
 onMounted(() => {

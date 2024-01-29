@@ -16,7 +16,7 @@ import {
   $isParentElementRTL,
 } from '@lexical/selection'
 import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
-import { useEditor } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { $isListNode, ListNode } from '@lexical/list'
 import { $isHeadingNode } from '@lexical/rich-text'
@@ -58,7 +58,7 @@ const blockTypeToBlockName: Record<string, string> = {
 }
 
 const toolbarRef = ref<HTMLDivElement | null>(null)
-const editor = useEditor()
+const editor = useLexicalComposer()
 
 const canUndo = ref(false)
 const canRedo = ref(false)
