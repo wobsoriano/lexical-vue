@@ -1,11 +1,16 @@
 import { inject } from 'vue'
+import invariant from 'tiny-invariant'
 import { editorKey } from './inject'
 
 export function useLexicalComposer() {
   const editor = inject(editorKey)
 
-  if (!editor)
-    throw new Error('<LexicalComposer /> is required')
+  if (!editor) {
+    invariant(
+      false,
+      'useLexicalComposer: cannot find a LexicalComposer',
+    )
+  }
 
   return editor
 }

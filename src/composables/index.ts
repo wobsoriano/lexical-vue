@@ -1,4 +1,3 @@
-export * from './useAutoLink'
 export * from './useCanShowPlaceholder'
 export * from './useCharacterLimit'
 export * from './useDecorators'

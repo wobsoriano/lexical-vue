@@ -1,11 +1,6 @@
-/*!
- * Original code by Meta Platforms
- * MIT Licensed, Copyright (c) Meta Platforms, Inc. and affiliates, see https://github.com/facebook/lexical/blob/main/LICENSE for details
- *
- */
 import type { LinkAttributes } from '@lexical/link'
 import type { ElementNode, LexicalEditor, LexicalNode } from 'lexical'
-import { unref } from 'vue'
+import { unref, watchEffect } from 'vue'
 import invariant from 'tiny-invariant'
 
 import {
@@ -22,8 +17,7 @@ import {
   $isTextNode,
   TextNode,
 } from 'lexical'
-import type { MaybeRef } from '../types'
-import { useEffect } from './useEffect'
+import type { MaybeRef } from 'vue'
 
 type ChangeHandler = (url: string | null, prevUrl: string | null) => void
 
@@ -251,7 +245,7 @@ export function useAutoLink(
   matchers: MaybeRef<Array<LinkMatcher>>,
   onChange?: ChangeHandler,
 ) {
-  useEffect(() => {
+  watchEffect((onInvalidate) => {
     if (!editor.hasNodes([AutoLinkNode]))
       invariant(false, 'LexicalAutoLinkPlugin: AutoLinkNode not registered on editor')
 
@@ -260,7 +254,7 @@ export function useAutoLink(
         onChange(url, prevUrl)
     }
 
-    return mergeRegister(
+    const fn = mergeRegister(
       editor.registerNodeTransform(TextNode, (textNode: TextNode) => {
         const parent = textNode.getParentOrThrow()
         if ($isAutoLinkNode(parent)) {
@@ -278,5 +272,11 @@ export function useAutoLink(
         handleLinkEdit(linkNode, unref(matchers), onChangeWrapped)
       }),
     )
+
+    onInvalidate(fn)
   })
 }
+
+export {
+  default as LexicalAutoLinkPlugin,
+} from './LexicalAutoLinkPlugin.vue'

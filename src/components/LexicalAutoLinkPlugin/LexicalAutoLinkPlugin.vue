@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type LinkMatcher, useAutoLink, useLexicalComposer } from '../composables'
+import { useLexicalComposer } from '../../composables'
+import { type LinkMatcher, useAutoLink } from './index'
 
 const props = defineProps<{
   matchers: LinkMatcher[]
