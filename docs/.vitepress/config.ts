@@ -13,6 +13,7 @@ export default defineConfig({
     lastUpdatedText: 'Last Updated',
     nav: [
       { text: 'Docs', link: '/docs/introduction', activeMatch: '/docs/' },
+      { text: 'API', link: 'https://lexical.dev/docs/api/modules' },
       { text: 'Playground', link: 'https://lexical-vue-playground.vercel.app' },
     ],
     sidebar: {
