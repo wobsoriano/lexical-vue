@@ -7,6 +7,7 @@ For documentation and more information about Lexical, be sure to visit the [Lexi
 Here are some examples of what you can do with Lexical:
 
 - [Lexical Vue Playground](https://lexical-vue-playground.vercel.app)
+- [Rich Text Example](https://stackblitz.com/edit/vitejs-vite-qqdqcl)
 - [Plain Text Example](https://stackblitz.com/edit/vitejs-vite-jxwkxo)
 
 ## Getting started with Vue
