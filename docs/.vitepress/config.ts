@@ -26,20 +26,22 @@ export default defineConfig({
 
 function sidebarDocs() {
   return [
+    { text: 'Introduction', link: '/docs/introduction' },
     {
-      text: 'About',
-      collapsible: true,
+      text: 'Getting Started',
+      collapsed: false,
       items: [
-        { text: 'Introduction', link: '/docs/introduction' },
-        { text: 'Getting Started', link: '/docs/getting-started' },
+        { text: 'Usage', link: '/docs/getting-started/usage' },
+        { text: 'Theming', link: '/docs/getting-started/theming' },
       ],
     },
+    { text: 'Concepts', link: 'https://lexical.dev/docs/concepts/editor-state' },
     {
       text: 'Plugins',
-      collapsible: true,
+      collapsible: false,
       items: [
-        { text: 'Available Plugins', link: '/docs/available-plugins' },
-        { text: 'Custom', link: '/docs/custom' },
+        { text: 'Available Plugins', link: '/docs/plugins/available' },
+        { text: 'Custom', link: '/docs/plugins/custom' },
       ],
     },
   ]
