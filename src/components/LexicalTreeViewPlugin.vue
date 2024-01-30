@@ -27,7 +27,7 @@ import {
 } from 'lexical'
 import { computed, ref, watchEffect } from 'vue'
 
-import { useLexicalComposer, useLexicalCommandsLog } from '../composables'
+import { useLexicalCommandsLog, useLexicalComposer } from '../composables'
 
 defineProps<{
   treeTypeButtonClassName: string

@@ -29,7 +29,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import invariant from 'tiny-invariant'
-import { useLexicalComposer, useEffect, useMounted } from '../composables'
+import { useEffect, useLexicalComposer, useMounted } from '../composables'
 
 const props = withDefaults(defineProps<{
   hasCellMerge?: boolean

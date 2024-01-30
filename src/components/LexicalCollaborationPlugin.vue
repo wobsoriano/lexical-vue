@@ -4,8 +4,8 @@ import type { Doc } from 'yjs'
 import type { ExcludedProperties, Provider } from '@lexical/yjs'
 import { computed, watchEffect } from 'vue'
 import {
-  useLexicalComposer,
   useEffect,
+  useLexicalComposer,
   useYjsCollaboration,
   useYjsFocusTracking,
   useYjsHistory,
