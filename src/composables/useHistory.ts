@@ -1,9 +1,8 @@
 import type { HistoryState } from '@lexical/history'
 import type { LexicalEditor } from 'lexical'
-import { computed, unref, watchPostEffect } from 'vue'
+import { type MaybeRef, computed, unref, watchEffect } from 'vue'
 
 import { createEmptyHistoryState, registerHistory } from '@lexical/history'
-import type { MaybeRef } from '../types'
 
 export function useHistory(
   editor: MaybeRef<LexicalEditor>,
@@ -14,11 +13,9 @@ export function useHistory(
     () => unref(externalHistoryState) || createEmptyHistoryState(),
   )
 
-  watchPostEffect((onInvalidate) => {
+  watchEffect((onInvalidate) => {
     const unregisterListener = registerHistory(unref(editor), historyState.value, unref(delay) || 1000)
 
-    onInvalidate(() => {
-      unregisterListener()
-    })
+    onInvalidate(unregisterListener)
   })
 }
