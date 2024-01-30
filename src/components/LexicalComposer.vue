@@ -10,20 +10,22 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'error', error: Error): void
+  (e: 'error', error: Error, editor: LexicalEditor): void
 }>()
 
 const HISTORY_MERGE_OPTIONS = { tag: 'history-merge' }
 
 const editor = createEditor({
-  editable: false,
+  editable: props.initialConfig.editable,
+  html: props.initialConfig.html,
   namespace: props.initialConfig.namespace,
   nodes: props.initialConfig.nodes,
   theme: props.initialConfig.theme,
   onError(error) {
-    emit('error', error)
+    emit('error', error, editor)
   },
 })
+
 initializeEditor(editor, props.initialConfig.editorState)
 
 function initializeEditor(
@@ -76,7 +78,7 @@ provide(editorKey, editor)
 onMounted(() => {
   const isEditable = props.initialConfig.editable
 
-  editor.setEditable(isEditable || false)
+  editor.setEditable(isEditable !== undefined ? isEditable : true)
 })
 </script>
 
