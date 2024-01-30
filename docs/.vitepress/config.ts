@@ -29,15 +29,16 @@ function sidebarDocs() {
     { text: 'Introduction', link: '/docs/introduction' },
     {
       text: 'Getting Started',
-      collapsible: true,
+      collapsed: false,
       items: [
         { text: 'Usage', link: '/docs/getting-started/usage' },
         { text: 'Theming', link: '/docs/getting-started/theming' },
       ],
     },
+    { text: 'Concepts', link: 'https://lexical.dev/docs/concepts/editor-state' },
     {
       text: 'Plugins',
-      collapsible: true,
+      collapsible: false,
       items: [
         { text: 'Available Plugins', link: '/docs/plugins/available' },
         { text: 'Custom', link: '/docs/plugins/custom' },
