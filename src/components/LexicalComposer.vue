@@ -2,7 +2,7 @@
 import { onMounted, provide } from 'vue'
 import type { CreateEditorArgs, LexicalEditor } from 'lexical'
 import { $createParagraphNode, $getRoot, $getSelection, createEditor } from 'lexical'
-import { editorKey } from '../composables/inject'
+import { LexicalEditorProviderKey } from '../composables/inject'
 import type { InitialEditorStateType } from '../types'
 
 const props = defineProps<{
@@ -73,7 +73,7 @@ function initializeEditor(
   }
 }
 
-provide(editorKey, editor)
+provide<LexicalEditor>(LexicalEditorProviderKey, editor)
 
 onMounted(() => {
   const isEditable = props.initialConfig.editable

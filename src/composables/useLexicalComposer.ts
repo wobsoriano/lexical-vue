@@ -1,9 +1,10 @@
 import { inject } from 'vue'
 import invariant from 'tiny-invariant'
-import { editorKey } from './inject'
+import type { LexicalEditor } from 'lexical'
+import { LexicalEditorProviderKey } from './inject'
 
 export function useLexicalComposer() {
-  const editor = inject(editorKey)
+  const editor = inject<LexicalEditor>(LexicalEditorProviderKey)
 
   if (!editor) {
     invariant(

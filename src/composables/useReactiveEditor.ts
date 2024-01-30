@@ -1,8 +1,9 @@
 import { inject, onUnmounted, shallowRef, triggerRef } from 'vue'
-import { editorKey } from './inject'
+import type { LexicalEditor } from 'lexical'
+import { LexicalEditorProviderKey } from './inject'
 
 export function useReactiveEditor() {
-  const editor = inject(editorKey)
+  const editor = inject<LexicalEditor>(LexicalEditorProviderKey)
 
   if (!editor)
     throw new Error('<LexicalComposer /> is required')
