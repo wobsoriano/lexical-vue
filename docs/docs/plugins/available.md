@@ -35,9 +35,8 @@ const initialConfig = {
 </template>
 ```
 
-:::note
-Note: Many plugins might require you to register the one or many Lexical nodes in order for the plugin to work. You can do this by passing a reference to the node to the `nodes` array in your initial editor configuration.
-:::
+> [!NOTE]
+> Note: Many plugins might require you to register the one or many Lexical nodes in order for the plugin to work. You can do this by passing a reference to the node to the `nodes` array in your initial editor configuration.
 
 ## `LexicalPlainTextPlugin`
 
