@@ -26,20 +26,21 @@ export default defineConfig({
 
 function sidebarDocs() {
   return [
+    { text: 'Introduction', link: '/docs/introduction' },
     {
-      text: 'About',
+      text: 'Getting Started',
       collapsible: true,
       items: [
-        { text: 'Introduction', link: '/docs/introduction' },
-        { text: 'Getting Started', link: '/docs/getting-started' },
+        { text: 'Usage', link: '/docs/getting-started/usage' },
+        { text: 'Theming', link: '/docs/getting-started/theming' },
       ],
     },
     {
       text: 'Plugins',
       collapsible: true,
       items: [
-        { text: 'Available Plugins', link: '/docs/available-plugins' },
-        { text: 'Custom', link: '/docs/custom' },
+        { text: 'Available Plugins', link: '/docs/plugins/available' },
+        { text: 'Custom', link: '/docs/plugins/custom' },
       ],
     },
   ]
