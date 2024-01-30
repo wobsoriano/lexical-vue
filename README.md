@@ -4,7 +4,10 @@ An extensible Vue 3 web text-editor based on [Lexical](https://github.com/facebo
 
 For documentation and more information about Lexical, be sure to visit the [Lexical website](https://lexical.dev/).
 
-Demo: https://lexical-vue-playground.vercel.app
+Here are some examples of what you can do with Lexical:
+
+- [Lexical Vue Playground](https://lexical-vue-playground.vercel.app)
+- [Plain Text Example](https://stackblitz.com/edit/vitejs-vite-jxwkxo)
 
 ## Getting started with Vue
 
