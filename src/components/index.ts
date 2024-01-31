@@ -84,5 +84,5 @@ export {
 } from './LexicalClickableLinkPlugin.vue'
 
 export {
-  default as LexicalContentMenuPlugin,
-} from './LexicalContentMenuPlugin.vue'
+  default as LexicalContextMenuPlugin,
+} from './LexicalContextMenuPlugin.vue'
