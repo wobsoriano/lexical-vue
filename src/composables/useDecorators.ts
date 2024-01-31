@@ -22,7 +22,7 @@ export function useDecorators(editor: LexicalEditor) {
       const element = editor.getElementByKey(nodeKey)
       if (element !== null) {
         decoratedTeleports.push(
-          h(Teleport as unknown as DefineComponent, {
+          h(Teleport, {
             to: element,
           }, vueDecorator),
         )
