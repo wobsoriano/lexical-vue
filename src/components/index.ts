@@ -86,3 +86,9 @@ export {
 export {
   default as LexicalContextMenuPlugin,
 } from './LexicalContextMenuPlugin.vue'
+
+export {
+  default as LexicalNodeMenuPlugin,
+} from './LexicalNodeMenuPlugin.vue'
+
+export * from './LexicalAutoEmbedPlugin'
