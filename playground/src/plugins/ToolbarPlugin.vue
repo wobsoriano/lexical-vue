@@ -30,6 +30,7 @@ import { getSelectedNode } from '../utils/getSelectedNode'
 import BlockOptionsDropdownList from '../components/BlockOptionsDropdownList.vue'
 import CodeLanguageSelect from '../components/CodeLanguageSelect.vue'
 import Divider from '../components/Divider'
+import BlockFormatDropDown from '../components/BlockFormatDropDown.vue'
 import FloatingLinkEditor from './FloatingLinkEditor.vue'
 
 const LowPriority: CommandListenerPriority = 1
@@ -187,7 +188,7 @@ onUnmounted(() => {
       <i class="format redo" />
     </button>
     <Divider />
-    <template v-if="supportedBlockTypes.has(blockType)">
+    <!-- <template v-if="supportedBlockTypes.has(blockType)">
       <button class="toolbar-item block-controls" aria-label="Formatting Options" @click="showBlockOptionsDropDown = !showBlockOptionsDropDown">
         <span :class="`icon block-type ${blockType}`" />
         <span class="text">{{ blockTypeToBlockName[blockType] }}</span>
@@ -201,7 +202,11 @@ onUnmounted(() => {
           :toolbar-ref="toolbarRef"
         />
       </Teleport>
-    </template>
+    </template> -->
+    <BlockFormatDropDown
+      :block-type="blockType"
+      :editor="editor"
+    />
     <Divider />
     <template v-if="blockType === 'code'">
       <CodeLanguageSelect v-model="codeLanguage" :code-languages="codeLanguages" />
