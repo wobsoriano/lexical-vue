@@ -4,6 +4,8 @@ import {
   $getNodeByKey,
   $getSelection,
   $isRangeSelection,
+  $isTextNode,
+  $selectAll,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
   FORMAT_ELEMENT_COMMAND,
@@ -15,8 +17,8 @@ import {
 import {
   $isParentElementRTL,
 } from '@lexical/selection'
-import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
-import { useLexicalComposer } from 'lexical-vue'
+import { $getNearestBlockElementAncestorOrThrow, $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
+import { $isDecoratorBlockNode, INSERT_EMBED_COMMAND, useLexicalComposer } from 'lexical-vue'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { $isListNode, ListNode } from '@lexical/list'
 import { $isHeadingNode } from '@lexical/rich-text'
@@ -31,7 +33,10 @@ import BlockOptionsDropdownList from '../components/BlockOptionsDropdownList.vue
 import CodeLanguageSelect from '../components/CodeLanguageSelect.vue'
 import Divider from '../components/Divider'
 import BlockFormatDropDown from '../components/BlockFormatDropDown.vue'
+import DropDown from '../ui/DropDown.vue'
+import DropDownItem from '../ui/DropDownItem.vue'
 import FloatingLinkEditor from './FloatingLinkEditor.vue'
+import { EmbedConfigs } from './AutoEmbedPlugin'
 
 const LowPriority: CommandListenerPriority = 1
 
@@ -72,8 +77,17 @@ const isBold = ref(false)
 const isItalic = ref(false)
 const isUnderline = ref(false)
 const isStrikethrough = ref(false)
+
+const isSubscript = ref(false)
+const isSuperscript = ref(false)
 const isCode = ref(false)
 const showBlockOptionsDropDown = ref(false)
+
+function dropDownActiveClass(active: boolean) {
+  if (active)
+    return 'active dropdown-item-active'
+  else return ''
+}
 
 function updateToolbar() {
   const selection = $getSelection() as RangeSelection
@@ -118,10 +132,8 @@ function updateToolbar() {
   }
 }
 
-let unregisterMergeListener: () => void
-
 onMounted(() => {
-  unregisterMergeListener = mergeRegister(
+  const unregisterMergeListener = mergeRegister(
     editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
         updateToolbar()
@@ -152,6 +164,10 @@ onMounted(() => {
       LowPriority,
     ),
   )
+
+  onUnmounted(() => {
+    unregisterMergeListener?.()
+  })
 })
 
 const codeLanguages = getCodeLanguages() as string[]
@@ -164,6 +180,24 @@ function insertLink() {
     editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
 }
 
+function clearFormatting() {
+  editor.update(() => {
+    const selection = $getSelection()
+    if ($isRangeSelection(selection)) {
+      $selectAll()
+      selection.getNodes().forEach((node) => {
+        if ($isTextNode(node)) {
+          node.setFormat(0)
+          node.setStyle('')
+          $getNearestBlockElementAncestorOrThrow(node).setFormat('')
+        }
+        if ($isDecoratorBlockNode(node))
+          node.setFormat('')
+      })
+    }
+  })
+}
+
 watch(codeLanguage, (value) => {
   editor.update(() => {
     if (selectedElementKey.value) {
@@ -172,10 +206,6 @@ watch(codeLanguage, (value) => {
         node.setLanguage(value)
     }
   })
-})
-
-onUnmounted(() => {
-  unregisterMergeListener?.()
 })
 </script>
 
@@ -188,21 +218,6 @@ onUnmounted(() => {
       <i class="format redo" />
     </button>
     <Divider />
-    <!-- <template v-if="supportedBlockTypes.has(blockType)">
-      <button class="toolbar-item block-controls" aria-label="Formatting Options" @click="showBlockOptionsDropDown = !showBlockOptionsDropDown">
-        <span :class="`icon block-type ${blockType}`" />
-        <span class="text">{{ blockTypeToBlockName[blockType] }}</span>
-        <i class="chevron-down" />
-      </button>
-      <Teleport to="body">
-        <BlockOptionsDropdownList
-          v-if="showBlockOptionsDropDown"
-          v-model:showBlockOptionsDropDown="showBlockOptionsDropDown"
-          :block-type="blockType"
-          :toolbar-ref="toolbarRef"
-        />
-      </Teleport>
-    </template> -->
     <BlockFormatDropDown
       :block-type="blockType"
       :editor="editor"
@@ -258,34 +273,69 @@ onUnmounted(() => {
         <FloatingLinkEditor v-if="isLink" :priority="LowPriority" />
       </Teleport>
       <Divider />
-      <button
-        class="toolbar-item spaced"
-        aria-label="Left Align"
-        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')"
+      <DropDown
+        button-class-name="toolbar-item spaced"
+        button-label=""
+        button-aria-label="Formatting options for additional text styles"
+        button-icon-class-name="icon dropdown-more"
       >
-        <i class="format left-align" />
-      </button>
-      <button
-        class="toolbar-item spaced"
-        aria-label="Center Align"
-        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')"
+        <DropDownItem
+          :class="`item ${dropDownActiveClass(isStrikethrough)}`"
+          title="Strikethrough"
+          aria-label="Format text with a strikethrough"
+          @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')"
+        >
+          <i class="icon strikethrough" />
+          <span class="text">Strikethrough</span>
+        </DropDownItem>
+        <DropDownItem
+          :class="`item ${dropDownActiveClass(isSubscript)}`"
+          title="Strikethrough"
+          aria-label="Format text with a subscript"
+          @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript')"
+        >
+          <i class="icon subscript" />
+          <span class="text">Subscript</span>
+        </DropDownItem>
+        <DropDownItem
+          :class="`item ${dropDownActiveClass(isSuperscript)}`"
+          title="Strikethrough"
+          aria-label="Format text with a superscript"
+          @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript')"
+        >
+          <i class="icon superscript" />
+          <span class="text">Superscript</span>
+        </DropDownItem>
+        <DropDownItem
+          :class="`item ${dropDownActiveClass(isSuperscript)}`"
+          title="Clear text formatting"
+          aria-label="Clear all text formatting"
+          @click="clearFormatting"
+        >
+          <i class="icon clear" />
+          <span class="text">Clear Formatting</span>
+        </DropDownItem>
+      </DropDown>
+      <Divider />
+      <DropDown
+        button-class-name="toolbar-item spaced"
+        button-label="Insert"
+        button-aria-label="Insert specialized editor node"
+        button-icon-class-name="icon plus"
       >
-        <i class="format center-align" />
-      </button>
-      <button
-        class="toolbar-item spaced"
-        aria-label="Right Align"
-        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')"
-      >
-        <i class="format right-align" />
-      </button>
-      <button
-        class="toolbar-item"
-        aria-label="Justify Align"
-        @click="editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')"
-      >
-        <i class="format justify-align" />
-      </button>
+        <DropDownItem
+          v-for="embedConfig in EmbedConfigs"
+          :key="embedConfig.type"
+          class="item"
+          @click="editor.dispatchCommand(
+            INSERT_EMBED_COMMAND,
+            embedConfig.type,
+          )"
+        >
+          <component :is="embedConfig.icon" />
+          <span class="text">{{ embedConfig.contentName }}</span>
+        </DropDownItem>
+      </DropDown>
     </template>
   </div>
 </template>
