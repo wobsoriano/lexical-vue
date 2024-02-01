@@ -90,3 +90,5 @@ export {
 export {
   default as LexicalNodeMenuPlugin,
 } from './LexicalNodeMenuPlugin.vue'
+
+export * from './LexicalAutoEmbedPlugin'

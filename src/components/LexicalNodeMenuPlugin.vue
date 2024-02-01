@@ -2,7 +2,6 @@
 import type {
   CommandListenerPriority,
   NodeKey,
-
   TextNode,
 } from 'lexical'
 import {
@@ -101,6 +100,7 @@ watchEffect((onInvalidate) => {
 <template>
   <LexicalMenu
     v-if="resolution !== null && editor !== null"
+    v-slot="slotProps"
     :resolution="resolution!"
     :editor="editor"
     :anchor-element-ref="anchorElementRef"
@@ -108,5 +108,7 @@ watchEffect((onInvalidate) => {
     :command-priority="commandPriority"
     :close="closeNodeMenu"
     @select-option="onSelectOption"
-  />
+  >
+    <slot v-bind="slotProps" />
+  </LexicalMenu>
 </template>
