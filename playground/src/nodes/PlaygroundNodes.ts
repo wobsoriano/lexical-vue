@@ -7,6 +7,8 @@ import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { HashtagNode } from '@lexical/hashtag'
 import { EmojiNode } from './EmojiNode'
 import { MentionNode } from './MentionNode'
+import { YouTubeNode } from './YouTubeNode'
+import { TweetNode } from './TweetNode'
 
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   HeadingNode,
@@ -23,6 +25,8 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   HashtagNode,
   EmojiNode,
   MentionNode,
+  YouTubeNode,
+  TweetNode,
 ]
 
 export default PlaygroundNodes

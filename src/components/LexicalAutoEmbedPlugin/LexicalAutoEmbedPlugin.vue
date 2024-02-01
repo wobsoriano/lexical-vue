@@ -20,8 +20,8 @@ import { mergeRegister } from '@lexical/utils'
 
 import { useLexicalComposer } from '../../composables'
 import LexicalNodeMenuPlugin from '../LexicalNodeMenuPlugin.vue'
-import type { AutoEmbedOption, EmbedConfig } from './index'
-import { INSERT_EMBED_COMMAND } from './index'
+import type { AutoEmbedOption, EmbedConfig } from '.'
+import { INSERT_EMBED_COMMAND } from '.'
 
 const props = defineProps<{
   embedConfigs: Array<TEmbedConfig>

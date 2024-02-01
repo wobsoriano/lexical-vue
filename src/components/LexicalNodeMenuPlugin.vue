@@ -107,7 +107,7 @@ watchEffect((onInvalidate) => {
     :options="options"
     :command-priority="commandPriority"
     :close="closeNodeMenu"
-    @select-option="onSelectOption"
+    @select-option="$emit('selectOption', $event)"
   >
     <slot v-bind="slotProps" />
   </LexicalMenu>

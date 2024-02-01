@@ -19,6 +19,9 @@ import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin.vue'
 import ContentEditable from './plugins/ContentEditable.vue'
 import MentionsPlugin from './plugins/MentionsPlugin.vue'
+import { AutoEmbedPlugin } from './plugins/AutoEmbedPlugin'
+import YouTubePlugin from './plugins/YouTubePlugin'
+import TwitterPlugin from './plugins/TwitterPlugin'
 </script>
 
 <template>
@@ -40,6 +43,7 @@ import MentionsPlugin from './plugins/MentionsPlugin.vue'
         </template>
       </LexicalRichTextPlugin>
       <LexicalHistoryPlugin />
+      <AutoEmbedPlugin />
       <TreeViewPlugin />
       <LexicalAutoFocusPlugin />
       <CodeHighlightPlugin />
@@ -53,6 +57,8 @@ import MentionsPlugin from './plugins/MentionsPlugin.vue'
       <EmojisPlugin />
       <MentionsPlugin />
       <LexicalClickableLinkPlugin />
+      <YouTubePlugin />
+      <TwitterPlugin />
     </div>
   </div>
 </template>
