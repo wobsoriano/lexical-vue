@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import { computed, h, shallowRef } from 'vue'
+
 import Modal from '../ui/Modal.vue'
 
 export default function useModal() {
@@ -37,5 +38,5 @@ export default function useModal() {
     }
   }
 
-  return [modal, showModal]
+  return { modal, showModal }
 }

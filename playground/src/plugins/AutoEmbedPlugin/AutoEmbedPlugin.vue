@@ -17,12 +17,9 @@ function getMenuOptions(activeEmbedConfig: PlaygroundEmbedConfig, embedFn: () =>
   ]
 }
 
-const [modal, showModal] = useModal()
+const { modal, showModal } = useModal()
 
 function openEmbedModal(embedConfig: PlaygroundEmbedConfig) {
-  // showModal(`Embed ${embedConfig.contentName}`, (onClose) => (
-  //   <AutoEmbedDialog embedConfig={embedConfig} onClose={onClose} />
-  // ));
   showModal(`Embed ${embedConfig.contentName}`, (onClose: () => void) => {
     return h(AutoEmbedDialog, {
       embedConfig,

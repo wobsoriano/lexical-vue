@@ -29,7 +29,6 @@ import {
 } from '@lexical/code'
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
 import { getSelectedNode } from '../utils/getSelectedNode'
-import BlockOptionsDropdownList from '../components/BlockOptionsDropdownList.vue'
 import CodeLanguageSelect from '../components/CodeLanguageSelect.vue'
 import Divider from '../components/Divider'
 import BlockFormatDropDown from '../components/BlockFormatDropDown.vue'
@@ -39,29 +38,6 @@ import FloatingLinkEditor from './FloatingLinkEditor.vue'
 import { EmbedConfigs } from './AutoEmbedPlugin'
 
 const LowPriority: CommandListenerPriority = 1
-
-const supportedBlockTypes = new Set([
-  'paragraph',
-  'quote',
-  'code',
-  'h1',
-  'h2',
-  'ul',
-  'ol',
-])
-
-const blockTypeToBlockName: Record<string, string> = {
-  code: 'Code Block',
-  h1: 'Large Heading',
-  h2: 'Small Heading',
-  h3: 'Heading',
-  h4: 'Heading',
-  h5: 'Heading',
-  ol: 'Numbered List',
-  paragraph: 'Normal',
-  quote: 'Quote',
-  ul: 'Bulleted List',
-}
 
 const toolbarRef = ref<HTMLDivElement | null>(null)
 const editor = useLexicalComposer()
@@ -81,7 +57,6 @@ const isStrikethrough = ref(false)
 const isSubscript = ref(false)
 const isSuperscript = ref(false)
 const isCode = ref(false)
-const showBlockOptionsDropDown = ref(false)
 
 function dropDownActiveClass(active: boolean) {
   if (active)
@@ -219,7 +194,7 @@ watch(codeLanguage, (value) => {
     </button>
     <Divider />
     <BlockFormatDropDown
-      :block-type="blockType"
+      :block-type="blockType as any"
       :editor="editor"
     />
     <Divider />
