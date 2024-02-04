@@ -57,6 +57,7 @@ const editor = useLexicalComposer()
 
 const fontSize = ref('15px')
 const fontColor = ref<string>('#000')
+const bgColor = ref<string>('#fff')
 const canUndo = ref(false)
 const canRedo = ref(false)
 const blockType = ref<keyof typeof blockTypeToBlockName>('paragraph')
@@ -138,11 +139,7 @@ function $updateToolbar() {
     // Handle buttons
     fontSize.value = $getSelectionStyleValueForProperty(selection, 'font-size', '15px')
     fontColor.value = $getSelectionStyleValueForProperty(selection, 'color', '#000')
-    // bgColor.value = $getSelectionStyleValueForProperty(
-    //   selection,
-    //   'background-color',
-    //   '#fff',
-    // )
+    bgColor.value = $getSelectionStyleValueForProperty(selection, 'background-color', '#fff')
     fontFamily.value = $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial')
 
     // let matchingParent
@@ -288,6 +285,10 @@ function onFontColorSelect(value: string, skipHistoryStack: boolean) {
   applyStyleText({ color: value }, skipHistoryStack)
 }
 
+function onBgColorSelect(value: string, skipHistoryStack: boolean) {
+  applyStyleText({ 'background-color': value }, skipHistoryStack)
+}
+
 function onCodeLanguageSelect(value: string) {
   editor.update(() => {
     if (selectedElementKey.value !== null) {
@@ -396,6 +397,14 @@ function onCodeLanguageSelect(value: string) {
         button-icon-class-name="icon font-color"
         :color="fontColor"
         @change="onFontColorSelect"
+      />
+      <DropdownColorPicker
+        :disabled="false"
+        button-class-name="toolbar-item color-picker"
+        button-aria-label="Formatting background color"
+        button-icon-class-name="icon bg-color"
+        :color="bgColor"
+        @change="onBgColorSelect"
       />
       <Teleport to="body">
         <FloatingLinkEditor v-if="isLink" :priority="LowPriority" />
