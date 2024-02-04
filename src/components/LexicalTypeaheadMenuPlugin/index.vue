@@ -3,9 +3,10 @@ import type { LexicalEditor, RangeSelection, TextNode } from 'lexical'
 import { $getSelection, $isRangeSelection, $isTextNode, COMMAND_PRIORITY_LOW } from 'lexical'
 import { ref, watchEffect } from 'vue'
 import { useLexicalComposer } from '../../composables'
-import type { MenuOption, MenuResolution } from '../LexicalMenu'
-import { LexicalMenu, useMenuAnchorRef } from '../LexicalMenu'
-import type { TypeaheadMenuPluginProps } from './index'
+import type { MenuOption, MenuResolution } from '../LexicalMenu/shared'
+import { useMenuAnchorRef } from '../LexicalMenu/shared'
+import LexicalMenu from '../LexicalMenu/index.vue'
+import type { TypeaheadMenuPluginProps } from './shared'
 
 const props = withDefaults(defineProps<TypeaheadMenuPluginProps<TOption>>(), {
   commandPriority: COMMAND_PRIORITY_LOW,

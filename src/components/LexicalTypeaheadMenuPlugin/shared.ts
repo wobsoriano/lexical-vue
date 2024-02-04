@@ -12,7 +12,7 @@ import type {
   MenuResolution,
   MenuTextMatch,
   TriggerFn,
-} from '../LexicalMenu'
+} from '../LexicalMenu/shared'
 
 export const PUNCTUATION
   = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
@@ -48,7 +48,7 @@ export function getScrollParent(
   return document.body
 }
 
-export { useDynamicPositioning } from '../LexicalMenu'
+export { useDynamicPositioning } from '../LexicalMenu/shared'
 
 export const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
   index: number
@@ -98,7 +98,3 @@ export interface TypeaheadMenuPluginProps<TOption extends MenuOption> {
 }
 
 export { MenuOption, MenuRenderFn, MenuResolution, MenuTextMatch, TriggerFn }
-
-export {
-  default as LexicalTypeaheadMenuPlugin,
-} from './LexicalTypeaheadMenuPlugin.vue'

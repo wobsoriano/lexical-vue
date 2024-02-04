@@ -3,7 +3,7 @@ import { computed, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { $getSelection, $isRangeSelection, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ENTER_COMMAND, KEY_ESCAPE_COMMAND, KEY_TAB_COMMAND } from 'lexical'
 import type { CommandListenerPriority, LexicalEditor, TextNode } from 'lexical'
 import { mergeRegister } from '@lexical/utils'
-import { type MenuOption, type MenuResolution, type MenuTextMatch, SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND } from './index'
+import { type MenuOption, type MenuResolution, type MenuTextMatch, SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND } from './shared'
 
 const props = defineProps<{
   close: () => void
