@@ -276,7 +276,3 @@ export function useAutoLink(
     onInvalidate(fn)
   })
 }
-
-export {
-  default as LexicalAutoLinkPlugin,
-} from './LexicalAutoLinkPlugin.vue'

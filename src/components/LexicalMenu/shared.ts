@@ -248,7 +248,3 @@ export type TriggerFn = (
   text: string,
   editor: LexicalEditor,
 ) => MenuTextMatch | null
-
-export {
-  default as LexicalMenu,
-} from './LexicalMenu.vue'

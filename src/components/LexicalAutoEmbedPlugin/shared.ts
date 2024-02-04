@@ -1,6 +1,6 @@
 import { createCommand } from 'lexical'
 import type { LexicalCommand, LexicalEditor, LexicalNode } from 'lexical'
-import { MenuOption } from '../LexicalMenu'
+import { MenuOption } from '../LexicalMenu/shared'
 
 export interface EmbedMatchResult<TEmbedMatchResult = unknown> {
   url: string
@@ -42,7 +42,3 @@ export class AutoEmbedOption extends MenuOption {
     this.onSelect = options.onSelect.bind(this)
   }
 }
-
-export {
-  default as LexicalAutoEmbedPlugin,
-} from './LexicalAutoEmbedPlugin.vue'

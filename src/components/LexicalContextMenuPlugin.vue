@@ -6,8 +6,9 @@ import type {
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useLexicalComposer } from '../composables'
 
-import type { MenuOption, MenuResolution } from './LexicalMenu'
-import { LexicalMenu, useMenuAnchorRef } from './LexicalMenu'
+import type { MenuOption, MenuResolution } from './LexicalMenu/shared'
+import { useMenuAnchorRef } from './LexicalMenu/shared'
+import LexicalMenu from './LexicalMenu/index.vue'
 
 const props = defineProps<{
   options: Array<TOption>
