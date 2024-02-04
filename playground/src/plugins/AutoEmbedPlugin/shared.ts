@@ -1,8 +1,8 @@
 import type { LexicalEditor } from 'lexical'
 import type { EmbedConfig, EmbedMatchResult } from 'lexical-vue'
 import { type Component, h } from 'vue'
-import { INSERT_YOUTUBE_COMMAND } from '../YouTubePlugin'
-import { INSERT_TWEET_COMMAND } from '../TwitterPlugin'
+import { INSERT_YOUTUBE_COMMAND } from '../YouTubePlugin/shared'
+import { INSERT_TWEET_COMMAND } from '../TwitterPlugin/shared'
 
 export interface PlaygroundEmbedConfig extends EmbedConfig {
   // Human readable name of the embeded content e.g. Tweet or Google Map.
@@ -96,7 +96,3 @@ export const EmbedConfigs = [
   YoutubeEmbedConfig,
   TwitterEmbedConfig,
 ]
-
-export {
-  default as AutoEmbedPlugin,
-} from './AutoEmbedPlugin.vue'

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { AutoEmbedOption, LexicalAutoEmbedPlugin } from 'lexical-vue'
 import { h } from 'vue'
-import useModal from '../../composables/useModal'
 import AutoEmbedDialog from './AutoEmbedDialog.vue'
-import { EmbedConfigs } from '.'
-import type { PlaygroundEmbedConfig } from '.'
+import { EmbedConfigs } from './shared'
+import type { PlaygroundEmbedConfig } from './shared'
+import useModal from '@/composables/useModal'
 
 function getMenuOptions(activeEmbedConfig: PlaygroundEmbedConfig, embedFn: () => void, dismissFn: () => void) {
   return [

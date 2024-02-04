@@ -12,16 +12,16 @@ import {
 import EmojisPlugin from './plugins/EmojisPlugin.vue'
 import EmojiPickerPlugin from './plugins/EmojiPickerPlugin.vue'
 import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
-import ToolbarPlugin from './plugins/ToolbarPlugin.vue'
+import ToolbarPlugin from './plugins/ToolbarPlugin/index.vue'
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin.vue'
 import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin.vue'
 import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
 import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin.vue'
 import ContentEditable from './plugins/ContentEditable.vue'
 import MentionsPlugin from './plugins/MentionsPlugin.vue'
-import { AutoEmbedPlugin } from './plugins/AutoEmbedPlugin'
-import YouTubePlugin from './plugins/YouTubePlugin'
-import TwitterPlugin from './plugins/TwitterPlugin'
+import AutoEmbedPlugin from './plugins/AutoEmbedPlugin/index.vue'
+import YouTubePlugin from './plugins/YouTubePlugin/index.vue'
+import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
 </script>
 
 <template>

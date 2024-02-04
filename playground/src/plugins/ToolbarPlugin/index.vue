@@ -1,52 +1,65 @@
 <script setup lang="ts">
-import type { CommandListenerPriority, RangeSelection } from 'lexical'
+import type { CommandListenerPriority } from 'lexical'
 import {
   $getNodeByKey,
   $getSelection,
   $isRangeSelection,
+  $isRootOrShadowRoot,
   $isTextNode,
   $selectAll,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
-  FORMAT_ELEMENT_COMMAND,
+  COMMAND_PRIORITY_NORMAL,
   FORMAT_TEXT_COMMAND,
+  KEY_MODIFIER_COMMAND,
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
 import {
+  $getSelectionStyleValueForProperty,
   $isParentElementRTL,
+  $patchStyleText,
 } from '@lexical/selection'
-import { $getNearestBlockElementAncestorOrThrow, $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
+import { $findMatchingParent, $getNearestBlockElementAncestorOrThrow, $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import { $isDecoratorBlockNode, INSERT_EMBED_COMMAND, useLexicalComposer } from 'lexical-vue'
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { $isListNode, ListNode } from '@lexical/list'
 import { $isHeadingNode } from '@lexical/rich-text'
 import {
   $isCodeNode,
-  getCodeLanguages,
-  getDefaultCodeLanguage,
+  CODE_LANGUAGE_FRIENDLY_NAME_MAP,
+  CODE_LANGUAGE_MAP,
+  getLanguageFriendlyName,
 } from '@lexical/code'
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
-import { getSelectedNode } from '../utils/getSelectedNode'
-import CodeLanguageSelect from '../components/CodeLanguageSelect.vue'
-import Divider from '../components/Divider'
-import BlockFormatDropDown from '../components/BlockFormatDropDown.vue'
-import DropDown from '../ui/DropDown.vue'
-import DropDownItem from '../ui/DropDownItem.vue'
-import { dropDownActiveClass } from '../utils/other'
-import FontDropDown from '../components/FontDropDown.vue'
-import FloatingLinkEditor from './FloatingLinkEditor.vue'
-import { EmbedConfigs } from './AutoEmbedPlugin'
+import FloatingLinkEditor from '../FloatingLinkEditor.vue'
+import { EmbedConfigs } from '../AutoEmbedPlugin/shared'
+import Divider from './Divider.vue'
+import BlockFormatDropDown from './BlockFormatDropDown.vue'
+import FontDropDown from './FontDropDown.vue'
+import { blockTypeToBlockName, dropDownActiveClass } from './shared'
+import FontSize from './FontSize.vue'
+import { sanitizeUrl } from '@/utils/url'
+import DropDown from '@/ui/DropDown.vue'
+import DropDownItem from '@/ui/DropDownItem.vue'
+import { getSelectedNode } from '@/utils/getSelectedNode'
+import DropdownColorPicker from '@/ui/DropdownColorPicker.vue'
+
+const emit = defineEmits<{
+  (event: 'isLinkEditMode', value: boolean): void
+}>()
 
 const LowPriority: CommandListenerPriority = 1
 
 const toolbarRef = ref<HTMLDivElement | null>(null)
 const editor = useLexicalComposer()
 
+const fontSize = ref('15px')
+const fontColor = ref<string>('#000')
 const canUndo = ref(false)
 const canRedo = ref(false)
-const blockType = ref('paragraph')
+const blockType = ref<keyof typeof blockTypeToBlockName>('paragraph')
 const selectedElementKey = ref()
 const codeLanguage = ref('')
 const isRTL = ref(false)
@@ -61,31 +74,24 @@ const isSubscript = ref(false)
 const isSuperscript = ref(false)
 const isCode = ref(false)
 
-function updateToolbar() {
-  const selection = $getSelection() as RangeSelection
+function $updateToolbar() {
+  const selection = $getSelection()
   if ($isRangeSelection(selection)) {
     const anchorNode = selection.anchor.getNode()
-    const element
+    let element
         = anchorNode.getKey() === 'root'
           ? anchorNode
-          : anchorNode.getTopLevelElementOrThrow()
+          : $findMatchingParent(anchorNode, (e) => {
+            const parent = e.getParent()
+            return parent !== null && $isRootOrShadowRoot(parent)
+          })
+
+    if (element === null)
+      element = anchorNode.getTopLevelElementOrThrow()
+
     const elementKey = element.getKey()
     const elementDOM = editor.getElementByKey(elementKey)
-    if (elementDOM !== null) {
-      selectedElementKey.value = elementKey
-      if ($isListNode(element)) {
-        const parentList = $getNearestNodeOfType(anchorNode, ListNode) as ListNode
-        blockType.value = parentList ? parentList.getTag() : (element as ListNode).getTag()
-      }
-      else {
-        blockType.value = $isHeadingNode(element)
-          // @ts-expect-error: Missing internal types
-          ? (element as ListNode).getTag()
-          : element.getType()
-        if ($isCodeNode(element))
-          codeLanguage.value = element.getLanguage() || getDefaultCodeLanguage()
-      }
-    }
+
     // Update text format
     isBold.value = selection.hasFormat('bold')
     isItalic.value = selection.hasFormat('italic')
@@ -101,20 +107,86 @@ function updateToolbar() {
       isLink.value = true
     else
       isLink.value = false
+
+    if (elementDOM !== null) {
+      selectedElementKey.value = elementKey
+      if ($isListNode(element)) {
+        const parentList = $getNearestNodeOfType<ListNode>(
+          anchorNode,
+          ListNode,
+        )
+        const type = parentList
+          ? parentList.getListType()
+          : element.getListType()
+        blockType.value = type
+      }
+      else {
+        const type = $isHeadingNode(element)
+          ? element.getTag()
+          : element.getType()
+        if (type in blockTypeToBlockName)
+          blockType.value = type as keyof typeof blockTypeToBlockName
+
+        if ($isCodeNode(element)) {
+          const language
+              = element.getLanguage() as keyof typeof CODE_LANGUAGE_MAP
+          codeLanguage.value = language ? CODE_LANGUAGE_MAP[language] || language : ''
+        }
+      }
+    }
+
+    // Handle buttons
+    fontSize.value = $getSelectionStyleValueForProperty(selection, 'font-size', '15px')
+    fontColor.value = $getSelectionStyleValueForProperty(selection, 'color', '#000')
+    // bgColor.value = $getSelectionStyleValueForProperty(
+    //   selection,
+    //   'background-color',
+    //   '#fff',
+    // )
+    fontFamily.value = $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial')
+
+    // let matchingParent
+    if ($isLinkNode(parent)) {
+      // If node is a link, we need to fetch the parent paragraph node to set format
+      // matchingParent = $findMatchingParent(
+      //   node,
+      //   parentNode => $isElementNode(parentNode) && !parentNode.isInline(),
+      // )
+    }
+
+    // If matchingParent is a valid node, pass it's format type
+    // elementFormat.value = $isElementNode(matchingParent)
+    //       ? matchingParent.getFormatType()
+    //       : $isElementNode(node)
+    //       ? node.getFormatType()
+    //       : parent?.getFormatType() || 'left'
   }
 }
+
+function getCodeLanguageOptions(): [string, string][] {
+  const options: [string, string][] = []
+
+  for (const [lang, friendlyName] of Object.entries(
+    CODE_LANGUAGE_FRIENDLY_NAME_MAP,
+  ))
+    options.push([lang, friendlyName])
+
+  return options
+}
+
+const CODE_LANGUAGE_OPTIONS = getCodeLanguageOptions()
 
 onMounted(() => {
   const unregisterMergeListener = mergeRegister(
     editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
-        updateToolbar()
+        $updateToolbar()
       })
     }),
     editor.registerCommand(
       SELECTION_CHANGE_COMMAND,
       () => {
-        updateToolbar()
+        $updateToolbar()
         return false
       },
       LowPriority,
@@ -138,18 +210,60 @@ onMounted(() => {
   )
 
   onUnmounted(() => {
-    unregisterMergeListener?.()
+    unregisterMergeListener()
   })
 })
 
-const codeLanguages = getCodeLanguages() as string[]
+onMounted(() => {
+  const unregister = editor.registerCommand(
+    KEY_MODIFIER_COMMAND,
+    (payload) => {
+      const event: KeyboardEvent = payload
+      const { code, ctrlKey, metaKey } = event
+
+      if (code === 'KeyK' && (ctrlKey || metaKey)) {
+        event.preventDefault()
+        let url: string | null
+        if (!isLink.value) {
+          emit('isLinkEditMode', true)
+          url = sanitizeUrl('https://')
+        }
+        else {
+          emit('isLinkEditMode', false)
+          url = null
+        }
+        return editor.dispatchCommand(TOGGLE_LINK_COMMAND, url)
+      }
+      return false
+    },
+    COMMAND_PRIORITY_NORMAL,
+  )
+
+  onUnmounted(() => {
+    unregister()
+  })
+})
 
 function insertLink() {
-  if (!isLink.value)
-    editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://')
-
-  else
+  if (!isLink.value) {
+    emit('isLinkEditMode', true)
+    editor.dispatchCommand(TOGGLE_LINK_COMMAND, sanitizeUrl('https://'))
+  }
+  else {
+    emit('isLinkEditMode', false)
     editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
+  }
+}
+
+function applyStyleText(styles: Record<string, string>, skipHistoryStack?: boolean) {
+  editor.update(
+    () => {
+      const selection = $getSelection()
+      if (selection !== null)
+        $patchStyleText(selection, styles)
+    },
+    skipHistoryStack ? { tag: 'historic' } : {},
+  )
 }
 
 function clearFormatting() {
@@ -170,15 +284,19 @@ function clearFormatting() {
   })
 }
 
-watch(codeLanguage, (value) => {
+function onFontColorSelect(value: string, skipHistoryStack: boolean) {
+  applyStyleText({ color: value }, skipHistoryStack)
+}
+
+function onCodeLanguageSelect(value: string) {
   editor.update(() => {
-    if (selectedElementKey.value) {
+    if (selectedElementKey.value !== null) {
       const node = $getNodeByKey(selectedElementKey.value)
       if ($isCodeNode(node))
         node.setLanguage(value)
     }
   })
-})
+}
 </script>
 
 <template>
@@ -191,28 +309,49 @@ watch(codeLanguage, (value) => {
     </button>
     <Divider />
     <BlockFormatDropDown
-      :block-type="blockType as any"
+      :block-type="blockType"
       :editor="editor"
     />
     <Divider />
-    <CodeLanguageSelect v-if="blockType === 'code'" v-model="codeLanguage" :code-languages="codeLanguages" />
+    <DropDown
+      v-if="blockType === 'code'"
+      button-class-name="toolbar-item code-language"
+      :button-label="getLanguageFriendlyName(codeLanguage)"
+      button-aria-label="Select language"
+    >
+      <DropDownItem
+        v-for="[value, name] in CODE_LANGUAGE_OPTIONS"
+        :key="value" :class="`item ${dropDownActiveClass(
+          value === codeLanguage,
+        )}`" @click="onCodeLanguageSelect(value)"
+      >
+        <span class="text">{{ name }}</span>
+      </DropDownItem>
+    </DropDown>
     <template v-else>
       <FontDropDown
-        :disabled="false"
         custom-style="font-family"
         :value="fontFamily"
         :editor="editor"
       />
       <Divider />
+      <FontSize
+        :disabled="false"
+        :editor="editor"
+        :selection-font-size="fontSize.slice(0, -2)"
+      />
+      <Divider />
       <button
         :class="`toolbar-item spaced ${isBold ? 'active' : ''}`"
         aria-label="Format Bold"
+        type="button"
         @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')"
       >
         <i class="format bold" />
       </button>
       <button
         :class="`toolbar-item spaced ${isItalic ? 'active' : ''}`"
+        type="button"
         aria-label="Format Italics"
         @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')"
       >
@@ -220,6 +359,7 @@ watch(codeLanguage, (value) => {
       </button>
       <button
         :class="`toolbar-item spaced ${isUnderline ? 'active' : ''}`"
+        type="button"
         aria-label="Format Underline"
         @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')"
       >
@@ -227,6 +367,7 @@ watch(codeLanguage, (value) => {
       </button>
       <button
         :class="`toolbar-item spaced ${isStrikethrough ? 'active' : ''}`"
+        type="button"
         aria-label="Format Strikethrough"
         @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')"
       >
@@ -234,6 +375,7 @@ watch(codeLanguage, (value) => {
       </button>
       <button
         :class="`toolbar-item spaced ${isCode ? 'active' : ''}`"
+        type="button"
         aria-label="Insert Code"
         @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')"
       >
@@ -241,11 +383,20 @@ watch(codeLanguage, (value) => {
       </button>
       <button
         :class="`toolbar-item spaced ${isLink ? 'active' : ''}`"
+        type="button"
         aria-label="Insert Link"
         @click="insertLink"
       >
         <i class="format link" />
       </button>
+      <DropdownColorPicker
+        :disabled="false"
+        button-class-name="toolbar-item color-picker"
+        button-aria-label="Formatting text color"
+        button-icon-class-name="icon font-color"
+        :color="fontColor"
+        @change="onFontColorSelect"
+      />
       <Teleport to="body">
         <FloatingLinkEditor v-if="isLink" :priority="LowPriority" />
       </Teleport>
