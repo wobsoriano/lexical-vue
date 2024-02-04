@@ -27,7 +27,7 @@ export const YoutubeEmbedConfig: PlaygroundEmbedConfig = {
   exampleUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
 
   // Icon for display.
-  icon: h('i', 'icon youtube'),
+  icon: h('i', { class: 'icon youtube' }),
 
   insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {
     editor.dispatchCommand(INSERT_YOUTUBE_COMMAND, result.id)
@@ -62,7 +62,7 @@ export const TwitterEmbedConfig: PlaygroundEmbedConfig = {
   exampleUrl: 'https://twitter.com/jack/status/20',
 
   // Icon for display.
-  icon: h('i', 'icon tweet'),
+  icon: h('i', { class: 'icon tweet' }),
 
   // Create the Lexical embed node from the url data.
   insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {

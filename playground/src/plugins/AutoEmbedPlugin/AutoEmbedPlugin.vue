@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { AutoEmbedOption, LexicalAutoEmbedPlugin } from 'lexical-vue'
+import { h } from 'vue'
+import useModal from '../../composables/useModal'
+import AutoEmbedDialog from './AutoEmbedDialog.vue'
 import { EmbedConfigs } from '.'
 import type { PlaygroundEmbedConfig } from '.'
-
-function openEmbedModal() {}
 
 function getMenuOptions(activeEmbedConfig: PlaygroundEmbedConfig, embedFn: () => void, dismissFn: () => void) {
   return [
@@ -15,9 +16,24 @@ function getMenuOptions(activeEmbedConfig: PlaygroundEmbedConfig, embedFn: () =>
     }),
   ]
 }
+
+const [modal, showModal] = useModal()
+
+function openEmbedModal(embedConfig: PlaygroundEmbedConfig) {
+  // showModal(`Embed ${embedConfig.contentName}`, (onClose) => (
+  //   <AutoEmbedDialog embedConfig={embedConfig} onClose={onClose} />
+  // ));
+  showModal(`Embed ${embedConfig.contentName}`, (onClose: () => void) => {
+    return h(AutoEmbedDialog, {
+      embedConfig,
+      onClose,
+    })
+  })
+}
 </script>
 
 <template>
+  <component :is="modal" />
   <LexicalAutoEmbedPlugin
     v-slot="{ anchorElementRef, listItemProps: { options, selectedIndex, setHighlightedIndex, selectOptionAndCleanUp } }"
     :embed-configs="EmbedConfigs"
