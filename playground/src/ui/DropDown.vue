@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import DropDownItems from './DropDownItems.vue'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
+  disabled?: boolean
   buttonAriaLabel?: string
   buttonClassName: string
   buttonIconClassName?: string
   buttonLabel?: string
   stopCloseOnClickSelf?: boolean
-}>()
+}>(), {
+  disabled: false,
+})
 
 const dropDownRef = ref<{ el: HTMLDivElement } | null>(null)
 const buttonRef = ref<HTMLButtonElement | null>(null)
@@ -65,7 +68,7 @@ watchEffect((onInvalidate) => {
     :class="buttonClassName"
     @click="showDropDown = !showDropDown"
   >
-    <span v-if="buttonIconClassName" class="buttonIconClassName" />
+    <span v-if="buttonIconClassName" :class="buttonIconClassName" />
     <span v-if="buttonLabel" class="text dropdown-button-text">{{ buttonLabel }}</span>
     <i class="chevron-down" />
   </button>

@@ -34,6 +34,8 @@ import Divider from '../components/Divider'
 import BlockFormatDropDown from '../components/BlockFormatDropDown.vue'
 import DropDown from '../ui/DropDown.vue'
 import DropDownItem from '../ui/DropDownItem.vue'
+import { dropDownActiveClass } from '../utils/other'
+import FontDropDown from '../components/FontDropDown.vue'
 import FloatingLinkEditor from './FloatingLinkEditor.vue'
 import { EmbedConfigs } from './AutoEmbedPlugin'
 
@@ -48,6 +50,7 @@ const blockType = ref('paragraph')
 const selectedElementKey = ref()
 const codeLanguage = ref('')
 const isRTL = ref(false)
+const fontFamily = ref<string>('Arial')
 const isLink = ref(false)
 const isBold = ref(false)
 const isItalic = ref(false)
@@ -57,12 +60,6 @@ const isStrikethrough = ref(false)
 const isSubscript = ref(false)
 const isSuperscript = ref(false)
 const isCode = ref(false)
-
-function dropDownActiveClass(active: boolean) {
-  if (active)
-    return 'active dropdown-item-active'
-  else return ''
-}
 
 function updateToolbar() {
   const selection = $getSelection() as RangeSelection
@@ -198,10 +195,15 @@ watch(codeLanguage, (value) => {
       :editor="editor"
     />
     <Divider />
-    <template v-if="blockType === 'code'">
-      <CodeLanguageSelect v-model="codeLanguage" :code-languages="codeLanguages" />
-    </template>
+    <CodeLanguageSelect v-if="blockType === 'code'" v-model="codeLanguage" :code-languages="codeLanguages" />
     <template v-else>
+      <FontDropDown
+        :disabled="false"
+        custom-style="font-family"
+        :value="fontFamily"
+        :editor="editor"
+      />
+      <Divider />
       <button
         :class="`toolbar-item spaced ${isBold ? 'active' : ''}`"
         aria-label="Format Bold"
