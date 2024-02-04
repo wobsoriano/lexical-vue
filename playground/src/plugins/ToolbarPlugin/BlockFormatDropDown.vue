@@ -1,40 +1,20 @@
 <script setup lang="ts">
-import { $createCodeNode, CODE_LANGUAGE_FRIENDLY_NAME_MAP } from '@lexical/code'
-import { $createParagraphNode, $createTextNode, $getSelection, $isRangeSelection, type ElementNode, type LexicalEditor, type RangeSelection, type TextNode } from 'lexical'
-import { $isAtNodeEnd, $wrapNodes } from '@lexical/selection'
+import { $createCodeNode } from '@lexical/code'
+import { $createParagraphNode, $createTextNode, $getSelection, $isRangeSelection, type LexicalEditor } from 'lexical'
+import { $wrapNodes } from '@lexical/selection'
 import type { HeadingTagType } from '@lexical/rich-text'
 import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
 import { INSERT_CHECK_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND } from '@lexical/list'
-import DropDown from '../ui/DropDown.vue'
-import DropDownItem from '../ui/DropDownItem.vue'
-import { $isTweetNode } from '../nodes/TweetNode'
-import { $isYouTubeNode } from '../nodes/YouTubeNode'
+import { blockTypeToBlockName, dropDownActiveClass } from './shared'
+import DropDown from '@/ui/DropDown.vue'
+import DropDownItem from '@/ui/DropDownItem.vue'
+import { $isTweetNode } from '@/nodes/TweetNode'
+import { $isYouTubeNode } from '@/nodes/YouTubeNode'
 
 const props = defineProps<{
   editor: LexicalEditor
   blockType: keyof typeof blockTypeToBlockName
 }>()
-
-function dropDownActiveClass(active: boolean) {
-  if (active)
-    return 'active dropdown-item-active'
-  else return ''
-}
-
-const blockTypeToBlockName = {
-  bullet: 'Bulleted List',
-  check: 'Check List',
-  code: 'Code Block',
-  h1: 'Heading 1',
-  h2: 'Heading 2',
-  h3: 'Heading 3',
-  h4: 'Heading 4',
-  h5: 'Heading 5',
-  h6: 'Heading 6',
-  number: 'Numbered List',
-  paragraph: 'Normal',
-  quote: 'Quote',
-}
 
 function formatParagraph() {
   if (props.blockType !== 'paragraph') {
