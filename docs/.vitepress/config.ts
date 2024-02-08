@@ -15,6 +15,7 @@ export default defineConfig({
       { text: 'Docs', link: '/docs/introduction', activeMatch: '/docs/' },
       { text: 'API', link: 'https://lexical.dev/docs/api/modules' },
       { text: 'Playground', link: 'https://lexical-vue-playground.vercel.app' },
+      { text: 'Sponsor', link: 'https://github.com/sponsors/wobsoriano' },
     ],
     sidebar: {
       '/docs/': sidebarDocs(),
