@@ -78,11 +78,11 @@ function onChange(editorState) {
 </template>
 ```
 
-For a more complex example, check the [rich text editor playground](https://github.com/wobsoriano/lexical-vue/tree/master/packages/playground).
+For a more complex example, check the [rich text editor playground](https://github.com/wobsoriano/lexical-vue/tree/master/playground).
 
 ### Creating custom Lexical nodes with Vue
 
-- [Creating custom decorator nodes](https://lexical-vue.vercel.app/docs/custom.html)
+- [Creating custom decorator nodes](https://lexical-vue.vercel.app/docs/plugins/custom.html)
 
 ## Contributing
 
