@@ -7,6 +7,7 @@ import {
   LexicalLinkPlugin,
   LexicalListPlugin,
   LexicalRichTextPlugin,
+  LexicalCheckListPlugin,
 } from 'lexical-vue'
 
 import EmojisPlugin from './plugins/EmojisPlugin.vue'
@@ -48,6 +49,7 @@ import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
       <LexicalAutoFocusPlugin />
       <CodeHighlightPlugin />
       <LexicalListPlugin />
+      <LexicalCheckListPlugin />
       <LexicalLinkPlugin />
       <AutoLinkPlugin />
       <ListMaxIndentLevelPlugin :max-depth="7" />
