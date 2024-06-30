@@ -63,7 +63,7 @@ const FONT_SIZE_OPTIONS: [string, string][] = [
       v-for="[option, text] in (customStyle === 'font-family' ? FONT_FAMILY_OPTIONS : FONT_SIZE_OPTIONS)"
       :key="option"
       :class="`item ${dropDownActiveClass(value === option)} ${customStyle === 'font-size' ? 'fontsize-item' : ''}`"
-      @click="handleClick"
+      @click="handleClick(option)"
     >
       <span class="text">{{ text }}</span>
     </DropDownItem>
