@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {
   LexicalAutoFocusPlugin,
+  LexicalCheckListPlugin,
   LexicalClickableLinkPlugin,
   LexicalHashtagPlugin,
   LexicalHistoryPlugin,
   LexicalLinkPlugin,
   LexicalListPlugin,
   LexicalRichTextPlugin,
-  LexicalCheckListPlugin,
 } from 'lexical-vue'
 
 import EmojisPlugin from './plugins/EmojisPlugin.vue'

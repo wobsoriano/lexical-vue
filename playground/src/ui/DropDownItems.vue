@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, provide, ref, watchEffect } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 
 const emit = defineEmits(['close'])
 const items = ref<HTMLButtonElement[]>()
