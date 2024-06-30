@@ -28,9 +28,9 @@ function $insertHeadingIntoTableOfContents(
   newHeading: HeadingNode | null,
   currentTableOfContents: Array<TableOfContentsEntry>,
 ): Array<TableOfContentsEntry> {
-  if (newHeading === null) {
+  if (newHeading === null)
     return currentTableOfContents
-  }
+
   const newEntry: TableOfContentsEntry = toEntry(newHeading)
   let newTableOfContents: Array<TableOfContentsEntry> = []
   if (prevHeading === null) {
@@ -38,9 +38,9 @@ function $insertHeadingIntoTableOfContents(
     if (
       currentTableOfContents.length > 0
       && currentTableOfContents[0][0] === newHeading.__key
-    ) {
+    )
       return currentTableOfContents
-    }
+
     newTableOfContents = [newEntry, ...currentTableOfContents]
   }
   else {
@@ -52,9 +52,9 @@ function $insertHeadingIntoTableOfContents(
         if (
           i + 1 < currentTableOfContents.length
           && currentTableOfContents[i + 1][0] === newHeading.__key
-        ) {
+        )
           return currentTableOfContents
-        }
+
         newTableOfContents.push(newEntry)
       }
     }
@@ -68,9 +68,8 @@ function $deleteHeadingFromTableOfContents(
 ): Array<TableOfContentsEntry> {
   const newTableOfContents = []
   for (const heading of currentTableOfContents) {
-    if (heading[0] !== key) {
+    if (heading[0] !== key)
       newTableOfContents.push(heading)
-    }
   }
   return newTableOfContents
 }
@@ -81,12 +80,11 @@ function $updateHeadingInTableOfContents(
 ): Array<TableOfContentsEntry> {
   const newTableOfContents: Array<TableOfContentsEntry> = []
   for (const oldHeading of currentTableOfContents) {
-    if (oldHeading[0] === heading.getKey()) {
+    if (oldHeading[0] === heading.getKey())
       newTableOfContents.push(toEntry(heading))
-    }
-    else {
+
+    else
       newTableOfContents.push(oldHeading)
-    }
   }
   return newTableOfContents
 }
@@ -103,17 +101,16 @@ function $updateHeadingPosition(
   const newTableOfContents: Array<TableOfContentsEntry> = []
   const newEntry: TableOfContentsEntry = toEntry(heading)
 
-  if (!prevHeading) {
+  if (!prevHeading)
     newTableOfContents.push(newEntry)
-  }
+
   for (const oldHeading of currentTableOfContents) {
-    if (oldHeading[0] === heading.getKey()) {
+    if (oldHeading[0] === heading.getKey())
       continue
-    }
+
     newTableOfContents.push(oldHeading)
-    if (prevHeading && oldHeading[0] === prevHeading.getKey()) {
+    if (prevHeading && oldHeading[0] === prevHeading.getKey())
       newTableOfContents.push(newEntry)
-    }
   }
 
   return newTableOfContents
@@ -121,9 +118,9 @@ function $updateHeadingPosition(
 
 function $getPreviousHeading(node: HeadingNode): HeadingNode | null {
   let prevHeading = $getNextRightPreorderNode(node)
-  while (prevHeading !== null && !$isHeadingNode(prevHeading)) {
+  while (prevHeading !== null && !$isHeadingNode(prevHeading))
     prevHeading = $getNextRightPreorderNode(prevHeading)
-  }
+
   return prevHeading
 }
 
@@ -167,9 +164,8 @@ export function useTableOfContents(editor: LexicalEditor) {
         $getRoot()
           .getChildren()
           .forEach((node) => {
-            if ($isElementNode(node) && dirtyElements.get(node.__key)) {
+            if ($isElementNode(node) && dirtyElements.get(node.__key))
               updateChildHeadings(node)
-            }
           })
       })
     },
