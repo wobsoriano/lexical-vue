@@ -38,8 +38,9 @@ function $insertHeadingIntoTableOfContents(
     if (
       currentTableOfContents.length > 0
       && currentTableOfContents[0][0] === newHeading.__key
-    )
+    ) {
       return currentTableOfContents
+    }
 
     newTableOfContents = [newEntry, ...currentTableOfContents]
   }
@@ -52,8 +53,9 @@ function $insertHeadingIntoTableOfContents(
         if (
           i + 1 < currentTableOfContents.length
           && currentTableOfContents[i + 1][0] === newHeading.__key
-        )
+        ) {
           return currentTableOfContents
+        }
 
         newTableOfContents.push(newEntry)
       }

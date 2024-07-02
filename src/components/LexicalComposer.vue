@@ -45,8 +45,9 @@ function initializeEditor(
         if (
           $getSelection() !== null
           || (activeElement !== null && activeElement === editor.getRootElement())
-        )
+        ) {
           paragraph.select()
+        }
       }
     }, HISTORY_MERGE_OPTIONS)
   }

@@ -23,8 +23,9 @@ useMounted(() => {
       props.ignoreSelectionChange
       && dirtyElements.size === 0
       && dirtyLeaves.size === 0
-    )
+    ) {
       return
+    }
 
     if (props.ignoreInitialChange && prevEditorState.isEmpty())
       return

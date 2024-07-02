@@ -29,8 +29,9 @@ onMounted(() => {
       modalRef.value !== null
       && !modalRef.value.contains(target as Node)
       && props.closeOnClickOutside
-    )
+    ) {
       emit('close')
+    }
   }
   const modelElement = modalRef.value
   if (modelElement !== null) {

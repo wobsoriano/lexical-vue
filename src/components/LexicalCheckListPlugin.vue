@@ -160,8 +160,9 @@ function handleCheckItemEvent(event: PointerEvent, callback: () => void) {
   if (
     firstChild != null
     && (firstChild.tagName === 'UL' || firstChild.tagName === 'OL')
-  )
+  ) {
     return
+  }
 
   const parentNode = target.parentNode
   // @ts-expect-error: Internal field
@@ -175,8 +176,9 @@ function handleCheckItemEvent(event: PointerEvent, callback: () => void) {
     target.dir === 'rtl'
       ? pageX < rect.right && pageX > rect.right - 20
       : pageX > rect.left && pageX < rect.left + 20
-  )
+  ) {
     callback()
+  }
 }
 
 function handleClick(event: PointerEvent) {

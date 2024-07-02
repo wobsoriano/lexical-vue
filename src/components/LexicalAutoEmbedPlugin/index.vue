@@ -75,10 +75,12 @@ const listener: MutationListener = (
       mutation === 'created'
       && updateTags.has('paste')
       && dirtyLeaves.size <= 3
-    )
+    ) {
       checkIfLinkNodeIsEmbeddable(key)
-    else if (key === nodeKey.value)
+    }
+    else if (key === nodeKey.value) {
       reset()
+    }
   }
 }
 

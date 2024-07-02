@@ -75,8 +75,9 @@ export function useYjsCollaboration(
         && root.isEmpty()
         && root._xmlText._length === 0
         && isReloadingDoc.value === false
-      )
+      ) {
         initializeEditor(editor, initialEditorState)
+      }
 
       isReloadingDoc.value = false
     }
@@ -285,8 +286,9 @@ function initializeEditor(
           if (
             $getSelection() !== null
             || (activeElement !== null && activeElement === editor.getRootElement())
-          )
+          ) {
             paragraph.select()
+          }
         }
       }
     },
