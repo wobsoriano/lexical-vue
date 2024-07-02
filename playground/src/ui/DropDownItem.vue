@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, ref, useAttrs } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 
 defineProps<{
   title?: string
