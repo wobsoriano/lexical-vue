@@ -14,8 +14,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 
-import type { UnwrapRef } from 'vue'
-import { computed, ref, watchEffect } from 'vue'
+import { type UnwrapRef, computed, ref, watchEffect } from 'vue'
 import { mergeRegister } from '@lexical/utils'
 
 import { useLexicalComposer } from '../../composables'
@@ -46,24 +45,23 @@ function reset() {
   activeEmbedConfig.value = null
 }
 
-function checkIfLinkNodeIsEmbeddable(key: NodeKey) {
-  editor.getEditorState().read(async () => {
+async function checkIfLinkNodeIsEmbeddable(key: NodeKey) {
+  const url = editor.getEditorState().read(() => {
     const linkNode = $getNodeByKey(key)
     if ($isLinkNode(linkNode)) {
-      for (let i = 0; i < props.embedConfigs.length; i++) {
-        const embedConfig = props.embedConfigs[i]
-
-        const urlMatch = await Promise.resolve(
-          embedConfig.parseUrl(linkNode.__url),
-        )
-
-        if (urlMatch != null) {
-          activeEmbedConfig.value = embedConfig as UnwrapRef<TEmbedConfig>
-          nodeKey.value = linkNode.getKey()
-        }
-      }
+      return linkNode.getURL()
     }
   })
+  if (url === undefined) {
+    return
+  }
+  for (const embedConfig of props.embedConfigs) {
+    const urlMatch = await Promise.resolve(embedConfig.parseUrl(url))
+    if (urlMatch != null) {
+      activeEmbedConfig.value = embedConfig as UnwrapRef<TEmbedConfig>
+      nodeKey.value = key
+    }
+  }
 }
 
 const listener: MutationListener = (
