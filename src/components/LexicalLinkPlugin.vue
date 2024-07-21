@@ -57,8 +57,9 @@ useMounted(() => {
             || selection.isCollapsed()
             || !(event instanceof ClipboardEvent)
             || event.clipboardData == null
-          )
+          ) {
             return false
+          }
 
           const clipboardText = event.clipboardData.getData('text')
           if (!props.validateUrl?.(clipboardText))

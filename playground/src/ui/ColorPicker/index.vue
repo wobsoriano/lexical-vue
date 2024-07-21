@@ -52,7 +52,7 @@ const huePosition = computed(
 
 function onSetHex(hex: string) {
   inputColor.value = hex
-  if (/^#[0-9A-Fa-f]{6}$/i.test(hex)) {
+  if (/^#[0-9A-F]{6}$/i.test(hex)) {
     const newColor = transformColor('hex', hex)
     selfColor.value = newColor
   }

@@ -75,8 +75,9 @@ function handleClick(event: MouseEvent) {
     && menuRef.value != null
     && event.target != null
     && !menuRef.value.contains(event.target as Node)
-  )
+  ) {
     closeNodeMenu()
+  }
 }
 
 onMounted(() => {
