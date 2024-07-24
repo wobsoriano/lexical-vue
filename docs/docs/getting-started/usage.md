@@ -3,7 +3,7 @@
 Install `lexical` and `lexical-vue`:
 
 ```bash
-npm install lexical lexical-vue
+npm install lexical-vue
 ```
 
 Below is an example of a basic plain text editor using `lexical` and `lexical-vue`.

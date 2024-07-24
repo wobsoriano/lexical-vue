@@ -46,8 +46,9 @@ watchEffect((onInvalidate) => {
         if (
           dropDownRef.value
           && dropDownRef.value.el.contains(target as Node)
-        )
+        ) {
           return
+        }
       }
       if (!button.contains(target as Node))
         showDropDown.value = false

@@ -14,10 +14,10 @@ Here are some examples of what you can do with Lexical:
 
 > Requires Vue >= 3.2.0.
 
-Install `lexical` and `lexical-vue`:
+Install `lexical-vue`:
 
 ```bash
-npm install lexical lexical-vue # or pnpm or yarn
+npm install lexical-vue # or pnpm or yarn
 ```
 
 Below is an example of a basic plain text editor using `lexical` and `lexical-vue`.

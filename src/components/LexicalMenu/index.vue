@@ -242,8 +242,9 @@ watchEffect((onInvalidate) => {
           props.options === null
           || selectedIndex.value === null
           || props.options[selectedIndex.value] == null
-        )
+        ) {
           return false
+        }
 
         event.preventDefault()
         event.stopImmediatePropagation()
@@ -259,8 +260,9 @@ watchEffect((onInvalidate) => {
           props.options === null
           || selectedIndex.value === null
           || props.options[selectedIndex.value] == null
-        )
+        ) {
           return false
+        }
 
         if (event !== null) {
           event.preventDefault()

@@ -23,7 +23,7 @@ export interface EmbedConfig<
 }
 
 export const URL_MATCHER
-  = /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
+  = /((https?:\/\/(www\.)?)|(www\.))[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-\w()@:%+.~#?&/=]*)/
 
 export const INSERT_EMBED_COMMAND: LexicalCommand<EmbedConfig['type']>
   = createCommand('INSERT_EMBED_COMMAND')

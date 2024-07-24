@@ -360,8 +360,9 @@ function printSelectedCharsLine({
     || !$isRangeSelection(selection)
     || !isSelected
     || $isElementNode(node)
-  )
+  ) {
     return ''
+  }
 
   // No selected characters.
   const anchor = selection.anchor
@@ -371,8 +372,9 @@ function printSelectedCharsLine({
     node.getTextContent() === ''
     || (anchor.getNode() === selection.focus.getNode()
     && anchor.offset === focus.offset)
-  )
+  ) {
     return ''
+  }
 
   const [start, end] = $getSelectionStartEnd(node, selection)
 
