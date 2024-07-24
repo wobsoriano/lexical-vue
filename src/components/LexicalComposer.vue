@@ -10,7 +10,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'error', error: Error, editor: LexicalEditor): void
+  (e: 'error', error: Error, editor: LexicalEditor): void,
+  (e: 'ready', editor: LexicalEditor): void
 }>()
 
 const HISTORY_MERGE_OPTIONS = { tag: 'history-merge' }
@@ -25,6 +26,8 @@ const editor = createEditor({
     emit('error', error, editor)
   },
 })
+
+emit('ready', editor)
 
 initializeEditor(editor, props.initialConfig.editorState)
 
