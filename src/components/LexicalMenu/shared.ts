@@ -162,7 +162,7 @@ export function useMenuAnchorRef(
     const rootElement = editor.getRootElement()
     const containerDiv = anchorElementRef.value
 
-    const menuEle = containerDiv.firstChild as HTMLElement
+    const menuEle = containerDiv.firstElementChild as HTMLElement
     if (rootElement !== null && resolution.value !== null) {
       const { left, top, width, height } = resolution.value!.getRect()
       const anchorHeight = anchorElementRef.value.offsetHeight // use to position under anchor
