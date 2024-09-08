@@ -1,7 +1,7 @@
 {
   "name": "lexical-vue",
   "type": "module",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "An extensible Vue 3 web text-editor based on Lexical.",
   "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "license": "MIT",
