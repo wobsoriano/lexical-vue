@@ -90,16 +90,6 @@ useMounted(() => {
     }
   }
 
-  // Plugins might be loaded _after_ initial content is set, hence existing table nodes
-  // won't be initialized from mutation[create] listener. Instead doing it here,
-  editor.getEditorState().read(() => {
-    const tableNodes = $nodesOfType(TableNode)
-    for (const tableNode of tableNodes) {
-      if ($isTableNode(tableNode))
-        initializeTableNode(tableNode)
-    }
-  })
-
   const unregisterMutationListener = editor.registerMutationListener(
     TableNode,
     (nodeMutations) => {
@@ -121,6 +111,7 @@ useMounted(() => {
         }
       }
     },
+    { skipInitialization: false },
   )
 
   return () => {
