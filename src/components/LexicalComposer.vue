@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted, provide } from 'vue'
-import type { CreateEditorArgs, LexicalEditor } from 'lexical'
+import type { LexicalEditor } from 'lexical'
 import { $createParagraphNode, $getRoot, $getSelection, createEditor } from 'lexical'
 import { LexicalEditorProviderKey } from '../composables/inject'
-import type { InitialEditorStateType } from '../types'
+import type { InitialConfigType, InitialEditorStateType } from '../types'
 
 const props = defineProps<{
-  initialConfig: CreateEditorArgs
+  initialConfig: InitialConfigType
 }>()
 
 const emit = defineEmits<{
