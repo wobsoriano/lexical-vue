@@ -175,7 +175,7 @@ watchEffect((onInvalidate) => {
     :anchor-element-ref="anchorElementRef"
     :editor="editor"
     :resolution="resolution!"
-    :options="options"
+    :options="props.options"
     should-split-node-with-query
     :command-priority="commandPriority"
     :close="closeTypeahead"
