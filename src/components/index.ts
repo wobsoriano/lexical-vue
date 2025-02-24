@@ -59,7 +59,8 @@ export {
 } from './LexicalCheckListPlugin.vue'
 export {
   default as LexicalMarkdownShortcutPlugin,
-} from './LexicalMarkdownShortcutPlugin.vue'
+} from './LexicalMarkdownShortcutPlugin/index.vue'
+export * from './LexicalMarkdownShortcutPlugin/shared'
 export {
   default as LexicalTabIndentationPlugin,
 } from './LexicalTabIndentationPlugin.vue'

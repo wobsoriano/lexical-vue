@@ -29,12 +29,7 @@ export interface TablePluginProps {
   hasHorizontalScroll?: boolean
 }
 
-const { hasHorizontalScroll, hasTabHandler, hasCellMerge, hasCellBackgroundColor } = withDefaults(defineProps<TablePluginProps>(), {
-  hasCellMerge: true,
-  hasCellBackgroundColor: true,
-  hasTabHandler: true,
-  hasHorizontalScroll: false,
-})
+const { hasHorizontalScroll = false, hasTabHandler = true, hasCellMerge = true, hasCellBackgroundColor = true } = defineProps<TablePluginProps>()
 
 const editor = useLexicalComposer()
 
