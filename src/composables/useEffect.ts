@@ -10,7 +10,6 @@ export function useEffect(cb: () => (() => any) | undefined, options?: WatchOpti
 
     onInvalidate(() => unregister?.())
   }, {
-    flush: 'post',
     ...options,
   })
 }
