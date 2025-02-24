@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { LinkAttributes } from '@lexical/link'
 import {
+  $toggleLink,
   LinkNode,
   TOGGLE_LINK_COMMAND,
-  toggleLink,
 } from '@lexical/link'
 import {
   $getSelection,
@@ -11,43 +12,50 @@ import {
   COMMAND_PRIORITY_LOW,
   PASTE_COMMAND,
 } from 'lexical'
-import invariant from 'tiny-invariant'
-import { mergeRegister } from '@lexical/utils'
-import { useLexicalComposer } from '../composables'
-import { useMounted } from '../composables/useMounted'
+import { mergeRegister, objectKlassEquals } from '@lexical/utils'
+import { useEffect, useLexicalComposer } from '../composables'
 
-const props = defineProps<{
+interface Props {
   validateUrl?: (url: string) => boolean
-}>()
+  attributes?: LinkAttributes
+}
+
+const { validateUrl, attributes } = defineProps<Props>()
 const editor = useLexicalComposer()
-useMounted(() => {
+
+useEffect(() => {
   if (!editor.hasNodes([LinkNode]))
-    invariant(false, 'LinkPlugin: LinkNode not registered on editor')
+    throw new Error('LinkPlugin: LinkNode not registered on editor')
 
   return mergeRegister(
     editor.registerCommand(
       TOGGLE_LINK_COMMAND,
       (payload) => {
         if (payload === null) {
-          toggleLink(payload)
+          $toggleLink(payload)
           return true
         }
         else if (typeof payload === 'string') {
-          if (props.validateUrl === undefined || props.validateUrl(payload)) {
-            toggleLink(payload)
+          if (validateUrl === undefined || validateUrl(payload)) {
+            $toggleLink(payload, attributes)
             return true
           }
           return false
         }
         else {
           const { url, target, rel, title } = payload
-          toggleLink(url, { rel, target, title })
+          $toggleLink(url, {
+            ...attributes,
+            rel,
+            target,
+            title,
+          })
           return true
         }
       },
       COMMAND_PRIORITY_LOW,
     ),
-    props.validateUrl !== undefined
+    validateUrl !== undefined
       ? editor.registerCommand(
         PASTE_COMMAND,
         (event) => {
@@ -55,19 +63,25 @@ useMounted(() => {
           if (
             !$isRangeSelection(selection)
             || selection.isCollapsed()
-            || !(event instanceof ClipboardEvent)
-            || event.clipboardData == null
+            || !objectKlassEquals(event, ClipboardEvent)
           ) {
             return false
           }
 
-          const clipboardText = event.clipboardData.getData('text')
-          if (!props.validateUrl?.(clipboardText))
+          const clipboardEvent = event as ClipboardEvent
+          if (clipboardEvent.clipboardData === null)
+            return false
+
+          const clipboardText = clipboardEvent.clipboardData.getData('text')
+          if (!validateUrl?.(clipboardText))
             return false
 
           // If we select nodes that are elements then avoid applying the link.
           if (!selection.getNodes().some(node => $isElementNode(node))) {
-            editor.dispatchCommand(TOGGLE_LINK_COMMAND, clipboardText)
+            editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+              ...attributes,
+              url: clipboardText,
+            })
             event.preventDefault()
             return true
           }
@@ -76,7 +90,7 @@ useMounted(() => {
         COMMAND_PRIORITY_LOW,
       )
       : () => {
-          // Don't paste arbritrary text as a link when there's no validate function
+          // Don't paste arbitrary text as a link when there's no validate function
         },
   )
 })
