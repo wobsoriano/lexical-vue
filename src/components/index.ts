@@ -33,6 +33,7 @@ export {
 } from './LexicalLinkPlugin.vue'
 export {
   default as LexicalTablePlugin,
+  type TablePluginProps,
 } from './LexicalTablePlugin.vue'
 export {
   default as LexicalClearEditorPlugin,
