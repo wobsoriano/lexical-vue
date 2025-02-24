@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LexicalEditor } from 'lexical'
-import type { AriaAttributes, CSSProperties } from 'vue'
-import { computed, ref, useAttrs } from 'vue'
+import type { AriaAttributes } from 'vue'
+import { computed, ref } from 'vue'
 import { useMounted } from '../composables/useMounted'
 import type { HTMLAttributes } from '../types'
 

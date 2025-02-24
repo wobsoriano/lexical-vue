@@ -25,7 +25,6 @@ import type {
 import {
   $getNodeByKey,
   $isTextNode,
-  $nodesOfType,
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import invariant from 'tiny-invariant'

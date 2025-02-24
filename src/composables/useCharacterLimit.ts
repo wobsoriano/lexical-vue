@@ -17,7 +17,6 @@ import {
 import invariant from 'tiny-invariant'
 
 import { type MaybeRefOrGetter, toValue, watchEffect } from 'vue'
-import { useMounted } from './useMounted'
 
 interface OptionalProps {
   remainingCharacters?: (characters: number) => void
