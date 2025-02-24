@@ -8,6 +8,7 @@ export {
 } from './LexicalPlainTextPlugin.vue'
 export {
   default as LexicalComposer,
+  type InitialConfigType,
 } from './LexicalComposer.vue'
 export {
   default as LexicalOnChangePlugin,

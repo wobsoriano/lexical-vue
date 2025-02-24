@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { CreateEditorArgs } from 'lexical'
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
+import type { InitialConfigType } from 'lexical-vue'
 import { LexicalComposer } from 'lexical-vue'
 import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
 import { $createListItemNode, $createListNode } from '@lexical/list'
@@ -89,13 +89,15 @@ function prepopulatedRichText() {
   }
 }
 
-const config: CreateEditorArgs = {
+const initialConfig: InitialConfigType = {
+  namespace: 'Playground',
   theme: PlaygroundEditorTheme,
   nodes: [
     ...PlaygroundNodes,
   ],
   editable: true,
   editorState: prepopulatedRichText as any,
+  onError,
 }
 
 function onError(error: Error) {
@@ -104,7 +106,7 @@ function onError(error: Error) {
 </script>
 
 <template>
-  <LexicalComposer :initial-config="config" @error="onError">
+  <LexicalComposer :initial-config="initialConfig">
     <header>
       <h1>Lexical Vue Demo</h1>
     </header>
