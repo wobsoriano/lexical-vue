@@ -12,7 +12,7 @@ const emit = defineEmits<{
 
 const editor = useLexicalComposer()
 
-useAutoLink(editor, props.matchers, (url: string | null, prevUrl: string | null) => {
+useAutoLink(editor, () => props.matchers, (url: string | null, prevUrl: string | null) => {
   emit('change', {
     url,
     prevUrl,
