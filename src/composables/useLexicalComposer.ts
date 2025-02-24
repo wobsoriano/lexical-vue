@@ -15,8 +15,3 @@ export function useLexicalComposer() {
 
   return editor
 }
-
-/**
- * @deprecated use `useLexicalComposer` instead
- */
-export const useEditor = useLexicalComposer
