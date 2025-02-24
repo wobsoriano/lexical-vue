@@ -131,6 +131,7 @@ function $handleLinkCreation(
       invalidMatchEnd + matchStart,
       invalidMatchEnd + matchEnd,
       initialText,
+      // @ts-expect-error: currentNodes is a single TextNode here
       currentNodes,
     )
 
