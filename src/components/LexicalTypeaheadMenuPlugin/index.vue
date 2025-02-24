@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="TOption extends MenuOption">
 import type { LexicalEditor, RangeSelection, TextNode } from 'lexical'
 import { $getSelection, $isRangeSelection, $isTextNode, COMMAND_PRIORITY_LOW } from 'lexical'
-import { ref, watchEffect } from 'vue'
+import { nextTick, ref, watchEffect } from 'vue'
 import { useLexicalComposer } from '../../composables'
 import type { MenuOption, MenuResolution } from '../LexicalMenu/shared'
 import { useMenuAnchorRef } from '../LexicalMenu/shared'
@@ -83,7 +83,7 @@ function tryToPositionRange(
     range.setStart(anchorNode, startOffset)
     range.setEnd(anchorNode, endOffset)
   }
-  catch (error) {
+  catch {
     return false
   }
 
@@ -124,6 +124,11 @@ function isSelectionOnEntityBoundary(
 watchEffect((onInvalidate) => {
   const updateListener = () => {
     editor.getEditorState().read(() => {
+      if (!editor.isEditable()) {
+        closeTypeahead()
+        return
+      }
+
       const editorWindow = editor._window || window
       const range = editorWindow.document.createRange()
       const selection = $getSelection()
@@ -152,10 +157,10 @@ watchEffect((onInvalidate) => {
           editorWindow,
         )
         if (isRangePositioned !== null) {
-          openTypeahead({
+          nextTick(() => openTypeahead({
             getRect: () => range.getBoundingClientRect(),
             match,
-          })
+          }))
           return
         }
       }
@@ -166,6 +171,15 @@ watchEffect((onInvalidate) => {
   const removeUpdateListener = editor.registerUpdateListener(updateListener)
 
   onInvalidate(removeUpdateListener)
+})
+
+watchEffect((onInvalidate) => {
+  const fn = editor.registerEditableListener((isEditable) => {
+    if (!isEditable)
+      closeTypeahead()
+  })
+
+  onInvalidate(fn)
 })
 </script>
 
