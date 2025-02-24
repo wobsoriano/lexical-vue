@@ -1,69 +1,38 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useLexicalComposer } from '../composables'
-import { useMounted } from '../composables/useMounted'
+import { useLexicalComposer, useMounted } from '../composables'
+import { useCanShowPlaceholder } from '../composables/useCanShowPlaceholder'
+import type { Props as ElementProps } from './LexicalContentEditableElement.vue'
+import LexicalContentEditableElement from './LexicalContentEditableElement.vue'
 
-withDefaults(defineProps<{
-  ariaActivedescendant?: string
-  ariaAutocomplete?: 'none' | 'inline' | 'list' | 'both'
-  ariaControls?: string
-  ariaDescribedby?: string
-  ariaExpanded?: boolean
-  ariaLabel?: string
-  ariaLabelledby?: string
-  ariaMultiline?: boolean
-  ariaOwns?: string
-  ariaRequired?: boolean
-  autoCapitalize?: boolean
-  autoComplete?: boolean
-  autoCorrect?: boolean
-  id?: string
-  editable?: boolean
-  role?: string
-  spellcheck?: boolean
-  tabindex?: number
-  enableGrammarly?: boolean
-}>(), {
+type ContentEditableProps = Omit<ElementProps, 'editor' | 'placeholder'>
+
+withDefaults(defineProps<ContentEditableProps>(), {
   role: 'textbox',
   spellcheck: true,
 })
-const root = ref<HTMLElement | null>(null)
-const editor = useLexicalComposer()
 
-const editable = ref(false)
+const editor = useLexicalComposer()
+const isEditable = ref(false)
+const showPlaceholder = useCanShowPlaceholder(editor)
 
 useMounted(() => {
-  if (root.value) {
-    editor.setRootElement(root.value)
-    editable.value = editor.isEditable()
-  }
-
+  isEditable.value = editor.isEditable()
   return editor.registerEditableListener((currentIsEditable) => {
-    editable.value = currentIsEditable
+    isEditable.value = currentIsEditable
   })
 })
 </script>
 
 <template>
-  <div
-    :id="id"
-    ref="root"
-    :aria-activedescendant="!editable ? undefined : ariaActivedescendant"
-    :aria-autocomplete="!editable ? undefined : ariaAutocomplete"
-    :aria-controls="!editable ? undefined : ariaControls"
-    :aria-describedby="ariaDescribedby"
-    :aria-expanded="!editable ? undefined : role === 'combobox' ? !!ariaExpanded ? ariaExpanded : undefined : undefined"
-    :aria-label="ariaLabel"
-    :aria-labelledby="ariaLabelledby"
-    :aria-multiline="ariaMultiline"
-    :aria-owns="!editable ? undefined : ariaOwns"
-    :aria-required="ariaRequired"
-    :autocapitalize="`${autoCapitalize}`"
-    :autocomplete="autoComplete"
-    :autocorrect="`${autoCorrect}`"
-    :contenteditable="editable"
-    :role="!editable ? undefined : role"
-    :spellcheck="spellcheck"
-    :tabindex="tabindex"
+  <LexicalContentEditableElement
+    :editor="editor"
+    v-bind="$props"
   />
+  <div
+    v-if="showPlaceholder"
+    aria-hidden="true"
+  >
+    <slot name="placeholder" />
+  </div>
 </template>
