@@ -3,8 +3,9 @@ import type { LexicalEditor } from 'lexical'
 import type { AriaAttributes, CSSProperties } from 'vue'
 import { computed, ref, useAttrs } from 'vue'
 import { useMounted } from '../composables/useMounted'
+import type { HTMLAttributes } from '../types'
 
-export interface Props {
+export type Props = {
   editor: LexicalEditor
   ariaActiveDescendant?: AriaAttributes['aria-activedescendant']
   ariaAutoComplete?: AriaAttributes['aria-autocomplete']
@@ -18,15 +19,8 @@ export interface Props {
   ariaMultiline?: AriaAttributes['aria-multiline']
   ariaOwns?: AriaAttributes['aria-owns']
   ariaRequired?: AriaAttributes['aria-required']
-  autocapitalize?: string
-  role?: string
-  spellcheck?: boolean
-  style?: CSSProperties
-  class?: string
-  tabIndex?: number
   dataTestid?: string
-  id?: string
-}
+} & Omit<HTMLAttributes, 'placeholder'>
 
 const props = withDefaults(defineProps<Props>(), {
   role: 'textbox',
@@ -35,7 +29,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const root = ref<HTMLElement | null>(null)
 const isEditable = ref(props.editor.isEditable())
-const attrs = useAttrs()
 
 const otherAttrs = computed(() => {
   // for compat, only override if defined
@@ -45,7 +38,7 @@ const otherAttrs = computed(() => {
   if (props.ariaErrorMessage != null)
     ariaAttrs['aria-errormessage'] = props.ariaErrorMessage
   return {
-    ...attrs,
+    ...props,
     ...ariaAttrs,
   }
 })
@@ -77,7 +70,6 @@ useMounted(() => {
 
 <template>
   <div
-    :id="id"
     ref="root"
     v-bind="otherAttrs"
     :aria-activedescendant="isEditable ? ariaActiveDescendant : undefined"
@@ -97,6 +89,6 @@ useMounted(() => {
     :role="isEditable ? role : undefined"
     :spellcheck="spellcheck"
     :style="style"
-    :tabindex="tabIndex"
+    :tabindex="tabindex"
   />
 </template>
