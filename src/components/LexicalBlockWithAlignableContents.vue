@@ -35,12 +35,15 @@ const editor = useLexicalComposer()
 const { isSelected, setSelected, clearSelection } = useLexicalNodeSelection(props.nodeKey)
 const containerRef = ref<HTMLDivElement | null>(null)
 
-function onDelete(event: KeyboardEvent) {
-  if (isSelected.value && $isNodeSelection($getSelection())) {
+function $onDelete(event: KeyboardEvent) {
+  const deleteSelection = $getSelection()
+  if (isSelected.value && $isNodeSelection(deleteSelection)) {
     event.preventDefault()
-    const node = $getNodeByKey(props.nodeKey)
-    if ($isDecoratorNode(node))
-      node?.remove()
+    deleteSelection.getNodes().forEach((node) => {
+      if ($isDecoratorNode(node)) {
+        node.remove()
+      }
+    })
   }
   return false
 }
@@ -96,12 +99,12 @@ useMounted(() => {
     ),
     editor.registerCommand(
       KEY_DELETE_COMMAND,
-      onDelete,
+      $onDelete,
       COMMAND_PRIORITY_LOW,
     ),
     editor.registerCommand(
       KEY_BACKSPACE_COMMAND,
-      onDelete,
+      $onDelete,
       COMMAND_PRIORITY_LOW,
     ),
   )
