@@ -33,7 +33,6 @@ export interface HTMLAttributes extends AriaAttributes {
   about?: string
   datatype?: string
   inlist?: any
-  prefix?: string
   property?: string
   resource?: string
   typeof?: string

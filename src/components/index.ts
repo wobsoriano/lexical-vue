@@ -94,6 +94,7 @@ export * from './LexicalAutoEmbedPlugin/shared'
 export {
   default as LexicalAutoLinkPlugin,
 } from './LexicalAutoLinkPlugin/index.vue'
+export * from './LexicalAutoLinkPlugin/shared'
 
 // LexicalTypeaheadMenuPlugin
 export { default as LexicalTypeaheadMenuPlugin } from './LexicalTypeaheadMenuPlugin/index.vue'
