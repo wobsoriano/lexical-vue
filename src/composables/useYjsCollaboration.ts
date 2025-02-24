@@ -55,7 +55,7 @@ export function useYjsCollaboration(
     try {
       provider.disconnect()
     }
-    catch (e) {
+    catch {
       // Do nothing
     }
   }
