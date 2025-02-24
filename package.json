@@ -64,6 +64,7 @@
     "@lexical/dragon": "~0.25.0",
     "@lexical/hashtag": "~0.25.0",
     "@lexical/history": "~0.25.0",
+    "@lexical/html": "~0.25.0",
     "@lexical/link": "~0.25.0",
     "@lexical/list": "~0.25.0",
     "@lexical/mark": "~0.25.0",
