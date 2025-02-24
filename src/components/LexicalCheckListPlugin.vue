@@ -20,6 +20,7 @@ import {
   KEY_ARROW_UP_COMMAND,
   KEY_ESCAPE_COMMAND,
   KEY_SPACE_COMMAND,
+  getNearestEditorFromDOMNode,
 } from 'lexical'
 import type { LexicalEditor } from 'lexical'
 
@@ -29,10 +30,9 @@ import {
   INSERT_CHECK_LIST_COMMAND,
   insertList,
 } from '@lexical/list'
-import { $findMatchingParent, mergeRegister } from '@lexical/utils'
+import { $findMatchingParent, calculateZoomLevel, mergeRegister } from '@lexical/utils'
 import { useLexicalComposer } from '../composables'
 import { useMounted } from '../composables/useMounted'
-import { registerClickAndPointerListeners } from '../composables/listenerManager'
 
 const editor = useLexicalComposer()
 
@@ -133,21 +133,18 @@ useMounted(() => {
       },
       COMMAND_PRIORITY_LOW,
     ),
-    listenPointerDown(),
+    editor.registerRootListener((rootElement, prevRootElement) => {
+      if (rootElement !== null) {
+        rootElement.addEventListener('click', handleClick)
+        rootElement.addEventListener('pointerdown', handlePointerDown)
+      }
+      if (prevRootElement !== null) {
+        prevRootElement.removeEventListener('click', handleClick)
+        prevRootElement.removeEventListener('pointerdown', handlePointerDown)
+      }
+    }),
   )
 })
-
-function listenPointerDown() {
-  return registerClickAndPointerListeners(() => {
-    // @ts-expect-error: speculation ambiguous
-    document.addEventListener('click', handleClick)
-    document.addEventListener('pointerdown', handlePointerDown)
-  }, () => {
-    // @ts-expect-error: speculation ambiguous
-    document.removeEventListener('click', handleClick)
-    document.removeEventListener('pointerdown', handlePointerDown)
-  })
-}
 
 function handleCheckItemEvent(event: PointerEvent, callback: () => void) {
   const target = event.target
@@ -169,7 +166,7 @@ function handleCheckItemEvent(event: PointerEvent, callback: () => void) {
   if (!parentNode || parentNode.__lexicalListType !== 'check')
     return
 
-  const pageX = event.pageX
+  const pageX = event.pageX / calculateZoomLevel(target)
   const rect = target.getBoundingClientRect()
 
   if (
@@ -181,12 +178,12 @@ function handleCheckItemEvent(event: PointerEvent, callback: () => void) {
   }
 }
 
-function handleClick(event: PointerEvent) {
+function handleClick(event: Event) {
   handleCheckItemEvent(event as PointerEvent, () => {
     const domNode = event.target as HTMLElement
-    const editor = findEditor(domNode)
+    const editor = getNearestEditorFromDOMNode(domNode)
 
-    if (editor !== null) {
+    if (editor !== null && editor.isEditable()) {
       editor.update(() => {
         const node = $getNearestNodeFromDOMNode(domNode)
         if ($isListItemNode(node!)) {
@@ -205,26 +202,12 @@ function handlePointerDown(event: PointerEvent) {
   })
 }
 
-function findEditor(target: Node) {
-  let node: ParentNode | Node | null = target
-
-  while (node) {
-    // @ts-expect-error internal field
-    if (node.__lexicalEditor)
-    // @ts-expect-error internal field
-      return (node.__lexicalEditor)
-
-    node = node.parentNode
-  }
-  return null
-}
-
-function getActiveCheckListItem(): HTMLElement | Element | null {
-  const { activeElement } = document
-  return activeElement !== null
+function getActiveCheckListItem(): HTMLElement | null {
+  const activeElement = document.activeElement
+  return activeElement instanceof HTMLElement
     && activeElement.tagName === 'LI'
-    && activeElement.parentNode !== null
-    // @ts-expect-error: internal field missing
+    && activeElement.parentNode != null
+    // @ts-expect-error internal field
     && activeElement.parentNode.__lexicalListType === 'check'
     ? activeElement
     : null
