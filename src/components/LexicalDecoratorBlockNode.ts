@@ -1,4 +1,11 @@
-import type { ElementFormatType, LexicalNode, NodeKey, SerializedLexicalNode, Spread } from 'lexical'
+import type {
+  ElementFormatType,
+  LexicalNode,
+  LexicalUpdateJSON,
+  NodeKey,
+  SerializedLexicalNode,
+  Spread,
+} from 'lexical'
 
 import { DecoratorNode } from 'lexical'
 import type { Component } from 'vue'
@@ -11,19 +18,40 @@ export type SerializedDecoratorBlockNode = Spread<
 >
 
 export class DecoratorBlockNode extends DecoratorNode<Component> {
-  __format?: ElementFormatType
+  __format: ElementFormatType
 
   constructor(format?: ElementFormatType, key?: NodeKey) {
     super(key)
     this.__format = format || ''
   }
 
+  canIndent(): false {
+    return false
+  }
+
+  isInline(): false {
+    return false
+  }
+
   exportJSON(): SerializedDecoratorBlockNode {
     return {
+      ...super.exportJSON(),
       format: this.__format || '',
-      type: 'decorator-block',
-      version: 1,
     }
+  }
+
+  updateFromJSON(
+    serializedNode: LexicalUpdateJSON<SerializedDecoratorBlockNode>,
+  ): this {
+    return super
+      .updateFromJSON(serializedNode)
+      .setFormat(serializedNode.format || '')
+  }
+
+  setFormat(format: ElementFormatType): this {
+    const self = this.getWritable()
+    self.__format = format
+    return self
   }
 
   createDOM() {
@@ -32,11 +60,6 @@ export class DecoratorBlockNode extends DecoratorNode<Component> {
 
   updateDOM() {
     return false
-  }
-
-  setFormat(format: ElementFormatType) {
-    const self = this.getWritable()
-    self.__format = format
   }
 }
 
