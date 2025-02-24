@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { CommandListenerPriority } from 'lexical'
+import type { CommandListenerPriority, ElementFormatType } from 'lexical'
 import {
   $getNodeByKey,
   $getSelection,
+  $isElementNode,
   $isRangeSelection,
   $isRootOrShadowRoot,
   $isTextNode,
@@ -70,6 +71,7 @@ const isBold = ref(false)
 const isItalic = ref(false)
 const isUnderline = ref(false)
 const isStrikethrough = ref(false)
+const elementFormat = ref<ElementFormatType>('left')
 
 const isSubscript = ref(false)
 const isSuperscript = ref(false)
@@ -142,21 +144,21 @@ function $updateToolbar() {
     bgColor.value = $getSelectionStyleValueForProperty(selection, 'background-color', '#fff')
     fontFamily.value = $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial')
 
-    // let matchingParent
+    let matchingParent
     if ($isLinkNode(parent)) {
       // If node is a link, we need to fetch the parent paragraph node to set format
-      // matchingParent = $findMatchingParent(
-      //   node,
-      //   parentNode => $isElementNode(parentNode) && !parentNode.isInline(),
-      // )
+      matchingParent = $findMatchingParent(
+        node,
+        parentNode => $isElementNode(parentNode) && !parentNode.isInline(),
+      )
     }
 
     // If matchingParent is a valid node, pass it's format type
-    // elementFormat.value = $isElementNode(matchingParent)
-    //       ? matchingParent.getFormatType()
-    //       : $isElementNode(node)
-    //       ? node.getFormatType()
-    //       : parent?.getFormatType() || 'left'
+    elementFormat.value = $isElementNode(matchingParent)
+      ? matchingParent.getFormatType()
+      : $isElementNode(node)
+        ? node.getFormatType()
+        : parent?.getFormatType() || 'left'
   }
 }
 

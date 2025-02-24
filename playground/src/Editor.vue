@@ -23,6 +23,7 @@ import MentionsPlugin from './plugins/MentionsPlugin.vue'
 import AutoEmbedPlugin from './plugins/AutoEmbedPlugin/index.vue'
 import YouTubePlugin from './plugins/YouTubePlugin/index.vue'
 import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
+import FloatingLinkEditor from './plugins/FloatingLinkEditor.vue'
 </script>
 
 <template>
@@ -61,6 +62,7 @@ import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
       <LexicalClickableLinkPlugin />
       <YouTubePlugin />
       <TwitterPlugin />
+      <FloatingLinkEditor :priority="1" />
     </div>
   </div>
 </template>
