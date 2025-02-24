@@ -79,6 +79,8 @@ export {
   default as LexicalNodeMenuPlugin,
 } from './LexicalNodeMenuPlugin.vue'
 
+export * from './LexicalHorizontalRuleNode'
+
 // LexicalAutoEmbedPlugin
 export {
   default as LexicalAutoEmbedPlugin,
