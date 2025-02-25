@@ -7,13 +7,16 @@ import {
   $isElementNode,
   $isRangeSelection,
   getNearestEditorFromDOMNode,
+  isDOMNode,
 } from 'lexical'
 import { useLexicalComposer, useMounted } from '../composables'
 
 const props = withDefaults(defineProps<{
   newTab?: boolean
+  disabled?: boolean
 }>(), {
   newTab: true,
+  disabled: false,
 })
 
 function findMatchingDOM<T extends Node>(
@@ -35,7 +38,7 @@ const editor = useLexicalComposer()
 useMounted(() => {
   const onClick = (event: MouseEvent) => {
     const target = event.target
-    if (!(target instanceof Node))
+    if (!isDOMNode(target))
       return
 
     const nearestEditor = getNearestEditorFromDOMNode(target)
@@ -52,15 +55,17 @@ useMounted(() => {
           clickedNode,
           $isElementNode,
         )
-        if ($isLinkNode(maybeLinkNode)) {
-          url = maybeLinkNode.sanitizeUrl(maybeLinkNode.getURL())
-          urlTarget = maybeLinkNode.getTarget()
-        }
-        else {
-          const a = findMatchingDOM(target, isHTMLAnchorElement)
-          if (a !== null) {
-            url = a.href
-            urlTarget = a.target
+        if (!props.disabled) {
+          if ($isLinkNode(maybeLinkNode)) {
+            url = maybeLinkNode.sanitizeUrl(maybeLinkNode.getURL())
+            urlTarget = maybeLinkNode.getTarget()
+          }
+          else {
+            const a = findMatchingDOM(target, isHTMLAnchorElement)
+            if (a !== null) {
+              url = a.href
+              urlTarget = a.target
+            }
           }
         }
       }
@@ -91,7 +96,7 @@ useMounted(() => {
   }
 
   const onMouseUp = (event: MouseEvent) => {
-    if (event.button === 1 && editor.isEditable())
+    if (event.button === 1)
       onClick(event)
   }
 

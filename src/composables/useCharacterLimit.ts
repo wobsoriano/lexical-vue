@@ -16,7 +16,7 @@ import {
 } from 'lexical'
 import invariant from 'tiny-invariant'
 
-import { useMounted } from './useMounted'
+import { type MaybeRefOrGetter, toValue, watchEffect } from 'vue'
 
 interface OptionalProps {
   remainingCharacters?: (characters: number) => void
@@ -25,15 +25,10 @@ interface OptionalProps {
 
 export function useCharacterLimit(
   editor: LexicalEditor,
-  maxCharacters: number,
-  optional: OptionalProps = Object.freeze({}),
+  maxCharacters: MaybeRefOrGetter<number>,
+  optional: MaybeRefOrGetter<OptionalProps> = Object.freeze({}),
 ) {
-  const {
-    strlen = input => input.length, // UTF-16
-    remainingCharacters = (_characters) => {},
-  } = optional
-
-  useMounted(() => {
+  watchEffect((onInvalidate) => {
     if (!editor.hasNodes([OverflowNode])) {
       invariant(
         false,
@@ -41,10 +36,15 @@ export function useCharacterLimit(
       )
     }
 
+    const {
+      strlen = (input: string): number => input.length, // UTF-16
+      remainingCharacters = (_characters: number): void => {},
+    } = toValue(optional)
+
     let text = editor.getEditorState().read($rootTextContent)
     let lastComputedTextLength = 0
 
-    return mergeRegister(
+    const fn = mergeRegister(
       editor.registerTextContentListener((currentText: string) => {
         text = currentText
       }),
@@ -56,13 +56,13 @@ export function useCharacterLimit(
 
         const textLength = strlen(text)
         const textLengthAboveThreshold
-          = textLength > maxCharacters
+          = textLength > toValue(maxCharacters)
           || (lastComputedTextLength !== null
-          && lastComputedTextLength > maxCharacters)
-        const diff = maxCharacters - textLength
+          && lastComputedTextLength > toValue(maxCharacters))
+        const diff = toValue(maxCharacters) - textLength
         remainingCharacters(diff)
         if (lastComputedTextLength === null || textLengthAboveThreshold) {
-          const offset = findOffset(text, maxCharacters, strlen)
+          const offset = findOffset(text, toValue(maxCharacters), strlen)
           editor.update(
             () => {
               $wrapOverflowedNodes(offset)
@@ -75,6 +75,10 @@ export function useCharacterLimit(
         lastComputedTextLength = textLength
       }),
     )
+
+    onInvalidate(() => {
+      fn()
+    })
   })
 }
 

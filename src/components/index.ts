@@ -8,6 +8,7 @@ export {
 } from './LexicalPlainTextPlugin.vue'
 export {
   default as LexicalComposer,
+  type InitialConfigType,
 } from './LexicalComposer.vue'
 export {
   default as LexicalOnChangePlugin,
@@ -33,6 +34,7 @@ export {
 } from './LexicalLinkPlugin.vue'
 export {
   default as LexicalTablePlugin,
+  type TablePluginProps,
 } from './LexicalTablePlugin.vue'
 export {
   default as LexicalClearEditorPlugin,
@@ -58,7 +60,8 @@ export {
 } from './LexicalCheckListPlugin.vue'
 export {
   default as LexicalMarkdownShortcutPlugin,
-} from './LexicalMarkdownShortcutPlugin.vue'
+} from './LexicalMarkdownShortcutPlugin/index.vue'
+export * from './LexicalMarkdownShortcutPlugin/shared'
 export {
   default as LexicalTabIndentationPlugin,
 } from './LexicalTabIndentationPlugin.vue'
@@ -79,6 +82,8 @@ export {
   default as LexicalNodeMenuPlugin,
 } from './LexicalNodeMenuPlugin.vue'
 
+export * from './LexicalHorizontalRuleNode'
+
 // LexicalAutoEmbedPlugin
 export {
   default as LexicalAutoEmbedPlugin,
@@ -89,6 +94,7 @@ export * from './LexicalAutoEmbedPlugin/shared'
 export {
   default as LexicalAutoLinkPlugin,
 } from './LexicalAutoLinkPlugin/index.vue'
+export { createLinkMatcherWithRegExp, type LinkMatcher } from './LexicalAutoLinkPlugin/shared'
 
 // LexicalTypeaheadMenuPlugin
 export { default as LexicalTypeaheadMenuPlugin } from './LexicalTypeaheadMenuPlugin/index.vue'

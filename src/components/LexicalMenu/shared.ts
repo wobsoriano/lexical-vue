@@ -154,6 +154,7 @@ export function useMenuAnchorRef(
   setResolution: (r: MenuResolution | null) => void,
   className?: string,
   parent: HTMLElement = document.body,
+  shouldIncludePageYOffset__EXPERIMENTAL: boolean = true,
 ): Ref<HTMLElement> {
   const editor = useLexicalComposer()
   const anchorElementRef = ref<HTMLElement>(document.createElement('div'))
@@ -167,7 +168,8 @@ export function useMenuAnchorRef(
       const { left, top, width, height } = resolution.value!.getRect()
       const anchorHeight = anchorElementRef.value.offsetHeight // use to position under anchor
       containerDiv.style.top = `${
-        top + window.scrollY + anchorHeight + 3
+        top + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)
+        + anchorHeight + 3
       }px`
       containerDiv.style.left = `${left + window.pageXOffset}px`
       containerDiv.style.height = `${height}px`
@@ -191,7 +193,8 @@ export function useMenuAnchorRef(
           && top - rootElementRect.top > menuHeight + height
         ) {
           containerDiv.style.top = `${
-            top - menuHeight + window.pageYOffset - height
+            top - menuHeight + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)
+            - height
           }px`
         }
       }

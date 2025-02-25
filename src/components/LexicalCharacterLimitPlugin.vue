@@ -4,13 +4,13 @@ import { useCharacterLimit, useLexicalComposer } from '../composables'
 
 const props = withDefaults(defineProps<{
   charset?: 'UTF-8' | 'UTF-16'
+  maxLength?: number
 }>(), {
   charset: 'UTF-16',
+  maxLength: 5,
 })
 
 const editor = useLexicalComposer()
-
-const CHARACTER_LIMIT = 5
 
 let textEncoderInstance: TextEncoder | null = null
 
@@ -36,7 +36,7 @@ function utf8Length(text: string) {
   return currentTextEncoder.encode(text).length
 }
 
-const remainingCharacters = ref(0)
+const remainingCharacters = ref(props.maxLength)
 function setRemainingCharacters(payload: number) {
   remainingCharacters.value = payload
 }
@@ -57,15 +57,21 @@ const characterLimitProps = computed(
   }),
 )
 
-useCharacterLimit(editor, CHARACTER_LIMIT, characterLimitProps.value)
+useCharacterLimit(
+  editor,
+  () => props.maxLength,
+  characterLimitProps,
+)
 </script>
 
 <template>
-  <span
-    :class="`characters-limit ${
-      remainingCharacters < 0 ? 'characters-limit-exceeded' : ''
-    }`"
-  >
-    {{ remainingCharacters }}
-  </span>
+  <slot :remaining-characters="remainingCharacters">
+    <span
+      :class="`characters-limit ${
+        remainingCharacters < 0 ? 'characters-limit-exceeded' : ''
+      }`"
+    >
+      {{ remainingCharacters }}
+    </span>
+  </slot>
 </template>

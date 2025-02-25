@@ -34,7 +34,7 @@ function positionEditorElement(editor: HTMLDivElement, rect: DOMRect | null) {
   }
 }
 
-function updateLinkEditor() {
+function $updateLinkEditor() {
   const selection = $getSelection()
   if ($isRangeSelection(selection)) {
     const node = getSelectedNode(selection)
@@ -98,14 +98,14 @@ onMounted(() => {
   unregisterListener = mergeRegister(
     editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
-        updateLinkEditor()
+        $updateLinkEditor()
       })
     }),
 
     editor.registerCommand(
       SELECTION_CHANGE_COMMAND,
       () => {
-        updateLinkEditor()
+        $updateLinkEditor()
         return true
       },
       props.priority,
@@ -115,7 +115,7 @@ onMounted(() => {
 
 onMounted(() => {
   editor.getEditorState().read(() => {
-    updateLinkEditor()
+    $updateLinkEditor()
   })
 })
 

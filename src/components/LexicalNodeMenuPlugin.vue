@@ -33,10 +33,6 @@ const emit = defineEmits<{
   }): void
 }>()
 
-function startTransition(callback: () => void) {
-  nextTick(callback)
-}
-
 const editor = useLexicalComposer()
 const resolution = ref<MenuResolution | null>(null)
 
@@ -70,7 +66,7 @@ function positionOrCloseMenu() {
       const domElement = editor.getElementByKey(props.nodeKey!)
       if (node != null && domElement != null) {
         if (resolution.value == null) {
-          startTransition(() =>
+          nextTick(() =>
             openNodeMenu({
               getRect: () => domElement.getBoundingClientRect(),
             }),

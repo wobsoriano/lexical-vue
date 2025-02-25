@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 import type {
   EditorConfig,
   LexicalNode,
@@ -49,7 +41,7 @@ export class EmojiNode extends TextNode {
   }
 
   updateDOM(
-    prevNode: TextNode,
+    prevNode: this,
     dom: HTMLElement,
     config: EditorConfig,
   ): boolean {

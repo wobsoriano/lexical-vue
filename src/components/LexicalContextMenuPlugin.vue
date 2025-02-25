@@ -3,7 +3,9 @@ import type {
   CommandListenerPriority,
   TextNode,
 } from 'lexical'
+import { isDOMNode } from 'lexical'
 import { onMounted, onUnmounted, ref } from 'vue'
+import { calculateZoomLevel } from '@lexical/utils'
 import { useLexicalComposer } from '../composables'
 
 import type { MenuOption, MenuResolution } from './LexicalMenu/shared'
@@ -20,6 +22,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void
   (e: 'open', payload: MenuResolution): void
+  (e: 'willOpen', event: MouseEvent): void
   (e: 'selectOption', payload: {
     option: TOption
     textNodeContainingQuery: TextNode | null
@@ -58,11 +61,13 @@ function openNodeMenu(res: MenuResolution) {
 
 function handleContextMenu(event: MouseEvent) {
   event.preventDefault()
+  emit('willOpen', event)
+  const zoom = calculateZoomLevel(event.target as Element)
   openNodeMenu({
     getRect: () =>
       new DOMRect(
-        event.clientX,
-        event.clientY,
+        event.clientX / zoom,
+        event.clientY / zoom,
         PRE_PORTAL_DIV_SIZE,
         PRE_PORTAL_DIV_SIZE,
       ),
@@ -74,6 +79,7 @@ function handleClick(event: MouseEvent) {
     resolution.value !== null
     && menuRef.value != null
     && event.target != null
+    && isDOMNode(event.target)
     && !menuRef.value.contains(event.target as Node)
   ) {
     closeNodeMenu()
@@ -102,6 +108,7 @@ onMounted(() => {
 
 <template>
   <LexicalMenu
+    v-if="anchorElementRef !== null && resolution !== null && editor !== null"
     :close="closeNodeMenu"
     :resolution="resolution!"
     :editor="editor"
