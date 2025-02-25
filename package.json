@@ -61,7 +61,6 @@
   "dependencies": {
     "@lexical/clipboard": "~0.25.0",
     "@lexical/code": "~0.25.0",
-    "@lexical/devtools-core": "~0.25.0",
     "@lexical/dragon": "~0.25.0",
     "@lexical/hashtag": "~0.25.0",
     "@lexical/history": "~0.25.0",
