@@ -222,21 +222,22 @@ export function useMenuAnchorRef(
     }
   }
 
-  watchEffect(() => {
+  watchEffect((onInvalidate) => {
     const rootElement = editor.getRootElement()
     if (resolution.value !== null) {
       positionMenu()
-      return () => {
-        if (rootElement !== null)
-          rootElement.removeAttribute('aria-controls')
-
-        const containerDiv = anchorElementRef.value
-        if (containerDiv !== null && containerDiv.isConnected) {
-          containerDiv.remove()
-          containerDiv.removeAttribute('id')
-        }
-      }
     }
+
+    onInvalidate(() => {
+      if (rootElement !== null)
+        rootElement.removeAttribute('aria-controls')
+
+      const containerDiv = anchorElementRef.value
+      if (containerDiv !== null && containerDiv.isConnected) {
+        containerDiv.remove()
+        containerDiv.removeAttribute('id')
+      }
+    })
   })
 
   const onVisibilityChange = (isInView: boolean) => {
