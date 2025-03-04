@@ -1,5 +1,16 @@
 # lexical-vue
 
+## 0.11.0
+
+### Minor Changes
+
+- 7c649a1: Bump Lexical dependencies to 0.27.0
+
+### Patch Changes
+
+- c69e762: Ensure attributes are set immediately on menu and proper clean up
+- ee1d618: Add HR theme config for selected state
+
 ## 0.10.0
 
 ### Minor Changes
