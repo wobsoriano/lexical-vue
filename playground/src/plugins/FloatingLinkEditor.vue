@@ -7,9 +7,13 @@ import { useLexicalComposer } from 'lexical-vue'
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { getSelectedNode } from '../utils/getSelectedNode'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   priority: CommandListenerPriority
-}>()
+  anchorElem: HTMLElement | null
+}>(), {
+  priority: 1,
+  anchorElem: () => document.body,
+})
 const editorRef = ref<HTMLDivElement | null>(null)
 const inputRef = ref<HTMLInputElement | null>(null)
 const mouseDownRef = ref(false)
