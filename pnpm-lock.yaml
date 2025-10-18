@@ -20,6 +20,9 @@ importers:
       '@lexical/dragon':
         specifier: ~0.37.0
         version: 0.37.0
+      '@lexical/extension':
+        specifier: ~0.37.0
+        version: 0.37.0
       '@lexical/hashtag':
         specifier: ~0.37.0
         version: 0.37.0
