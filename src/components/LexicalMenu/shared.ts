@@ -7,6 +7,7 @@ import {
 } from 'lexical'
 import type { Component, ComponentPublicInstance, Ref } from 'vue'
 import { ref, watchEffect } from 'vue'
+import { CAN_USE_DOM } from '@lexical/utils'
 import { useLexicalComposer } from '../../composables'
 
 export interface MenuTextMatch {
@@ -144,6 +145,19 @@ export function useDynamicPositioning(
   })
 }
 
+function setContainerDivAttributes(
+  containerDiv: HTMLElement,
+  className?: string,
+) {
+  if (className != null) {
+    containerDiv.className = className
+  }
+  containerDiv.setAttribute('aria-label', 'Typeahead menu')
+  containerDiv.setAttribute('role', 'listbox')
+  containerDiv.style.display = 'block'
+  containerDiv.style.position = 'absolute'
+}
+
 export const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
   index: number
   option: MenuOption
@@ -153,19 +167,24 @@ export function useMenuAnchorRef(
   resolution: Ref<MenuResolution | null>,
   setResolution: (r: MenuResolution | null) => void,
   className?: string,
-  parent: HTMLElement = document.body,
+  parent: HTMLElement | undefined = CAN_USE_DOM ? document.body : undefined,
   shouldIncludePageYOffset__EXPERIMENTAL: boolean = true,
-): Ref<HTMLElement> {
+): Ref<HTMLElement | null> {
   const editor = useLexicalComposer()
-  const anchorElementRef = ref<HTMLElement>(document.createElement('div'))
+  const initialAnchorElement = CAN_USE_DOM ? document.createElement('div') : null
+  const anchorElementRef = ref<HTMLElement | null>(initialAnchorElement)
   const positionMenu = () => {
+    if (anchorElementRef.value === null || parent === undefined) {
+      return
+    }
+
     anchorElementRef.value.style.top = anchorElementRef.value.style.bottom
     const rootElement = editor.getRootElement()
     const containerDiv = anchorElementRef.value
 
     const menuEle = containerDiv.firstElementChild as HTMLElement
     if (rootElement !== null && resolution.value !== null) {
-      const { left, top, width, height } = resolution.value!.getRect()
+      const { left, top, width, height } = resolution.value.getRect()
       const anchorHeight = anchorElementRef.value.offsetHeight // use to position under anchor
       containerDiv.style.top = `${
         top + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)
@@ -200,17 +219,10 @@ export function useMenuAnchorRef(
       }
 
       if (!containerDiv.isConnected) {
-        if (className != null)
-          containerDiv.className = className
-
-        containerDiv.setAttribute('aria-label', 'Typeahead menu')
-        containerDiv.setAttribute('id', 'typeahead-menu')
-        containerDiv.setAttribute('role', 'listbox')
-        containerDiv.style.display = 'block'
-        containerDiv.style.position = 'absolute'
+        setContainerDivAttributes(containerDiv, className)
         parent.append(containerDiv)
       }
-      anchorElementRef.value = containerDiv
+      containerDiv.setAttribute('id', 'typeahead-menu')
       rootElement.setAttribute('aria-controls', 'typeahead-menu')
     }
   }
@@ -224,8 +236,10 @@ export function useMenuAnchorRef(
           rootElement.removeAttribute('aria-controls')
 
         const containerDiv = anchorElementRef.value
-        if (containerDiv !== null && containerDiv.isConnected)
+        if (containerDiv !== null && containerDiv.isConnected) {
           containerDiv.remove()
+          containerDiv.removeAttribute('id')
+        }
       }
     }
   })

@@ -57,10 +57,11 @@ export const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
 
 export function useBasicTypeaheadTriggerMatch(
   trigger: string,
-  { minLength = 1, maxLength = 75 }: { minLength?: number, maxLength?: number },
+  { minLength = 1, maxLength = 75, punctuation = PUNCTUATION, allowWhitespace = false }: { minLength?: number, maxLength?: number, punctuation?: string, allowWhitespace?: boolean },
 ): TriggerFn {
   return (text: string) => {
-    const validChars = `[^${trigger}${PUNCTUATION}\\s]`
+    const validCharsSuffix = allowWhitespace ? '' : '\\s'
+    const validChars = `[^${trigger}${punctuation}${validCharsSuffix}]`
     const TypeaheadTriggerRegex = new RegExp(
       `(^|\\s|\\()(`
       + `[${
@@ -95,6 +96,8 @@ export interface TypeaheadMenuPluginProps<TOption extends MenuOption> {
   anchorClassName?: string
   commandPriority?: CommandListenerPriority
   parent?: HTMLElement
+  preselectFirstItem?: boolean
+  ignoreEntityBoundary?: boolean
 }
 
 export { MenuOption, MenuRenderFn, MenuResolution, MenuTextMatch, TriggerFn }

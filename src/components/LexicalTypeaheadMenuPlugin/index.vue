@@ -123,6 +123,7 @@ function isSelectionOnEntityBoundary(
 
 watchEffect((onInvalidate) => {
   const updateListener = () => {
+    // Check if editor is in read-only mode
     editor.getEditorState().read(() => {
       if (!editor.isEditable()) {
         closeTypeahead()
@@ -149,7 +150,7 @@ watchEffect((onInvalidate) => {
 
       if (
         match !== null
-        && !isSelectionOnEntityBoundary(editor, match.leadOffset)
+        && (props.ignoreEntityBoundary || !isSelectionOnEntityBoundary(editor, match.leadOffset))
       ) {
         const isRangePositioned = tryToPositionRange(
           match.leadOffset,
@@ -174,18 +175,18 @@ watchEffect((onInvalidate) => {
 })
 
 watchEffect((onInvalidate) => {
-  const fn = editor.registerEditableListener((isEditable) => {
+  const unregister = editor.registerEditableListener((isEditable) => {
     if (!isEditable)
       closeTypeahead()
   })
 
-  onInvalidate(fn)
+  onInvalidate(unregister)
 })
 </script>
 
 <template>
   <LexicalMenu
-    v-if="resolution !== null && editor !== null"
+    v-if="resolution !== null && editor !== null && anchorElementRef !== null"
     :anchor-element-ref="anchorElementRef"
     :editor="editor"
     :resolution="resolution!"
