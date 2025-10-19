@@ -86,6 +86,9 @@ export {
 } from './LexicalNodeMenuPlugin.vue'
 
 export * from './LexicalHorizontalRuleNode'
+export {
+  default as LexicalHorizontalRulePlugin,
+} from './LexicalHorizontalRulePlugin.vue'
 
 // LexicalAutoEmbedPlugin
 export {
