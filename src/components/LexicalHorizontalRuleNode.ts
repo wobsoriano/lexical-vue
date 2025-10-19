@@ -1,8 +1,6 @@
 import type {
   DOMConversionMap,
   DOMConversionOutput,
-  DOMExportOutput,
-  EditorConfig,
   LexicalCommand,
   LexicalNode,
   NodeKey,
@@ -16,18 +14,14 @@ import {
 } from '@lexical/utils'
 import {
   $applyNodeReplacement,
-  $getSelection,
-  $isNodeSelection,
   CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
   DecoratorNode,
-  KEY_BACKSPACE_COMMAND,
-  KEY_DELETE_COMMAND,
   createCommand,
 } from 'lexical'
 import type { Component, PropType } from 'vue'
-import { defineComponent, h } from 'vue'
-import { useEffect, useLexicalComposer, useLexicalNodeSelection } from '../composables'
+import { defineComponent, h, watchEffect } from 'vue'
+import { useLexicalComposer, useLexicalNodeSelection } from '../composables'
 
 export type SerializedHorizontalRuleNode = SerializedLexicalNode
 
@@ -47,21 +41,8 @@ const HorizontalRuleComponent = defineComponent({
     const { isSelected, setSelected, clearSelection }
     = useLexicalNodeSelection(() => props.nodeKey)
 
-    const $onDelete = (event: KeyboardEvent) => {
-      const deleteSelection = $getSelection()
-      if (isSelected.value && $isNodeSelection(deleteSelection)) {
-        event.preventDefault()
-        deleteSelection.getNodes().forEach((node) => {
-          if ($isHorizontalRuleNode(node)) {
-            node.remove()
-          }
-        })
-      }
-      return false
-    }
-
-    useEffect(() => {
-      return mergeRegister(
+    watchEffect((onInvalidate) => {
+      const unregister = mergeRegister(
         editor.registerCommand(
           CLICK_COMMAND,
           (event: MouseEvent) => {
@@ -79,20 +60,12 @@ const HorizontalRuleComponent = defineComponent({
           },
           COMMAND_PRIORITY_LOW,
         ),
-        editor.registerCommand(
-          KEY_DELETE_COMMAND,
-          $onDelete,
-          COMMAND_PRIORITY_LOW,
-        ),
-        editor.registerCommand(
-          KEY_BACKSPACE_COMMAND,
-          $onDelete,
-          COMMAND_PRIORITY_LOW,
-        ),
       )
+
+      onInvalidate(unregister)
     })
 
-    useEffect(() => {
+    watchEffect(() => {
       const hrElem = editor.getElementByKey(props.nodeKey)
       const isSelectedClassName = 'selected'
 
@@ -132,28 +105,6 @@ export class HorizontalRuleNode extends DecoratorNode<Component> {
     }
   }
 
-  exportDOM(): DOMExportOutput {
-    return { element: document.createElement('hr') }
-  }
-
-  createDOM(config: EditorConfig): HTMLElement {
-    const element = document.createElement('hr')
-    addClassNamesToElement(element, config.theme.hr)
-    return element
-  }
-
-  getTextContent(): string {
-    return '\n'
-  }
-
-  isInline(): false {
-    return false
-  }
-
-  updateDOM(): boolean {
-    return false
-  }
-
   decorate(): Component {
     return h(HorizontalRuleComponent, { nodeKey: this.__key })
   }
@@ -163,6 +114,9 @@ function $convertHorizontalRuleElement(): DOMConversionOutput {
   return { node: $createHorizontalRuleNode() }
 }
 
+/**
+ * @deprecated A pure Lexical implementation is available in `@lexical/extension` as HorizontalRuleExtension
+ */
 export function $createHorizontalRuleNode(): HorizontalRuleNode {
   return $applyNodeReplacement(new HorizontalRuleNode())
 }
