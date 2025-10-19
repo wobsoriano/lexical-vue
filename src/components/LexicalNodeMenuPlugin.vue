@@ -96,7 +96,7 @@ watchEffect((onInvalidate) => {
 
 <template>
   <LexicalMenu
-    v-if="resolution !== null && editor !== null"
+    v-if="anchorElementRef !== null && resolution !== null && editor !== null"
     v-slot="slotProps"
     :resolution="resolution!"
     :editor="editor"
