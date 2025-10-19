@@ -10,6 +10,12 @@ import {
 
 import type { MaybeRefOrGetter } from 'vue'
 
+export {
+  type ChangeHandler,
+  createLinkMatcherWithRegExp,
+  type LinkMatcher,
+} from '@lexical/link'
+
 export function useAutoLink(
   editor: LexicalEditor,
   matchers: MaybeRefOrGetter<Array<LinkMatcher>>,
