@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, provide } from 'vue'
 import type { EditorThemeClasses, HTMLConfig, Klass, LexicalEditor, LexicalNode, LexicalNodeReplacement } from 'lexical'
-import { $createParagraphNode, $getRoot, $getSelection, createEditor } from 'lexical'
+import { $createParagraphNode, $getRoot, $getSelection, HISTORY_MERGE_TAG, createEditor } from 'lexical'
+import { CAN_USE_DOM } from '@lexical/utils'
 import { LexicalEditorProviderKey } from '../composables/inject'
 import type { InitialEditorStateType } from '../types'
 
@@ -23,7 +24,7 @@ const emit = defineEmits<{
   (e: 'error', error: Error, editor: LexicalEditor): void
 }>()
 
-const HISTORY_MERGE_OPTIONS = { tag: 'history-merge' }
+const HISTORY_MERGE_OPTIONS = { tag: HISTORY_MERGE_TAG }
 
 const {
   theme,
@@ -61,7 +62,7 @@ function initializeEditor(
       if (root.isEmpty()) {
         const paragraph = $createParagraphNode()
         root.append(paragraph)
-        const activeElement = document.activeElement
+        const activeElement = CAN_USE_DOM ? document.activeElement : null
         if (
           $getSelection() !== null
           || (activeElement !== null && activeElement === editor.getRootElement())

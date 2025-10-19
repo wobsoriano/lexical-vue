@@ -1,19 +1,21 @@
 <script lang="ts" setup>
-import { TRANSFORMERS, registerMarkdownShortcuts } from '@lexical/markdown'
+import { registerMarkdownShortcuts } from '@lexical/markdown'
 import type { Transformer } from '@lexical/markdown'
+import { watchEffect } from 'vue'
 import { useLexicalComposer } from '../../composables'
-import { useMounted } from '../../composables/useMounted'
-import { HR } from './shared'
+import { DEFAULT_TRANSFORMERS } from './shared'
 
 const props = withDefaults(defineProps<{
   transformers?: Transformer[]
 }>(), {
-  transformers: () => [HR, ...TRANSFORMERS],
+  transformers: () => DEFAULT_TRANSFORMERS,
 })
 const editor = useLexicalComposer()
 
-useMounted(() => {
-  return registerMarkdownShortcuts(editor, props.transformers)
+watchEffect((onInvalidate) => {
+  const unregister = registerMarkdownShortcuts(editor, props.transformers)
+
+  onInvalidate(unregister)
 })
 </script>
 

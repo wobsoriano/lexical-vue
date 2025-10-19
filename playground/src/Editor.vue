@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import {
   LexicalAutoFocusPlugin,
   LexicalCheckListPlugin,
@@ -24,6 +25,8 @@ import AutoEmbedPlugin from './plugins/AutoEmbedPlugin/index.vue'
 import YouTubePlugin from './plugins/YouTubePlugin/index.vue'
 import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
 import FloatingLinkEditor from './plugins/FloatingLinkEditor.vue'
+
+const floatingAnchorRef = ref<HTMLDivElement | null>(null)
 </script>
 
 <template>
@@ -33,7 +36,7 @@ import FloatingLinkEditor from './plugins/FloatingLinkEditor.vue'
       <LexicalRichTextPlugin>
         <template #contentEditable>
           <div class="editor-scroller">
-            <div class="editor">
+            <div ref="floatingAnchorRef" class="editor">
               <ContentEditable />
             </div>
           </div>
@@ -62,7 +65,7 @@ import FloatingLinkEditor from './plugins/FloatingLinkEditor.vue'
       <LexicalClickableLinkPlugin />
       <YouTubePlugin />
       <TwitterPlugin />
-      <FloatingLinkEditor :priority="1" />
+      <FloatingLinkEditor v-if="floatingAnchorRef" :anchor-elem="floatingAnchorRef" :priority="1" />
     </div>
   </div>
 </template>

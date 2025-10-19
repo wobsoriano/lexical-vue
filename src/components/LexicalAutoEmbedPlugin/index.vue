@@ -12,9 +12,10 @@ import {
   $getNodeByKey,
   $getSelection,
   COMMAND_PRIORITY_EDITOR,
+  PASTE_TAG,
 } from 'lexical'
 
-import { type UnwrapRef, computed, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { mergeRegister } from '@lexical/utils'
 
 import { useLexicalComposer } from '../../composables'
@@ -58,7 +59,7 @@ async function checkIfLinkNodeIsEmbeddable(key: NodeKey) {
   for (const embedConfig of props.embedConfigs) {
     const urlMatch = await Promise.resolve(embedConfig.parseUrl(url))
     if (urlMatch != null) {
-      activeEmbedConfig.value = embedConfig as UnwrapRef<TEmbedConfig>
+      activeEmbedConfig.value = embedConfig
       nodeKey.value = key
     }
   }
@@ -71,7 +72,7 @@ const listener: MutationListener = (
   for (const [key, mutation] of nodeMutations) {
     if (
       mutation === 'created'
-      && updateTags.has('paste')
+      && updateTags.has(PASTE_TAG)
       && dirtyLeaves.size <= 3
     ) {
       checkIfLinkNodeIsEmbeddable(key)
@@ -85,7 +86,9 @@ const listener: MutationListener = (
 watchEffect((onInvalidate) => {
   const cleanup = mergeRegister(
     ...[LinkNode, AutoLinkNode].map(Klass =>
-      editor.registerMutationListener(Klass, (...args) => listener(...args)),
+      editor.registerMutationListener(Klass, (...args) => listener(...args), {
+        skipInitialization: true,
+      }),
     ),
   )
 
@@ -130,7 +133,7 @@ async function embedLinkViaActiveEmbedConfig() {
           if (!$getSelection())
             linkNode.selectEnd()
 
-          activeEmbedConfig.value?.insertNode(editor, result)
+          activeEmbedConfig.value.insertNode(editor, result)
           if (linkNode.isAttached())
             linkNode.remove()
         })
@@ -140,7 +143,7 @@ async function embedLinkViaActiveEmbedConfig() {
 }
 
 const options = computed(() => activeEmbedConfig.value != null && nodeKey.value != null
-  ? props.getMenuOptions(activeEmbedConfig.value as TEmbedConfig, embedLinkViaActiveEmbedConfig, reset)
+  ? props.getMenuOptions(activeEmbedConfig.value, embedLinkViaActiveEmbedConfig, reset)
   : [])
 
 function onSelectOption({
@@ -151,7 +154,6 @@ function onSelectOption({
   option: AutoEmbedOption
   textNodeContainingQuery: TextNode | null
   closeMenu: () => void
-  matchingString: string
 }) {
   editor.update(() => {
     selectedOption.onSelect(targetNode)

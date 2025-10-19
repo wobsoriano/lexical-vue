@@ -10,46 +10,29 @@ import {
 import {
   $getNodeByKey,
   $getSelection,
-  $isDecoratorNode,
   $isNodeSelection,
   $isRangeSelection,
   CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
   FORMAT_ELEMENT_COMMAND,
-  KEY_BACKSPACE_COMMAND,
-  KEY_DELETE_COMMAND,
 } from 'lexical'
-import { ref } from 'vue'
+import { useTemplateRef, watchEffect } from 'vue'
 import { useLexicalComposer, useLexicalNodeSelection } from '../composables'
-import { useMounted } from '../composables/useMounted'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 
 const props = defineProps<{
-  format?: ElementFormatType
+  format?: ElementFormatType | null
   nodeKey: NodeKey
   baseClass?: string
   focusClass?: string
 }>()
 
 const editor = useLexicalComposer()
-const { isSelected, setSelected, clearSelection } = useLexicalNodeSelection(props.nodeKey)
-const containerRef = ref<HTMLDivElement | null>(null)
+const { isSelected, setSelected, clearSelection } = useLexicalNodeSelection(() => props.nodeKey)
+const containerRef = useTemplateRef('containerRef')
 
-function $onDelete(event: KeyboardEvent) {
-  const deleteSelection = $getSelection()
-  if (isSelected.value && $isNodeSelection(deleteSelection)) {
-    event.preventDefault()
-    deleteSelection.getNodes().forEach((node) => {
-      if ($isDecoratorNode(node)) {
-        node.remove()
-      }
-    })
-  }
-  return false
-}
-
-useMounted(() => {
-  return mergeRegister(
+watchEffect((onInvalidate) => {
+  const unregister = mergeRegister(
     editor.registerCommand<ElementFormatType>(
       FORMAT_ELEMENT_COMMAND,
       (formatType) => {
@@ -97,17 +80,9 @@ useMounted(() => {
       },
       COMMAND_PRIORITY_LOW,
     ),
-    editor.registerCommand(
-      KEY_DELETE_COMMAND,
-      $onDelete,
-      COMMAND_PRIORITY_LOW,
-    ),
-    editor.registerCommand(
-      KEY_BACKSPACE_COMMAND,
-      $onDelete,
-      COMMAND_PRIORITY_LOW,
-    ),
   )
+
+  onInvalidate(unregister)
 })
 </script>
 

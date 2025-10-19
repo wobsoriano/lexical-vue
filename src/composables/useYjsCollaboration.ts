@@ -1,11 +1,10 @@
-import type { Binding, ExcludedProperties, Provider } from '@lexical/yjs'
+import type { BaseBinding, Binding, Provider, SyncCursorPositionsFn } from '@lexical/yjs'
 import type { LexicalEditor } from 'lexical'
 
 import { mergeRegister } from '@lexical/utils'
 import {
   CONNECTED_COMMAND,
   TOGGLE_CONNECT_COMMAND,
-  createBinding,
   createUndoManager,
   initLocalState,
   setLocalStateFocus,
@@ -18,113 +17,82 @@ import {
   $getRoot,
   $getSelection,
   BLUR_COMMAND,
+  CAN_REDO_COMMAND,
+  CAN_UNDO_COMMAND,
   COMMAND_PRIORITY_EDITOR,
   FOCUS_COMMAND,
+  HISTORY_MERGE_TAG,
   REDO_COMMAND,
+  SKIP_COLLAB_TAG,
   UNDO_COMMAND,
 } from 'lexical'
 import type { Doc, Transaction, YEvent } from 'yjs'
 import { UndoManager } from 'yjs'
-import type { ComputedRef } from 'vue'
-import { computed, ref, toRaw } from 'vue'
+import type { MaybeRefOrGetter, Ref } from 'vue'
+import { Teleport, computed, h, ref, toValue, watchEffect } from 'vue'
 import type { InitialEditorStateType } from '../types'
-import { useEffect } from './useEffect'
+
+type OnYjsTreeChanges = (
+  // The below `any` type is taken directly from the vendor types for YJS.
+  events: Array<YEvent<any>>,
+  transaction: Transaction,
+) => void
 
 export function useYjsCollaboration(
   editor: LexicalEditor,
-  id: string,
-  provider: Provider,
-  docMap: Map<string, Doc>,
-  name: string,
-  color: string,
-  shouldBootstrap: boolean,
-  initialEditorState?: InitialEditorStateType,
-  excludedProperties?: ExcludedProperties,
-  awarenessData?: object,
-): ComputedRef<Binding> {
+  id: MaybeRefOrGetter<string>,
+  provider: Ref<Provider>,
+  docMap: MaybeRefOrGetter<Map<string, Doc>>,
+  name: MaybeRefOrGetter<string>,
+  color: MaybeRefOrGetter<string>,
+  shouldBootstrap: MaybeRefOrGetter<boolean>,
+  binding: MaybeRefOrGetter<Binding>,
+  doc: Ref<Doc | null>,
+  cursorsContainerRef?: MaybeRefOrGetter<HTMLElement | null>,
+  initialEditorState?: MaybeRefOrGetter<InitialEditorStateType>,
+  awarenessData?: MaybeRefOrGetter<object>,
+  syncCursorPositionsFn: SyncCursorPositionsFn = syncCursorPositions,
+) {
   const isReloadingDoc = ref(false)
-  const doc = ref(docMap.get(id))
 
-  const binding = computed(() => createBinding(editor, provider, id, toRaw(doc.value), docMap, excludedProperties))
-
-  const connect = () => {
-    provider.connect()
-  }
-
-  const disconnect = () => {
-    try {
-      provider.disconnect()
-    }
-    catch {
-      // Do nothing
+  const onBootstrap = () => {
+    const { root } = toValue(binding)
+    if (shouldBootstrap && root.isEmpty() && root._xmlText._length === 0) {
+      initializeEditor(editor, toValue(initialEditorState))
     }
   }
 
-  useEffect(() => {
-    const { root } = binding.value
-    const { awareness } = provider
+  watchEffect((onInvalidate) => {
+    const { root } = toValue(binding)
 
-    const onStatus = ({ status }: { status: string }) => {
-      editor.dispatchCommand(CONNECTED_COMMAND, status === 'connected')
-    }
-
-    const onSync = (isSynced: boolean) => {
-      if (
-        shouldBootstrap
-        && isSynced
-        && root.isEmpty()
-        && root._xmlText._length === 0
-        && isReloadingDoc.value === false
-      ) {
-        initializeEditor(editor, initialEditorState)
-      }
-
-      isReloadingDoc.value = false
-    }
-
-    const onAwarenessUpdate = () => {
-      syncCursorPositions(binding.value, provider)
-    }
-
-    const onYjsTreeChanges = (
-      // The below `any` type is taken directly from the vendor types for YJS.
-      events: Array<YEvent<any>>,
-      transaction: Transaction,
-    ) => {
+    const onYjsTreeChanges: OnYjsTreeChanges = (events, transaction) => {
       const origin = transaction.origin
-      if (toRaw(origin) !== binding.value) {
+      if (origin !== binding) {
         const isFromUndoManger = origin instanceof UndoManager
-        syncYjsChangesToLexical(binding.value, provider, events, isFromUndoManger)
+        syncYjsChangesToLexical(
+          toValue(binding),
+          provider.value,
+          events,
+          isFromUndoManger,
+          syncCursorPositionsFn,
+        )
       }
     }
 
-    initLocalState(
-      provider,
-      name,
-      color,
-      document.activeElement === editor.getRootElement(),
-      awarenessData || {},
-    )
-
-    const onProviderDocReload = (ydoc: Doc) => {
-      clearEditorSkipCollab(editor, binding.value)
-      doc.value = ydoc
-      docMap.set(id, ydoc)
-      isReloadingDoc.value = true
-    }
-
-    provider.on('reload', onProviderDocReload)
-    provider.on('status', onStatus)
-    provider.on('sync', onSync)
-    awareness.on('update', onAwarenessUpdate)
-    // This updates the local editor state when we recieve updates from other clients
     root.getSharedType().observeDeep(onYjsTreeChanges)
     const removeListener = editor.registerUpdateListener(
-      ({ prevEditorState, editorState, dirtyLeaves, dirtyElements, normalizedNodes, tags }) => {
-        if (tags.has('skip-collab') === false) {
+      ({
+        prevEditorState,
+        editorState,
+        dirtyLeaves,
+        dirtyElements,
+        normalizedNodes,
+        tags,
+      }) => {
+        if (!tags.has(SKIP_COLLAB_TAG)) {
           syncLexicalUpdateToYjs(
-            binding.value,
-            provider,
+            toValue(binding),
+            provider.value,
             prevEditorState,
             editorState,
             dirtyElements,
@@ -135,63 +103,172 @@ export function useYjsCollaboration(
         }
       },
     )
-    connect()
 
-    return () => {
-      if (isReloadingDoc.value === false)
-        disconnect()
-
-      provider.off('sync', onSync)
-      provider.off('status', onStatus)
-      provider.off('reload', onProviderDocReload)
-      awareness.off('update', onAwarenessUpdate)
+    onInvalidate(() => {
       root.getSharedType().unobserveDeep(onYjsTreeChanges)
-      docMap.delete(id)
       removeListener()
-    }
+    })
   })
 
-  useEffect(() => {
-    return editor.registerCommand(
+  // Note: 'reload' is not an actual Yjs event type. Included here for legacy support (#1409).
+  watchEffect((onInvalidate) => {
+    const onProviderDocReload = (ydoc: Doc) => {
+      clearEditorSkipCollab(editor, toValue(binding))
+      doc.value = ydoc
+      toValue(docMap).set(toValue(id), ydoc)
+      isReloadingDoc.value = true
+    }
+
+    const onSync = () => {
+      isReloadingDoc.value = false
+    }
+
+    provider.value.on('reload', onProviderDocReload)
+    provider.value.on('sync', onSync)
+
+    onInvalidate(() => {
+      provider.value.off('reload', onProviderDocReload)
+      provider.value.off('sync', onSync)
+    })
+  })
+
+  useProvider(
+    editor,
+    provider,
+    name,
+    color,
+    isReloadingDoc,
+    awarenessData,
+    onBootstrap,
+  )
+
+  return useYjsCursors(binding, cursorsContainerRef)
+}
+
+export function useProvider(
+  editor: LexicalEditor,
+  provider: Ref<Provider>,
+  name: MaybeRefOrGetter<string>,
+  color: MaybeRefOrGetter<string>,
+  isReloadingDoc: Ref<boolean>,
+  awarenessData?: object,
+  onBootstrap?: () => void,
+): void {
+  const connect = () => provider.value.connect()
+
+  const disconnect = () => {
+    try {
+      provider.value.disconnect()
+    }
+    catch {
+      // Do nothing
+    }
+  }
+
+  watchEffect((onInvalidate) => {
+    const onStatus = ({ status }: { status: string }) => {
+      editor.dispatchCommand(CONNECTED_COMMAND, status === 'connected')
+    }
+
+    const onSync = (isSynced: boolean) => {
+      if (isSynced && isReloadingDoc.value === false && onBootstrap) {
+        onBootstrap()
+      }
+    }
+
+    initLocalState(
+      provider.value,
+      toValue(name),
+      toValue(color),
+      document.activeElement === editor.getRootElement(),
+      awarenessData || {},
+    )
+
+    provider.value.on('status', onStatus)
+    provider.value.on('sync', onSync)
+
+    const connectionPromise = connect()
+
+    onInvalidate(() => {
+      if (isReloadingDoc.value === false) {
+        if (connectionPromise) {
+          connectionPromise.then(disconnect)
+        }
+        else {
+          // Workaround for race condition in StrictMode. It's possible there
+          // is a different race for the above case where connect returns a
+          // promise, but we don't have an example of that in-repo.
+          // It's possible that there is a similar issue with
+          // TOGGLE_CONNECT_COMMAND below when the provider connect returns a
+          // promise.
+          // https://github.com/facebook/lexical/issues/6640
+          disconnect()
+        }
+      }
+
+      provider.value.off('sync', onSync)
+      provider.value.off('status', onStatus)
+    })
+  })
+
+  watchEffect((onInvalidate) => {
+    const unregister = editor.registerCommand(
       TOGGLE_CONNECT_COMMAND,
       (payload) => {
-        if (connect !== undefined && disconnect !== undefined) {
-          const shouldConnect = payload
+        const shouldConnect = payload
 
-          if (shouldConnect) {
-            // eslint-disable-next-line no-console
-            console.log('Collaboration connected!')
-            connect()
-          }
-          else {
-            // eslint-disable-next-line no-console
-            console.log('Collaboration disconnected!')
-            disconnect()
-          }
+        if (shouldConnect) {
+          // eslint-disable-next-line no-console
+          console.log('Collaboration connected!')
+          connect()
+        }
+        else {
+          // eslint-disable-next-line no-console
+          console.log('Collaboration disconnected!')
+          disconnect()
         }
 
         return true
       },
       COMMAND_PRIORITY_EDITOR,
     )
-  })
 
-  return binding
+    onInvalidate(unregister)
+  })
 }
+
+export function useYjsCursors(
+  binding: MaybeRefOrGetter<BaseBinding>,
+  cursorsContainerRef?: MaybeRefOrGetter<HTMLElement | null>,
+) {
+  return computed(() => {
+    const target = toValue(cursorsContainerRef) || document.body
+
+    return h(
+      Teleport,
+      { to: target },
+      h('div', {
+        ref: (element) => {
+          toValue(binding).cursorsContainer = element as null | HTMLElement
+        },
+      }),
+    )
+  })
+};
 
 export function useYjsFocusTracking(
   editor: LexicalEditor,
-  provider: Provider,
-  name: string,
-  color: string,
+  provider: Ref<Provider>,
+  name: MaybeRefOrGetter<string>,
+  color: MaybeRefOrGetter<string>,
   awarenessData?: object,
 ) {
-  useEffect(() => {
-    return mergeRegister(
+  watchEffect((onInvalidate) => {
+    const unregister = mergeRegister(
       editor.registerCommand(
         FOCUS_COMMAND,
         () => {
-          setLocalStateFocus(provider, name, color, true, awarenessData || {})
+          setLocalStateFocus(provider.value, toValue(name), toValue(color), true, awarenessData || {})
           return false
         },
         COMMAND_PRIORITY_EDITOR,
@@ -199,19 +276,25 @@ export function useYjsFocusTracking(
       editor.registerCommand(
         BLUR_COMMAND,
         () => {
-          setLocalStateFocus(provider, name, color, false, awarenessData || {})
+          setLocalStateFocus(provider.value, toValue(name), toValue(color), false, awarenessData || {})
           return false
         },
         COMMAND_PRIORITY_EDITOR,
       ),
     )
+
+    onInvalidate(unregister)
   })
 }
 
-export function useYjsHistory(editor: LexicalEditor, binding: Binding): () => void {
-  const undoManager = computed(() => createUndoManager(binding, binding.root.getSharedType()))
+export function useYjsHistory(editor: LexicalEditor, binding: MaybeRefOrGetter<Binding>): () => void {
+  const undoManager = computed(() => createUndoManager(toValue(binding), toValue(binding).root.getSharedType()))
 
-  useEffect(() => {
+  return useYjsUndoManager(editor, undoManager)
+}
+
+export function useYjsUndoManager(editor: LexicalEditor, undoManager: Ref<UndoManager>) {
+  watchEffect((onInvalidate) => {
     const undo = () => {
       undoManager.value.undo()
     }
@@ -220,7 +303,7 @@ export function useYjsHistory(editor: LexicalEditor, binding: Binding): () => vo
       undoManager.value.redo()
     }
 
-    return mergeRegister(
+    const unregister = mergeRegister(
       editor.registerCommand(
         UNDO_COMMAND,
         () => {
@@ -238,10 +321,36 @@ export function useYjsHistory(editor: LexicalEditor, binding: Binding): () => vo
         COMMAND_PRIORITY_EDITOR,
       ),
     )
+
+    onInvalidate(unregister)
   })
+
   const clearHistory = () => {
     undoManager.value.clear()
   }
+
+  // Exposing undo and redo states
+  watchEffect((onInvalidate) => {
+    const updateUndoRedoStates = () => {
+      editor.dispatchCommand(
+        CAN_UNDO_COMMAND,
+        undoManager.value.undoStack.length > 0,
+      )
+      editor.dispatchCommand(
+        CAN_REDO_COMMAND,
+        undoManager.value.redoStack.length > 0,
+      )
+    }
+    undoManager.value.on('stack-item-added', updateUndoRedoStates)
+    undoManager.value.on('stack-item-popped', updateUndoRedoStates)
+    undoManager.value.on('stack-cleared', updateUndoRedoStates)
+    onInvalidate(() => {
+      undoManager.value.off('stack-item-added', updateUndoRedoStates)
+      undoManager.value.off('stack-item-popped', updateUndoRedoStates)
+      undoManager.value.off('stack-cleared', updateUndoRedoStates)
+    })
+  })
+
   return clearHistory
 }
 
@@ -258,11 +367,11 @@ function initializeEditor(
           switch (typeof initialEditorState) {
             case 'string': {
               const parsedEditorState = editor.parseEditorState(initialEditorState)
-              editor.setEditorState(parsedEditorState, { tag: 'history-merge' })
+              editor.setEditorState(parsedEditorState, { tag: HISTORY_MERGE_TAG })
               break
             }
             case 'object': {
-              editor.setEditorState(initialEditorState, { tag: 'history-merge' })
+              editor.setEditorState(initialEditorState, { tag: HISTORY_MERGE_TAG })
               break
             }
             case 'function': {
@@ -272,7 +381,7 @@ function initializeEditor(
                   if (root1.isEmpty())
                     initialEditorState(editor)
                 },
-                { tag: 'history-merge' },
+                { tag: HISTORY_MERGE_TAG },
               )
               break
             }
@@ -293,7 +402,7 @@ function initializeEditor(
       }
     },
     {
-      tag: 'history-merge',
+      tag: HISTORY_MERGE_TAG,
     },
   )
 }
@@ -307,7 +416,7 @@ function clearEditorSkipCollab(editor: LexicalEditor, binding: Binding) {
       root.select()
     },
     {
-      tag: 'skip-collab',
+      tag: SKIP_COLLAB_TAG,
     },
   )
 

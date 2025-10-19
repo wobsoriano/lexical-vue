@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { LinkMatcher } from '@lexical/link'
 import { useLexicalComposer } from '../../composables'
-import { type LinkMatcher, useAutoLink } from './shared'
+import { useAutoLink } from './shared'
 
 const props = defineProps<{
   matchers: LinkMatcher[]

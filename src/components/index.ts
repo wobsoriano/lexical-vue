@@ -61,6 +61,9 @@ export {
 export {
   default as LexicalMarkdownShortcutPlugin,
 } from './LexicalMarkdownShortcutPlugin/index.vue'
+export {
+  DEFAULT_TRANSFORMERS,
+} from './LexicalMarkdownShortcutPlugin/shared'
 export * from './LexicalMarkdownShortcutPlugin/shared'
 export {
   default as LexicalTabIndentationPlugin,
@@ -83,6 +86,9 @@ export {
 } from './LexicalNodeMenuPlugin.vue'
 
 export * from './LexicalHorizontalRuleNode'
+export {
+  default as LexicalHorizontalRulePlugin,
+} from './LexicalHorizontalRulePlugin.vue'
 
 // LexicalAutoEmbedPlugin
 export {

@@ -1,49 +1,19 @@
 <script setup lang="ts">
-import {
-  $createParagraphNode,
-  $getRoot,
-  $getSelection,
-  $isRangeSelection,
-  CLEAR_EDITOR_COMMAND,
-  COMMAND_PRIORITY_EDITOR,
-} from 'lexical'
-import { useAttrs } from 'vue'
+import { registerClearEditor } from '@lexical/extension'
+import { onMounted, onUnmounted } from 'vue'
 import { useLexicalComposer } from '../composables'
-import { useMounted } from '../composables/useMounted'
 
 const emit = defineEmits<{
   (e: 'clear'): void
 }>()
 const editor = useLexicalComposer()
-const attrs = useAttrs()
 
-useMounted(() => {
-  const emitExists = Boolean(attrs.onClear)
+onMounted(() => {
+  const unregister = registerClearEditor(editor, () => {
+    emit('clear')
+  })
 
-  return editor.registerCommand(
-    CLEAR_EDITOR_COMMAND,
-    (_payload) => {
-      editor.update(() => {
-        if (!emitExists) {
-          const root = $getRoot()
-          const selection = $getSelection()
-          const paragraph = $createParagraphNode()
-          root.clear()
-          root.append(paragraph)
-          if (selection !== null)
-            paragraph.select()
-          if ($isRangeSelection(selection)) {
-            selection.format = 0
-          }
-        }
-        else {
-          emit('clear')
-        }
-      })
-      return true
-    },
-    COMMAND_PRIORITY_EDITOR,
-  )
+  onUnmounted(unregister)
 })
 </script>
 

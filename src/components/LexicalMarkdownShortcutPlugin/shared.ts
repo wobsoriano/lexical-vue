@@ -1,4 +1,4 @@
-import type { ElementTransformer } from '@lexical/markdown'
+import { type ElementTransformer, TRANSFORMERS } from '@lexical/markdown'
 import type { LexicalNode } from 'lexical'
 import { $createHorizontalRuleNode, $isHorizontalRuleNode, HorizontalRuleNode } from '../LexicalHorizontalRuleNode'
 
@@ -23,3 +23,5 @@ export const HR: ElementTransformer = {
   },
   type: 'element',
 }
+
+export const DEFAULT_TRANSFORMERS = [HR, ...TRANSFORMERS]

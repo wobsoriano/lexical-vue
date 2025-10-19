@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useLexicalComposer, useMounted } from '../composables'
+import { onMounted, onUnmounted, ref } from 'vue'
+import { useLexicalComposer } from '../composables'
 import { useCanShowPlaceholder } from '../composables/useCanShowPlaceholder'
 import type { Props as ElementProps } from './LexicalContentEditableElement.vue'
 import LexicalContentEditableElement from './LexicalContentEditableElement.vue'
@@ -16,17 +16,19 @@ const editor = useLexicalComposer()
 const isEditable = ref(false)
 const showPlaceholder = useCanShowPlaceholder(editor)
 
-useMounted(() => {
+onMounted(() => {
   isEditable.value = editor.isEditable()
-  return editor.registerEditableListener((currentIsEditable) => {
+  const unregister = editor.registerEditableListener((currentIsEditable) => {
     isEditable.value = currentIsEditable
   })
+
+  onUnmounted(unregister)
 })
 </script>
 
 <template>
   <LexicalContentEditableElement
-    :editor="editor"
+    :editor
     v-bind="$props"
   />
   <div
