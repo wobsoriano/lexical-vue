@@ -9,12 +9,10 @@ import { watchEffect } from 'vue'
 import { namedSignals } from '@lexical/extension'
 import { useLexicalComposer } from '../composables'
 
-interface Props {
+const props = defineProps<{
   validateUrl?: (url: string) => boolean
   attributes?: LinkAttributes
-}
-
-const props = defineProps<Props>()
+}>()
 const editor = useLexicalComposer()
 
 watchEffect((onInvalidate) => {
