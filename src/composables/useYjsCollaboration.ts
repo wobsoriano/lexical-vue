@@ -4,6 +4,7 @@ import type { LexicalEditor } from 'lexical'
 import { mergeRegister } from '@lexical/utils'
 import {
   CONNECTED_COMMAND,
+  TOGGLE_CONNECT_COMMAND,
   createUndoManager,
   initLocalState,
   setLocalStateFocus,
@@ -30,7 +31,6 @@ import { UndoManager } from 'yjs'
 import type { MaybeRefOrGetter, Ref } from 'vue'
 import { Teleport, computed, h, ref, toValue, watchEffect } from 'vue'
 import type { InitialEditorStateType } from '../types'
-import { useEffect } from './useEffect'
 
 type OnYjsTreeChanges = (
   // The below `any` type is taken directly from the vendor types for YJS.
@@ -239,10 +239,10 @@ export function useProvider(
 
 export function useYjsCursors(
   binding: MaybeRefOrGetter<BaseBinding>,
-  cursorsContainerRef?: Ref<HTMLElement | null>,
+  cursorsContainerRef?: MaybeRefOrGetter<HTMLElement | null>,
 ) {
   return computed(() => {
-    const target = cursorsContainerRef?.value || document.body
+    const target = toValue(cursorsContainerRef) || document.body
 
     return h(
       Teleport,
