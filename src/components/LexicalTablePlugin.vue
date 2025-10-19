@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import {
+  $isScrollableTablesActive,
   TableCellNode,
+  TableNode,
   registerTableCellUnmergeTransform,
   registerTablePlugin,
   registerTableSelectionObserver,
   setScrollableTablesActive,
 } from '@lexical/table'
 
-import { useEffect, useLexicalComposer, useMounted } from '../composables'
+import { onMounted, onUnmounted, watchEffect } from 'vue'
+import { useLexicalComposer } from '../composables'
 
 export interface TablePluginProps {
   /**
@@ -29,35 +32,55 @@ export interface TablePluginProps {
   hasHorizontalScroll?: boolean
 }
 
-const { hasHorizontalScroll = false, hasTabHandler = true, hasCellMerge = true, hasCellBackgroundColor = true } = defineProps<TablePluginProps>()
+const props = withDefaults(defineProps<TablePluginProps>(), {
+  hascellMerge: true,
+  hascellBackgroundColor: true,
+  hasTabHandler: true,
+  hasHorizontalScroll: false,
+})
 
 const editor = useLexicalComposer()
 
-useEffect(() => {
-  setScrollableTablesActive(editor, hasHorizontalScroll)
+watchEffect(() => {
+  const hadHorizontalScroll = $isScrollableTablesActive(editor)
+  if (hadHorizontalScroll !== props.hasHorizontalScroll) {
+    setScrollableTablesActive(editor, props.hasHorizontalScroll)
+    // Registering the transform has the side-effect of marking all existing
+    // TableNodes as dirty. The handler is immediately unregistered.
+    editor.registerNodeTransform(TableNode, () => {})()
+  }
 })
 
-useMounted(() => {
-  return registerTablePlugin(editor)
+onMounted(() => {
+  const unregister = registerTablePlugin(editor)
+
+  onUnmounted(unregister)
 })
 
-useEffect(() => {
-  return registerTableSelectionObserver(editor, hasTabHandler)
+watchEffect((onInvalidate) => {
+  const unregister = registerTableSelectionObserver(editor, props.hasTabHandler)
+
+  onInvalidate(unregister)
 })
 
 // Unmerge cells when the feature isn't enabled
-useEffect(() => {
-  if (!hasCellMerge)
-    return registerTableCellUnmergeTransform(editor)
+watchEffect((onInvalidate) => {
+  if (!props.hasCellMerge) {
+    const unregister = registerTableCellUnmergeTransform(editor)
+
+    onInvalidate(unregister)
+  }
 })
 
 // Remove cell background color when feature is disabled
-useEffect(() => {
-  if (!hasCellBackgroundColor) {
-    return editor.registerNodeTransform(TableCellNode, (node) => {
+watchEffect((onInvalidate) => {
+  if (!props.hasCellBackgroundColor) {
+    const unregister = editor.registerNodeTransform(TableCellNode, (node) => {
       if (node.getBackgroundColor() !== null)
         node.setBackgroundColor(null)
     })
+
+    onInvalidate(unregister)
   }
 })
 </script>
