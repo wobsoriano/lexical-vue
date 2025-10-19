@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { Doc } from 'yjs'
 
-import type { ExcludedProperties, Provider } from '@lexical/yjs'
-import { computed, watchEffect } from 'vue'
+import { type Binding, type ExcludedProperties, type Provider, type SyncCursorPositionsFn, createBinding } from '@lexical/yjs'
+import type { Ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import {
-  useEffect,
   useLexicalComposer,
   useYjsCollaboration,
   useYjsFocusTracking,
@@ -13,9 +13,11 @@ import {
 import type { InitialEditorStateType } from '../types'
 import collaborationContext from '../composables/useCollaborationContext'
 
+type ProviderFactory = (id: string, yjsDocMap: Map<string, Doc>) => Provider
+
 const props = defineProps<{
   id: string
-  providerFactory: (id: string, yjsDocMap: Map<string, Doc>) => Provider
+  providerFactory: ProviderFactory
   shouldBootstrap: boolean
   username?: string
   cursorColor?: string
@@ -24,7 +26,11 @@ const props = defineProps<{
   excludedProperties?: ExcludedProperties
   // `awarenessData` parameter allows arbitrary data to be added to the awareness.
   awarenessData?: object
+  syncCursorPositionsFn?: SyncCursorPositionsFn
 }>()
+
+const isBindingInitialized = ref(false)
+const isProviderInitialized = ref(false)
 
 // Set username and cursor color
 watchEffect(() => {
@@ -36,48 +42,84 @@ watchEffect(() => {
 
 const editor = useLexicalComposer()
 
-useEffect(() => {
+watchEffect((onInvalidate) => {
   collaborationContext.value.isCollabActive = true
 
-  return () => {
+  onInvalidate(() => {
     // Reseting flag only when unmount top level editor collab plugin. Nested
     // editors (e.g. image caption) should unmount without affecting it
     if (editor._parentEditor == null)
       collaborationContext.value.isCollabActive = false
+  })
+})
+
+const provider = ref() as Ref<Provider>
+const doc = ref() as Ref<Doc>
+
+watchEffect((onInvalidate) => {
+  if (isProviderInitialized.value) {
+    return
   }
+
+  isProviderInitialized.value = true
+
+  const newProvider = props.providerFactory(props.id, collaborationContext.value.yjsDocMap)
+  provider.value = newProvider
+  doc.value = collaborationContext.value.yjsDocMap.get(props.id)!
+
+  onInvalidate(() => {
+    newProvider.disconnect()
+  })
 })
 
-const provider = computed(() => props.providerFactory(props.id, collaborationContext.value.yjsDocMap))
+const binding = ref() as Ref<Binding>
 
-const binding = useYjsCollaboration(
-  editor,
-  props.id,
-  provider.value,
-  collaborationContext.value.yjsDocMap,
-  collaborationContext.value.name,
-  collaborationContext.value.color,
-  props.shouldBootstrap,
-  props.initialEditorState,
-  props.excludedProperties,
-  props.awarenessData,
-)
+watchEffect((onInvalidate) => {
+  if (!provider.value) {
+    return
+  }
 
-watchEffect(() => {
-  collaborationContext.value.clientID = binding.value.clientID
+  if (isBindingInitialized.value) {
+    return
+  }
+
+  isBindingInitialized.value = true
+
+  const newBinding = createBinding(
+    editor,
+    provider.value,
+    props.id,
+    doc.value || collaborationContext.value.yjsDocMap.get(props.id),
+    collaborationContext.value.yjsDocMap,
+    props.excludedProperties,
+  )
+  binding.value = newBinding
+
+  onInvalidate(() => {
+    newBinding.root.destroy(newBinding)
+  })
 })
 
-useYjsHistory(editor, binding.value)
-useYjsFocusTracking(
+const cursors = useYjsCollaboration(
   editor,
-  provider.value,
-  collaborationContext.value.name,
-  collaborationContext.value.color,
-  props.awarenessData,
+  () => props.id,
+  provider,
+  () => collaborationContext.value.yjsDocMap,
+  () => collaborationContext.value.name,
+  () => collaborationContext.value.color,
+  () => props.shouldBootstrap,
+  binding,
+  doc,
+  () => props.cursorsContainerRef as HTMLElement,
+  () => props.initialEditorState,
+  () => props.awarenessData,
+  () => props.syncCursorPositionsFn,
 )
+
+useYjsHistory(editor, binding)
+useYjsFocusTracking(editor, provider, () => collaborationContext.value.name, () => collaborationContext.value.color, props.awarenessData)
 </script>
 
 <template>
-  <Teleport :to="cursorsContainerRef || 'body'">
-    <div :ref="(element) => binding.cursorsContainer = (element as HTMLElement | null)" />
-  </Teleport>
+  <component :is="cursors" />
 </template>
