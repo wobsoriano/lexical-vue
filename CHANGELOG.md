@@ -1,5 +1,11 @@
 # lexical-vue
 
+## 0.12.0
+
+### Minor Changes
+
+- 0f2b453: Upgrade lexical dependencies to 0.37
+
 ## 0.11.0
 
 ### Minor Changes
