@@ -12,7 +12,7 @@ Here are some examples of what you can do with Lexical:
 
 ## Getting started with Vue
 
-> Requires Vue >= 3.2.0.
+> Requires Vue >= 3.5.0.
 
 Install `lexical-vue`:
 
