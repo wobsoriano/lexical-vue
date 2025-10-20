@@ -3,14 +3,17 @@ import { registerClickableLink } from '@lexical/link'
 import { watchEffect } from 'vue'
 import { useLexicalComposer } from './composables'
 
-export function LexicalClickableLinkPlugin() {
+export function LexicalClickableLinkPlugin({
+  newTab = true,
+  disabled = false,
+}: {
+  newTab: boolean
+  disabled: boolean
+}) {
   const editor = useLexicalComposer()
 
-  const newTab = vineProp.withDefault(true)
-  const disabled = vineProp.withDefault(false)
-
   watchEffect((onInvalidate) => {
-    const unregister = registerClickableLink(editor, namedSignals({ disabled: disabled.value, newTab: newTab.value }))
+    const unregister = registerClickableLink(editor, namedSignals({ disabled, newTab }))
 
     onInvalidate(unregister)
   })

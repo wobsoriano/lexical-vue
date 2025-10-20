@@ -29,13 +29,15 @@ export const HR: ElementTransformer = {
 
 export const DEFAULT_TRANSFORMERS = [HR, ...TRANSFORMERS]
 
-export function LexicalMarkdownShortcutPlugin() {
+export function LexicalMarkdownShortcutPlugin({
+  transformers = DEFAULT_TRANSFORMERS,
+}: {
+  transformers: Transformer[]
+}) {
   const editor = useLexicalComposer()
 
-  const transformers = vineProp.withDefault<Transformer[]>(DEFAULT_TRANSFORMERS)
-
   watchEffect((onInvalidate) => {
-    const unregister = registerMarkdownShortcuts(editor, transformers.value)
+    const unregister = registerMarkdownShortcuts(editor, transformers)
 
     onInvalidate(unregister)
   })

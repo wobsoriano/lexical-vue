@@ -1,11 +1,14 @@
 import { computed, ref } from 'vue'
 import { useCharacterLimit, useLexicalComposer } from './composables'
 
-export function LexicalCharacterLimitPlugin() {
+export function LexicalCharacterLimitPlugin({
+  charset = 'UTF-16',
+  maxLength = 5,
+}: {
+  charset: 'UTF-8' | 'UTF-16'
+  maxLength: number
+}) {
   const editor = useLexicalComposer()
-
-  const charset = vineProp.withDefault<'UTF-8' | 'UTF-16'>('UTF-16')
-  const maxLength = vineProp.withDefault(5)
 
   let textEncoderInstance: TextEncoder | null = null
 
@@ -31,7 +34,7 @@ export function LexicalCharacterLimitPlugin() {
     return currentTextEncoder.encode(text).length
   }
 
-  const remainingCharacters = ref(maxLength.value)
+  const remainingCharacters = ref(maxLength)
   function setRemainingCharacters(payload: number) {
     remainingCharacters.value = payload
   }
@@ -40,10 +43,10 @@ export function LexicalCharacterLimitPlugin() {
     () => ({
       remainingCharacters: setRemainingCharacters,
       strlen: (text: string) => {
-        if (charset.value === 'UTF-8')
+        if (charset === 'UTF-8')
           return utf8Length(text)
 
-        else if (charset.value === 'UTF-16')
+        else if (charset === 'UTF-16')
           return text.length
 
         else
