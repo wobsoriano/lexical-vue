@@ -17,6 +17,7 @@
     "noUnusedParameters": true,
 
     "declaration": true,
+    "downlevelIteration": true,
     "emitDeclarationOnly": true,
     "outDir": "dist",
     "isolatedModules": true,

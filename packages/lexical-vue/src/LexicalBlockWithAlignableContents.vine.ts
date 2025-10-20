@@ -27,7 +27,7 @@ export function LexicalBlockWithAlignableContents(props: {
   focusClass?: string
 }) {
   const editor = useLexicalComposer()
-  const { isSelected, setSelected, clearSelection } = useLexicalNodeSelection(() => props.nodeKey)
+  const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(() => props.nodeKey)
   const containerRef = useTemplateRef('containerRef')
 
   watchEffect((onInvalidate) => {
@@ -35,7 +35,7 @@ export function LexicalBlockWithAlignableContents(props: {
       editor.registerCommand<ElementFormatType>(
         FORMAT_ELEMENT_COMMAND,
         (formatType) => {
-          if (isSelected.value) {
+          if (isSelected) {
             const selection = $getSelection()
 
             if ($isNodeSelection(selection)) {
@@ -85,7 +85,7 @@ export function LexicalBlockWithAlignableContents(props: {
   })
 
   vineSlots<{
-    default: (props: {}) => any
+    default: () => any
   }>()
 
   return vine`

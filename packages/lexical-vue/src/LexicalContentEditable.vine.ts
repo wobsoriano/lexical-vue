@@ -1,6 +1,7 @@
 import type { Props as ElementProps } from './shared/LexicalContentEditableElement.vine'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
+import { LexicalContentEditableElement } from './shared/LexicalContentEditableElement.vine'
 import { useCanShowPlaceholder } from './shared/useCanShowPlaceholder'
 
 type ContentEditableProps = Omit<ElementProps, 'editor' | 'placeholder'>

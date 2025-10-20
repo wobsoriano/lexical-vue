@@ -6,13 +6,13 @@ import type { Doc } from 'yjs'
 import type { InitialEditorStateType } from './types'
 import { createBinding } from '@lexical/yjs'
 import { ref, watchEffect } from 'vue'
+import { useLexicalComposer } from './LexicalComposer.vine'
+import { collaborationContext } from './shared/useCollaborationContext'
 import {
   useYjsCollaboration,
   useYjsFocusTracking,
   useYjsHistory,
-} from './composables'
-import { collaborationContext } from './composables/useCollaborationContext'
-import { useLexicalComposer } from './LexicalComposer.vine'
+} from './shared/useYjsCollaboration'
 
 type AnyBinding = Binding | BindingV2
 interface SyncCursorPositionsOptions {

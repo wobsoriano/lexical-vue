@@ -1,5 +1,6 @@
-import { useCanShowPlaceholder } from './composables'
 import { useLexicalComposer } from './LexicalComposer.vine'
+import { LexicalDecoratedTeleports } from './LexicalDecoratedTeleports'
+import { useCanShowPlaceholder } from './shared/useCanShowPlaceholder'
 import { useRichTextSetup } from './shared/useRichTextSetup'
 
 export function LexicalRichextPlugin() {

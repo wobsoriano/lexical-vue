@@ -38,7 +38,7 @@ const HorizontalRuleComponent = defineComponent({
   },
   setup(props) {
     const editor = useLexicalComposer()
-    const { isSelected, setSelected, clearSelection }
+    const [isSelected, setSelected, clearSelection]
       = useLexicalNodeSelection(() => props.nodeKey)
 
     watchEffect((onInvalidate) => {
