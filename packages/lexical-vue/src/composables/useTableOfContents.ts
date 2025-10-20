@@ -6,11 +6,9 @@ import {
   $getNodeByKey,
   $getRoot,
   $isElementNode,
-
   TextNode,
 } from 'lexical'
-import { ref } from 'vue'
-import { useMounted } from './useMounted'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 export type TableOfContentsEntry = [
   key: NodeKey,
@@ -177,7 +175,7 @@ export function useTableOfContents(editor: LexicalEditor) {
     HeadingNode,
     (mutatedNodes: Map<string, NodeMutation>) => {
       editor.getEditorState().read(() => {
-        for (const [nodeKey, mutation] of mutatedNodes) {
+        mutatedNodes.forEach((mutation, nodeKey) => {
           if (mutation === 'created') {
             const newHeading = $getNodeByKey<HeadingNode>(nodeKey)
             if (newHeading !== null) {
@@ -206,7 +204,7 @@ export function useTableOfContents(editor: LexicalEditor) {
               )
             }
           }
-        }
+        })
       })
     },
   )
@@ -216,7 +214,7 @@ export function useTableOfContents(editor: LexicalEditor) {
     TextNode,
     (mutatedNodes: Map<string, NodeMutation>) => {
       editor.getEditorState().read(() => {
-        for (const [nodeKey, mutation] of mutatedNodes) {
+        mutatedNodes.forEach((mutation, nodeKey) => {
           if (mutation === 'updated') {
             const currNode = $getNodeByKey(nodeKey)
             if (currNode !== null) {
@@ -229,16 +227,22 @@ export function useTableOfContents(editor: LexicalEditor) {
               }
             }
           }
-        }
+        })
       })
     },
   )
 
-  useMounted(() => mergeRegister(
-    removeRootUpdateListener,
-    removeHeaderMutationListener,
-    removeTextNodeMutationListener,
-  ))
+  onMounted(() => {
+    const unregister = mergeRegister(
+      removeRootUpdateListener,
+      removeHeaderMutationListener,
+      removeTextNodeMutationListener,
+    )
+
+    onUnmounted(() => {
+      unregister()
+    })
+  })
 
   return tableOfContents
 }

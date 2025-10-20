@@ -1,5 +1,3 @@
-export * from '../shared/useCanShowPlaceholder'
-export * from './useDecorators'
 export * from './useLexicalCommandsLog'
 export * from './useTableOfContents'
 export * from './useYjsCollaboration'

@@ -3,7 +3,7 @@ import type { ComponentPublicInstance, Ref } from 'vue'
 import { CAN_USE_DOM, mergeRegister } from '@lexical/utils'
 import { $getSelection, $isRangeSelection, createCommand, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ENTER_COMMAND, KEY_ESCAPE_COMMAND, KEY_TAB_COMMAND } from 'lexical'
 import { computed, onUnmounted, ref, watch, watchEffect } from 'vue'
-import { useLexicalComposer } from '../composables'
+import { useLexicalComposer } from '../LexicalComposer.vine'
 
 export interface MenuTextMatch {
   leadOffset: number
