@@ -1,5 +1,5 @@
-import { ref } from 'vue'
 import type { Doc } from 'yjs'
+import { ref } from 'vue'
 
 export interface CollaborationContextType {
   clientID: number
@@ -30,7 +30,7 @@ const entries = [
 
 const randomEntry = entries[Math.floor(Math.random() * entries.length)]
 
-export default ref<CollaborationContextType>({
+export const collaborationContext = ref<CollaborationContextType>({
   clientID: 0,
   color: randomEntry[1],
   isCollabActive: false,
