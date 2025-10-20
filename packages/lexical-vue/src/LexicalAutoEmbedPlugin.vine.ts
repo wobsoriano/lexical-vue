@@ -10,7 +10,6 @@ import type {
 import { $isLinkNode, AutoLinkNode, LinkNode } from '@lexical/link'
 
 import { mergeRegister } from '@lexical/utils'
-
 import {
   $getNodeByKey,
   $getSelection,
@@ -22,6 +21,8 @@ import {
 import { computed, ref, watchEffect } from 'vue'
 
 import { useLexicalComposer } from './LexicalComposer.vine'
+
+import { LexicalNodeMenuPlugin } from './LexicalNodeMenuPlugin.vine'
 import { MenuOption } from './shared/LexicalMenu.vine'
 
 export interface EmbedMatchResult<TEmbedMatchResult = unknown> {

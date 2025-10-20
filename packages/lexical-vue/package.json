@@ -147,6 +147,10 @@
     "./useLexicalTextEntity": {
       "types": "./dist/useLexicalTextEntity.d.ts",
       "import": "./dist/useLexicalTextEntity.js"
+    },
+    "./LexicalTreeView": {
+      "types": "./dist/LexicalTreeView.vine.d.ts",
+      "import": "./dist/LexicalTreeView.vine.js"
     }
   },
   "types": "./dist/index.d.ts",

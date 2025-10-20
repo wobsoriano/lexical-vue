@@ -6,10 +6,10 @@ import type {
   TextNode,
 } from 'lexical'
 import type { MenuOption, MenuRenderProps, MenuResolution, MenuTextMatch, TriggerFn } from './shared/LexicalMenu.vine'
-import { $getSelection, $isRangeSelection, $isTextNode, createCommand } from 'lexical'
+import { $getSelection, $isRangeSelection, $isTextNode, COMMAND_PRIORITY_LOW, createCommand } from 'lexical'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
-import { useMenuAnchorRef } from './shared/LexicalMenu.vine'
+import { LexicalMenu, useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
 export const PUNCTUATION
   = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
@@ -289,7 +289,7 @@ export function LexicalTypeaheadMenuPlugin<TOption extends MenuOption>(props: Ty
       :resolution
       :options
       should-split-node-with-query
-      :command-priority="commandPriority ?? (COMMAND_PRIORITY_LOW as CommandListenerPriority)"
+      :command-priority="commandPriority ?? (COMMAND_PRIORITY_LOW as unknown as CommandListenerPriority)"
       :close="closeTypeahead"
       @select-option="emit('selectOption', $event)"
       v-slot="slotProps"
