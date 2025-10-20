@@ -1,13 +1,12 @@
-import { $isHeadingNode, HeadingNode, type HeadingTagType } from '@lexical/rich-text'
+import type { HeadingTagType } from '@lexical/rich-text'
+import type { ElementNode, LexicalEditor, NodeKey, NodeMutation } from 'lexical'
+import { $isHeadingNode, HeadingNode } from '@lexical/rich-text'
 import { $getNextRightPreorderNode, mergeRegister } from '@lexical/utils'
 import {
   $getNodeByKey,
   $getRoot,
   $isElementNode,
-  type ElementNode,
-  type LexicalEditor,
-  type NodeKey,
-  type NodeMutation,
+
   TextNode,
 } from 'lexical'
 import { ref } from 'vue'

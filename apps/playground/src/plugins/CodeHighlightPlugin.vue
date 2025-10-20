@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
 import { registerCodeHighlighting } from '@lexical/code'
 import { useLexicalComposer } from 'lexical-vue'
+import { onMounted, onUnmounted } from 'vue'
 
 const editor = useLexicalComposer()
 let unregisterListener: () => void

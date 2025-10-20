@@ -1,6 +1,6 @@
 import type { LexicalEditor } from 'lexical'
 import type { DefineComponent } from 'vue'
-import { Teleport, computed, h, shallowRef, unref } from 'vue'
+import { computed, h, shallowRef, Teleport, unref } from 'vue'
 import { useMounted } from './useMounted'
 
 export function useDecorators(editor: LexicalEditor) {

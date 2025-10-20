@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch, useLexicalComposer } from 'lexical-vue'
-
 import type {
   TextNode,
 } from 'lexical'
+
 import {
   $createTextNode,
   $getSelection,
   $isRangeSelection,
 } from 'lexical'
+import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch, useLexicalComposer } from 'lexical-vue'
 import { computed, onMounted, ref } from 'vue'
 
 class EmojiOption extends MenuOption {
@@ -58,11 +58,11 @@ onMounted(() => {
 
 const emojiOptions = computed(() => emojis.value != null
   ? emojis.value.map(
-    ({ emoji, aliases, tags }) =>
-      new EmojiOption(aliases[0], emoji, {
-        keywords: [...aliases, ...tags],
-      }),
-  )
+      ({ emoji, aliases, tags }) =>
+        new EmojiOption(aliases[0], emoji, {
+          keywords: [...aliases, ...tags],
+        }),
+    )
   : [])
 
 const checkForTriggerMatch = useBasicTypeaheadTriggerMatch(':', {
@@ -76,8 +76,8 @@ const options = computed<Array<EmojiOption>>(() => {
         ? new RegExp(queryString.value, 'gi').exec(option.title)
         || option.keywords != null
           ? option.keywords.some((keyword: string) =>
-            new RegExp(queryString.value!, 'gi').exec(keyword),
-          )
+              new RegExp(queryString.value!, 'gi').exec(keyword),
+            )
           : false
         : emojiOptions
     })

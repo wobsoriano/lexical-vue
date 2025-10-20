@@ -21,8 +21,7 @@ import {
 
 import { computed, ref, watchEffect } from 'vue'
 
-import { useLexicalComposer } from './composables'
-import { LexicalNodeMenuPlugin } from './LexicalNodeMenuPlugin.vine'
+import { useLexicalComposer } from './LexicalComposer.vine'
 import { MenuOption } from './shared/LexicalMenu.vine'
 
 export interface EmbedMatchResult<TEmbedMatchResult = unknown> {

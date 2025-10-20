@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import DropDown from './DropDown.vue'
 import ColorPicker from './ColorPicker/index.vue'
+import DropDown from './DropDown.vue'
 
 const props = withDefaults(defineProps<{
   disabled?: boolean

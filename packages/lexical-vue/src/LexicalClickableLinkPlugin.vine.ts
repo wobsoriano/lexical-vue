@@ -1,7 +1,7 @@
 import { namedSignals } from '@lexical/extension'
 import { registerClickableLink } from '@lexical/link'
 import { watchEffect } from 'vue'
-import { useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export function LexicalClickableLinkPlugin({
   newTab = true,

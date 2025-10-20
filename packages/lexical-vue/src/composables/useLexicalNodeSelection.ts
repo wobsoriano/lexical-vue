@@ -1,5 +1,6 @@
 import type { LexicalEditor, NodeKey } from 'lexical'
 
+import type { MaybeRefOrGetter } from 'vue'
 import {
   $createNodeSelection,
   $getNodeByKey,
@@ -7,7 +8,7 @@ import {
   $isNodeSelection,
   $setSelection,
 } from 'lexical'
-import { type MaybeRefOrGetter, readonly, ref, toValue, watchEffect } from 'vue'
+import { readonly, ref, toValue, watchEffect } from 'vue'
 import { useLexicalComposer } from './useLexicalComposer'
 
 function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {

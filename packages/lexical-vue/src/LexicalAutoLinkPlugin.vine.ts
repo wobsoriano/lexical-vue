@@ -9,7 +9,7 @@ import {
 import invariant from 'tiny-invariant'
 
 import { toValue, watchEffect } from 'vue'
-import { useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export {
   type ChangeHandler,

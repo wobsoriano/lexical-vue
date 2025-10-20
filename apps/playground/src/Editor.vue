@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import {
   LexicalAutoFocusPlugin,
   LexicalCheckListPlugin,
@@ -10,21 +9,22 @@ import {
   LexicalListPlugin,
   LexicalRichTextPlugin,
 } from 'lexical-vue'
+import { ref } from 'vue'
 
-import EmojisPlugin from './plugins/EmojisPlugin.vue'
-import EmojiPickerPlugin from './plugins/EmojiPickerPlugin.vue'
-import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
-import ToolbarPlugin from './plugins/ToolbarPlugin/index.vue'
-import CodeHighlightPlugin from './plugins/CodeHighlightPlugin.vue'
-import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin.vue'
-import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
-import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin.vue'
-import ContentEditable from './plugins/ContentEditable.vue'
-import MentionsPlugin from './plugins/MentionsPlugin.vue'
 import AutoEmbedPlugin from './plugins/AutoEmbedPlugin/index.vue'
-import YouTubePlugin from './plugins/YouTubePlugin/index.vue'
-import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
+import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
+import CodeHighlightPlugin from './plugins/CodeHighlightPlugin.vue'
+import ContentEditable from './plugins/ContentEditable.vue'
+import EmojiPickerPlugin from './plugins/EmojiPickerPlugin.vue'
+import EmojisPlugin from './plugins/EmojisPlugin.vue'
 import FloatingLinkEditor from './plugins/FloatingLinkEditor.vue'
+import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin.vue'
+import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin.vue'
+import MentionsPlugin from './plugins/MentionsPlugin.vue'
+import ToolbarPlugin from './plugins/ToolbarPlugin/index.vue'
+import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
+import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
+import YouTubePlugin from './plugins/YouTubePlugin/index.vue'
 
 const floatingAnchorRef = ref<HTMLDivElement | null>(null)
 </script>

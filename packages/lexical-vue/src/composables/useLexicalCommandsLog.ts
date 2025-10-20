@@ -1,4 +1,5 @@
-import { COMMAND_PRIORITY_HIGH, type LexicalCommand, type LexicalEditor } from 'lexical'
+import type { LexicalCommand, LexicalEditor } from 'lexical'
+import { COMMAND_PRIORITY_HIGH } from 'lexical'
 import { readonly, ref } from 'vue'
 import { useMounted } from './useMounted'
 

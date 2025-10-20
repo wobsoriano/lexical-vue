@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useLexicalComposer } from 'lexical-vue'
 import { $insertNodeToNearestRoot } from '@lexical/utils'
 import { COMMAND_PRIORITY_EDITOR } from 'lexical'
+import { useLexicalComposer } from 'lexical-vue'
 
 import { onMounted, onUnmounted } from 'vue'
-import { INSERT_TWEET_COMMAND } from './shared'
 import { $createTweetNode, TweetNode } from '@/nodes/TweetNode'
+import { INSERT_TWEET_COMMAND } from './shared'
 
 const editor = useLexicalComposer()
 

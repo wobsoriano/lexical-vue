@@ -30,9 +30,9 @@ watchEffect(() => {
     const { top, left } = button.getBoundingClientRect()
     dropDown.el.style.top = `${top + 40}px`
     dropDown.el.style.left = `${Math.min(
-        left,
-        window.innerWidth - dropDown.el.offsetWidth - 20,
-      )}px`
+      left,
+      window.innerWidth - dropDown.el.offsetWidth - 20,
+    )}px`
   }
 })
 

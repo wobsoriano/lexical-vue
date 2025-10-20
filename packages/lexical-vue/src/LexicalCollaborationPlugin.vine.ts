@@ -6,12 +6,12 @@ import type { InitialEditorStateType } from './types'
 import { createBinding } from '@lexical/yjs'
 import { ref, watchEffect } from 'vue'
 import {
-  useLexicalComposer,
   useYjsCollaboration,
   useYjsFocusTracking,
   useYjsHistory,
 } from './composables'
 import { collaborationContext } from './composables/useCollaborationContext'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 type ProviderFactory = (id: string, yjsDocMap: Map<string, Doc>) => Provider
 

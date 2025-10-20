@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useLexicalComposer } from 'lexical-vue'
 import { $insertNodeToNearestRoot } from '@lexical/utils'
 import { COMMAND_PRIORITY_EDITOR } from 'lexical'
+import { useLexicalComposer } from 'lexical-vue'
 
 import { onMounted, onUnmounted } from 'vue'
-import { INSERT_YOUTUBE_COMMAND } from './shared'
 import { $createYouTubeNode, YouTubeNode } from '@/nodes/YouTubeNode'
+import { INSERT_YOUTUBE_COMMAND } from './shared'
 
 const editor = useLexicalComposer()
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { EmbedMatchResult } from 'lexical-vue'
-import { URL_MATCHER, useLexicalComposer } from 'lexical-vue'
 import type { PlaygroundEmbedConfig } from './shared'
-import DialogActions from '@/ui/DialogActions.vue'
+import { URL_MATCHER, useLexicalComposer } from 'lexical-vue'
+import { ref } from 'vue'
 import Button from '@/ui/Button.vue'
+import DialogActions from '@/ui/DialogActions.vue'
 
 const props = defineProps<{
   embedConfig: PlaygroundEmbedConfig

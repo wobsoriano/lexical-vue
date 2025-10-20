@@ -1,6 +1,6 @@
 import { registerTabIndentation } from '@lexical/extension'
 import { watchEffect } from 'vue'
-import { useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export function LexicalTabIndentationPlugin(props: {
   maxIndent?: number

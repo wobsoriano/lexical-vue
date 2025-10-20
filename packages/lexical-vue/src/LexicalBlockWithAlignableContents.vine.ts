@@ -15,8 +15,9 @@ import {
   COMMAND_PRIORITY_LOW,
   FORMAT_ELEMENT_COMMAND,
 } from 'lexical'
-import { computed, useTemplateRef, watchEffect } from 'vue'
-import { useLexicalComposer, useLexicalNodeSelection } from './composables'
+import { useTemplateRef, watchEffect } from 'vue'
+import { useLexicalNodeSelection } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 
 export function LexicalBlockWithAlignableContents(props: {

@@ -1,11 +1,11 @@
 import type { EditorState, LexicalEditor } from 'lexical'
 import type { AriaAttributes, StyleValue } from 'vue'
 
-export type InitialEditorStateType =
-  | null
-  | string
-  | EditorState
-  | ((editor: LexicalEditor) => void)
+export type InitialEditorStateType
+  = | null
+    | string
+    | EditorState
+    | ((editor: LexicalEditor) => void)
 
 type Booleanish = boolean | 'true' | 'false'
 type Numberish = number | string

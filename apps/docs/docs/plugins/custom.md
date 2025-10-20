@@ -77,8 +77,8 @@ As any other custom Lexical node, decorator nodes need to be registered before t
 
 ```vue
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
 import { useLexicalComposer } from 'lexical-vue'
+import { onMounted, onUnmounted } from 'vue'
 import { $createVideoNode, INSERT_VIDEO_COMMAND } from './VideoNode'
 
 const editor = useLexicalComposer()

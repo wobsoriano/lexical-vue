@@ -1,5 +1,6 @@
 import type { LexicalEditor, LexicalNode } from 'lexical'
 
+import type { MaybeRefOrGetter } from 'vue'
 import {
   $createOverflowNode,
   $isOverflowNode,
@@ -9,14 +10,17 @@ import { $rootTextContent } from '@lexical/text'
 import { $dfs, mergeRegister } from '@lexical/utils'
 import {
   $getSelection,
+  $isElementNode,
   $isLeafNode,
   $isRangeSelection,
   $isTextNode,
   $setSelection,
+  COMMAND_PRIORITY_LOW,
+  DELETE_CHARACTER_COMMAND,
 } from 'lexical'
-import invariant from 'tiny-invariant'
 
-import { type MaybeRefOrGetter, toValue, watchEffect } from 'vue'
+import invariant from 'tiny-invariant'
+import { toValue, watchEffect } from 'vue'
 
 interface OptionalProps {
   remainingCharacters?: (characters: number) => void
@@ -44,7 +48,7 @@ export function useCharacterLimit(
     let text = editor.getEditorState().read($rootTextContent)
     let lastComputedTextLength = 0
 
-    const fn = mergeRegister(
+    const unregister = mergeRegister(
       editor.registerTextContentListener((currentText: string) => {
         text = currentText
       }),
@@ -57,8 +61,8 @@ export function useCharacterLimit(
         const textLength = strlen(text)
         const textLengthAboveThreshold
           = textLength > toValue(maxCharacters)
-          || (lastComputedTextLength !== null
-          && lastComputedTextLength > toValue(maxCharacters))
+            || (lastComputedTextLength !== null
+              && lastComputedTextLength > toValue(maxCharacters))
         const diff = toValue(maxCharacters) - textLength
         remainingCharacters(diff)
         if (lastComputedTextLength === null || textLengthAboveThreshold) {
@@ -74,11 +78,33 @@ export function useCharacterLimit(
         }
         lastComputedTextLength = textLength
       }),
+      editor.registerCommand(
+        DELETE_CHARACTER_COMMAND,
+        (isBackward) => {
+          const selection = $getSelection()
+          if (!$isRangeSelection(selection)) {
+            return false
+          }
+          const anchorNode = selection.anchor.getNode()
+          const overflow = anchorNode.getParent()
+          const overflowParent = overflow ? overflow.getParent() : null
+          const parentNext = overflowParent
+            ? overflowParent.getNextSibling()
+            : null
+          selection.deleteCharacter(isBackward)
+          if (overflowParent && overflowParent.isEmpty()) {
+            overflowParent.remove()
+          }
+          else if ($isElementNode(parentNext) && parentNext.isEmpty()) {
+            parentNext.remove()
+          }
+          return true
+        },
+        COMMAND_PRIORITY_LOW,
+      ),
     )
 
-    onInvalidate(() => {
-      fn()
-    })
+    onInvalidate(unregister)
   })
 }
 
@@ -147,7 +173,7 @@ function $wrapOverflowedNodes(offset: number): void {
         if (
           $isRangeSelection(selection)
           && (!selection.anchor.getNode().isAttached()
-          || !selection.focus.getNode().isAttached())
+            || !selection.focus.getNode().isAttached())
         ) {
           if ($isTextNode(previousSibling))
             previousSibling.select()

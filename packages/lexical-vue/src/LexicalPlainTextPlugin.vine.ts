@@ -1,5 +1,6 @@
-import { useCanShowPlaceholder, useLexicalComposer, usePlainTextSetup } from './composables'
-import { LexicalDecoratedTeleports } from './LexicalDecoratedTeleports'
+import { useCanShowPlaceholder } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
+import { usePlainTextSetup } from './shared/usePlainTextSetup'
 
 export function LexicalPlainTextPlugin() {
   const editor = useLexicalComposer()

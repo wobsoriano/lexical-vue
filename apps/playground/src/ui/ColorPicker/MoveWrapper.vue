@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { Position } from './shared'
+import { ref } from 'vue'
 
 const emit = defineEmits<{
   (e: 'change', payload: Position): void

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ListNode } from '@lexical/list'
-import { $getListDepth, $isListItemNode, $isListNode } from '@lexical/list'
 import type { RangeSelection } from 'lexical'
+import { $getListDepth, $isListItemNode, $isListNode } from '@lexical/list'
 import {
   $getSelection,
   $isElementNode,
@@ -9,8 +9,8 @@ import {
   INDENT_CONTENT_COMMAND,
 } from 'lexical'
 import { useLexicalComposer } from 'lexical-vue'
-import { onMounted, onUnmounted } from 'vue'
 import invariant from 'tiny-invariant'
+import { onMounted, onUnmounted } from 'vue'
 
 const props = withDefaults(defineProps<{
   maxDepth?: number

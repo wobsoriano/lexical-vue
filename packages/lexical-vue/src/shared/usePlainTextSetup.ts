@@ -1,13 +1,13 @@
-import { registerDragonSupport } from '@lexical/dragon'
-import { registerRichText } from '@lexical/rich-text'
-import { mergeRegister } from '@lexical/utils'
 import type { LexicalEditor } from 'lexical'
+import { registerDragonSupport } from '@lexical/dragon'
+import { registerPlainText } from '@lexical/plain-text'
+import { mergeRegister } from '@lexical/utils'
 import { onMounted, onUnmounted } from 'vue'
 
-export function useRichTextSetup(editor: LexicalEditor) {
+export function usePlainTextSetup(editor: LexicalEditor) {
   onMounted(() => {
     const unregister = mergeRegister(
-      registerRichText(editor),
+      registerPlainText(editor),
       registerDragonSupport(editor),
     )
 

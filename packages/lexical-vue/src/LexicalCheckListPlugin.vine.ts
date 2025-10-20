@@ -1,6 +1,6 @@
 import { registerCheckList } from '@lexical/list'
 import { onMounted, onUnmounted } from 'vue'
-import { useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export function LexicalCheckListPlugin() {
   const editor = useLexicalComposer()

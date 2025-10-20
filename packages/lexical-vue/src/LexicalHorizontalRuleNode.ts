@@ -21,7 +21,8 @@ import {
   DecoratorNode,
 } from 'lexical'
 import { defineComponent, h, watchEffect } from 'vue'
-import { useLexicalComposer, useLexicalNodeSelection } from './composables'
+import { useLexicalNodeSelection } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export type SerializedHorizontalRuleNode = SerializedLexicalNode
 
@@ -29,7 +30,6 @@ export const INSERT_HORIZONTAL_RULE_COMMAND: LexicalCommand<void>
   = createCommand('INSERT_HORIZONTAL_RULE_COMMAND')
 
 const HorizontalRuleComponent = defineComponent({
-  name: 'HorizontalRuleComponent',
   props: {
     nodeKey: {
       type: String as PropType<NodeKey>,

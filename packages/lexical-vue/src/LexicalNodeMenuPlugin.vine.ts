@@ -9,8 +9,8 @@ import {
   $getNodeByKey,
 } from 'lexical'
 import { nextTick, ref, watch, watchEffect } from 'vue'
-import { useLexicalComposer } from './composables'
-import { LexicalMenu, useMenuAnchorRef } from './shared/LexicalMenu.vine'
+import { useLexicalComposer } from './LexicalComposer.vine'
+import { useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
 export interface LexicalNodeMenuPluginProps<TOption extends MenuOption> {
   options: Array<TOption>

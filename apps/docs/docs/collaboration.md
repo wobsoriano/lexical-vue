@@ -21,8 +21,8 @@ import {
   LexicalRichTextPlugin,
 } from 'lexical-vue'
 import { ref } from 'vue'
-import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
+import * as Y from 'yjs'
 
 import exampleTheme from '../themes/example'
 

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
 import type { InitialConfigType } from 'lexical-vue'
-import { LexicalComposer } from 'lexical-vue'
-import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
-import { $createListItemNode, $createListNode } from '@lexical/list'
 import { $createLinkNode } from '@lexical/link'
+import { $createListItemNode, $createListNode } from '@lexical/list'
+import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
+import { LexicalComposer } from 'lexical-vue'
 import Editor from './Editor.vue'
-import PlaygroundEditorTheme from './themes/PlaygroundEditorTheme'
 import PlaygroundNodes from './nodes/PlaygroundNodes'
+import PlaygroundEditorTheme from './themes/PlaygroundEditorTheme'
 
 function prepopulatedRichText() {
   const root = $getRoot()

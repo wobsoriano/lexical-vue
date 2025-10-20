@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { $createCodeNode } from '@lexical/code'
-import { $createParagraphNode, $createTextNode, $getSelection, $isRangeSelection, type LexicalEditor } from 'lexical'
-import { $wrapNodes } from '@lexical/selection'
 import type { HeadingTagType } from '@lexical/rich-text'
-import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
+import type { LexicalEditor } from 'lexical'
+import { $createCodeNode } from '@lexical/code'
 import { INSERT_CHECK_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND } from '@lexical/list'
-import { blockTypeToBlockName, dropDownActiveClass } from './shared'
-import DropDown from '@/ui/DropDown.vue'
-import DropDownItem from '@/ui/DropDownItem.vue'
+import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
+import { $wrapNodes } from '@lexical/selection'
+import { $createParagraphNode, $createTextNode, $getSelection, $isRangeSelection } from 'lexical'
 import { $isTweetNode } from '@/nodes/TweetNode'
 import { $isYouTubeNode } from '@/nodes/YouTubeNode'
+import DropDown from '@/ui/DropDown.vue'
+import DropDownItem from '@/ui/DropDownItem.vue'
+import { blockTypeToBlockName, dropDownActiveClass } from './shared'
 
 const props = defineProps<{
   editor: LexicalEditor
@@ -87,14 +88,14 @@ function formatCode() {
             if ($isTweetNode(node)) {
               node.replace(
                 $createTextNode(
-                    `https://twitter.com/i/web/status/${node.getId()}`,
+                  `https://twitter.com/i/web/status/${node.getId()}`,
                 ),
               )
             }
             else if ($isYouTubeNode(node)) {
               node.replace(
                 $createTextNode(
-                    `https://www.youtube.com/watch?v=${node.getId()}`,
+                  `https://www.youtube.com/watch?v=${node.getId()}`,
                 ),
               )
             }

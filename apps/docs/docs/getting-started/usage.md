@@ -48,8 +48,8 @@ Now that we have a simple editor, the next thing we might want to do is access t
 
 ```vue
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
 import { useLexicalComposer } from 'lexical-vue'
+import { onMounted, onUnmounted } from 'vue'
 
 const emit = defineEmits(['change'])
 const editor = useLexicalComposer()
@@ -72,8 +72,8 @@ Now, we can implement this in our editor and save the EditorState in a Vue ref:
 
 ```vue
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
 import { LexicalComposer, LexicalContentEditable, LexicalHistoryPlugin, LexicalPlainTextPlugin } from 'lexical-vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import OnChangePlugin from './OnChangePlugin.vue'
 
 const editorState = ref()
@@ -101,8 +101,8 @@ Ok, so now we're saving the EditorState object in a Vue ref, but we can't save a
 
 ```vue
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
 import { LexicalComposer, LexicalContentEditable, LexicalHistoryPlugin, LexicalPlainTextPlugin } from 'lexical-vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import OnChangePlugin from './OnChangePlugin.vue'
 
 const editorState = ref()

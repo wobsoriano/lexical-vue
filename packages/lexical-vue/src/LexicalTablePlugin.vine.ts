@@ -9,7 +9,7 @@ import {
 } from '@lexical/table'
 
 import { onMounted, onUnmounted, watchEffect } from 'vue'
-import { useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export interface TablePluginProps {
   /**

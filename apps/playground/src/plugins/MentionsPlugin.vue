@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { MenuTextMatch } from 'lexical-vue'
-import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch, useLexicalComposer } from 'lexical-vue'
 import type { TextNode } from 'lexical'
-
+import type { MenuTextMatch } from 'lexical-vue'
 import type { Component } from 'vue'
+
+import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch, useLexicalComposer } from 'lexical-vue'
 import { computed, h, ref, watch } from 'vue'
 import { $createMentionNode } from '../nodes/MentionNode'
 
@@ -27,12 +27,12 @@ const VALID_CHARS = `[^${TRIGGERS}${PUNC}\\s]`
 // a valid char.
 const VALID_JOINS
   = `(?:`
-  + `\\.[ |$]|` // E.g. "r. " in "Mr. Smith"
-  + ` |` // E.g. " " in "Josh Duck"
-  + `[${
-   PUNC
-   }]|` // E.g. "-' in "Salier-Hellendag"
-   + `)`
+    + `\\.[ |$]|` // E.g. "r. " in "Mr. Smith"
+    + ` |` // E.g. " " in "Josh Duck"
+    + `[${
+      PUNC
+    }]|` // E.g. "-' in "Salier-Hellendag"
+    + `)`
 
 const LENGTH_LIMIT = 75
 
@@ -40,14 +40,14 @@ const AtSignMentionsRegex = new RegExp(
   `(^|\\s|\\()(`
   + `[${
     TRIGGERS
-    }]`
-    + `((?:${
+  }]`
+  + `((?:${
     VALID_CHARS
-    }${VALID_JOINS
-    }){0,${
+  }${VALID_JOINS
+  }){0,${
     LENGTH_LIMIT
-    }})`
-    + `)$`,
+  }})`
+  + `)$`,
 )
 
 // 50 is the longest alias length limit.
@@ -58,13 +58,13 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
   `(^|\\s|\\()(`
   + `[${
     TRIGGERS
-    }]`
-    + `((?:${
+  }]`
+  + `((?:${
     VALID_CHARS
-    }){0,${
+  }){0,${
     ALIAS_LENGTH_LIMIT
-    }})`
-    + `)$`,
+  }})`
+  + `)$`,
 )
 
 // At most, 5 suggestions are shown in the popup.

@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
-import { useCharacterLimit, useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
+import { useCharacterLimit } from './shared/useCharacterLimit'
 
 export function LexicalCharacterLimitPlugin({
   charset = 'UTF-16',

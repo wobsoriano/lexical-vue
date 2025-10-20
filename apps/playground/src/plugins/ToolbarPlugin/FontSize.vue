@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { $patchStyleText } from '@lexical/selection'
 import type { LexicalEditor } from 'lexical'
+import { $patchStyleText } from '@lexical/selection'
 import { $getSelection } from 'lexical'
 import { ref, watch } from 'vue'
 

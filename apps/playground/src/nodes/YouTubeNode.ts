@@ -13,11 +13,11 @@ import type {
 import type {
   SerializedDecoratorBlockNode,
 } from 'lexical-vue'
+import type { Component } from 'vue'
 import {
   DecoratorBlockNode,
   LexicalBlockWithAlignableContents,
 } from 'lexical-vue'
-import type { Component } from 'vue'
 import { defineComponent, h } from 'vue'
 
 const YouTubeComponent = defineComponent({

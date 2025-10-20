@@ -1,8 +1,8 @@
+import type { DOMConversionMap, DOMConversionOutput, DOMExportOutput, EditorConfig, LexicalNode, NodeKey, SerializedTextNode, Spread } from 'lexical'
 import {
   $applyNodeReplacement,
   TextNode,
 } from 'lexical'
-import type { DOMConversionMap, DOMConversionOutput, DOMExportOutput, EditorConfig, LexicalNode, NodeKey, SerializedTextNode, Spread } from 'lexical'
 
 export type SerializedMentionNode = Spread<
   {

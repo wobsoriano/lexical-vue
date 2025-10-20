@@ -13,8 +13,8 @@ import type {
 import type {
   SerializedDecoratorBlockNode,
 } from 'lexical-vue'
-import { DecoratorBlockNode, LexicalBlockWithAlignableContents } from 'lexical-vue'
 import type { Component } from 'vue'
+import { DecoratorBlockNode, LexicalBlockWithAlignableContents } from 'lexical-vue'
 import { defineComponent, h, ref, watchEffect } from 'vue'
 
 const WIDGET_SCRIPT_URL = 'https://platform.twitter.com/widgets.js'

@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
-import { useLexicalComposer } from 'lexical-vue'
 import type {
   RangeSelection,
 } from 'lexical'
 import {
-  $createParagraphNode,
-  $getSelection,
-  $isRangeSelection,
-} from 'lexical'
+  $createCodeNode,
+} from '@lexical/code'
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
   REMOVE_LIST_COMMAND,
 } from '@lexical/list'
 import {
-  $wrapNodes,
-} from '@lexical/selection'
-import {
   $createHeadingNode,
   $createQuoteNode,
 } from '@lexical/rich-text'
 import {
-  $createCodeNode,
-} from '@lexical/code'
+  $wrapNodes,
+} from '@lexical/selection'
+import {
+  $createParagraphNode,
+  $getSelection,
+  $isRangeSelection,
+} from 'lexical'
+import { useLexicalComposer } from 'lexical-vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const props = withDefaults(defineProps<{
   toolbarRef: HTMLDivElement | null

@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { LexicalEditor } from 'lexical'
 import { $patchStyleText } from '@lexical/selection'
-import { $getSelection, type LexicalEditor } from 'lexical'
-import { dropDownActiveClass } from './shared'
+import { $getSelection } from 'lexical'
 import DropDown from '@/ui/DropDown.vue'
 import DropDownItem from '@/ui/DropDownItem.vue'
+import { dropDownActiveClass } from './shared'
 
 const props = withDefaults(defineProps<{
   editor: LexicalEditor

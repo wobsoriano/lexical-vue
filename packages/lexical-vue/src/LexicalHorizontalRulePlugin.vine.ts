@@ -6,7 +6,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
-import { useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export function LexicalHorizontalRulePlugin() {
   const editor = useLexicalComposer()

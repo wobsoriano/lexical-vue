@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { Position } from './shared'
 import { computed, ref, watchEffect } from 'vue'
 import TextInput from '../TextInput.vue'
 import MoveWrapper from './MoveWrapper.vue'
-import type { Position } from './shared'
 
 const props = defineProps<{ color: string }>()
 

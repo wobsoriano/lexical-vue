@@ -1,6 +1,21 @@
 <script setup lang="ts">
 import type { CommandListenerPriority, ElementFormatType } from 'lexical'
 import {
+  $isCodeNode,
+  CODE_LANGUAGE_FRIENDLY_NAME_MAP,
+  CODE_LANGUAGE_MAP,
+  getLanguageFriendlyName,
+} from '@lexical/code'
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
+import { $isListNode, ListNode } from '@lexical/list'
+import { $isHeadingNode } from '@lexical/rich-text'
+import {
+  $getSelectionStyleValueForProperty,
+  $isParentElementRTL,
+  $patchStyleText,
+} from '@lexical/selection'
+import { $findMatchingParent, $getNearestBlockElementAncestorOrThrow, $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
+import {
   $getNodeByKey,
   $getSelection,
   $isElementNode,
@@ -17,35 +32,20 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
-import {
-  $getSelectionStyleValueForProperty,
-  $isParentElementRTL,
-  $patchStyleText,
-} from '@lexical/selection'
-import { $findMatchingParent, $getNearestBlockElementAncestorOrThrow, $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import { $isDecoratorBlockNode, INSERT_EMBED_COMMAND, useLexicalComposer } from 'lexical-vue'
 import { onMounted, onUnmounted, ref } from 'vue'
-import { $isListNode, ListNode } from '@lexical/list'
-import { $isHeadingNode } from '@lexical/rich-text'
-import {
-  $isCodeNode,
-  CODE_LANGUAGE_FRIENDLY_NAME_MAP,
-  CODE_LANGUAGE_MAP,
-  getLanguageFriendlyName,
-} from '@lexical/code'
-import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
-import FloatingLinkEditor from '../FloatingLinkEditor.vue'
-import { EmbedConfigs } from '../AutoEmbedPlugin/shared'
-import Divider from './Divider.vue'
-import BlockFormatDropDown from './BlockFormatDropDown.vue'
-import FontDropDown from './FontDropDown.vue'
-import { blockTypeToBlockName, dropDownActiveClass } from './shared'
-import FontSize from './FontSize.vue'
-import { sanitizeUrl } from '@/utils/url'
 import DropDown from '@/ui/DropDown.vue'
+import DropdownColorPicker from '@/ui/DropdownColorPicker.vue'
 import DropDownItem from '@/ui/DropDownItem.vue'
 import { getSelectedNode } from '@/utils/getSelectedNode'
-import DropdownColorPicker from '@/ui/DropdownColorPicker.vue'
+import { sanitizeUrl } from '@/utils/url'
+import { EmbedConfigs } from '../AutoEmbedPlugin/shared'
+import FloatingLinkEditor from '../FloatingLinkEditor.vue'
+import BlockFormatDropDown from './BlockFormatDropDown.vue'
+import Divider from './Divider.vue'
+import FontDropDown from './FontDropDown.vue'
+import FontSize from './FontSize.vue'
+import { blockTypeToBlockName, dropDownActiveClass } from './shared'
 
 const emit = defineEmits<{
   (event: 'isLinkEditMode', value: boolean): void
@@ -82,9 +82,9 @@ function $updateToolbar() {
   if ($isRangeSelection(selection)) {
     const anchorNode = selection.anchor.getNode()
     let element
-        = anchorNode.getKey() === 'root'
-          ? anchorNode
-          : $findMatchingParent(anchorNode, (e) => {
+      = anchorNode.getKey() === 'root'
+        ? anchorNode
+        : $findMatchingParent(anchorNode, (e) => {
             const parent = e.getParent()
             return parent !== null && $isRootOrShadowRoot(parent)
           })
@@ -132,7 +132,7 @@ function $updateToolbar() {
 
         if ($isCodeNode(element)) {
           const language
-              = element.getLanguage() as keyof typeof CODE_LANGUAGE_MAP
+            = element.getLanguage() as keyof typeof CODE_LANGUAGE_MAP
           codeLanguage.value = language ? CODE_LANGUAGE_MAP[language] || language : ''
         }
       }

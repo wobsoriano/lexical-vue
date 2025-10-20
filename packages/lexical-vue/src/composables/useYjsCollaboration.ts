@@ -1,16 +1,19 @@
 import type { BaseBinding, Binding, Provider, SyncCursorPositionsFn } from '@lexical/yjs'
 import type { LexicalEditor } from 'lexical'
 
+import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { Doc, Transaction, YEvent } from 'yjs'
+import type { InitialEditorStateType } from '../types'
 import { mergeRegister } from '@lexical/utils'
 import {
   CONNECTED_COMMAND,
-  TOGGLE_CONNECT_COMMAND,
   createUndoManager,
   initLocalState,
   setLocalStateFocus,
   syncCursorPositions,
   syncLexicalUpdateToYjs,
   syncYjsChangesToLexical,
+  TOGGLE_CONNECT_COMMAND,
 } from '@lexical/yjs'
 import {
   $createParagraphNode,
@@ -26,11 +29,8 @@ import {
   SKIP_COLLAB_TAG,
   UNDO_COMMAND,
 } from 'lexical'
-import type { Doc, Transaction, YEvent } from 'yjs'
+import { computed, h, ref, Teleport, toValue, watchEffect } from 'vue'
 import { UndoManager } from 'yjs'
-import type { MaybeRefOrGetter, Ref } from 'vue'
-import { Teleport, computed, h, ref, toValue, watchEffect } from 'vue'
-import type { InitialEditorStateType } from '../types'
 
 type OnYjsTreeChanges = (
   // The below `any` type is taken directly from the vendor types for YJS.

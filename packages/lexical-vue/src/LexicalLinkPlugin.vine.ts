@@ -6,7 +6,7 @@ import {
   registerLink,
 } from '@lexical/link'
 import { watchEffect } from 'vue'
-import { useLexicalComposer } from './composables'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export function LexicalLinkPlugin(props: {
   validateUrl?: (url: string) => boolean
