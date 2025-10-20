@@ -1,7 +1,7 @@
 import { ListItemNode, ListNode, registerListStrictIndentTransform } from '@lexical/list'
 import { watchEffect } from 'vue'
-import { useList } from './composables/useList'
 import { useLexicalComposer } from './LexicalComposer.vine'
+import { useList } from './shared/useList'
 
 export function LexicalListPlugin(props: {
   /**

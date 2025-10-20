@@ -1,5 +1,6 @@
 import { useCanShowPlaceholder } from './composables'
 import { useLexicalComposer } from './LexicalComposer.vine'
+import { LexicalDecoratedTeleports } from './LexicalDecoratedTeleports'
 import { usePlainTextSetup } from './shared/usePlainTextSetup'
 
 export function LexicalPlainTextPlugin() {
@@ -8,8 +9,8 @@ export function LexicalPlainTextPlugin() {
   usePlainTextSetup(editor)
 
   vineSlots<{
-    placeholder: (props: {}) => any
-    contentEditable: (props: {}) => any
+    placeholder: () => any
+    contentEditable: () => any
   }>()
 
   return vine`

@@ -3,8 +3,8 @@ import type { Klass, TextNode } from 'lexical'
 
 import { registerLexicalTextEntity } from '@lexical/text'
 import { mergeRegister } from '@lexical/utils'
-import { useLexicalComposer } from './useLexicalComposer'
-import { useMounted } from './useMounted'
+import { onMounted, onUnmounted } from 'vue'
+import { useLexicalComposer } from './LexicalComposer.vine'
 
 export function useLexicalTextEntity<T extends TextNode>(
   getMatch: (text: string) => null | EntityMatch,
@@ -13,9 +13,13 @@ export function useLexicalTextEntity<T extends TextNode>(
 ): void {
   const editor = useLexicalComposer()
 
-  useMounted(() => {
-    return mergeRegister(
+  onMounted(() => {
+    const unregister = mergeRegister(
       ...registerLexicalTextEntity(editor, getMatch, targetNode, createNode),
     )
+
+    onUnmounted(() => {
+      unregister()
+    })
   })
 }

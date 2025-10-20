@@ -1,7 +1,10 @@
 import type { LexicalEditor } from 'lexical'
-import type { AriaAttributes } from 'vue'
-import type { HTMLAttributes } from '../types'
+import type { AriaAttributes, HTMLAttributes } from 'vue'
 import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+
+type OmitAriaProps<T> = {
+  [K in keyof T as K extends `aria-${string}` ? never : K]: T[K];
+}
 
 export type Props = {
   editor: LexicalEditor
@@ -18,14 +21,14 @@ export type Props = {
   ariaOwns?: AriaAttributes['aria-owns']
   ariaRequired?: AriaAttributes['aria-required']
   dataTestid?: string
-} & Omit<HTMLAttributes, 'placeholder'>
+} & Omit<OmitAriaProps<HTMLAttributes>, 'placeholder'>
 
 export function LexicalContentEditableElement(props: Props) {
   const root = useTemplateRef('root')
   const isEditable = ref(props.editor.isEditable())
 
   const otherAttrs = computed(() => {
-  // for compat, only override if defined
+    // for compat, only override if defined
     const ariaAttrs: Record<string, string | boolean> = {}
     if (props.ariaInvalid != null)
       ariaAttrs['aria-invalid'] = props.ariaInvalid

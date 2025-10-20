@@ -1,5 +1,6 @@
-import type { Binding, ExcludedProperties, Provider, SyncCursorPositionsFn } from '@lexical/yjs'
+import type { BaseBinding, Binding, BindingV2, Provider, UserState } from '@lexical/yjs'
 
+import type { Klass, LexicalNode } from 'lexical'
 import type { Ref } from 'vue'
 import type { Doc } from 'yjs'
 import type { InitialEditorStateType } from './types'
@@ -13,20 +14,23 @@ import {
 import { collaborationContext } from './composables/useCollaborationContext'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-type ProviderFactory = (id: string, yjsDocMap: Map<string, Doc>) => Provider
+type AnyBinding = Binding | BindingV2
+interface SyncCursorPositionsOptions {
+  getAwarenessStates?: (binding: BaseBinding, provider: Provider) => Map<number, UserState>
+}
 
 interface LexicalCollaborationPluginProps {
   id: string
-  providerFactory: ProviderFactory
+  providerFactory: (id: string, yjsDocMap: Map<string, Doc>) => Provider
   shouldBootstrap: boolean
   username?: string
   cursorColor?: string
   cursorsContainerRef?: HTMLElement | null
   initialEditorState?: InitialEditorStateType
-  excludedProperties?: ExcludedProperties
+  excludedProperties?: Map<Klass<LexicalNode>, Set<string>>
   // `awarenessData` parameter allows arbitrary data to be added to the awareness.
   awarenessData?: object
-  syncCursorPositionsFn?: SyncCursorPositionsFn
+  syncCursorPositionsFn?: (binding: AnyBinding, provider: Provider, options?: SyncCursorPositionsOptions) => void
 }
 
 export function LexicalCollaborationPlugin(props: LexicalCollaborationPluginProps) {

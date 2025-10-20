@@ -21,8 +21,8 @@ import {
   DecoratorNode,
 } from 'lexical'
 import { defineComponent, h, watchEffect } from 'vue'
-import { useLexicalNodeSelection } from './composables'
 import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalNodeSelection } from './useLexicalNodeSelection'
 
 export type SerializedHorizontalRuleNode = SerializedLexicalNode
 

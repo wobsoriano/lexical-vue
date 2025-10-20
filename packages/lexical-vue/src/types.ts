@@ -10,7 +10,7 @@ export type InitialEditorStateType
 type Booleanish = boolean | 'true' | 'false'
 type Numberish = number | string
 
-export interface HTMLAttributes extends AriaAttributes {
+export interface HTMLAttributes {
   innerHTML?: string
   class?: any
   style?: StyleValue

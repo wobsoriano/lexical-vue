@@ -71,6 +71,82 @@
     "./LexicalCheckListPlugin": {
       "types": "./dist/LexicalCheckListPlugin.vine.d.ts",
       "import": "./dist/LexicalCheckListPlugin.vine.js"
+    },
+    "./LexicalClearEditorPlugin": {
+      "types": "./dist/LexicalClearEditorPlugin.vine.d.ts",
+      "import": "./dist/LexicalClearEditorPlugin.vine.js"
+    },
+    "./LexicalClickableLinkPlugin": {
+      "types": "./dist/LexicalClickableLinkPlugin.vine.d.ts",
+      "import": "./dist/LexicalClickableLinkPlugin.vine.js"
+    },
+    "./LexicalCollaborationPlugin": {
+      "types": "./dist/LexicalCollaborationPlugin.vine.d.ts",
+      "import": "./dist/LexicalCollaborationPlugin.vine.js"
+    },
+    "./LexicalComposer": {
+      "types": "./dist/LexicalComposer.vine.d.ts",
+      "import": "./dist/LexicalComposer.vine.js"
+    },
+    "./LexicalContentEditable": {
+      "types": "./dist/LexicalContentEditable.vine.d.ts",
+      "import": "./dist/LexicalContentEditable.vine.js"
+    },
+    "./LexicalDecoratedTeleports": {
+      "types": "./dist/LexicalDecoratedTeleports.d.ts",
+      "import": "./dist/LexicalDecoratedTeleports.js"
+    },
+    "./LexicalHashtagPlugin": {
+      "types": "./dist/LexicalHashtagPlugin.vine.d.ts",
+      "import": "./dist/LexicalHashtagPlugin.vine.js"
+    },
+    "./LexicalHistoryPlugin": {
+      "types": "./dist/LexicalHistoryPlugin.vine.d.ts",
+      "import": "./dist/LexicalHistoryPlugin.vine.js"
+    },
+    "./LexicalHorizontalRulePlugin": {
+      "types": "./dist/LexicalHorizontalRulePlugin.vine.d.ts",
+      "import": "./dist/LexicalHorizontalRulePlugin.vine.js"
+    },
+    "./LexicalLinkPlugin": {
+      "types": "./dist/LexicalLinkPlugin.vine.d.ts",
+      "import": "./dist/LexicalLinkPlugin.vine.js"
+    },
+    "./LexicalListPlugin": {
+      "types": "./dist/LexicalListPlugin.vine.d.ts",
+      "import": "./dist/LexicalListPlugin.vine.js"
+    },
+    "./LexicalOnChangePlugin": {
+      "types": "./dist/LexicalOnChangePlugin.vine.d.ts",
+      "import": "./dist/LexicalOnChangePlugin.vine.js"
+    },
+    "./LexicalPlainTextPlugin": {
+      "types": "./dist/LexicalPlainTextPlugin.vine.d.ts",
+      "import": "./dist/LexicalPlainTextPlugin.vine.js"
+    },
+    "./LexicalRichTextPlugin": {
+      "types": "./dist/LexicalRichTextPlugin.vine.d.ts",
+      "import": "./dist/LexicalRichTextPlugin.vine.js"
+    },
+    "./LexicalTabIndentationPlugin": {
+      "types": "./dist/LexicalTabIndentationPlugin.vine.d.ts",
+      "import": "./dist/LexicalTabIndentationPlugin.vine.js"
+    },
+    "./LexicalTablePlugin": {
+      "types": "./dist/LexicalTablePlugin.vine.d.ts",
+      "import": "./dist/LexicalTablePlugin.vine.js"
+    },
+    "./useLexicalIsTextContentEmpty": {
+      "types": "./dist/useLexicalIsTextContentEmpty.d.ts",
+      "import": "./dist/useLexicalIsTextContentEmpty.js"
+    },
+    "./useLexicalNodeSelection": {
+      "types": "./dist/useLexicalNodeSelection.d.ts",
+      "import": "./dist/useLexicalNodeSelection.js"
+    },
+    "./useLexicalTextEntity": {
+      "types": "./dist/useLexicalTextEntity.d.ts",
+      "import": "./dist/useLexicalTextEntity.js"
     }
   },
   "types": "./dist/index.d.ts",

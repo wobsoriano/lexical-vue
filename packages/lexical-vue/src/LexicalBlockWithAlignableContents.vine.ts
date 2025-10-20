@@ -16,9 +16,9 @@ import {
   FORMAT_ELEMENT_COMMAND,
 } from 'lexical'
 import { useTemplateRef, watchEffect } from 'vue'
-import { useLexicalNodeSelection } from './composables'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
+import { useLexicalNodeSelection } from './useLexicalNodeSelection'
 
 export function LexicalBlockWithAlignableContents(props: {
   format?: ElementFormatType | null
