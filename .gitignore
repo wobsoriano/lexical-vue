@@ -11,3 +11,4 @@ node_modules
 temp
 .vscode
 docs/.vitepress/cache
+untracked

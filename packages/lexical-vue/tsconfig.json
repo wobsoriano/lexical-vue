@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "lib": ["DOM", "ES2022"],
+    "useDefineForClassFields": true,
+
+    /* modules */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
+    "resolveJsonModule": true,
+    "types": ["vue-vine/macros"],
+    /* type checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}

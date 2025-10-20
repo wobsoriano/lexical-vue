@@ -1,3 +1,7 @@
 packages:
-  - .
-  - playground
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - core-js
+  - esbuild
