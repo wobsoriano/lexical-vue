@@ -110,10 +110,10 @@
   },
   "devDependencies": {
     "@rslib/core": "^0.15.1",
-    "@vue-vine/rspack-loader": "1.7.14-beta.1",
+    "@vue-vine/rspack-loader": "1.7.16-beta.1",
     "vue": "^3.5.22",
-    "vue-vine": "^1.7.14",
-    "vue-vine-tsc": "^1.7.14",
+    "vue-vine": "^1.7.16",
+    "vue-vine-tsc": "^1.7.16",
     "yjs": "^13.6.18"
   }
 }
