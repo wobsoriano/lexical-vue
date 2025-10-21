@@ -8,7 +8,7 @@ import {
   TEXT_FORMAT_TRANSFORMERS,
   TEXT_MATCH_TRANSFORMERS,
 } from '@lexical/markdown'
-import { LexicalMarkdownShortcutPlugin } from 'lexical-vue'
+import { LexicalMarkdownShortcutPlugin } from 'lexical-vue/LexicalMarkdownShortcutPlugin'
 
 const PLAYGROUND_TRANSFORMERS: Transformer[] = [
   CHECK_LIST,

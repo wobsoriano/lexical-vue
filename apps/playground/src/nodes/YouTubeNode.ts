@@ -14,10 +14,9 @@ import type {
   SerializedDecoratorBlockNode,
 } from 'lexical-vue'
 import type { Component } from 'vue'
-import {
-  DecoratorBlockNode,
-  LexicalBlockWithAlignableContents,
-} from 'lexical-vue'
+import { LexicalBlockWithAlignableContents } from 'lexical-vue/LexicalBlockWithAlignableContents'
+import { DecoratorBlockNode } from 'lexical-vue/LexicalDecoratorBlockNode'
+
 import { defineComponent, h } from 'vue'
 
 const YouTubeComponent = defineComponent({

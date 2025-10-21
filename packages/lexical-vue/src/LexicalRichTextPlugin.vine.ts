@@ -3,14 +3,14 @@ import { LexicalDecoratedTeleports } from './LexicalDecoratedTeleports'
 import { useCanShowPlaceholder } from './shared/useCanShowPlaceholder'
 import { useRichTextSetup } from './shared/useRichTextSetup'
 
-export function LexicalRichextPlugin() {
+export function LexicalRichTextPlugin() {
   const editor = useLexicalComposer()
   const showPlaceholder = useCanShowPlaceholder(editor)
   useRichTextSetup(editor)
 
   vineSlots<{
-    placeholder: (props: {}) => any
-    contentEditable: (props: {}) => any
+    placeholder: () => any
+    contentEditable: () => any
   }>()
 
   return vine`

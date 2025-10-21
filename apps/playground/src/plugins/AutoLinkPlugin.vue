@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createLinkMatcherWithRegExp, LexicalAutoLinkPlugin } from 'lexical-vue'
+import { createLinkMatcherWithRegExp, LexicalAutoLinkPlugin } from 'lexical-vue/LexicalAutoLinkPlugin'
 
 const URL_REGEX
   = /((https?:\/\/(www\.)?)|(www\.))[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-\w()@:%+.~#?&/=]*)(?<![-.+():%])/

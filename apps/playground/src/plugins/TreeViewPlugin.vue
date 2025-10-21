@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { LexicalTreeViewPlugin } from 'lexical-vue'
+import { LexicalTreeView } from 'lexical-vue/LexicalTreeView'
 </script>
 
 <template>
-  <LexicalTreeViewPlugin
+  <LexicalTreeView
     view-class-name="tree-view-output"
     tree-type-button-class-name="debug-treetype-button"
     time-travel-panel-class-name="debug-timetravel-panel"

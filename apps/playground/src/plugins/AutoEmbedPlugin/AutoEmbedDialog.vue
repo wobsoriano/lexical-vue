@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { EmbedMatchResult } from 'lexical-vue'
 import type { PlaygroundEmbedConfig } from './shared'
-import { URL_MATCHER, useLexicalComposer } from 'lexical-vue'
+import { URL_MATCHER } from 'lexical-vue/LexicalAutoEmbedPlugin'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { ref } from 'vue'
 import Button from '@/ui/Button.vue'
 import DialogActions from '@/ui/DialogActions.vue'

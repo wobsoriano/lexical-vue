@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { $insertNodeToNearestRoot } from '@lexical/utils'
 import { COMMAND_PRIORITY_EDITOR } from 'lexical'
-import { useLexicalComposer } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 
 import { onMounted, onUnmounted } from 'vue'
 import { $createYouTubeNode, YouTubeNode } from '@/nodes/YouTubeNode'

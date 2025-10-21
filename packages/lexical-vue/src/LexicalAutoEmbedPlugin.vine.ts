@@ -18,7 +18,7 @@ import {
   PASTE_TAG,
 } from 'lexical'
 
-import { computed, ref, watchEffect } from 'vue'
+import { computed, defineComponent, ref, watchEffect } from 'vue'
 
 import { useLexicalComposer } from './LexicalComposer.vine'
 
@@ -205,17 +205,18 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
     })
   }
 
-  return vine`
-    <LexicalNodeMenuPlugin
-      v-if="nodeKey !== null"
-      :node-key
-      :close="reset"
-      :options
-      :command-priority="menuCommandPriority"
-      @select-option="onSelectOption"
-      v-slot="slotProps"
-    >
-      <slot v-bind="slotProps" />
-    </LexicalNodeMenuPlugin>
-  `
+  // return vine`
+  //   <LexicalNodeMenuPlugin
+  //     v-if="nodeKey !== null"
+  //     :node-key
+  //     :close="reset"
+  //     :options
+  //     :command-priority="menuCommandPriority"
+  //     @select-option="onSelectOption"
+  //     v-slot="slotProps"
+  //   >
+  //     <slot v-bind="slotProps" />
+  //   </LexicalNodeMenuPlugin>
+  // `
+  return vine``
 }

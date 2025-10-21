@@ -22,7 +22,7 @@ import {
   $getSelection,
   $isRangeSelection,
 } from 'lexical'
-import { useLexicalComposer } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const props = withDefaults(defineProps<{

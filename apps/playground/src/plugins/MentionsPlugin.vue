@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { TextNode } from 'lexical'
-import type { MenuTextMatch } from 'lexical-vue'
+import type { MenuTextMatch } from 'lexical-vue/LexicalTypeaheadMenuPlugin'
 import type { Component } from 'vue'
 
-import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch, useLexicalComposer } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
+import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch } from 'lexical-vue/LexicalTypeaheadMenuPlugin'
 import { computed, h, ref, watch } from 'vue'
 import { $createMentionNode } from '../nodes/MentionNode'
 

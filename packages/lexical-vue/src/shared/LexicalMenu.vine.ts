@@ -1,9 +1,20 @@
 import type { CommandListenerPriority, LexicalCommand, LexicalEditor, TextNode } from 'lexical'
-import type { ComponentPublicInstance, Ref } from 'vue'
+import type { Component, ComponentPublicInstance, Ref } from 'vue'
 import { CAN_USE_DOM, mergeRegister } from '@lexical/utils'
 import { $getSelection, $isRangeSelection, createCommand, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ENTER_COMMAND, KEY_ESCAPE_COMMAND, KEY_TAB_COMMAND } from 'lexical'
 import { computed, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { useLexicalComposer } from '../LexicalComposer.vine'
+
+export type MenuRenderFn<TOption extends MenuOption> = (
+  anchorElementRef: Ref<HTMLElement | null>,
+  itemProps: {
+    selectedIndex: number | null
+    selectOptionAndCleanUp: (option: TOption) => void
+    setHighlightedIndex: (index: number) => void
+    options: Array<TOption>
+  },
+  matchingString: string | null,
+) => Component | null
 
 export interface MenuTextMatch {
   leadOffset: number

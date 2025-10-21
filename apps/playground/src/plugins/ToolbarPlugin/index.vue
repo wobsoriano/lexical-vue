@@ -32,7 +32,9 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
-import { $isDecoratorBlockNode, INSERT_EMBED_COMMAND, useLexicalComposer } from 'lexical-vue'
+import { INSERT_EMBED_COMMAND } from 'lexical-vue/LexicalAutoEmbedPlugin'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
+import { $isDecoratorBlockNode } from 'lexical-vue/LexicalDecoratorBlockNode'
 import { onMounted, onUnmounted, ref } from 'vue'
 import DropDown from '@/ui/DropDown.vue'
 import DropdownColorPicker from '@/ui/DropdownColorPicker.vue'

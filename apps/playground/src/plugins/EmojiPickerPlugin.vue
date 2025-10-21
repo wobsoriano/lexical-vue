@@ -8,7 +8,8 @@ import {
   $getSelection,
   $isRangeSelection,
 } from 'lexical'
-import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch, useLexicalComposer } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
+import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch } from 'lexical-vue/LexicalTypeaheadMenuPlugin'
 import { computed, onMounted, ref } from 'vue'
 
 class EmojiOption extends MenuOption {

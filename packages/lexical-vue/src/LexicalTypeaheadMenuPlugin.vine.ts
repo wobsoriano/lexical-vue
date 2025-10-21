@@ -5,11 +5,11 @@ import type {
   RangeSelection,
   TextNode,
 } from 'lexical'
-import type { MenuOption, MenuRenderProps, MenuResolution, MenuTextMatch, TriggerFn } from './shared/LexicalMenu.vine'
+import type { MenuRenderProps, MenuResolution, MenuTextMatch, TriggerFn } from './shared/LexicalMenu.vine'
 import { $getSelection, $isRangeSelection, $isTextNode, COMMAND_PRIORITY_LOW, createCommand } from 'lexical'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
-import { LexicalMenu, useMenuAnchorRef } from './shared/LexicalMenu.vine'
+import { LexicalMenu, MenuOption, useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
 export const PUNCTUATION
   = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
@@ -98,7 +98,9 @@ export interface TypeaheadMenuPluginProps<TOption extends MenuOption> {
   ignoreEntityBoundary?: boolean
 }
 
-export type { MenuOption, MenuResolution, MenuTextMatch, TriggerFn }
+export type { MenuResolution, MenuTextMatch, TriggerFn }
+
+export { MenuOption }
 
 export function LexicalTypeaheadMenuPlugin<TOption extends MenuOption>(props: TypeaheadMenuPluginProps<TOption>) {
   const editor = useLexicalComposer()

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LexicalContentEditable } from 'lexical-vue'
+import { LexicalContentEditable } from 'lexical-vue/LexicalContentEditable'
 </script>
 
 <template>

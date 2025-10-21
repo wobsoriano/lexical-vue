@@ -4,6 +4,69 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  lexical:
+    '@lexical/clipboard':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/code':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/dragon':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/extension':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/hashtag':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/history':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/html':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/link':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/list':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/mark':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/markdown':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/overflow':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/plain-text':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/rich-text':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/selection':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/table':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/text':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/utils':
+      specifier: 0.37.0
+      version: 0.37.0
+    '@lexical/yjs':
+      specifier: 0.37.0
+      version: 0.37.0
+    lexical:
+      specifier: 0.37.0
+      version: 0.37.0
+
 importers:
 
   .:
@@ -32,6 +95,66 @@ importers:
 
   apps/playground:
     dependencies:
+      '@lexical/clipboard':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/code':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/dragon':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/extension':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/hashtag':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/history':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/html':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/link':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/list':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/mark':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/markdown':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/overflow':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/plain-text':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/rich-text':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/selection':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/table':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/text':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/utils':
+        specifier: catalog:lexical
+        version: 0.37.0
+      '@lexical/yjs':
+        specifier: catalog:lexical
+        version: 0.37.0(yjs@13.6.27)
+      lexical:
+        specifier: catalog:lexical
+        version: 0.37.0
       lexical-vue:
         specifier: workspace:*
         version: link:../../packages/lexical-vue
@@ -64,67 +187,64 @@ importers:
   packages/lexical-vue:
     dependencies:
       '@lexical/clipboard':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/code':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
-      '@lexical/devtools-core':
-        specifier: ~0.37.0
-        version: 0.37.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@lexical/dragon':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/extension':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/hashtag':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/history':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/html':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/link':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/list':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/mark':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/markdown':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/overflow':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/plain-text':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/rich-text':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/selection':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/table':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/text':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/utils':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       '@lexical/yjs':
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0(yjs@13.6.27)
       lexical:
-        specifier: ~0.37.0
+        specifier: catalog:lexical
         version: 0.37.0
       tiny-invariant:
         specifier: ^1.3.3
@@ -886,12 +1006,6 @@ packages:
 
   '@lexical/code@0.37.0':
     resolution: {integrity: sha512-ZXA4j/S8yLrxjrTnEp39VeDMp4Rd8bLYUlT4Buy1MQlS1WafxOiMhNQJG7k0BP/pO96YPkAebpA81ATKJL0IgA==}
-
-  '@lexical/devtools-core@0.37.0':
-    resolution: {integrity: sha512-iOR+aKLJR92nKYcEOW3K/bgjTN7dJIRC/OM4OvzigU0Xygxped0lXV6UmkYBp0eoqOOwckB8+rZWZszj9lKA8Q==}
-    peerDependencies:
-      react: '>=17.x'
-      react-dom: '>=17.x'
 
   '@lexical/dragon@0.37.0':
     resolution: {integrity: sha512-iC4OKivEPtt7cGVSwZylLfz5T7Oqr9q9EOosS6E/byMyoqwkYWGjXn/qFiwIv1Xo3+G19vhfChi/+ZcYLXpHPw==}
@@ -2761,15 +2875,6 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-dom@19.2.0:
-    resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
-    peerDependencies:
-      react: ^19.2.0
-
-  react@19.2.0:
-    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
-    engines: {node: '>=0.10.0'}
-
   read-package-json-fast@3.0.2:
     resolution: {integrity: sha512-0J+Msgym3vrLOUB3hzQCuZHII0xkNGCtz/HJH9xZshwv9DbDwkw1KaE3gx/e2J5rpEY5rtOy6cyhKOPrkP7FZw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -2850,9 +2955,6 @@ packages:
 
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
-
-  scheduler@0.27.0:
-    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
 
   scslre@0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
@@ -3958,17 +4060,6 @@ snapshots:
       '@lexical/utils': 0.37.0
       lexical: 0.37.0
       prismjs: 1.30.0
-
-  '@lexical/devtools-core@0.37.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@lexical/html': 0.37.0
-      '@lexical/link': 0.37.0
-      '@lexical/mark': 0.37.0
-      '@lexical/table': 0.37.0
-      '@lexical/utils': 0.37.0
-      lexical: 0.37.0
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
 
   '@lexical/dragon@0.37.0':
     dependencies:
@@ -6249,13 +6340,6 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-dom@19.2.0(react@19.2.0):
-    dependencies:
-      react: 19.2.0
-      scheduler: 0.27.0
-
-  react@19.2.0: {}
-
   read-package-json-fast@3.0.2:
     dependencies:
       json-parse-even-better-errors: 3.0.2
@@ -6345,8 +6429,6 @@ snapshots:
       queue-microtask: 1.2.3
 
   safer-buffer@2.1.2: {}
-
-  scheduler@0.27.0: {}
 
   scslre@0.3.0:
     dependencies:

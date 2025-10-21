@@ -18,7 +18,7 @@ export function LexicalTreeView(props: {
 }) {
   const treeElementRef = useTemplateRef('treeViewCore')
 
-  const editorCurrentState = ref<EditorState | null>(props.editor.getEditorState())
+  const editorCurrentState = ref<EditorState>(props.editor.getEditorState())
 
   const commandsLog = useLexicalCommandsLog(props.editor)
 

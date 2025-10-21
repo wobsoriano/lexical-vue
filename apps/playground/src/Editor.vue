@@ -7,8 +7,8 @@ import {
   LexicalHistoryPlugin,
   LexicalLinkPlugin,
   LexicalListPlugin,
-  LexicalRichTextPlugin,
 } from 'lexical-vue'
+import { LexicalRichTextPlugin } from 'lexical-vue/LexicalRichTextPlugin'
 import { ref } from 'vue'
 
 import AutoEmbedPlugin from './plugins/AutoEmbedPlugin/index.vue'
@@ -49,7 +49,7 @@ const floatingAnchorRef = ref<HTMLDivElement | null>(null)
       </LexicalRichTextPlugin>
       <LexicalHistoryPlugin />
       <AutoEmbedPlugin />
-      <TreeViewPlugin />
+      <!-- <TreeViewPlugin /> -->
       <LexicalAutoFocusPlugin />
       <CodeHighlightPlugin />
       <LexicalListPlugin />

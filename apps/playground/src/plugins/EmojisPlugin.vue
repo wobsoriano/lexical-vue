@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { TextNode } from 'lexical'
 
-import { useLexicalComposer } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { onMounted, onUnmounted } from 'vue'
 import { $createEmojiNode, EmojiNode } from '../nodes/EmojiNode'
 
