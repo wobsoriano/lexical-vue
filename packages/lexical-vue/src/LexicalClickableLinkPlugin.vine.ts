@@ -7,8 +7,8 @@ export function LexicalClickableLinkPlugin({
   newTab = true,
   disabled = false,
 }: {
-  newTab: boolean
-  disabled: boolean
+  newTab?: boolean
+  disabled?: boolean
 }) {
   const editor = useLexicalComposer()
 

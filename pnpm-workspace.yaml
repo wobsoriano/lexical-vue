@@ -2,10 +2,6 @@ packages:
   - apps/*
   - packages/*
 
-onlyBuiltDependencies:
-  - core-js
-  - esbuild
-
 catalogs:
   lexical:
     '@lexical/clipboard': 0.37.0
@@ -27,4 +23,8 @@ catalogs:
     '@lexical/text': 0.37.0
     '@lexical/utils': 0.37.0
     '@lexical/yjs': 0.37.0
-    'lexical': 0.37.0
+    lexical: 0.37.0
+
+onlyBuiltDependencies:
+  - core-js
+  - esbuild
