@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import {
-  LexicalAutoFocusPlugin,
-  LexicalCheckListPlugin,
-  LexicalClickableLinkPlugin,
-  LexicalHashtagPlugin,
-  LexicalHistoryPlugin,
-  LexicalLinkPlugin,
-  LexicalListPlugin,
-} from 'lexical-vue'
+import { LexicalAutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
+import { LexicalCheckListPlugin } from 'lexical-vue/LexicalCheckListPlugin'
+import { LexicalClickableLinkPlugin } from 'lexical-vue/LexicalClickableLinkPlugin'
+import { LexicalHashtagPlugin } from 'lexical-vue/LexicalHashtagPlugin'
+import { LexicalHistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { LexicalLinkPlugin } from 'lexical-vue/LexicalLinkPlugin'
+import { LexicalListPlugin } from 'lexical-vue/LexicalListPlugin'
 import { LexicalRichTextPlugin } from 'lexical-vue/LexicalRichTextPlugin'
 import { ref } from 'vue'
 
