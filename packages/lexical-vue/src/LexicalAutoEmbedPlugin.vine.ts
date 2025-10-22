@@ -79,7 +79,7 @@ interface LexicalAutoEmbedPluginProps<TEmbedConfig extends EmbedConfig> {
 export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: LexicalAutoEmbedPluginProps<TEmbedConfig>) {
   const editor = useLexicalComposer()
   const nodeKey = ref<NodeKey | null>(null)
-  const activeEmbedConfig = ref<TEmbedConfig | null>(null)
+  const activeEmbedConfig = ref<any>(null) // Should be <TEmbedConfig | null> but we need to fix the type inference
 
   const emit = vineEmits<{
     openEmbedModalForConfig: [embedConfig: TEmbedConfig]
@@ -205,18 +205,18 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
     })
   }
 
-  // return vine`
-  //   <NodeMenuPlugin
-  //     v-if="nodeKey !== null"
-  //     :node-key
-  //     :close="reset"
-  //     :options
-  //     :command-priority="menuCommandPriority"
-  //     @select-option="onSelectOption"
-  //     v-slot="slotProps"
-  //   >
-  //     <slot v-bind="slotProps" />
-  //   </LexicalNodeMenuPlugin>
-  // `
-  return vine``
+  return vine`
+    <NodeMenuPlugin
+      v-if="nodeKey !== null"
+      :node-key
+      @close="reset"
+      @open=""
+      :options
+      :command-priority="menuCommandPriority"
+      @select-option="onSelectOption"
+      v-slot="slotProps"
+    >
+      <slot v-bind="slotProps" />
+    </NodeMenuPlugin>
+  `
 }
