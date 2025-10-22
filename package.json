@@ -17,5 +17,10 @@
     "@vue-vine/eslint-config": "^1.1.11",
     "eslint": "^9.37.0",
     "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@7.1.14"
+    }
   }
 }

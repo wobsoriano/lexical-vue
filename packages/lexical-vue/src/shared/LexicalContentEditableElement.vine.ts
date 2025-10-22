@@ -1,43 +1,19 @@
 import type { LexicalEditor } from 'lexical'
-import type { AriaAttributes, HTMLAttributes } from 'vue'
+import type { HTMLAttributes } from '../types'
 import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
-
-type OmitAriaProps<T> = {
-  [K in keyof T as K extends `aria-${string}` ? never : K]: T[K];
-}
+import { convertCamelToKebab } from '../types'
 
 export type Props = {
   editor: LexicalEditor
-  ariaActiveDescendant?: AriaAttributes['aria-activedescendant']
-  ariaAutoComplete?: AriaAttributes['aria-autocomplete']
-  ariaControls?: AriaAttributes['aria-controls']
-  ariaDescribedBy?: AriaAttributes['aria-describedby']
-  ariaErrorMessage?: AriaAttributes['aria-errormessage']
-  ariaExpanded?: AriaAttributes['aria-expanded']
-  ariaInvalid?: AriaAttributes['aria-invalid']
-  ariaLabel?: AriaAttributes['aria-label']
-  ariaLabelledBy?: AriaAttributes['aria-labelledby']
-  ariaMultiline?: AriaAttributes['aria-multiline']
-  ariaOwns?: AriaAttributes['aria-owns']
-  ariaRequired?: AriaAttributes['aria-required']
-  dataTestid?: string
-} & Omit<OmitAriaProps<HTMLAttributes>, 'placeholder'>
+} & Omit<HTMLAttributes, 'placeholder'>
 
 export function ContentEditableElement(props: Props) {
   const root = useTemplateRef('root')
   const isEditable = ref(props.editor.isEditable())
 
   const otherAttrs = computed(() => {
-    // for compat, only override if defined
-    const ariaAttrs: Record<string, string | boolean> = {}
-    if (props.ariaInvalid != null)
-      ariaAttrs['aria-invalid'] = props.ariaInvalid
-    if (props.ariaErrorMessage != null)
-      ariaAttrs['aria-errormessage'] = props.ariaErrorMessage
-    return {
-      ...props,
-      ...ariaAttrs,
-    }
+    const { editor: _, ...rest } = props
+    return convertCamelToKebab(rest)
   })
 
   onMounted(() => {
@@ -72,23 +48,21 @@ export function ContentEditableElement(props: Props) {
     <div
         ref="root"
         v-bind="otherAttrs"
-        :aria-activedescendant="isEditable ? ariaActiveDescendant : undefined"
-        :aria-autocomplete="isEditable ? ariaAutoComplete : 'none'"
+        :aria-activedescendant="isEditable ? ariaActivedescendant : undefined"
+        :aria-autocomplete="isEditable ? ariaAutocomplete : 'none'"
         :aria-controls="isEditable ? ariaControls : undefined"
-        :aria-describedby="ariaDescribedBy"
+        :aria-describedby="ariaDescribedby"
         :aria-expanded="isEditable && roleWithDefault === 'combobox' ? !!ariaExpanded : undefined"
         :aria-label="ariaLabel"
-        :aria-labelledby="ariaLabelledBy"
+        :aria-labelledby="ariaLabelledby"
         :aria-multiline="ariaMultiline"
         :aria-owns="isEditable ? ariaOwns : undefined"
         :aria-readonly="isEditable ? undefined : true"
         :aria-required="ariaRequired"
         :autocapitalize="autocapitalize"
         :contenteditable="isEditable"
-        :data-testid="dataTestid"
         :role="isEditable ? roleWithDefault : undefined"
         :spellcheck="spellcheck || true"
-        :style="style"
         :tabindex="tabindex"
     />
   `
