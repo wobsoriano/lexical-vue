@@ -13,12 +13,12 @@ import {
   ParagraphNode,
   TextNode,
 } from 'lexical'
-import { LexicalAutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
+import { AutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
 import { LexicalComposer } from 'lexical-vue/LexicalComposer'
-import { LexicalContentEditable } from 'lexical-vue/LexicalContentEditable'
-import { LexicalHistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
 
-import { LexicalRichTextPlugin } from 'lexical-vue/LexicalRichTextPlugin'
+import { RichTextPlugin } from 'lexical-vue/LexicalRichTextPlugin'
 import ToolbarPlugin from './plugins/ToolbarPlugin.vue'
 import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
 
@@ -136,20 +136,20 @@ const editorConfig = {
       <div class="editor-container">
         <ToolbarPlugin />
         <div class="editor-inner">
-          <LexicalRichTextPlugin>
+          <RichTextPlugin>
             <template #contentEditable>
-              <LexicalContentEditable class="editor-input" :aria-placeholder="placeholder">
+              <ContentEditable class="editor-input" :aria-placeholder="placeholder">
                 <template #placeholder>
                   <div class="editor-placeholder">{{placeholder}}</div>
                 </template>
-              </LexicalContentEditable>
+              </ContentEditable>
             </template>
             <!-- <template #placeholder>
               <div class="editor-placeholder">{{placeholder}}</div>
             </template> -->
-          </LexicalRichTextPlugin>
-          <LexicalHistoryPlugin />
-          <LexicalAutoFocusPlugin />
+          </RichTextPlugin>
+          <HistoryPlugin />
+          <AutoFocusPlugin />
           <TreeViewPlugin />
         </div>
       </div>

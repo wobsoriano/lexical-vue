@@ -2,7 +2,7 @@ import type { HistoryState } from '@lexical/history'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import { useHistory } from './shared/useHistory'
 
-export function LexicalHistoryPlugin(props: {
+export function HistoryPlugin(props: {
   delay?: number
   externalHistoryState?: HistoryState
 }) {

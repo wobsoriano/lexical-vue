@@ -3,7 +3,7 @@ import { LexicalDecoratedTeleports } from './LexicalDecoratedTeleports'
 import { useCanShowPlaceholder } from './shared/useCanShowPlaceholder'
 import { usePlainTextSetup } from './shared/usePlainTextSetup'
 
-export function LexicalPlainTextPlugin() {
+export function PlainTextPlugin() {
   const editor = useLexicalComposer()
   const showPlaceholder = useCanShowPlaceholder(editor)
   usePlainTextSetup(editor)

@@ -3,7 +3,7 @@ import { registerClickableLink } from '@lexical/link'
 import { watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function LexicalClickableLinkPlugin({
+export function ClickableLinkPlugin({
   newTab = true,
   disabled = false,
 }: {

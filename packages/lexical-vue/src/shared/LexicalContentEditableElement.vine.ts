@@ -23,7 +23,7 @@ export type Props = {
   dataTestid?: string
 } & Omit<OmitAriaProps<HTMLAttributes>, 'placeholder'>
 
-export function LexicalContentEditableElement(props: Props) {
+export function ContentEditableElement(props: Props) {
   const root = useTemplateRef('root')
   const isEditable = ref(props.editor.isEditable())
 

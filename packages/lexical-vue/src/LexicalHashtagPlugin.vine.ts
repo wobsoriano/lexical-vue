@@ -2,7 +2,7 @@ import type { HistoryState } from '@lexical/history'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import { useHistory } from './shared/useHistory'
 
-export function LexicalHashtagPlugin(props: {
+export function HashtagPlugin(props: {
   delay?: number
   externalHistoryState?: HistoryState
 }) {

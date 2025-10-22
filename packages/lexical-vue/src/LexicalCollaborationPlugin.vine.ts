@@ -19,7 +19,7 @@ interface SyncCursorPositionsOptions {
   getAwarenessStates?: (binding: BaseBinding, provider: Provider) => Map<number, UserState>
 }
 
-interface LexicalCollaborationPluginProps {
+interface CollaborationPluginProps {
   id: string
   providerFactory: (id: string, yjsDocMap: Map<string, Doc>) => Provider
   shouldBootstrap: boolean
@@ -33,7 +33,7 @@ interface LexicalCollaborationPluginProps {
   syncCursorPositionsFn?: (binding: AnyBinding, provider: Provider, options?: SyncCursorPositionsOptions) => void
 }
 
-export function LexicalCollaborationPlugin(props: LexicalCollaborationPluginProps) {
+export function CollaborationPlugin(props: CollaborationPluginProps) {
   const isBindingInitialized = ref(false)
   const isProviderInitialized = ref(false)
 

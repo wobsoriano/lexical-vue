@@ -12,7 +12,7 @@ import { nextTick, ref, watch, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import { LexicalMenu, useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
-export interface LexicalNodeMenuPluginProps<TOption extends MenuOption> {
+export interface NodeMenuPluginProps<TOption extends MenuOption> {
   options: Array<TOption>
   nodeKey: NodeKey | null
   anchorClassName?: string
@@ -20,7 +20,7 @@ export interface LexicalNodeMenuPluginProps<TOption extends MenuOption> {
   parent?: HTMLElement
 }
 
-export function LexicalNodeMenuPlugin<TOption extends MenuOption>(props: LexicalNodeMenuPluginProps<TOption>) {
+export function NodeMenuPlugin<TOption extends MenuOption>(props: NodeMenuPluginProps<TOption>) {
   const emit = vineEmits<{
     close: []
     open: [payload: MenuResolution]

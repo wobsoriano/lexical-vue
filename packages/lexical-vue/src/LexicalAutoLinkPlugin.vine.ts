@@ -35,7 +35,7 @@ function useAutoLink(
   })
 }
 
-export function LexicalAutoLinkPlugin(props: { matchers: LinkMatcher[] }) {
+export function AutoLinkPlugin(props: { matchers: LinkMatcher[] }) {
   const emit = vineEmits<{
     change: [value: { url: string | null, prevUrl: string | null }]
   }>()

@@ -31,7 +31,7 @@ export interface TablePluginProps {
   hasHorizontalScroll?: boolean
 }
 
-export function LexicalTablePlugin({
+export function TablePlugin({
   hasCellMerge = true,
   hasCellBackgroundColor = true,
   hasTabHandler = true,

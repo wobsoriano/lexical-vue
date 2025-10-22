@@ -6,7 +6,7 @@ import { generateContent } from './shared/generateContent.vine'
 import { TreeViewCore } from './shared/TreeViewCore.vine'
 import { useLexicalCommandsLog } from './shared/useLexicalCommandsLog'
 
-export function LexicalTreeView(props: {
+export function TreeView(props: {
   editor: LexicalEditor
   treeTypeButtonClassName?: string
   timeTravelButtonClassName?: string
@@ -75,7 +75,7 @@ export function LexicalTreeView(props: {
         :time-travel-panel-button-class-name
         :view-class-name
         :time-travel-panel-class-name
-        :set-editor-readonly="handleEditorReadOnly"
+        :set-editor-read-only="handleEditorReadOnly"
         :editor-state="editorCurrentState"
         :set-editor-state="(state) => editor.setEditorState(state)"
         :generate-content="async (exportDOM) => generateContent(editor, commandsLog, exportDOM, customPrintNode)"

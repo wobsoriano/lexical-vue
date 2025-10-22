@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {useLexicalComposer} from 'lexical-vue/LexicalComposer';
-import { LexicalTreeView } from 'lexical-vue/LexicalTreeView';
+import { useLexicalComposer }  from 'lexical-vue/LexicalComposer';
+import { TreeView } from 'lexical-vue/LexicalTreeView';
 
 const editor = useLexicalComposer();
 </script>
 
 <template>
-    <LexicalTreeView
+    <TreeView
       view-class-name="tree-view-output"
       tree-type-button-class-name="debug-treetype-button"
       time-travel-panel-class-name="debug-timetravel-panel"

@@ -3,7 +3,7 @@ import { HISTORY_MERGE_TAG } from 'lexical'
 import { watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function LexicalOnChangePlugin({
+export function OnChangePlugin({
   ignoreSelectionChange = false,
   ignoreHistoryMergeTagChange = true,
 }: {

@@ -102,7 +102,7 @@ export type { MenuResolution, MenuTextMatch, TriggerFn }
 
 export { MenuOption }
 
-export function LexicalTypeaheadMenuPlugin<TOption extends MenuOption>(props: TypeaheadMenuPluginProps<TOption>) {
+export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: TypeaheadMenuPluginProps<TOption>) {
   const editor = useLexicalComposer()
   const resolution = ref<MenuResolution | null>(null)
 

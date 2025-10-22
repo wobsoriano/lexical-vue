@@ -8,7 +8,7 @@ import {
 import { onMounted, onUnmounted } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function LexicalHorizontalRulePlugin() {
+export function HorizontalRulePlugin() {
   const editor = useLexicalComposer()
 
   onMounted(() => {

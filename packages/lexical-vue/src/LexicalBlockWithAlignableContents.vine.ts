@@ -20,7 +20,7 @@ import { useLexicalComposer } from './LexicalComposer.vine'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 import { useLexicalNodeSelection } from './useLexicalNodeSelection'
 
-export function LexicalBlockWithAlignableContents(props: {
+export function BlockWithAlignableContents(props: {
   format?: ElementFormatType | null
   nodeKey: NodeKey
   baseClass?: string

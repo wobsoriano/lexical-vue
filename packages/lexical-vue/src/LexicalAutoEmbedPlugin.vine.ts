@@ -18,11 +18,11 @@ import {
   PASTE_TAG,
 } from 'lexical'
 
-import { computed, defineComponent, ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-import { LexicalNodeMenuPlugin } from './LexicalNodeMenuPlugin.vine'
+import { NodeMenuPlugin } from './LexicalNodeMenuPlugin.vine'
 import { MenuOption } from './shared/LexicalMenu.vine'
 
 export interface EmbedMatchResult<TEmbedMatchResult = unknown> {
@@ -206,7 +206,7 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
   }
 
   // return vine`
-  //   <LexicalNodeMenuPlugin
+  //   <NodeMenuPlugin
   //     v-if="nodeKey !== null"
   //     :node-key
   //     :close="reset"

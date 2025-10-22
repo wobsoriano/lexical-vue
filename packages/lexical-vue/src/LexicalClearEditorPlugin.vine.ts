@@ -2,7 +2,7 @@ import { registerClearEditor } from '@lexical/extension'
 import { onMounted, onUnmounted } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function LexicalClearEditorPlugin() {
+export function ClearEditorPlugin() {
   const editor = useLexicalComposer()
 
   const emit = vineEmits<{

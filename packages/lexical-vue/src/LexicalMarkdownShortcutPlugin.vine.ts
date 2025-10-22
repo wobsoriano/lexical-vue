@@ -29,7 +29,7 @@ export const HR: ElementTransformer = {
 
 export const DEFAULT_TRANSFORMERS = [HR, ...TRANSFORMERS]
 
-export function LexicalMarkdownShortcutPlugin({
+export function MarkdownShortcutPlugin({
   transformers = DEFAULT_TRANSFORMERS,
 }: {
   transformers: Transformer[]

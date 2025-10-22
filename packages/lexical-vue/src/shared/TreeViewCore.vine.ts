@@ -33,27 +33,27 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
   const content = ref('')
   const timeTravelEnabled = ref(false)
   const showExportDOM = ref(false)
-  const playingIndexRef = ref(0)
-  const inputRef = ref<HTMLInputElement | null>(null)
+  let playingIndexRef = 0
+  const inputRef = useTemplateRef('inputRef')
   const isPlaying = ref(false)
   const isLimited = ref(false)
   const showLimited = ref(false)
-  const lastEditorStateRef = ref<EditorState | null>(null)
-  const lastCommandsLogRef = ref<LexicalCommandLog>([])
-  const lastGenerationID = ref(0)
+  let lastEditorStateRef: EditorState | null = null
+  let lastCommandsLogRef: LexicalCommandLog = []
+  let lastGenerationID = 0
 
   const totalEditorStates = computed(() => timeStampedEditorStates.value.length)
 
   const generateTree = async (exportDOM: boolean) => {
-    const myID = ++lastGenerationID.value
+    const myID = ++lastGenerationID
     try {
       const treeText = await props.generateContent(exportDOM)
-      if (myID === lastGenerationID.value) {
+      if (myID === lastGenerationID) {
         content.value = treeText
       }
     }
     catch (err) {
-      if (myID === lastGenerationID.value) {
+      if (myID === lastGenerationID) {
         content.value = `Error rendering tree: ${err instanceof Error ? err.message : String(err)}\n\nStack:\n${err instanceof Error ? err.stack : 'No stack trace'}`
       }
     }
@@ -69,19 +69,19 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
 
     // Update view when either editor state changes or new commands are logged
     const shouldUpdate
-      = lastEditorStateRef.value !== props.editorState
-        || lastCommandsLogRef.value !== props.commandsLog
+      = lastEditorStateRef !== props.editorState
+        || lastCommandsLogRef !== props.commandsLog
 
     if (shouldUpdate) {
       // Check if it's a real editor state change
-      const isEditorStateChange = lastEditorStateRef.value !== props.editorState
+      const isEditorStateChange = lastEditorStateRef !== props.editorState
 
-      lastEditorStateRef.value = props.editorState
-      lastCommandsLogRef.value = props.commandsLog || []
+      lastEditorStateRef = props.editorState
+      lastCommandsLogRef = props.commandsLog || []
       generateTree(showExportDOM.value)
 
       // Only record in time travel if there was an actual editor state change
-      if (!timeTravelEnabled && isEditorStateChange) {
+      if (!timeTravelEnabled.value && isEditorStateChange) {
         timeStampedEditorStates.value = [
           ...timeStampedEditorStates.value,
           [Date.now(), props.editorState],
@@ -95,7 +95,7 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
       let timeoutId: ReturnType<typeof setTimeout>
 
       const play = () => {
-        const currentIndex = playingIndexRef.value
+        const currentIndex = playingIndexRef
 
         if (currentIndex === totalEditorStates.value - 1) {
           isPlaying.value = false
@@ -106,8 +106,8 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
         const nextTime = timeStampedEditorStates.value[currentIndex + 1][0]
         const timeDiff = nextTime - currentTime
         timeoutId = setTimeout(() => {
-          playingIndexRef.value++
-          const index = playingIndexRef.value
+          playingIndexRef++
+          const index = playingIndexRef
           const input = inputRef.value
 
           if (input !== null) {
@@ -134,13 +134,13 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
 
   const handleTimeTravelClick = () => {
     props.setEditorReadOnly(true)
-    playingIndexRef.value = totalEditorStates.value - 1
+    playingIndexRef = totalEditorStates.value - 1
     timeTravelEnabled.value = true
   }
 
   const handlePlayPauseClick = () => {
-    if (playingIndexRef.value === totalEditorStates.value - 1) {
-      playingIndexRef.value = 1
+    if (playingIndexRef === totalEditorStates.value - 1) {
+      playingIndexRef = 1
     }
     isPlaying.value = !isPlaying.value
   }
@@ -150,7 +150,7 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
     const editorStateIndex = Number(target.value)
     const timeStampedEditorState = timeStampedEditorStates.value[editorStateIndex]
     if (timeStampedEditorState) {
-      playingIndexRef.value = editorStateIndex
+      playingIndexRef = editorStateIndex
       props.setEditorState(timeStampedEditorState[1])
     }
   }

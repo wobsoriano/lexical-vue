@@ -8,7 +8,7 @@ import {
 import { watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function LexicalLinkPlugin(props: {
+export function LinkPlugin(props: {
   validateUrl?: (url: string) => boolean
   attributes?: LinkAttributes
 }) {

@@ -1,12 +1,12 @@
 import type { Props as ElementProps } from './shared/LexicalContentEditableElement.vine'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
-import { LexicalContentEditableElement } from './shared/LexicalContentEditableElement.vine'
+import { ContentEditableElement } from './shared/LexicalContentEditableElement.vine'
 import { useCanShowPlaceholder } from './shared/useCanShowPlaceholder'
 
 type ContentEditableProps = Omit<ElementProps, 'editor' | 'placeholder'>
 
-export function LexicalContentEditable(props: ContentEditableProps) {
+export function ContentEditable(props: ContentEditableProps) {
   const editor = useLexicalComposer()
   const isEditable = ref(false)
   const showPlaceholder = useCanShowPlaceholder(editor)
@@ -25,7 +25,7 @@ export function LexicalContentEditable(props: ContentEditableProps) {
   }>()
 
   return vine`
-    <LexicalContentEditableElement
+    <ContentEditableElement
         :editor
         v-bind="{
             ...$props,

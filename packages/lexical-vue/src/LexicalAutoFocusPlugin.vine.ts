@@ -1,7 +1,7 @@
 import { nextTick, onMounted } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function LexicalAutoFocusPlugin(props: {
+export function AutoFocusPlugin(props: {
   defaultSelection?: 'rootStart' | 'rootEnd'
 }) {
   const editor = useLexicalComposer()
