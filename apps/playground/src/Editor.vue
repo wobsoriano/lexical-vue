@@ -24,6 +24,9 @@ import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
 
 import ExampleTheme from './ExampleTheme'
 import { parseAllowedColor, parseAllowedFontSize } from './styleConfig'
+import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers'
+
+type XX = ComponentProps<typeof HistoryPlugin>
 
 const placeholder = 'Enter some rich text...'
 
