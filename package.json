@@ -5,7 +5,7 @@
     "dist"
   ],
   "scripts": {
-    "release": "pnpm build && changeset publish",
+    "release": "pnpm --filter lexical-vue build && changeset publish",
     "prepublishOnly": "pnpm run build",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
