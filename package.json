@@ -5,16 +5,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup --onSuccess \"pnpm build:dts\"",
-    "build:dts": "vue-tsc --declaration --emitDeclarationOnly",
-    "dev": "tsup --watch --onSuccess \"pnpm build:dts && pnpm --filter playground dev\"",
     "release": "pnpm build && changeset publish",
     "prepublishOnly": "pnpm run build",
     "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "lint:fix": "eslint --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.0.0",
