@@ -1,69 +1,157 @@
 <script setup lang="ts">
+import type {
+  DOMConversionMap,
+  DOMExportOutput,
+  DOMExportOutputMap,
+  Klass,
+  LexicalEditor,
+  LexicalNode,
+} from 'lexical'
+import {
+  $isTextNode,
+  isHTMLElement,
+  ParagraphNode,
+  TextNode,
+} from 'lexical'
 import { LexicalAutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
-import { LexicalCheckListPlugin } from 'lexical-vue/LexicalCheckListPlugin'
-import { LexicalClickableLinkPlugin } from 'lexical-vue/LexicalClickableLinkPlugin'
-import { LexicalHashtagPlugin } from 'lexical-vue/LexicalHashtagPlugin'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { LexicalContentEditable } from 'lexical-vue/LexicalContentEditable'
 import { LexicalHistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
-import { LexicalLinkPlugin } from 'lexical-vue/LexicalLinkPlugin'
-import { LexicalListPlugin } from 'lexical-vue/LexicalListPlugin'
+
 import { LexicalRichTextPlugin } from 'lexical-vue/LexicalRichTextPlugin'
-import { ref } from 'vue'
-
-import AutoEmbedPlugin from './plugins/AutoEmbedPlugin/index.vue'
-import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
-import CodeHighlightPlugin from './plugins/CodeHighlightPlugin.vue'
-import ContentEditable from './plugins/ContentEditable.vue'
-import EmojiPickerPlugin from './plugins/EmojiPickerPlugin.vue'
-import EmojisPlugin from './plugins/EmojisPlugin.vue'
-import FloatingLinkEditor from './plugins/FloatingLinkEditor.vue'
-import ListMaxIndentLevelPlugin from './plugins/ListMaxIndentLevelPlugin.vue'
-import MarkdownShortcutPlugin from './plugins/MarkdownShortcutPlugin.vue'
-import MentionsPlugin from './plugins/MentionsPlugin.vue'
-import ToolbarPlugin from './plugins/ToolbarPlugin/index.vue'
+import ToolbarPlugin from './plugins/ToolbarPlugin.vue'
 import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
-import TwitterPlugin from './plugins/TwitterPlugin/index.vue'
-import YouTubePlugin from './plugins/YouTubePlugin/index.vue'
 
-const floatingAnchorRef = ref<HTMLDivElement | null>(null)
+import ExampleTheme from './ExampleTheme'
+import { parseAllowedColor, parseAllowedFontSize } from './styleConfig'
+
+const placeholder = 'Enter some rich text...'
+
+function removeStylesExportDOM(editor: LexicalEditor, target: LexicalNode): DOMExportOutput {
+  const output = target.exportDOM(editor)
+  if (output && isHTMLElement(output.element)) {
+    // Remove all inline styles and classes if the element is an HTMLElement
+    // Children are checked as well since TextNode can be nested
+    // in i, b, and strong tags.
+    for (const el of [
+      output.element,
+      ...output.element.querySelectorAll('[style],[class]'),
+    ]) {
+      el.removeAttribute('class')
+      el.removeAttribute('style')
+    }
+  }
+  return output
+}
+
+const exportMap: DOMExportOutputMap = new Map<
+  Klass<LexicalNode>,
+  (editor: LexicalEditor, target: LexicalNode) => DOMExportOutput
+>([
+  [ParagraphNode, removeStylesExportDOM],
+  [TextNode, removeStylesExportDOM],
+])
+
+function getExtraStyles(element: HTMLElement): string {
+  // Parse styles from pasted input, but only if they match exactly the
+  // sort of styles that would be produced by exportDOM
+  let extraStyles = ''
+  const fontSize = parseAllowedFontSize(element.style.fontSize)
+  const backgroundColor = parseAllowedColor(element.style.backgroundColor)
+  const color = parseAllowedColor(element.style.color)
+  if (fontSize !== '' && fontSize !== '15px') {
+    extraStyles += `font-size: ${fontSize};`
+  }
+  if (backgroundColor !== '' && backgroundColor !== 'rgb(255, 255, 255)') {
+    extraStyles += `background-color: ${backgroundColor};`
+  }
+  if (color !== '' && color !== 'rgb(0, 0, 0)') {
+    extraStyles += `color: ${color};`
+  }
+  return extraStyles
+}
+
+function constructImportMap(): DOMConversionMap {
+  const importMap: DOMConversionMap = {}
+
+  // Wrap all TextNode importers with a function that also imports
+  // the custom styles implemented by the playground
+  for (const [tag, fn] of Object.entries(TextNode.importDOM() || {})) {
+    importMap[tag] = (importNode) => {
+      const importer = fn(importNode)
+      if (!importer) {
+        return null
+      }
+      return {
+        ...importer,
+        conversion: (element) => {
+          const output = importer.conversion(element)
+          if (
+            output === null
+            || output.forChild === undefined
+            || output.after !== undefined
+            || output.node !== null
+          ) {
+            return output
+          }
+          const extraStyles = getExtraStyles(element)
+          if (extraStyles) {
+            const { forChild } = output
+            return {
+              ...output,
+              forChild: (child, parent) => {
+                const textNode = forChild(child, parent)
+                if ($isTextNode(textNode)) {
+                  textNode.setStyle(textNode.getStyle() + extraStyles)
+                }
+                return textNode
+              },
+            }
+          }
+          return output
+        },
+      }
+    }
+  }
+
+  return importMap
+}
+
+const editorConfig = {
+  html: {
+    export: exportMap,
+    import: constructImportMap(),
+  },
+  namespace: 'React.js Demo',
+  nodes: [ParagraphNode, TextNode],
+  onError(error: Error) {
+    throw error
+  },
+  theme: ExampleTheme,
+}
 </script>
 
 <template>
-  <ToolbarPlugin />
-  <div class="editor-container">
-    <div className="editor-inner">
-      <LexicalRichTextPlugin>
-        <template #contentEditable>
-          <div class="editor-scroller">
-            <div ref="floatingAnchorRef" class="editor">
-              <ContentEditable />
-            </div>
-          </div>
-        </template>
-        <template #placeholder>
-          <div class="editor-placeholder">
-            Enter some text...
-          </div>
-        </template>
-      </LexicalRichTextPlugin>
-      <LexicalHistoryPlugin />
-      <AutoEmbedPlugin />
-      <!-- <TreeViewPlugin /> -->
-      <LexicalAutoFocusPlugin />
-      <CodeHighlightPlugin />
-      <LexicalListPlugin />
-      <LexicalCheckListPlugin />
-      <LexicalLinkPlugin />
-      <AutoLinkPlugin />
-      <ListMaxIndentLevelPlugin :max-depth="7" />
-      <LexicalHashtagPlugin />
-      <MarkdownShortcutPlugin />
-      <EmojiPickerPlugin />
-      <EmojisPlugin />
-      <MentionsPlugin />
-      <LexicalClickableLinkPlugin />
-      <YouTubePlugin />
-      <TwitterPlugin />
-      <FloatingLinkEditor v-if="floatingAnchorRef" :anchor-elem="floatingAnchorRef" :priority="1" />
-    </div>
-  </div>
+    <LexicalComposer :initial-config="editorConfig">
+      <div class="editor-container">
+        <ToolbarPlugin />
+        <div class="editor-inner">
+          <LexicalRichTextPlugin>
+            <template #contentEditable>
+              <LexicalContentEditable class="editor-input" :aria-placeholder="placeholder">
+                <template #placeholder>
+                  <div class="editor-placeholder">{{placeholder}}</div>
+                </template>
+              </LexicalContentEditable>
+            </template>
+            <!-- <template #placeholder>
+              <div class="editor-placeholder">{{placeholder}}</div>
+            </template> -->
+          </LexicalRichTextPlugin>
+          <LexicalHistoryPlugin />
+          <LexicalAutoFocusPlugin />
+          <TreeViewPlugin />
+        </div>
+      </div>
+    </LexicalComposer>
 </template>

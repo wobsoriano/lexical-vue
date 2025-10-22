@@ -5,42 +5,25 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build --force"
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@lexical/clipboard": "catalog:lexical",
-    "@lexical/code": "catalog:lexical",
-    "@lexical/dragon": "catalog:lexical",
-    "@lexical/extension": "catalog:lexical",
-    "@lexical/hashtag": "catalog:lexical",
-    "@lexical/history": "catalog:lexical",
-    "@lexical/html": "catalog:lexical",
-    "@lexical/link": "catalog:lexical",
-    "@lexical/list": "catalog:lexical",
-    "@lexical/mark": "catalog:lexical",
-    "@lexical/markdown": "catalog:lexical",
-    "@lexical/overflow": "catalog:lexical",
-    "@lexical/plain-text": "catalog:lexical",
-    "@lexical/rich-text": "catalog:lexical",
-    "@lexical/selection": "catalog:lexical",
-    "@lexical/table": "catalog:lexical",
-    "@lexical/text": "catalog:lexical",
-    "@lexical/utils": "catalog:lexical",
-    "@lexical/yjs": "catalog:lexical",
     "lexical": "catalog:lexical",
     "lexical-vue": "workspace:*",
-    "vue": "^3.5.13",
-    "y-websocket": ">=2.0.4",
-    "yjs": "^13.6.18"
+    "vue": "^3.5.22"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.1",
-    "npm-run-all2": "^6.2.2",
-    "typescript": "^5.5.3",
-    "vite": "^6.1.1",
-    "vue-tsc": "^2.2.4"
+    "@types/node": "^24.6.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/tsconfig": "^0.8.1",
+    "typescript": "~5.9.3",
+    "vite": "npm:rolldown-vite@7.1.14",
+    "vue-tsc": "^3.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@7.1.14"
+    }
   }
 }

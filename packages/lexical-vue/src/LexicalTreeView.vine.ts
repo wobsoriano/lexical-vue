@@ -42,7 +42,7 @@ export function LexicalTreeView(props: {
     if (element) {
       // Assigns the editor instance to the tree view DOM element for internal tracking
       // @ts-expect-error Internal field used by Lexical
-      element.__lexicalEditor = editor
+      element.__lexicalEditor = props.editor
 
       onInvalidate(() => {
         // Cleans up the reference when the component is unmounted
