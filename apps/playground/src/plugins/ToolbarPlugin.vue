@@ -13,10 +13,9 @@ import {
   UNDO_COMMAND,
 } from 'lexical'
 import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
-import { onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const editor = useLexicalComposer()
-const toolbarRef = useTemplateRef('toolbarRef')
 const canUndo = ref(false)
 const canRedo = ref(false)
 const isBold = ref(false)
@@ -76,7 +75,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="toolbarRef" class="toolbar">
+  <div class="toolbar">
     <button
       :disabled="!canUndo"
       class="toolbar-item spaced"

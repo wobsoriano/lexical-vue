@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lexical/utils": "catalog:lexical",
     "lexical": "catalog:lexical",
     "lexical-vue": "workspace:*",
     "vue": "^3.5.22"

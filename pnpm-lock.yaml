@@ -101,6 +101,9 @@ importers:
 
   apps/playground:
     dependencies:
+      '@lexical/utils':
+        specifier: catalog:lexical
+        version: 0.37.0
       lexical:
         specifier: catalog:lexical
         version: 0.37.0
