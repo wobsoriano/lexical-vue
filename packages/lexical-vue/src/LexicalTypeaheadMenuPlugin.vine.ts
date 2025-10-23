@@ -90,7 +90,7 @@ export function useBasicTypeaheadTriggerMatch(
 export interface TypeaheadMenuPluginProps<TOption extends MenuOption> {
   options: Array<TOption>
   // TODO: Can't use TriggerFn below, giving RangeError: Maximum call stack size exceeded
-  triggerFn: TriggerFn
+  triggerFn: (text: string, editor: LexicalEditor) => MenuTextMatch | null
   anchorClassName?: string
   commandPriority?: CommandListenerPriority
   parent?: HTMLElement
