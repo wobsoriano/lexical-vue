@@ -116,7 +116,7 @@ Then assuming we have a some UE insert a video into the editor:
 
 ```vue
 <script setup lang="ts">
-import { useLexicalComposer } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { INSERT_VIDEO_COMMAND } from './VideoNode'
 
 const editor = useLexicalComposer()

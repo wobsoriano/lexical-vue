@@ -11,7 +11,10 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 ```vue
 <script setup lang="ts">
 import { $getRoot, $getSelection } from 'lexical'
-import { LexicalComposer, LexicalContentEditable, LexicalHistoryPlugin, LexicalPlainTextPlugin } from 'lexical-vue'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 
 const config = {
   namespace: 'MyEditor',
@@ -29,17 +32,16 @@ const config = {
 
 <template>
   <LexicalComposer :initial-config="config">
-    <LexicalPlainTextPlugin>
+    <PlainTextPlugin>
       <template #contentEditable>
-        <LexicalContentEditable />
+        <ContentEditable>
+          <template #placeholder>
+            <div>Enter some text...</div>
+          </template>
+        </ContentEditable>
       </template>
-      <template #placeholder>
-        <div>
-          Enter some text...
-        </div>
-      </template>
-    </LexicalPlainTextPlugin>
-    <LexicalHistoryPlugin />
+    </PlainTextPlugin>
+    <HistoryPlugin />
   </LexicalComposer>
 </template>
 ```
@@ -48,7 +50,7 @@ Now that we have a simple editor, the next thing we might want to do is access t
 
 ```vue
 <script setup>
-import { useLexicalComposer } from 'lexical-vue'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { onMounted, onUnmounted } from 'vue'
 
 const emit = defineEmits(['change'])
@@ -72,7 +74,10 @@ Now, we can implement this in our editor and save the EditorState in a Vue ref:
 
 ```vue
 <script setup>
-import { LexicalComposer, LexicalContentEditable, LexicalHistoryPlugin, LexicalPlainTextPlugin } from 'lexical-vue'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 import { onMounted, onUnmounted, ref } from 'vue'
 import OnChangePlugin from './OnChangePlugin.vue'
 
@@ -81,17 +86,16 @@ const editorState = ref()
 
 <template>
   <LexicalComposer :initial-config="config">
-    <LexicalPlainTextPlugin>
+    <PlainTextPlugin>
       <template #contentEditable>
-        <LexicalContentEditable />
+        <ContentEditable>
+          <template #placeholder>
+            <div>Enter some text...</div>
+          </template>
+        </ContentEditable>
       </template>
-      <template #placeholder>
-        <div>
-          Enter some text...
-        </div>
-      </template>
-    </LexicalPlainTextPlugin>
-    <LexicalHistoryPlugin />
+    </PlainTextPlugin>
+    <HistoryPlugin />
     <OnChangePlugin @change="editorState = $event" />
   </LexicalComposer>
 </template>
@@ -101,7 +105,10 @@ Ok, so now we're saving the EditorState object in a Vue ref, but we can't save a
 
 ```vue
 <script setup>
-import { LexicalComposer, LexicalContentEditable, LexicalHistoryPlugin, LexicalPlainTextPlugin } from 'lexical-vue'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 import { onMounted, onUnmounted, ref } from 'vue'
 import OnChangePlugin from './OnChangePlugin.vue'
 

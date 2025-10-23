@@ -1,40 +1,40 @@
 {
-  "hash": "83428c71",
-  "configHash": "3b71f7c8",
-  "lockfileHash": "2d368159",
-  "browserHash": "55c47f33",
+  "hash": "fb14048f",
+  "configHash": "32c3d551",
+  "lockfileHash": "519b4da2",
+  "browserHash": "52c323dc",
   "optimized": {
     "vue": {
-      "src": "../../../../node_modules/.pnpm/vue@3.4.15_typescript@5.3.3/node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "src": "../../../../../node_modules/.pnpm/vue@3.5.22_typescript@5.9.3/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "5cd116e7",
+      "fileHash": "6b325e96",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../../node_modules/.pnpm/@vue+devtools-api@6.5.1/node_modules/@vue/devtools-api/lib/esm/index.js",
+      "src": "../../../../../node_modules/.pnpm/@vue+devtools-api@7.7.7/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "fe5b6454",
+      "fileHash": "3b8c148b",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
-      "src": "../../../../node_modules/.pnpm/@vueuse+core@10.7.2_vue@3.4.15/node_modules/@vueuse/core/index.mjs",
+      "src": "../../../../../node_modules/.pnpm/@vueuse+core@12.8.2_typescript@5.9.3/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "a9f0bbc5",
+      "fileHash": "9f351f4e",
       "needsInterop": false
     },
     "@theme/index": {
-      "src": "../../../../node_modules/.pnpm/vitepress@1.0.0-rc.40_@algolia+client-search@4.22.1_@types+node@20.11.8_search-insights@2.13.0_typescript@5.3.3/node_modules/vitepress/dist/client/theme-default/index.js",
+      "src": "../../../../../node_modules/.pnpm/vitepress@1.6.4_@algolia+client-search@5.40.1_@types+node@24.9.1_change-case@5.4.4_ligh_6fbc43807a616139d1a5fcbf53169be4/node_modules/vitepress/dist/client/theme-default/index.js",
       "file": "@theme_index.js",
-      "fileHash": "f52174f5",
+      "fileHash": "76bee306",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-LVWCKBRU": {
-      "file": "chunk-LVWCKBRU.js"
+    "chunk-ZIW5SHTI": {
+      "file": "chunk-ZIW5SHTI.js"
     },
-    "chunk-SFLLFODM": {
-      "file": "chunk-SFLLFODM.js"
+    "chunk-UXY5XHNK": {
+      "file": "chunk-UXY5XHNK.js"
     }
   }
 }

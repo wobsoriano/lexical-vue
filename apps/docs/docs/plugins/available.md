@@ -4,13 +4,11 @@ Vue-based plugins are using Lexical editor instance from `<LexicalComposer>` com
 
 ```vue
 <script setup>
-import {
-  LexicalComposer,
-  LexicalContentEditable,
-  LexicalHistoryPlugin,
-  LexicalOnChangePlugin,
-  LexicalPlainTextPlugin
-} from 'lexical-vue'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { OnChangePlugin } from 'lexical-vue/LexicalOnChangePlugin'
+import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 
 const initialConfig = {
   namespace: 'MyEditor',
@@ -21,16 +19,17 @@ const initialConfig = {
 
 <template>
   <LexicalComposer :initial-config="initialConfig">
-    <LexicalPlainTextPlugin>
+    <PlainTextPlugin>
       <template #contentEditable>
-        <LexicalContentEditable />
+        <ContentEditable>
+          <template #placeholder>
+            <div>Enter some text...</div>
+          </template>
+        </ContentEditable>
       </template>
-      <template #placeholder>
-        <div>Enter some text...</div>
-      </template>
-    </LexicalPlainTextPlugin>
-    <LexicalHistoryPlugin />
-    <LexicalOnChangePlugin @change="onChange" />
+    </PlainTextPlugin>
+    <HistoryPlugin />
+    <OnChangePlugin @change="onChange" />
   </LexicalComposer>
 </template>
 ```
@@ -43,29 +42,31 @@ const initialConfig = {
 Wrapper for `@lexical/plain-text` that adds major features for plain text editing, including typing, deletion and copy/pasting.
 
 ```html
-<LexicalPlainTextPlugin>
+<PlainTextPlugin>
   <template #contentEditable>
-    <LexicalContentEditable />
+    <LexicalContentEditable>
+      <template #placeholder>
+        <div>Enter some text...</div>
+      </template>
+    </LexicalContentEditable>
   </template>
-  <template #placeholder>
-    <div>Enter some text...</div>
-  </template>
-</LexicalPlainTextPlugin>
+</PlainTextPlugin>
 ```
 
-## `LexicalRichTextPlugin`
+## `RichTextPlugin`
 
 Wrapper for `@lexical/rich-text` that adds major features for rich text editing, including typing, deletion, copy/pasting, indent/outdent and bold/italic/underline/strikethrough text formatting.
 
 ```html
-<LexicalRichTextPlugin>
+<RichTextPlugin>
   <template #contentEditable>
-    <LexicalContentEditable />
+    <LexicalContentEditable>
+      <template #placeholder>
+        <div>Enter some text...</div>
+      </template>
+    </LexicalContentEditable>
   </template>
-  <template #placeholder>
-    <div>Enter some text...</div>
-  </template>
-</LexicalRichTextPlugin>
+</RichTextPlugin>
 ```
 
 ## `LexicalOnChangePlugin`
@@ -73,7 +74,7 @@ Wrapper for `@lexical/rich-text` that adds major features for rich text editing,
 Plugin that emits `change` whenever Lexical state is updated. Using `ignoreInitialChange` (`true` by default) and `ignoreSelectionChange` (`false` by default) can give more granular control over changes that are causing the `change` event.
 
 ```html
-<LexicalOnChangePlugin @change="onChange" />
+<OnChangePlugin @change="onChange" />
 ```
 
 ## `LexicalHistoryPlugin`
@@ -81,7 +82,7 @@ Plugin that emits `change` whenever Lexical state is updated. Using `ignoreIniti
 Wrapper for `@lexical/history` that adds support for history stack management and `undo` / `redo` commands.
 
 ```html
-<LexicalHistoryPlugin />
+<HistoryPlugin />
 ```
 
 ## `LexicalLinkPlugin`
@@ -89,7 +90,7 @@ Wrapper for `@lexical/history` that adds support for history stack management an
 Wrapper for `@lexical/link` that adds support for links, including `toggleLink` command support that toggles link for selected text.
 
 ```html
-<LexicalLinkPlugin />
+<LinkPlugin />
 ```
 
 ## `LexicalListPlugin`
@@ -97,7 +98,7 @@ Wrapper for `@lexical/link` that adds support for links, including `toggleLink` 
 Wrapper for `@lexical/list` that adds support for lists (ordered and unordered).
 
 ```html
-<LexicalLinkPlugin />
+<ListPlugin />
 ```
 
 ## `LexicalCheckListPlugin`
@@ -105,7 +106,7 @@ Wrapper for `@lexical/list` that adds support for lists (ordered and unordered).
 Wrapper for `@lexical/list` that adds support for check lists. Note that it requires some css to render check/uncheck marks. See PlaygroundEditorTheme.css for details.
 
 ```html
-<LexicalCheckListPlugin />
+<CheckListPlugin />
 ```
 
 ## `LexicalTablePlugin`
@@ -113,7 +114,7 @@ Wrapper for `@lexical/list` that adds support for check lists. Note that it requ
 Wrapper for `@lexical/table` that adds support for tables.
 
 ```html
-<LexicalTablePlugin />
+<TablePlugin />
 ```
 
 ## `LexicalTabIndentationPlugin`
@@ -121,7 +122,7 @@ Wrapper for `@lexical/table` that adds support for tables.
 Plugin that allows tab indentation in combination with `@lexical/rich-text`.
 
 ```html
-<LexicalTabIndentationPlugin />
+<TabIndentationPlugin />
 ```
 
 ## `LexicalAutoLinkPlugin`
@@ -152,7 +153,7 @@ const MATCHERS = [
 </script>
 
 <template>
-  <LexicalAutoLinkPlugin :matchers="MATCHERS" />
+  <AutoLinkPlugin :matchers="MATCHERS" />
 </template>
 ```
 
@@ -160,21 +161,14 @@ const MATCHERS = [
 
 Adds `clearEditor` command support to clear editor's content.
 
+```html
+<ClearEditorPlugin />
+```
+
 ## `LexicalMarkdownShortcutPlugin`
 
 Adds markdown shortcut support: headings, lists, code blocks, quotes, links and inline styles (bold, italic, strikethrough).
 
-## `LexicalAutoScrollPlugin`
-
-Lexical auto-scrolls its contenteditable container while typing. This plugin can be used for cases when other element up in a DOM tree needs to be scrolled (e.g. when editor is rendered within dialog with limited height):
-
 ```html
-<div ref="containerWithScrollRef">
-  <LexicalComposer>
-    ...
-    <LexicalAutoScrollPlugin :scrollRef="containerWithScrollRef" />
-  </LexicalComposer>
-</div>
+<MarkdownShortcutPlugin />
 ```
-
-More plugins soon...

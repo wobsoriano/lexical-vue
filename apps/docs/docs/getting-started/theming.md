@@ -41,7 +41,9 @@ To apply it, you need to pass it to your editor instance. This is done by passin
 
 ```vue
 <script setup>
-import { LexicalComposer, LexicalContentEditable, LexicalPlainTextPlugin } from 'lexical-vue'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 import { exampleTheme } from './exampleTheme'
 
 const initialConfig = { namespace: 'MyEditor', theme: exampleTheme }
@@ -49,16 +51,15 @@ const initialConfig = { namespace: 'MyEditor', theme: exampleTheme }
 
 <template>
   <LexicalComposer :initial-config="initialConfig">
-    <LexicalPlainTextPlugin>
+    <PlainTextPlugin>
       <template #contentEditable>
-        <LexicalContentEditable />
+        <ContentEditable>
+          <template #placeholder>
+            <div>Enter some text...</div>
+          </template>
+        </ContentEditable>
       </template>
-      <template #placeholder>
-        <div class="editor-placeholder">
-          Enter some text...
-        </div>
-      </template>
-    </LexicalPlainTextPlugin>
+    </PlainTextPlugin>
   </LexicalComposer>
 </template>
 ```

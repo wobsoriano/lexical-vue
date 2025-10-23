@@ -10,5 +10,5 @@ logs
 node_modules
 temp
 .vscode
-docs/.vitepress/cache
+apps/docs/.vitepress/cache
 untracked

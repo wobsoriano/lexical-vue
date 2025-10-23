@@ -13,13 +13,11 @@ Note: You shouldn't use LexicalHistoryPlugin with LexicalCollaborationPlugin bec
 <script setup lang="ts">
 import type { LexicalEditor } from 'lexical'
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
-import {
-  LexicalAutoFocusPlugin,
-  LexicalCollaborationPlugin,
-  LexicalComposer,
-  LexicalContentEditable,
-  LexicalRichTextPlugin,
-} from 'lexical-vue'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { RichTextPlugin } from 'lexical-vue/LexicalRichTextPlugin'
+import { AutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
+import { CollaborationPlugin } from 'lexical-vue/LexicalCollaborationPlugin'
 import { ref } from 'vue'
 import { WebsocketProvider } from 'y-websocket'
 import * as Y from 'yjs'
