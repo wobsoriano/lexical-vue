@@ -43,3 +43,5 @@ const config = {
   </LexicalComposer>
 </template>
 ```
+
+- Added `<SelectionAlwaysOnDisplay />` and `<TableOfContentsPlugin />` plugins

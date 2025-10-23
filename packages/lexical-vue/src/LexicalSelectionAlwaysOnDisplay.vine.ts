@@ -2,7 +2,7 @@ import { selectionAlwaysOnDisplay } from '@lexical/utils'
 import { onMounted, onUnmounted } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function LexicalSelectionAlwaysOnDisplay() {
+export function SelectionAlwaysOnDisplay() {
   const editor = useLexicalComposer()
 
   onMounted(() => {

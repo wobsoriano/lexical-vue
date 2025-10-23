@@ -2,9 +2,7 @@ import type { HeadingTagType } from '@lexical/rich-text'
 import type {
   ElementNode,
   LexicalEditor,
-
   NodeKey,
-
   NodeMutation,
 } from 'lexical'
 import { $isHeadingNode, HeadingNode } from '@lexical/rich-text'
