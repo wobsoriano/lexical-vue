@@ -162,7 +162,7 @@
     "dev": "rslib build --watch"
   },
   "peerDependencies": {
-    "vue": "^3.2.0"
+    "vue": "^3.5.0"
   },
   "dependencies": {
     "@lexical/dragon": "0.37.0",
