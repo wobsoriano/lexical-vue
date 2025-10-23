@@ -144,9 +144,6 @@ const editorConfig = {
                 </template>
               </ContentEditable>
             </template>
-            <!-- <template #placeholder>
-              <div class="editor-placeholder">{{placeholder}}</div>
-            </template> -->
           </RichTextPlugin>
           <HistoryPlugin />
           <AutoFocusPlugin />
