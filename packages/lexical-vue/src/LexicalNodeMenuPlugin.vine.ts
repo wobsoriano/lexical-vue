@@ -22,8 +22,8 @@ export interface NodeMenuPluginProps<TOption extends MenuOption> {
 
 export function NodeMenuPlugin<TOption extends MenuOption>(props: NodeMenuPluginProps<TOption>) {
   const emit = vineEmits<{
-    close: []
-    open: [payload: MenuResolution]
+    close?: []
+    open?: [payload: MenuResolution]
     selectOption: [payload: {
       option: TOption
       textNodeContainingQuery: TextNode | null
@@ -92,13 +92,8 @@ export function NodeMenuPlugin<TOption extends MenuOption>(props: NodeMenuPlugin
     }
   })
 
-  // Can't use MenuRenderProps directly, vue-vine wants an object literal
   vineSlots<{
-    default: (props: {
-      anchorElementRef: MenuRenderProps<TOption>['anchorElementRef']
-      itemProps: MenuRenderProps<TOption>['itemProps']
-      matchingString: MenuRenderProps<TOption>['matchingString']
-    }) => any
+    default: (props: MenuRenderProps<TOption>) => any
   }>()
 
   return vine`

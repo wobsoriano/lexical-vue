@@ -90,7 +90,7 @@ export function useBasicTypeaheadTriggerMatch(
 export interface TypeaheadMenuPluginProps<TOption extends MenuOption> {
   options: Array<TOption>
   // TODO: Can't use TriggerFn below, giving RangeError: Maximum call stack size exceeded
-  triggerFn: (text: string, editor: LexicalEditor) => MenuTextMatch | null
+  triggerFn: TriggerFn
   anchorClassName?: string
   commandPriority?: CommandListenerPriority
   parent?: HTMLElement
@@ -274,13 +274,8 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
     onInvalidate(unregister)
   })
 
-  // Can't use MenuRenderProps directly, vue-vine wants an object literal
   vineSlots<{
-    default: (props: {
-      anchorElementRef: MenuRenderProps<TOption>['anchorElementRef']
-      itemProps: MenuRenderProps<TOption>['itemProps']
-      matchingString: MenuRenderProps<TOption>['matchingString']
-    }) => any
+    default: (props: MenuRenderProps<TOption>) => any
   }>()
 
   return vine`

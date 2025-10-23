@@ -546,13 +546,8 @@ export function LexicalMenu<TOption extends MenuOption>(props: LexicalMenuProps<
     onInvalidate(fn)
   })
 
-  // Can't use MenuRenderProps directly, vue-vine wants an object literal
   vineSlots<{
-    default: (props: {
-      anchorElementRef: MenuRenderProps<TOption>['anchorElementRef']
-      itemProps: MenuRenderProps<TOption>['itemProps']
-      matchingString: MenuRenderProps<TOption>['matchingString']
-    }) => any
+    default: (props: MenuRenderProps<TOption>) => any
   }>()
 
   return vine`

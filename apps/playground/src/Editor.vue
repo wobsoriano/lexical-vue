@@ -14,7 +14,7 @@ import {
   TextNode,
 } from 'lexical'
 import { AutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
-import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { LexicalComposer, type InitialConfigType } from 'lexical-vue/LexicalComposer'
 import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
 import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
 
@@ -131,7 +131,7 @@ const editorConfig = {
     throw error
   },
   theme: ExampleTheme,
-}
+} satisfies InitialConfigType
 </script>
 
 <template>

@@ -38,7 +38,7 @@ export function LexicalComposer(props: {
   } = props.initialConfig
 
   const emit = vineEmits<{
-    error: [error: Error, editor: LexicalEditor]
+    error?: [error: Error, editor: LexicalEditor]
   }>()
 
   const editor = createEditor({
