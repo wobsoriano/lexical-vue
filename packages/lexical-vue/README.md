@@ -26,24 +26,18 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 <script setup lang="ts">
 import { $getRoot, $getSelection } from 'lexical'
 
-import {
-  LexicalAutoFocusPlugin,
-  LexicalComposer,
-  LexicalContentEditable,
-  LexicalHistoryPlugin,
-  LexicalOnChangePlugin,
-  LexicalPlainTextPlugin,
-} from 'lexical-vue'
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { AutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { OnChangePlugin } from 'lexical-vue/LexicalOnChangePlugin'
+import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 
 const config = {
   editable: true,
   theme: {
     // Theme styling goes here
   },
-}
-
-function onError(error) {
-  throw error
 }
 
 // When the editor changes, you can get notified via the
@@ -60,20 +54,19 @@ function onChange(editorState) {
 </script>
 
 <template>
-  <LexicalComposer :initial-config="config" @error="onError">
-    <LexicalPlainTextPlugin>
+  <LexicalComposer :initial-config="config">
+    <PlainTextPlugin>
       <template #contentEditable>
-        <LexicalContentEditable />
+        <ContentEditable>
+          <template #placeholder>
+            <div>Enter some text...</div>
+          </template>
+        </ContentEditable >
       </template>
-      <template #placeholder>
-        <div>
-          Enter some text...
-        </div>
-      </template>
-    </LexicalPlainTextPlugin>
-    <LexicalOnChangePlugin @change="onChange" />
-    <LexicalHistoryPlugin />
-    <LexicalAutoFocusPlugin />
+    </PlainTextPlugin>
+    <OnChangePlugin @change="onChange" />
+    <HistoryPlugin />
+    <AutoFocusPlugin />
   </LexicalComposer>
 </template>
 ```
@@ -83,18 +76,6 @@ For a more complex example, check the [rich text editor playground](https://gith
 ### Creating custom Lexical nodes with Vue
 
 - [Creating custom decorator nodes](https://lexical-vue.vercel.app/docs/plugins/custom.html)
-
-## Contributing
-
-1. Create a new branch
-   - `git checkout -b my-new-branch`
-2. Commit your changes
-   - `git commit -a -m 'Description of the changes'`
-     - There are many ways of doing this and this is just a suggestion
-3. Push your branch to GitHub
-   - `git push origin my-new-branch`
-4. Go to the repository page in GitHub and click on "Compare & pull request"
-   - The [GitHub CLI](https://cli.github.com/manual/gh_pr_create) allows you to skip the web interface for this step (and much more)
 
 ## Documentation
 

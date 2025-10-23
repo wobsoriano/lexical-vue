@@ -10,7 +10,6 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 
 ```vue
 <script setup lang="ts">
-import { $getRoot, $getSelection } from 'lexical'
 import { LexicalComposer } from 'lexical-vue/LexicalComposer'
 import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
 import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
