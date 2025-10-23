@@ -172,3 +172,27 @@ Adds markdown shortcut support: headings, lists, code blocks, quotes, links and 
 ```html
 <MarkdownShortcutPlugin />
 ```
+
+## `LexicalTableOfContentsPlugin`
+
+This plugin allows you to render a table of contents for a page from the headings from the editor. It listens to any deletions or modifications to those headings and updates the table of contents. Additionally, it's able to track any newly added headings and inserts them in the table of contents once they are created. This plugin also supports lazy loading - so you can defer adding the plugin until when the user needs it.
+
+In order to use `TableOfContentsPlugin`, you need to provide a default slot. This slot gives you access to the up-to-date data of the table of contents through slot props. You can access this data through the `table-of-contents` prop which comes in the form of an array of arrays `[[headingKey, headingTextContent, headingTag], [], [], ...]` and the `editor` prop for the Lexical editor instance.
+
+`headingKey`: Unique key that identifies the heading. headingTextContent: A string of the exact text of the heading. headingTag: A string that reads either 'h1', 'h2', or 'h3'.
+
+```vue
+<template>
+  <TableOfContentsPlugin v-slot="{ tableOfContents }">
+    <MyCustomTableOfContentsPlugin :tableOfContents="tableOfContents" />
+  </TableOfContentsPlugin>
+</template>
+```
+
+## `LexicalSelectionAlwaysOnDisplay`
+
+By default, browser text selection becomes invisible when clicking away from the editor. This plugin ensures the selection remains visible.
+
+```html
+<SelectionAlwaysOnDisplay />
+```

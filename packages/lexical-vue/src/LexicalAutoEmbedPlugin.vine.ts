@@ -210,7 +210,6 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
       v-if="nodeKey !== null"
       :node-key
       @close="reset"
-      @open=""
       :options
       :command-priority="menuCommandPriority"
       @select-option="onSelectOption"

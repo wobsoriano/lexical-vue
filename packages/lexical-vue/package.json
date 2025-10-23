@@ -151,6 +151,14 @@
     "./LexicalTreeView": {
       "types": "./dist/LexicalTreeView.vine.d.ts",
       "import": "./dist/LexicalTreeView.vine.js"
+    },
+    "./LexicalTableOfContentsPlugin": {
+      "types": "./dist/LexicalTableOfContentsPlugin.vine.d.ts",
+      "import": "./dist/LexicalTableOfContentsPlugin.vine.js"
+    },
+    "./LexicalSelectionAlwaysOnDisplay": {
+      "types": "./dist/LexicalSelectionAlwaysOnDisplay.vine.d.ts",
+      "import": "./dist/LexicalSelectionAlwaysOnDisplay.vine.js"
     }
   },
   "types": "./dist/index.d.ts",
