@@ -4,69 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  lexical:
-    '@lexical/clipboard':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/code':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/dragon':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/extension':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/hashtag':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/history':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/html':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/link':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/list':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/mark':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/markdown':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/overflow':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/plain-text':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/rich-text':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/selection':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/table':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/text':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/utils':
-      specifier: 0.37.0
-      version: 0.37.0
-    '@lexical/yjs':
-      specifier: 0.37.0
-      version: 0.37.0
-    lexical:
-      specifier: 0.37.0
-      version: 0.37.0
-
 overrides:
   vite: npm:rolldown-vite@7.1.14
 
@@ -102,10 +39,10 @@ importers:
   apps/playground:
     dependencies:
       '@lexical/utils':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       lexical:
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       lexical-vue:
         specifier: workspace:*
@@ -136,64 +73,64 @@ importers:
   packages/lexical-vue:
     dependencies:
       '@lexical/clipboard':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/code':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/dragon':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/extension':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/hashtag':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/history':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/html':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/link':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/list':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/mark':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/markdown':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/overflow':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/plain-text':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/rich-text':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/selection':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/table':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/text':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/utils':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       '@lexical/yjs':
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0(yjs@13.6.27)
       lexical:
-        specifier: catalog:lexical
+        specifier: 0.37.0
         version: 0.37.0
       tiny-invariant:
         specifier: ^1.3.3
