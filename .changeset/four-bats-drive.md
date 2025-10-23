@@ -12,5 +12,34 @@
 # New Features
 
 - Individual plugin imports now available to reduce bundle size:
-  - `import { RichTextEditor } from 'lexical-vue/LexicalRichTextEditor'`
-  - `import { LexicalComposer } from 'lexical-vue/LexicalComposer'`
+
+```vue
+<script setup lang="ts">
+import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
+
+const config = {
+  namespace: 'MyEditor',
+  theme: {
+    // Theme styling goes here
+  },
+}
+</script>
+
+<template>
+  <LexicalComposer :initial-config="config">
+    <PlainTextPlugin>
+      <template #contentEditable>
+        <ContentEditable>
+          <template #placeholder>
+            <div>Enter some text...</div>
+          </template>
+        </ContentEditable>
+      </template>
+    </PlainTextPlugin>
+    <HistoryPlugin />
+  </LexicalComposer>
+</template>
+```
