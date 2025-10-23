@@ -1,0 +1,1 @@
+packages/lexical-vue/README.md
