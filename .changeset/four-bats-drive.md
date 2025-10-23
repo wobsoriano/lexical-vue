@@ -21,10 +21,7 @@ import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
 import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 
 const config = {
-  namespace: 'MyEditor',
-  theme: {
-    // Theme styling goes here
-  },
+  // config
 }
 </script>
 
