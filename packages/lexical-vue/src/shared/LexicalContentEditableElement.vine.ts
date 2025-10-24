@@ -1,19 +1,30 @@
 import type { LexicalEditor } from 'lexical'
-import type { HTMLAttributes } from '../types'
+import type { AriaAttributes, HTMLAttributes } from 'vue'
 import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
-import { convertCamelToKebab } from '../types'
 
-export type Props = {
+export type ContentEditableElementProps = {
   editor: LexicalEditor
+  ariaActiveDescendant?: AriaAttributes['aria-activedescendant']
+  ariaAutoComplete?: AriaAttributes['aria-autocomplete']
+  ariaControls?: AriaAttributes['aria-controls']
+  ariaDescribedBy?: AriaAttributes['aria-describedby']
+  ariaErrorMessage?: AriaAttributes['aria-errormessage']
+  ariaExpanded?: AriaAttributes['aria-expanded']
+  ariaInvalid?: AriaAttributes['aria-invalid']
+  ariaLabel?: AriaAttributes['aria-label']
+  ariaLabelledBy?: AriaAttributes['aria-labelledby']
+  ariaMultiline?: AriaAttributes['aria-multiline']
+  ariaOwns?: AriaAttributes['aria-owns']
+  ariaRequired?: AriaAttributes['aria-required']
 } & Omit<HTMLAttributes, 'placeholder'>
 
-export function ContentEditableElement(props: Props) {
+export function ContentEditableElement(props: ContentEditableElementProps) {
   const root = useTemplateRef('root')
   const isEditable = ref(props.editor.isEditable())
 
   const otherAttrs = computed(() => {
     const { editor: _, ...rest } = props
-    return convertCamelToKebab(rest)
+    return rest
   })
 
   onMounted(() => {
@@ -48,18 +59,18 @@ export function ContentEditableElement(props: Props) {
     <div
         ref="root"
         v-bind="otherAttrs"
-        :aria-activedescendant="isEditable ? ariaActivedescendant : undefined"
-        :aria-autocomplete="isEditable ? ariaAutocomplete : 'none'"
+        :aria-activedescendant="isEditable ? ariaActiveDescendant : undefined"
+        :aria-autocomplete="isEditable ? ariaAutoComplete : 'none'"
         :aria-controls="isEditable ? ariaControls : undefined"
-        :aria-describedby="ariaDescribedby"
+        :aria-describedby="ariaDescribedBy"
         :aria-expanded="isEditable && roleWithDefault === 'combobox' ? !!ariaExpanded : undefined"
         :aria-label="ariaLabel"
-        :aria-labelledby="ariaLabelledby"
+        :aria-labelledby="ariaLabelledBy"
         :aria-multiline="ariaMultiline"
         :aria-owns="isEditable ? ariaOwns : undefined"
         :aria-readonly="isEditable ? undefined : true"
         :aria-required="ariaRequired"
-        :autocapitalize="autocapitalize"
+        :autocapitalize
         :contenteditable="isEditable"
         :role="isEditable ? roleWithDefault : undefined"
         :spellcheck="spellcheck || true"
