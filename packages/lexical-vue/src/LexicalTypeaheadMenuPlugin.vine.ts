@@ -107,8 +107,8 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
   const resolution = ref<MenuResolution | null>(null)
 
   const emit = vineEmits<{
-    close: []
-    open: [payload: MenuResolution]
+    close?: []
+    open?: [payload: MenuResolution]
     queryChange: [payload: string | null]
     selectOption: [payload: {
       option: TOption
