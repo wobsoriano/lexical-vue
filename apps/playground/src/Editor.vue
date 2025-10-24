@@ -29,6 +29,8 @@ import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
 import PlaygroundNodes from './nodes/PlaygroundNodes'
 import YouTubePlugin from './plugins/YouTubePlugin'
 import TweetPlugin from './plugins/TweetPlugin'
+import EmojiPlugin from './plugins/EmojiPlugin.vue'
+import EmojiPickerPlugin from './plugins/EmojiPickerPlugin.vue'
 
 const placeholder = 'Enter some rich text...'
 
@@ -156,6 +158,8 @@ const editorConfig = {
           <AutoFocusPlugin />
           <YouTubePlugin />
           <TweetPlugin />
+          <EmojiPlugin />
+          <EmojiPickerPlugin />
           <TreeViewPlugin />
         </div>
       </div>
