@@ -57,10 +57,9 @@ export const YoutubeEmbedConfig: PlaygroundEmbedConfig = {
 }
 
 export const TwitterEmbedConfig: PlaygroundEmbedConfig = {
-  // e.g. Tweet or Google Map.
-  contentName: 'Tweet',
+  contentName: 'X(Tweet)',
 
-  exampleUrl: 'https://twitter.com/jack/status/20',
+  exampleUrl: 'https://x.com/jack/status/20',
 
   // Icon for display.
   icon: h('i', { class: 'icon tweet' }),
@@ -71,19 +70,19 @@ export const TwitterEmbedConfig: PlaygroundEmbedConfig = {
   },
 
   // For extra searching.
-  keywords: ['tweet', 'twitter'],
+  keywords: ['tweet', 'twitter', 'x'],
 
   // Determine if a given URL is a match and return url data.
   parseUrl: (text: string) => {
-    const match
-      = /^https:\/\/(twitter|x)\.com\/(#!\/)?(\w+)\/status(es)*\/(\d+)/.exec(
+    const match =
+      /^https:\/\/(twitter|x)\.com\/(#!\/)?(\w+)\/status(es)*\/(\d+)/.exec(
         text,
       )
 
     if (match != null) {
       return {
-        id: match[5],
-        url: match[1],
+        id: match[5]!,
+        url: match[1]!,
       }
     }
 
