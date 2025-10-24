@@ -127,21 +127,21 @@ importers:
         specifier: ^1.3.3
         version: 1.3.3
       vue-vine:
-        specifier: ^1.7.19
-        version: 1.7.19(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
+        specifier: ^1.7.20
+        version: 1.7.20(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@rslib/core':
         specifier: ^0.16.1
         version: 0.16.1(typescript@5.9.3)
       '@vue-vine/rspack-loader':
-        specifier: 1.7.19-beta.1
-        version: 1.7.19-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
+        specifier: 1.7.20-beta.1
+        version: 1.7.20-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
       vue:
         specifier: ^3.5.22
         version: 3.5.22(typescript@5.9.3)
       vue-vine-tsc:
-        specifier: ^1.7.19
-        version: 1.7.19(typescript@5.9.3)
+        specifier: ^1.7.20
+        version: 1.7.20(typescript@5.9.3)
       yjs:
         specifier: ^13.6.18
         version: 13.6.27
@@ -1410,8 +1410,8 @@ packages:
   '@volar/typescript@2.4.23':
     resolution: {integrity: sha512-lAB5zJghWxVPqfcStmAP1ZqQacMpe90UrP5RJ3arDyrhy4aCUQqmxPPLB2PWDKugvylmO41ljK7vZ+t6INMTag==}
 
-  '@vue-vine/compiler@1.7.19':
-    resolution: {integrity: sha512-rVWDYnB2HySG6349QVY+Qg/fkSOvWbEfegqW4VXlXecGaY2Ors58WQh3FlDoxE0mDb+DiplK085uk5c8b1eMNA==}
+  '@vue-vine/compiler@1.7.20':
+    resolution: {integrity: sha512-RFI3h3myYmATZf3nFGjF8I6o6uB4KJ5hzIQtBZ1YshYdZVfGys3g/Gih1knOreiQ1NkFdghE10P9z7CXjRBVaw==}
 
   '@vue-vine/eslint-config@1.1.11':
     resolution: {integrity: sha512-PFr17H5n+UbMDuo/x7Pz2ic5KvhmNlwgqj8lBSsCVIVtW26/118TmjdkR3jlC8uSzQzt6Th8otp6LHysX8SIsw==}
@@ -1422,21 +1422,21 @@ packages:
   '@vue-vine/eslint-plugin@1.1.11':
     resolution: {integrity: sha512-+y+4tWc1Mu3MkZU+PWxVwK51iIqhIVQro4r1i2ZoVnJJJzImTKxiVpRY7KF0WT4aQrlU3zNv+2DmbH0cXecQdA==}
 
-  '@vue-vine/language-service@1.7.19':
-    resolution: {integrity: sha512-WEr45ogsFZkRd3GNshzo9hQWrqA0CwpcxrRElfFDCbWJj5NnEwgA9F/P+0SHXVpg1qnCDD7lu759DQ5xFrnxig==}
+  '@vue-vine/language-service@1.7.20':
+    resolution: {integrity: sha512-G+4Os9Z+wn9AiiDBM9W558SidOm2F6ZyrpjU866WDvslFQimk+3mDZZ2NBN5E8rwEo9CCHpMmAmLUPiaw/z1pQ==}
 
-  '@vue-vine/rsbuild-plugin@1.7.19-beta.1':
-    resolution: {integrity: sha512-jjy5qnw9d/7Wi7KeBb6SmAnV+19FrojqCrYcnRbk+Zrvg26lXzXkTkT8degGrH7z/Eap2VTTCRpyqkb5GzIWyg==}
+  '@vue-vine/rsbuild-plugin@1.7.20-beta.1':
+    resolution: {integrity: sha512-6IIxHtbcCj4eg/b70KbkOKrzCAPtPfkq3NMGPd3O4lKVyYUjtrtoFWyfILPMdQehZMoed2mTUDZYfFJAWqzR1Q==}
     peerDependencies:
       '@rsbuild/core': '>=1.0.0'
 
-  '@vue-vine/rspack-loader@1.7.19-beta.1':
-    resolution: {integrity: sha512-7z4VEuo7k4oGAzFmVhZ2niRPbp+KIxQ2bV+ofaAHMvvCms8ngXzqIXARppDAsuOBjgMQT9g8hw3XSJqRLF2fgQ==}
+  '@vue-vine/rspack-loader@1.7.20-beta.1':
+    resolution: {integrity: sha512-GKjN7JxrhC5e+rQFNYCo/d6XS6r0wvb0hDCvxDheJuTEnN/PPjwtkrXfOTuvitsSvzzpCGfptUGrkzHwcQTvFA==}
     peerDependencies:
       '@rspack/core': ^1.5.8
 
-  '@vue-vine/vite-plugin@1.7.19':
-    resolution: {integrity: sha512-83F13HVM48SPtNAbjECtv9MA5/3qFVAYix9Qv2VNc3IaSOyajT0+/JZz+OQmLaFHnd2VlZlTZpJ+ye7gBNbmbQ==}
+  '@vue-vine/vite-plugin@1.7.20':
+    resolution: {integrity: sha512-LRRpNEjoMOGByzph03/rdF3ygCOPTun54olNNSOmOcMgu6lmfGJV/GUKsuEtGTyjK+eY7X8p6v6NxQDXkf7bdA==}
     peerDependencies:
       vite: ^7.0.2
 
@@ -3183,12 +3183,12 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
-  vue-vine-tsc@1.7.19:
-    resolution: {integrity: sha512-LaloTjlUu3/K9pBjOp/m+X81ZwMIwH0w2DkRTKA5vULIRlUSPVPuDFJrAI12ZIP3a8iqY2C3QYlWUkkUc7GR5A==}
+  vue-vine-tsc@1.7.20:
+    resolution: {integrity: sha512-FB+i+zWZg48o5ypXq/y/uJq0+c1187Tfh/O9JorGXBiBYkQ04CU+6KRGcl1K9GlGTbUUcTeMCOuomelLrORnqQ==}
     hasBin: true
 
-  vue-vine@1.7.19:
-    resolution: {integrity: sha512-sI/hGnhTKxvuKy4uIBkYcN4937r+N5GB9TdA/aRRiXJM6cxnX5Fws+MqvhZeeaeUcm2o98fyUnRBbKmW16y2ZA==}
+  vue-vine@1.7.20:
+    resolution: {integrity: sha512-FBrXWA8GhN3mN04Vpl2O0FnTnx/LibR11r5/MWUJ568yG3+qy3y81X5bN/I69Mb+S9ogS12SMMaQ293Ybtrnsw==}
     peerDependencies:
       vue: '>=3.2'
 
@@ -4598,7 +4598,7 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
-  '@vue-vine/compiler@1.7.19':
+  '@vue-vine/compiler@1.7.20':
     dependencies:
       '@babel/parser': 7.28.4
       '@babel/types': 7.28.4
@@ -4651,35 +4651,35 @@ snapshots:
       - supports-color
       - typescript
 
-  '@vue-vine/language-service@1.7.19(typescript@5.9.3)':
+  '@vue-vine/language-service@1.7.20(typescript@5.9.3)':
     dependencies:
       '@umami/node': 0.4.0
       '@volar/language-core': 2.4.20
       '@volar/language-server': 2.4.20
       '@volar/typescript': 2.4.20
-      '@vue-vine/compiler': 1.7.19
+      '@vue-vine/compiler': 1.7.20
       '@vue/language-core': 3.0.3(typescript@5.9.3)
       '@vue/shared': 3.5.22
       muggle-string: 0.4.1
     transitivePeerDependencies:
       - typescript
 
-  '@vue-vine/rsbuild-plugin@1.7.19-beta.1(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))':
+  '@vue-vine/rsbuild-plugin@1.7.20-beta.1(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))':
     dependencies:
       '@rsbuild/core': 1.6.0-beta.1
-      '@vue-vine/compiler': 1.7.19
-      '@vue-vine/rspack-loader': 1.7.19-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
+      '@vue-vine/compiler': 1.7.20
+      '@vue-vine/rspack-loader': 1.7.20-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
     transitivePeerDependencies:
       - '@rspack/core'
 
-  '@vue-vine/rspack-loader@1.7.19-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))':
+  '@vue-vine/rspack-loader@1.7.20-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))':
     dependencies:
       '@rspack/core': 1.6.0-beta.1(@swc/helpers@0.5.17)
-      '@vue-vine/compiler': 1.7.19
+      '@vue-vine/compiler': 1.7.20
 
-  '@vue-vine/vite-plugin@1.7.19(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))':
+  '@vue-vine/vite-plugin@1.7.20(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))':
     dependencies:
-      '@vue-vine/compiler': 1.7.19
+      '@vue-vine/compiler': 1.7.20
       vite: 6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1)
 
   '@vue/compiler-core@3.5.22':
@@ -6637,21 +6637,21 @@ snapshots:
       '@vue/language-core': 3.1.1(typescript@5.9.3)
       typescript: 5.9.3
 
-  vue-vine-tsc@1.7.19(typescript@5.9.3):
+  vue-vine-tsc@1.7.20(typescript@5.9.3):
     dependencies:
       '@typescript/native-preview': 7.0.0-dev.20251023.1
       '@volar/language-core': 2.4.20
       '@volar/typescript': 2.4.20
-      '@vue-vine/language-service': 1.7.19(typescript@5.9.3)
+      '@vue-vine/language-service': 1.7.20(typescript@5.9.3)
       '@vue/language-core': 3.0.3(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 
-  vue-vine@1.7.19(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
+  vue-vine@1.7.20(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3)):
     dependencies:
-      '@vue-vine/rsbuild-plugin': 1.7.19-beta.1(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
-      '@vue-vine/rspack-loader': 1.7.19-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
-      '@vue-vine/vite-plugin': 1.7.19(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
+      '@vue-vine/rsbuild-plugin': 1.7.20-beta.1(@rsbuild/core@1.6.0-beta.1)(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
+      '@vue-vine/rspack-loader': 1.7.20-beta.1(@rspack/core@1.6.0-beta.1(@swc/helpers@0.5.17))
+      '@vue-vine/vite-plugin': 1.7.20(vite@6.4.0(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.1))
       vue: 3.5.22(typescript@5.9.3)
     transitivePeerDependencies:
       - '@rsbuild/core'
