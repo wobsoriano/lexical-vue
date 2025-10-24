@@ -17,6 +17,7 @@ import { AutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
 import { LexicalComposer, type InitialConfigType } from 'lexical-vue/LexicalComposer'
 import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
 import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+import AutoEmbedPlugin from './plugins/AutoEmbedPlugin/AutoEmbedPlugin.vue'
 
 import { RichTextPlugin } from 'lexical-vue/LexicalRichTextPlugin'
 import ToolbarPlugin from './plugins/ToolbarPlugin.vue'
@@ -24,6 +25,9 @@ import TreeViewPlugin from './plugins/TreeViewPlugin.vue'
 
 import ExampleTheme from './ExampleTheme'
 import { parseAllowedColor, parseAllowedFontSize } from './styleConfig'
+import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
+import PlaygroundNodes from './nodes/PlaygroundNodes'
+import YouTubePlugin from './plugins/YouTubePlugin'
 
 const placeholder = 'Enter some rich text...'
 
@@ -123,7 +127,7 @@ const editorConfig = {
     import: constructImportMap(),
   },
   namespace: 'React.js Demo',
-  nodes: [ParagraphNode, TextNode],
+  nodes: [ParagraphNode, TextNode, ...PlaygroundNodes],
   onError(error: Error) {
     throw error
   },
@@ -146,7 +150,10 @@ const editorConfig = {
             </template>
           </RichTextPlugin>
           <HistoryPlugin />
+          <AutoEmbedPlugin />
+          <AutoLinkPlugin />
           <AutoFocusPlugin />
+          <YouTubePlugin />
           <TreeViewPlugin />
         </div>
       </div>

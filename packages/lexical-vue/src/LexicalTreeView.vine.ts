@@ -2,8 +2,6 @@ import type { EditorState, LexicalEditor } from 'lexical'
 import type { CustomPrintNodeFn } from './shared/generateContent.vine'
 import { mergeRegister } from '@lexical/utils'
 import { onMounted, onUnmounted, ref, useTemplateRef, watchEffect } from 'vue'
-import { generateContent } from './shared/generateContent.vine'
-import { TreeViewCore } from './shared/TreeViewCore.vine'
 import { useLexicalCommandsLog } from './shared/useLexicalCommandsLog'
 
 export function TreeView(props: {

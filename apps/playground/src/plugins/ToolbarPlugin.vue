@@ -12,8 +12,12 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
+import { INSERT_EMBED_COMMAND } from 'lexical-vue/LexicalAutoEmbedPlugin'
 import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { onMounted, onUnmounted, ref } from 'vue'
+import { EmbedConfigs } from './AutoEmbedPlugin/embedConfigs'
+import DropDown from '../ui/DropDown.vue'
+import DropDownItem from '../ui/DropDownItem.vue'
 
 const editor = useLexicalComposer()
 const canUndo = ref(false)
@@ -150,5 +154,25 @@ onMounted(() => {
     >
       <i class="format justify-align" />
     </button>
+    <div class="divider" />
+    <DropDown
+        button-class-name="toolbar-item spaced"
+        button-label="Insert"
+        button-aria-label="Insert specialized editor node"
+        button-icon-class-name="icon plus"
+      >
+        <DropDownItem
+          v-for="embedConfig in EmbedConfigs"
+          :key="embedConfig.type"
+          class="item"
+          @click="editor.dispatchCommand(
+            INSERT_EMBED_COMMAND,
+            embedConfig.type,
+          )"
+        >
+          <component :is="embedConfig.icon" />
+          <span class="text">{{ embedConfig.contentName }}</span>
+        </DropDownItem>
+      </DropDown>
   </div>
 </template>

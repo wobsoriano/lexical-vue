@@ -37,7 +37,7 @@ function useAutoLink(
 
 export function AutoLinkPlugin(props: { matchers: LinkMatcher[] }) {
   const emit = vineEmits<{
-    change: [value: { url: string | null, prevUrl: string | null }]
+    change?: [value: { url: string | null, prevUrl: string | null }]
   }>()
 
   const editor = useLexicalComposer()
