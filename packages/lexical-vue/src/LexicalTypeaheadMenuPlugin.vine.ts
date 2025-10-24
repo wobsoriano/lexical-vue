@@ -6,10 +6,10 @@ import type {
   TextNode,
 } from 'lexical'
 import type { MenuRenderProps, MenuResolution, MenuTextMatch, TriggerFn } from './shared/LexicalMenu.vine'
-import { $getSelection, $isRangeSelection, $isTextNode, createCommand } from 'lexical'
+import { $getSelection, $isRangeSelection, $isTextNode, COMMAND_PRIORITY_LOW, createCommand } from 'lexical'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
-import { MenuOption, useMenuAnchorRef } from './shared/LexicalMenu.vine'
+import { LexicalMenu, MenuOption, useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
 export const PUNCTUATION
   = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'

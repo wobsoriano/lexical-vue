@@ -7,9 +7,11 @@ import type {
   NodeKey,
   TextNode,
 } from 'lexical'
-import { $isLinkNode, AutoLinkNode, LinkNode } from '@lexical/link'
+import type { MenuRenderProps } from './shared/LexicalMenu.vine'
 
+import { $isLinkNode, AutoLinkNode, LinkNode } from '@lexical/link'
 import { mergeRegister } from '@lexical/utils'
+
 import {
   $getNodeByKey,
   $getSelection,
@@ -21,7 +23,7 @@ import {
 import { computed, ref, watchEffect } from 'vue'
 
 import { useLexicalComposer } from './LexicalComposer.vine'
-
+import { NodeMenuPlugin } from './LexicalNodeMenuPlugin.vine'
 import { MenuOption } from './shared/LexicalMenu.vine'
 
 export interface EmbedMatchResult<TEmbedMatchResult = unknown> {
@@ -204,6 +206,10 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
     })
   }
 
+  vineSlots<{
+    default?: (props: MenuRenderProps<AutoEmbedOption>) => any
+  }>()
+
   return vine`
     <NodeMenuPlugin
       v-if="nodeKey !== null"
@@ -214,7 +220,7 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
       @select-option="onSelectOption"
       v-slot="slotProps"
     >
-      <slot v-bind="slotProps" />
+      <slot v-bind="slotProps as unknown as MenuRenderProps<AutoEmbedOption>" />
     </NodeMenuPlugin>
   `
 }

@@ -2,8 +2,8 @@ import type { LexicalEditor } from 'lexical'
 import type { EmbedConfig, EmbedMatchResult } from 'lexical-vue/LexicalAutoEmbedPlugin'
 import type { Component } from 'vue'
 import { h } from 'vue'
+import { INSERT_TWEET_COMMAND } from '../TweetPlugin'
 import { INSERT_YOUTUBE_COMMAND } from '../YouTubePlugin'
-// import { INSERT_TWEET_COMMAND } from '../TwitterPlugin/shared'
 
 export interface PlaygroundEmbedConfig extends EmbedConfig {
   // Human readable name of the embeded content e.g. Tweet or Google Map.
@@ -56,44 +56,44 @@ export const YoutubeEmbedConfig: PlaygroundEmbedConfig = {
   type: 'youtube-video',
 }
 
-// export const TwitterEmbedConfig: PlaygroundEmbedConfig = {
-//   // e.g. Tweet or Google Map.
-//   contentName: 'Tweet',
+export const TwitterEmbedConfig: PlaygroundEmbedConfig = {
+  // e.g. Tweet or Google Map.
+  contentName: 'Tweet',
 
-//   exampleUrl: 'https://twitter.com/jack/status/20',
+  exampleUrl: 'https://twitter.com/jack/status/20',
 
-//   // Icon for display.
-//   icon: h('i', { class: 'icon tweet' }),
+  // Icon for display.
+  icon: h('i', { class: 'icon tweet' }),
 
-//   // Create the Lexical embed node from the url data.
-//   insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {
-//     editor.dispatchCommand(INSERT_TWEET_COMMAND, result.id)
-//   },
+  // Create the Lexical embed node from the url data.
+  insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {
+    editor.dispatchCommand(INSERT_TWEET_COMMAND, result.id)
+  },
 
-//   // For extra searching.
-//   keywords: ['tweet', 'twitter'],
+  // For extra searching.
+  keywords: ['tweet', 'twitter'],
 
-//   // Determine if a given URL is a match and return url data.
-//   parseUrl: (text: string) => {
-//     const match
-//       = /^https:\/\/(twitter|x)\.com\/(#!\/)?(\w+)\/status(es)*\/(\d+)/.exec(
-//         text,
-//       )
+  // Determine if a given URL is a match and return url data.
+  parseUrl: (text: string) => {
+    const match
+      = /^https:\/\/(twitter|x)\.com\/(#!\/)?(\w+)\/status(es)*\/(\d+)/.exec(
+        text,
+      )
 
-//     if (match != null) {
-//       return {
-//         id: match[5],
-//         url: match[1],
-//       }
-//     }
+    if (match != null) {
+      return {
+        id: match[5],
+        url: match[1],
+      }
+    }
 
-//     return null
-//   },
+    return null
+  },
 
-//   type: 'tweet',
-// }
+  type: 'tweet',
+}
 
 export const EmbedConfigs = [
   YoutubeEmbedConfig,
-//   TwitterEmbedConfig,
+  TwitterEmbedConfig,
 ]

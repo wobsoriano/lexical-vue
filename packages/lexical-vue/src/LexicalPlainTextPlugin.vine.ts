@@ -1,4 +1,5 @@
 import { useLexicalComposer } from './LexicalComposer.vine'
+import { LexicalDecoratedTeleports } from './LexicalDecoratedTeleports'
 import { useCanShowPlaceholder } from './shared/useCanShowPlaceholder'
 import { usePlainTextSetup } from './shared/usePlainTextSetup'
 

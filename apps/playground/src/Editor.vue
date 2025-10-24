@@ -28,6 +28,7 @@ import { parseAllowedColor, parseAllowedFontSize } from './styleConfig'
 import AutoLinkPlugin from './plugins/AutoLinkPlugin.vue'
 import PlaygroundNodes from './nodes/PlaygroundNodes'
 import YouTubePlugin from './plugins/YouTubePlugin'
+import TweetPlugin from './plugins/TweetPlugin'
 
 const placeholder = 'Enter some rich text...'
 
@@ -154,6 +155,7 @@ const editorConfig = {
           <AutoLinkPlugin />
           <AutoFocusPlugin />
           <YouTubePlugin />
+          <TweetPlugin />
           <TreeViewPlugin />
         </div>
       </div>

@@ -32,7 +32,7 @@ function openEmbedModal(embedConfig: PlaygroundEmbedConfig) {
 <template>
   <component :is="modal" />
   <LexicalAutoEmbedPlugin
-    v-slot="{ anchorElementRef, listItemProps: { options, selectedIndex, setHighlightedIndex, selectOptionAndCleanUp } }"
+    v-slot="{ anchorElementRef, itemProps: { options, selectedIndex, setHighlightedIndex, selectOptionAndCleanUp } }"
     :embed-configs="EmbedConfigs"
     :get-menu-options="getMenuOptions"
     @open-embed-modal-for-config="openEmbedModal"
