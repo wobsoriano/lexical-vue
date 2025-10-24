@@ -9,6 +9,4 @@ lib-cov
 logs
 node_modules
 temp
-.vscode
 apps/docs/.vitepress/cache
-untracked
