@@ -1,5 +1,11 @@
 # lexical-vue
 
+## 0.13.1
+
+### Patch Changes
+
+- 6c74d23: Make open and close events in TypeaheadMenuPlugin optional"
+
 ## 0.13.0
 
 ### Minor Changes
