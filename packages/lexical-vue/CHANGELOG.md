@@ -1,5 +1,11 @@
 # lexical-vue
 
+## 0.14.0
+
+### Minor Changes
+
+- 4b53351: Bump Lexical dependencies to 0.38.1
+
 ## 0.13.1
 
 ### Patch Changes
