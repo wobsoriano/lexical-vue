@@ -1,6 +1,6 @@
 {
   "name": "lexical-monorepo",
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.24.0",
   "files": [
     "dist"
   ],
@@ -11,11 +11,11 @@
     "lint:fix": "eslint --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.0.0",
-    "@changesets/cli": "^2.27.7",
-    "@types/node": "^20.14.11",
-    "@vue-vine/eslint-config": "^1.1.11",
-    "eslint": "^9.37.0",
+    "@antfu/eslint-config": "^6.4.1",
+    "@changesets/cli": "^2.29.8",
+    "@types/node": "^20.19.25",
+    "@vue-vine/eslint-config": "^1.1.12",
+    "eslint": "^9.39.1",
     "typescript": "^5.9.3"
   },
   "pnpm": {
