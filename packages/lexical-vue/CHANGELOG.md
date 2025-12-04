@@ -1,5 +1,11 @@
 # lexical-vue
 
+## 0.14.1
+
+### Patch Changes
+
+- ac4bf81: Switch to OIDC for npm publishing
+
 ## 0.14.0
 
 ### Minor Changes
