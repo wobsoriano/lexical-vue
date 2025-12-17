@@ -167,7 +167,8 @@
   ],
   "scripts": {
     "build": "rslib build && vue-vine-tsc",
-    "dev": "rslib build --watch"
+    "dev": "rslib build --watch",
+    "prepare": "pnpm build"   // ← 关键钩子,让PR自动打包
   },
   "peerDependencies": {
     "vue": "^3.5.0"
