@@ -16,7 +16,7 @@ export type ContentEditableElementProps = {
   ariaMultiline?: AriaAttributes['aria-multiline']
   ariaOwns?: AriaAttributes['aria-owns']
   ariaRequired?: AriaAttributes['aria-required']
-} & Omit<HTMLAttributes, 'placeholder'>
+} & Omit<HTMLAttributes, 'placeholder'|'style'|'prefix'>
 
 export function ContentEditableElement(props: ContentEditableElementProps) {
   const root = useTemplateRef('root')
