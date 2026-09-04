@@ -1,5 +1,11 @@
 # lexical-vue
 
+## 0.16.0
+
+### Minor Changes
+
+- 7f33ce7: Upgrade to lexical 0.50.0 and port the upstream bug fixes to the hooks lexical-vue keeps its own copy of.
+
 ## 0.15.1
 
 ### Patch Changes
