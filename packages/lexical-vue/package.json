@@ -92,6 +92,10 @@
       "types": "./dist/LexicalComposer.d.ts",
       "import": "./dist/LexicalComposer.js"
     },
+    "./LexicalExtensionComposer": {
+      "types": "./dist/LexicalExtensionComposer.d.ts",
+      "import": "./dist/LexicalExtensionComposer.js"
+    },
     "./LexicalContentEditable": {
       "types": "./dist/LexicalContentEditable.d.ts",
       "import": "./dist/LexicalContentEditable.js"
