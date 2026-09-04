@@ -3,6 +3,7 @@ import type { ElementNode, LexicalEditor, NodeKey, NodeMutation } from 'lexical'
 import { $isHeadingNode, HeadingNode } from '@lexical/rich-text'
 import { $getNextRightPreorderNode } from '@lexical/utils'
 import { $getNodeByKey, $getRoot, $isElementNode, TextNode } from 'lexical'
+import type { SlotsType } from 'vue'
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
 import { useLexicalComposer } from './LexicalComposer'
 
@@ -247,5 +248,10 @@ export const TableOfContentsPlugin = defineComponent(
 
     return () => ctx.slots.default?.({ tableOfContents: tableOfContents.value, editor })
   },
-  { name: 'TableOfContentsPlugin' },
+  {
+    name: 'TableOfContentsPlugin',
+    slots: Object as SlotsType<{
+      default: { tableOfContents: TableOfContentsEntry[]; editor: LexicalEditor }
+    }>,
+  },
 )

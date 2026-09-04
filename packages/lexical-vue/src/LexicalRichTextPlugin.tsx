@@ -18,5 +18,7 @@ export const RichTextPlugin = defineComponent(
       </>
     )
   },
-  { name: 'RichTextPlugin' },
+  {
+    name: 'RichTextPlugin',
+  },
 )

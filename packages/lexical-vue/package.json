@@ -61,16 +61,16 @@
       "import": "./dist/LexicalAutoScrollPlugin.js"
     },
     "./LexicalBlockWithAlignableContents": {
-      "types": "./dist/LexicalBlockWithAlignableContents.vine.d.ts",
-      "import": "./dist/LexicalBlockWithAlignableContents.vine.js"
+      "types": "./dist/LexicalBlockWithAlignableContents.d.ts",
+      "import": "./dist/LexicalBlockWithAlignableContents.js"
     },
     "./LexicalDecoratorBlockNode": {
       "types": "./dist/LexicalDecoratorBlockNode.d.ts",
       "import": "./dist/LexicalDecoratorBlockNode.js"
     },
     "./LexicalCharacterLimitPlugin": {
-      "types": "./dist/LexicalCharacterLimitPlugin.vine.d.ts",
-      "import": "./dist/LexicalCharacterLimitPlugin.vine.js"
+      "types": "./dist/LexicalCharacterLimitPlugin.d.ts",
+      "import": "./dist/LexicalCharacterLimitPlugin.js"
     },
     "./LexicalCheckListPlugin": {
       "types": "./dist/LexicalCheckListPlugin.d.ts",
@@ -85,8 +85,8 @@
       "import": "./dist/LexicalClickableLinkPlugin.js"
     },
     "./LexicalCollaborationPlugin": {
-      "types": "./dist/LexicalCollaborationPlugin.vine.d.ts",
-      "import": "./dist/LexicalCollaborationPlugin.vine.js"
+      "types": "./dist/LexicalCollaborationPlugin.d.ts",
+      "import": "./dist/LexicalCollaborationPlugin.js"
     },
     "./LexicalComposer": {
       "types": "./dist/LexicalComposer.d.ts",

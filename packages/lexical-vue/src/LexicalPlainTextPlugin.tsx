@@ -18,5 +18,7 @@ export const PlainTextPlugin = defineComponent(
       </>
     )
   },
-  { name: 'PlainTextPlugin' },
+  {
+    name: 'PlainTextPlugin',
+  },
 )

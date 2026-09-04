@@ -48,7 +48,7 @@ const CASES: Case[] = [
     load: () => import('../src/LexicalAutoScrollPlugin'),
     props: { scrollRef: null },
   },
-  { name: 'CharacterLimitPlugin', load: () => import('../src/LexicalCharacterLimitPlugin.vine') },
+  { name: 'CharacterLimitPlugin', load: () => import('../src/LexicalCharacterLimitPlugin') },
   { name: 'CheckListPlugin', load: () => import('../src/LexicalCheckListPlugin') },
   { name: 'ClearEditorPlugin', load: () => import('../src/LexicalClearEditorPlugin') },
   { name: 'ClickableLinkPlugin', load: () => import('../src/LexicalClickableLinkPlugin') },
