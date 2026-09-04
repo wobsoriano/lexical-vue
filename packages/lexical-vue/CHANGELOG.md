@@ -1,5 +1,13 @@
 # lexical-vue
 
+## 0.17.0
+
+### Minor Changes
+
+- d7a5886: Add `LexicalExtensionComposer`, which builds the editor from a Lexical extension instead of an `initialConfig`. Lexical extensions only work with editors created through the extension API, so before this none of them worked with lexical-vue. Existing components work unchanged inside it, and `LexicalComposer` is untouched.
+- 23588d6: Add `useSignalValue`, `useExtensionDependency` and `useExtensionSignalValue`, so Vue can read Lexical extension outputs. Extension outputs are preact signals, and lexical-vue had no way to read one reactively, which made every extension output unreachable from Vue.
+- 6a562b1: Add `VueExtension`, the channel through which a Lexical extension contributes Vue UI, and fix `LexicalExtensionComposer` rendering no decorator nodes. Images, embeds and other `DecoratorNode` content rendered nothing under the extension composer, because the only decorator host in the package lived inside `RichTextPlugin`, which an extension-built editor does not need.
+
 ## 0.16.0
 
 ### Minor Changes
