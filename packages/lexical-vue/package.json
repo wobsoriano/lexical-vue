@@ -144,6 +144,14 @@
       "types": "./dist/LexicalTablePlugin.d.ts",
       "import": "./dist/LexicalTablePlugin.js"
     },
+    "./useExtensionDependency": {
+      "types": "./dist/useExtensionDependency.d.ts",
+      "import": "./dist/useExtensionDependency.js"
+    },
+    "./useExtensionSignalValue": {
+      "types": "./dist/useExtensionSignalValue.d.ts",
+      "import": "./dist/useExtensionSignalValue.js"
+    },
     "./useLexicalIsTextContentEmpty": {
       "types": "./dist/useLexicalIsTextContentEmpty.d.ts",
       "import": "./dist/useLexicalIsTextContentEmpty.js"
