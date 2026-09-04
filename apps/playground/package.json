@@ -1,12 +1,12 @@
 {
   "name": "playground",
-  "type": "module",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "dev": "vp dev",
+    "build": "vue-tsc -b && vp build",
+    "preview": "vp preview"
   },
   "dependencies": {
     "@lexical/link": "0.49.0",
@@ -20,7 +20,8 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
     "typescript": "~5.9.3",
-    "vite": "npm:rolldown-vite@7.1.14",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
     "vue-tsc": "^3.1.0"
   }
 }

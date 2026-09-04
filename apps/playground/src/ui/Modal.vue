@@ -1,34 +1,35 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 
-const props = withDefaults(defineProps<{
-  title: string
-  closeOnClickOutside?: boolean
-}>(), {
-  closeOnClickOutside: false,
-})
+const props = withDefaults(
+  defineProps<{
+    title: string
+    closeOnClickOutside?: boolean
+  }>(),
+  {
+    closeOnClickOutside: false,
+  },
+)
 
 const emit = defineEmits(['close'])
 
 const modalRef = ref<HTMLDivElement | null>(null)
 
 onMounted(() => {
-  if (modalRef.value !== null)
-    modalRef.value.focus()
+  if (modalRef.value !== null) modalRef.value.focus()
 })
 
 onMounted(() => {
   let modalOverlayElement: HTMLElement | null = null
   const handler = (event: KeyboardEvent) => {
-    if (event.key === 'Escape')
-      emit('close')
+    if (event.key === 'Escape') emit('close')
   }
   const clickOutsideHandler = (event: MouseEvent) => {
     const target = event.target
     if (
-      modalRef.value !== null
-      && !modalRef.value.contains(target as Node)
-      && props.closeOnClickOutside
+      modalRef.value !== null &&
+      !modalRef.value.contains(target as Node) &&
+      props.closeOnClickOutside
     ) {
       emit('close')
     }
@@ -74,7 +75,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
- .Modal__overlay {
+.Modal__overlay {
   display: flex;
   justify-content: center;
   align-items: center;

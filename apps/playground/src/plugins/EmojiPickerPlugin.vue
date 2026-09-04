@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { MenuOption } from 'lexical-vue/LexicalTypeaheadMenuPlugin'
-import { TypeaheadMenuPlugin, useBasicTypeaheadTriggerMatch } from 'lexical-vue/LexicalTypeaheadMenuPlugin'
-import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
-import type {
-  TextNode,
-} from 'lexical'
 import {
-  $createTextNode,
-  $getSelection,
-  $isRangeSelection,
-} from 'lexical'
+  MenuOption,
+  TypeaheadMenuPlugin,
+  useBasicTypeaheadTriggerMatch,
+} from 'lexical-vue/LexicalTypeaheadMenuPlugin'
+import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
+import type { TextNode } from 'lexical'
+import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical'
 import { computed, onMounted, ref } from 'vue'
 
 class EmojiOption extends MenuOption {
@@ -51,20 +48,21 @@ const queryString = ref<string | null>(null)
 const emojis = ref<Array<Emoji>>([])
 
 onMounted(() => {
-  import('../utils/emoji-list')
-    .then((file) => {
-      emojis.value = file.default
-    })
+  import('../utils/emoji-list').then((file) => {
+    emojis.value = file.default
+  })
 })
 
-const emojiOptions = computed(() => emojis.value != null
-  ? emojis.value.map(
-    ({ emoji, aliases, tags }) =>
-      new EmojiOption(aliases[0]!, emoji, {
-        keywords: [...aliases, ...tags],
-      }),
-  )
-  : [])
+const emojiOptions = computed(() =>
+  emojis.value != null
+    ? emojis.value.map(
+        ({ emoji, aliases, tags }) =>
+          new EmojiOption(aliases[0]!, emoji, {
+            keywords: [...aliases, ...tags],
+          }),
+      )
+    : [],
+)
 
 const checkForTriggerMatch = useBasicTypeaheadTriggerMatch(':', {
   minLength: 0,
@@ -74,11 +72,10 @@ const options = computed<Array<EmojiOption>>(() => {
   return emojiOptions.value
     .filter((option: EmojiOption) => {
       return queryString.value != null
-        ? new RegExp(queryString.value, 'gi').exec(option.title)
-        || option.keywords != null
+        ? new RegExp(queryString.value, 'gi').exec(option.title) || option.keywords != null
           ? option.keywords.some((keyword: string) =>
-            new RegExp(queryString.value!, 'gi').exec(keyword),
-          )
+              new RegExp(queryString.value!, 'gi').exec(keyword),
+            )
           : false
         : emojiOptions
     })
@@ -98,11 +95,9 @@ function onSelectOption({
   editor.update(() => {
     const selection = $getSelection()
 
-    if (!$isRangeSelection(selection) || selectedOption == null)
-      return
+    if (!$isRangeSelection(selection) || selectedOption == null) return
 
-    if (nodeToRemove)
-      nodeToRemove.remove()
+    if (nodeToRemove) nodeToRemove.remove()
 
     selection.insertNodes([$createTextNode(selectedOption.emoji)])
 
@@ -113,7 +108,10 @@ function onSelectOption({
 
 <template>
   <TypeaheadMenuPlugin
-    v-slot="{ anchorElementRef, itemProps: { selectedIndex, setHighlightedIndex, selectOptionAndCleanUp } }"
+    v-slot="{
+      anchorElementRef,
+      itemProps: { selectedIndex, setHighlightedIndex, selectOptionAndCleanUp },
+    }"
     :trigger-fn="checkForTriggerMatch"
     :options="options"
     @query-change="queryString = $event"
@@ -133,11 +131,14 @@ function onSelectOption({
             class="item"
             :class="{ selected: selectedIndex === index }"
             @mouseenter="setHighlightedIndex(index)"
-            @click="setHighlightedIndex(index); selectOptionAndCleanUp(option)"
+            @click="
+              () => {
+                setHighlightedIndex(index)
+                selectOptionAndCleanUp(option)
+              }
+            "
           >
-            <span class="text">
-              {{ option.emoji }} {{ option.title }}
-            </span>
+            <span class="text"> {{ option.emoji }} {{ option.title }} </span>
           </li>
         </ul>
       </div>

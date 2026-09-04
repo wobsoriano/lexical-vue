@@ -9,13 +9,12 @@ import {
   $setSelection,
 } from 'lexical'
 import { readonly, ref, toValue, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {
   return editor.read('latest', () => {
     const node = $getNodeByKey(key)
-    if (node === null)
-      return false
+    if (node === null) return false
 
     return node.isSelected()
   })
@@ -44,10 +43,8 @@ export function useLexicalNodeSelection(
         $setSelection(selection)
       }
       if ($isNodeSelection(selection)) {
-        if (selected)
-          selection.add(toValue(key))
-        else
-          selection.delete(toValue(key))
+        if (selected) selection.add(toValue(key))
+        else selection.delete(toValue(key))
       }
     })
   }
@@ -55,14 +52,9 @@ export function useLexicalNodeSelection(
   const clearSelection = () => {
     editor.update(() => {
       const selection = $getSelection()
-      if ($isNodeSelection(selection))
-        (selection).clear()
+      if ($isNodeSelection(selection)) selection.clear()
     })
   }
 
-  return [
-    readonly(isSelected),
-    setSelected,
-    clearSelection,
-  ]
+  return [readonly(isSelected), setSelected, clearSelection]
 }

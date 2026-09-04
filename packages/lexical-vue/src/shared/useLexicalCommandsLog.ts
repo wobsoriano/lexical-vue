@@ -3,11 +3,13 @@ import type { Ref } from 'vue'
 import { COMMAND_PRIORITY_CRITICAL } from 'lexical'
 import { onMounted, onUnmounted, readonly, ref } from 'vue'
 
-export type LexicalCommandLog = ReadonlyArray<{
-  index: number
-} & LexicalCommand<unknown> & {
-  payload: unknown
-}>
+export type LexicalCommandLog = ReadonlyArray<
+  {
+    index: number
+  } & LexicalCommand<unknown> & {
+      payload: unknown
+    }
+>
 
 export function registerLexicalCommandLogger(
   editor: LexicalEditor,
@@ -42,22 +44,16 @@ export function registerLexicalCommandLogger(
     )
   }
 
-  return () => unregisterCommandListeners.forEach(unregister => unregister())
+  return () => unregisterCommandListeners.forEach((unregister) => unregister())
 }
 
-export function useLexicalCommandsLog(
-  editor: LexicalEditor,
-): Readonly<Ref<LexicalCommandLog>> {
+export function useLexicalCommandsLog(editor: LexicalEditor): Readonly<Ref<LexicalCommandLog>> {
   const loggedCommands = ref<LexicalCommandLog>([])
 
   onMounted(() => {
-    const unregister = registerLexicalCommandLogger(
-      editor,
-      loggedCommands,
-      (newState) => {
-        loggedCommands.value = newState
-      },
-    )
+    const unregister = registerLexicalCommandLogger(editor, loggedCommands, (newState) => {
+      loggedCommands.value = newState
+    })
 
     onUnmounted(unregister)
   })

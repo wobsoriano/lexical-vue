@@ -4,7 +4,7 @@ import type { Klass, TextNode } from 'lexical'
 import { registerLexicalTextEntity } from '@lexical/text'
 import { mergeRegister } from '@lexical/utils'
 import { onMounted, onUnmounted } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export function useLexicalTextEntity<T extends TextNode>(
   getMatch: (text: string) => null | EntityMatch,

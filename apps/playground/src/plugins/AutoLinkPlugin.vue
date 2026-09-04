@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { AutoLinkPlugin as LexicalAutoLinkPlugin, createLinkMatcherWithRegExp } from 'lexical-vue/LexicalAutoLinkPlugin'
+import {
+  AutoLinkPlugin as LexicalAutoLinkPlugin,
+  createLinkMatcherWithRegExp,
+} from 'lexical-vue/LexicalAutoLinkPlugin'
 
-const URL_REGEX
-  = /((https?:\/\/(www\.)?)|(www\.))[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-\w()@:%+.~#?&/=]*)(?<![-.+():%])/
+const URL_REGEX =
+  /((https?:\/\/(www\.)?)|(www\.))[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-\w()@:%+.~#?&/=]*)(?<![-.+():%])/
 
-const EMAIL_REGEX
-  = /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))/i
+const EMAIL_REGEX =
+  /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))/i
 
 const MATCHERS = [
   createLinkMatcherWithRegExp(URL_REGEX, (text) => {

@@ -3,20 +3,18 @@ import type { MaybeRefOrGetter } from 'vue'
 import { $isRootTextContentEmptyCurry } from '@lexical/text'
 import { readonly, shallowRef, toValue, watchEffect } from 'vue'
 
-export function useLexicalIsTextContentEmpty(editor: LexicalEditor, trim?: MaybeRefOrGetter<boolean>) {
+export function useLexicalIsTextContentEmpty(
+  editor: LexicalEditor,
+  trim?: MaybeRefOrGetter<boolean>,
+) {
   const isEmpty = shallowRef(
-    editor.read(
-      'latest',
-      $isRootTextContentEmptyCurry(editor.isComposing(), toValue(trim)),
-    ),
+    editor.read('latest', $isRootTextContentEmptyCurry(editor.isComposing(), toValue(trim))),
   )
 
   watchEffect((onInvalidate) => {
     const unregister = editor.registerUpdateListener(({ editorState }) => {
       const isComposing = editor.isComposing()
-      isEmpty.value = editorState.read(
-        $isRootTextContentEmptyCurry(isComposing, toValue(trim)),
-      )
+      isEmpty.value = editorState.read($isRootTextContentEmptyCurry(isComposing, toValue(trim)))
     })
 
     onInvalidate(unregister)

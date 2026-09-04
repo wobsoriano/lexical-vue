@@ -15,15 +15,18 @@ export default function useModal() {
   }
 
   const modal = computed(() => {
-    if (modalContent.value === null)
-      return null
+    if (modalContent.value === null) return null
 
     const { title, content, closeOnClickOutside } = modalContent.value
-    return h(Modal, {
-      onClose,
-      title,
-      closeOnClickOutside,
-    }, () => content)
+    return h(
+      Modal,
+      {
+        onClose,
+        title,
+        closeOnClickOutside,
+      },
+      () => content,
+    )
   })
 
   const showModal = (

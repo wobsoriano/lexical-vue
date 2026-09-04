@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "lib": ["DOM", "ES2022"],
@@ -10,15 +11,14 @@
     "moduleResolution": "bundler",
 
     "resolveJsonModule": true,
-    "types": ["vue-vine/macros"],
     /* type checking */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
 
     "declaration": true,
-    "downlevelIteration": true,
     "emitDeclarationOnly": true,
+    "rootDir": "./src",
     "outDir": "dist",
     "isolatedModules": true,
     "skipLibCheck": true

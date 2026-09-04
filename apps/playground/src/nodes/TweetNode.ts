@@ -10,9 +10,7 @@ import type {
   Spread,
 } from 'lexical'
 
-import type {
-  SerializedDecoratorBlockNode,
-} from 'lexical-vue/LexicalDecoratorBlockNode'
+import type { SerializedDecoratorBlockNode } from 'lexical-vue/LexicalDecoratorBlockNode'
 import type { Component } from 'vue'
 import { BlockWithAlignableContents } from 'lexical-vue/LexicalBlockWithAlignableContents'
 import { DecoratorBlockNode } from 'lexical-vue/LexicalDecoratorBlockNode'
@@ -40,8 +38,7 @@ const TweetComponent = defineComponent({
         isTwitterScriptLoading = false
 
         emit('load')
-      }
-      catch (error) {
+      } catch (error) {
         emit('error', String(error))
       }
     }
@@ -56,34 +53,34 @@ const TweetComponent = defineComponent({
           script.async = true
           document.body?.appendChild(script)
           script.onload = createTweet
-        }
-        else {
+        } else {
           createTweet()
         }
 
-        if (previousTweetIDRef)
-          previousTweetIDRef.value = props.tweetID
+        if (previousTweetIDRef) previousTweetIDRef.value = props.tweetID
       }
     })
 
-    // @ts-expect-error: vue-vine should allow default slot like this
-    return () => h(BlockWithAlignableContents, {
-      hoverClass: props.hoverClass,
-      format: props.format,
-      nodeKey: props.nodeKey,
-    }, () => [
-      isTweetLoading.value && h('div', 'Loading...'),
-      h('div', {
-        style: { display: 'inline-block', width: '550px' },
-        ref: containerRef,
-      }),
-    ])
+    return () =>
+      h(
+        BlockWithAlignableContents,
+        {
+          hoverClass: props.hoverClass,
+          format: props.format,
+          nodeKey: props.nodeKey,
+        },
+        () => [
+          isTweetLoading.value && h('div', 'Loading...'),
+          h('div', {
+            style: { display: 'inline-block', width: '550px' },
+            ref: containerRef,
+          }),
+        ],
+      )
   },
 })
 
-function convertTweetElement(
-  domNode: HTMLDivElement,
-): DOMConversionOutput | null {
+function convertTweetElement(domNode: HTMLDivElement): DOMConversionOutput | null {
   const id = domNode.getAttribute('data-lexical-tweet-id')
   if (id) {
     const node = $createTweetNode(id)
@@ -124,8 +121,7 @@ export class TweetNode extends DecoratorBlockNode {
   static importDOM(): DOMConversionMap<HTMLDivElement> | null {
     return {
       div: (domNode: HTMLDivElement) => {
-        if (!domNode.hasAttribute('data-lexical-tweet-id'))
-          return null
+        if (!domNode.hasAttribute('data-lexical-tweet-id')) return null
 
         return {
           conversion: convertTweetElement,
@@ -152,10 +148,7 @@ export class TweetNode extends DecoratorBlockNode {
     return this.__id
   }
 
-  getTextContent(
-    _includeInert?: boolean | undefined,
-    _includeDirectionless?: false | undefined,
-  ): string {
+  getTextContent(_includeInert?: boolean, _includeDirectionless?: false): string {
     return `https://x.com/i/web/status/${this.__id}`
   }
 
@@ -175,8 +168,6 @@ export function $createTweetNode(tweetID: string): TweetNode {
   return new TweetNode(tweetID)
 }
 
-export function $isTweetNode(
-  node: TweetNode | LexicalNode | null | undefined,
-): node is TweetNode {
+export function $isTweetNode(node: TweetNode | LexicalNode | null | undefined): node is TweetNode {
   return node instanceof TweetNode
 }

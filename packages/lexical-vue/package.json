@@ -1,140 +1,144 @@
 {
   "name": "lexical-vue",
-  "type": "module",
   "version": "0.15.0",
   "description": "An extensible Vue 3 web text-editor based on Lexical.",
-  "author": "Robert Soriano <sorianorobertc@gmail.com>",
-  "license": "MIT",
+  "keywords": [
+    "editor",
+    "lexical",
+    "rich-text",
+    "vue"
+  ],
   "homepage": "https://github.com/wobsoriano/lexical-vue#readme",
+  "bugs": {
+    "url": "https://github.com/wobsoriano/lexical-vue/issues"
+  },
+  "license": "MIT",
+  "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wobsoriano/lexical-vue.git"
   },
-  "bugs": {
-    "url": "https://github.com/wobsoriano/lexical-vue/issues"
-  },
-  "keywords": [
-    "vue",
-    "lexical",
-    "editor",
-    "rich-text"
+  "files": [
+    "dist"
   ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./LexicalNodeMenuPlugin": {
-      "types": "./dist/LexicalNodeMenuPlugin.vine.d.ts",
-      "import": "./dist/LexicalNodeMenuPlugin.vine.js"
+      "types": "./dist/LexicalNodeMenuPlugin.d.ts",
+      "import": "./dist/LexicalNodeMenuPlugin.js"
     },
     "./LexicalAutoEmbedPlugin": {
-      "types": "./dist/LexicalAutoEmbedPlugin.vine.d.ts",
-      "import": "./dist/LexicalAutoEmbedPlugin.vine.js"
+      "types": "./dist/LexicalAutoEmbedPlugin.d.ts",
+      "import": "./dist/LexicalAutoEmbedPlugin.js"
     },
     "./LexicalAutoLinkPlugin": {
-      "types": "./dist/LexicalAutoLinkPlugin.vine.d.ts",
-      "import": "./dist/LexicalAutoLinkPlugin.vine.js"
+      "types": "./dist/LexicalAutoLinkPlugin.d.ts",
+      "import": "./dist/LexicalAutoLinkPlugin.js"
     },
     "./LexicalTypeaheadMenuPlugin": {
-      "types": "./dist/LexicalTypeaheadMenuPlugin.vine.d.ts",
-      "import": "./dist/LexicalTypeaheadMenuPlugin.vine.js"
+      "types": "./dist/LexicalTypeaheadMenuPlugin.d.ts",
+      "import": "./dist/LexicalTypeaheadMenuPlugin.js"
     },
     "./LexicalHorizontalRuleNode": {
       "types": "./dist/LexicalHorizontalRuleNode.d.ts",
       "import": "./dist/LexicalHorizontalRuleNode.js"
     },
     "./LexicalMarkdownShortcutPlugin": {
-      "types": "./dist/LexicalMarkdownShortcutPlugin.vine.d.ts",
-      "import": "./dist/LexicalMarkdownShortcutPlugin.vine.js"
+      "types": "./dist/LexicalMarkdownShortcutPlugin.d.ts",
+      "import": "./dist/LexicalMarkdownShortcutPlugin.js"
     },
     "./LexicalAutoFocusPlugin": {
-      "types": "./dist/LexicalAutoFocusPlugin.vine.d.ts",
-      "import": "./dist/LexicalAutoFocusPlugin.vine.js"
+      "types": "./dist/LexicalAutoFocusPlugin.d.ts",
+      "import": "./dist/LexicalAutoFocusPlugin.js"
     },
     "./LexicalAutoScrollPlugin": {
-      "types": "./dist/LexicalAutoScrollPlugin.vine.d.ts",
-      "import": "./dist/LexicalAutoScrollPlugin.vine.js"
+      "types": "./dist/LexicalAutoScrollPlugin.d.ts",
+      "import": "./dist/LexicalAutoScrollPlugin.js"
     },
     "./LexicalBlockWithAlignableContents": {
-      "types": "./dist/LexicalBlockWithAlignableContents.vine.d.ts",
-      "import": "./dist/LexicalBlockWithAlignableContents.vine.js"
+      "types": "./dist/LexicalBlockWithAlignableContents.d.ts",
+      "import": "./dist/LexicalBlockWithAlignableContents.js"
     },
     "./LexicalDecoratorBlockNode": {
       "types": "./dist/LexicalDecoratorBlockNode.d.ts",
       "import": "./dist/LexicalDecoratorBlockNode.js"
     },
     "./LexicalCharacterLimitPlugin": {
-      "types": "./dist/LexicalCharacterLimitPlugin.vine.d.ts",
-      "import": "./dist/LexicalCharacterLimitPlugin.vine.js"
+      "types": "./dist/LexicalCharacterLimitPlugin.d.ts",
+      "import": "./dist/LexicalCharacterLimitPlugin.js"
     },
     "./LexicalCheckListPlugin": {
-      "types": "./dist/LexicalCheckListPlugin.vine.d.ts",
-      "import": "./dist/LexicalCheckListPlugin.vine.js"
+      "types": "./dist/LexicalCheckListPlugin.d.ts",
+      "import": "./dist/LexicalCheckListPlugin.js"
     },
     "./LexicalClearEditorPlugin": {
-      "types": "./dist/LexicalClearEditorPlugin.vine.d.ts",
-      "import": "./dist/LexicalClearEditorPlugin.vine.js"
+      "types": "./dist/LexicalClearEditorPlugin.d.ts",
+      "import": "./dist/LexicalClearEditorPlugin.js"
     },
     "./LexicalClickableLinkPlugin": {
-      "types": "./dist/LexicalClickableLinkPlugin.vine.d.ts",
-      "import": "./dist/LexicalClickableLinkPlugin.vine.js"
+      "types": "./dist/LexicalClickableLinkPlugin.d.ts",
+      "import": "./dist/LexicalClickableLinkPlugin.js"
     },
     "./LexicalCollaborationPlugin": {
-      "types": "./dist/LexicalCollaborationPlugin.vine.d.ts",
-      "import": "./dist/LexicalCollaborationPlugin.vine.js"
+      "types": "./dist/LexicalCollaborationPlugin.d.ts",
+      "import": "./dist/LexicalCollaborationPlugin.js"
     },
     "./LexicalComposer": {
-      "types": "./dist/LexicalComposer.vine.d.ts",
-      "import": "./dist/LexicalComposer.vine.js"
+      "types": "./dist/LexicalComposer.d.ts",
+      "import": "./dist/LexicalComposer.js"
     },
     "./LexicalContentEditable": {
-      "types": "./dist/LexicalContentEditable.vine.d.ts",
-      "import": "./dist/LexicalContentEditable.vine.js"
+      "types": "./dist/LexicalContentEditable.d.ts",
+      "import": "./dist/LexicalContentEditable.js"
     },
     "./LexicalDecoratedTeleports": {
       "types": "./dist/LexicalDecoratedTeleports.d.ts",
       "import": "./dist/LexicalDecoratedTeleports.js"
     },
     "./LexicalHashtagPlugin": {
-      "types": "./dist/LexicalHashtagPlugin.vine.d.ts",
-      "import": "./dist/LexicalHashtagPlugin.vine.js"
+      "types": "./dist/LexicalHashtagPlugin.d.ts",
+      "import": "./dist/LexicalHashtagPlugin.js"
     },
     "./LexicalHistoryPlugin": {
-      "types": "./dist/LexicalHistoryPlugin.vine.d.ts",
-      "import": "./dist/LexicalHistoryPlugin.vine.js"
+      "types": "./dist/LexicalHistoryPlugin.d.ts",
+      "import": "./dist/LexicalHistoryPlugin.js"
     },
     "./LexicalHorizontalRulePlugin": {
-      "types": "./dist/LexicalHorizontalRulePlugin.vine.d.ts",
-      "import": "./dist/LexicalHorizontalRulePlugin.vine.js"
+      "types": "./dist/LexicalHorizontalRulePlugin.d.ts",
+      "import": "./dist/LexicalHorizontalRulePlugin.js"
     },
     "./LexicalLinkPlugin": {
-      "types": "./dist/LexicalLinkPlugin.vine.d.ts",
-      "import": "./dist/LexicalLinkPlugin.vine.js"
+      "types": "./dist/LexicalLinkPlugin.d.ts",
+      "import": "./dist/LexicalLinkPlugin.js"
     },
     "./LexicalListPlugin": {
-      "types": "./dist/LexicalListPlugin.vine.d.ts",
-      "import": "./dist/LexicalListPlugin.vine.js"
+      "types": "./dist/LexicalListPlugin.d.ts",
+      "import": "./dist/LexicalListPlugin.js"
     },
     "./LexicalOnChangePlugin": {
-      "types": "./dist/LexicalOnChangePlugin.vine.d.ts",
-      "import": "./dist/LexicalOnChangePlugin.vine.js"
+      "types": "./dist/LexicalOnChangePlugin.d.ts",
+      "import": "./dist/LexicalOnChangePlugin.js"
     },
     "./LexicalPlainTextPlugin": {
-      "types": "./dist/LexicalPlainTextPlugin.vine.d.ts",
-      "import": "./dist/LexicalPlainTextPlugin.vine.js"
+      "types": "./dist/LexicalPlainTextPlugin.d.ts",
+      "import": "./dist/LexicalPlainTextPlugin.js"
     },
     "./LexicalRichTextPlugin": {
-      "types": "./dist/LexicalRichTextPlugin.vine.d.ts",
-      "import": "./dist/LexicalRichTextPlugin.vine.js"
+      "types": "./dist/LexicalRichTextPlugin.d.ts",
+      "import": "./dist/LexicalRichTextPlugin.js"
     },
     "./LexicalTabIndentationPlugin": {
-      "types": "./dist/LexicalTabIndentationPlugin.vine.d.ts",
-      "import": "./dist/LexicalTabIndentationPlugin.vine.js"
+      "types": "./dist/LexicalTabIndentationPlugin.d.ts",
+      "import": "./dist/LexicalTabIndentationPlugin.js"
     },
     "./LexicalTablePlugin": {
-      "types": "./dist/LexicalTablePlugin.vine.d.ts",
-      "import": "./dist/LexicalTablePlugin.vine.js"
+      "types": "./dist/LexicalTablePlugin.d.ts",
+      "import": "./dist/LexicalTablePlugin.js"
     },
     "./useLexicalIsTextContentEmpty": {
       "types": "./dist/useLexicalIsTextContentEmpty.d.ts",
@@ -149,28 +153,22 @@
       "import": "./dist/useLexicalTextEntity.js"
     },
     "./LexicalTreeView": {
-      "types": "./dist/LexicalTreeView.vine.d.ts",
-      "import": "./dist/LexicalTreeView.vine.js"
+      "types": "./dist/LexicalTreeView.d.ts",
+      "import": "./dist/LexicalTreeView.js"
     },
     "./LexicalTableOfContentsPlugin": {
-      "types": "./dist/LexicalTableOfContentsPlugin.vine.d.ts",
-      "import": "./dist/LexicalTableOfContentsPlugin.vine.js"
+      "types": "./dist/LexicalTableOfContentsPlugin.d.ts",
+      "import": "./dist/LexicalTableOfContentsPlugin.js"
     },
     "./LexicalSelectionAlwaysOnDisplay": {
-      "types": "./dist/LexicalSelectionAlwaysOnDisplay.vine.d.ts",
-      "import": "./dist/LexicalSelectionAlwaysOnDisplay.vine.js"
+      "types": "./dist/LexicalSelectionAlwaysOnDisplay.d.ts",
+      "import": "./dist/LexicalSelectionAlwaysOnDisplay.js"
     }
   },
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "rslib build && vue-vine-tsc",
-    "dev": "rslib build --watch"
-  },
-  "peerDependencies": {
-    "vue": "^3.5.0"
+    "build": "vp pack && vue-tsc",
+    "dev": "vp pack --watch",
+    "test": "vp test"
   },
   "dependencies": {
     "@lexical/dragon": "0.49.0",
@@ -190,14 +188,26 @@
     "@lexical/utils": "0.49.0",
     "@lexical/yjs": "0.49.0",
     "lexical": "0.49.0",
-    "tiny-invariant": "^1.3.3",
-    "vue-vine": "^1.7.20"
+    "tiny-invariant": "^1.3.3"
   },
   "devDependencies": {
-    "@rslib/core": "^0.16.1",
-    "@vue-vine/rspack-loader": "1.7.20-beta.1",
+    "@vitejs/plugin-vue-jsx": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "happy-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
     "vue": "^3.5.22",
-    "vue-vine-tsc": "^1.7.20",
+    "vue-tsc": "^3.1.0",
     "yjs": "^13.6.18"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "yjs": "^13.6.18"
+  },
+  "peerDependenciesMeta": {
+    "yjs": {
+      "optional": true
+    }
   }
 }

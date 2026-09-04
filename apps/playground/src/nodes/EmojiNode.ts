@@ -1,10 +1,4 @@
-import type {
-  EditorConfig,
-  LexicalNode,
-  NodeKey,
-  SerializedTextNode,
-  Spread,
-} from 'lexical'
+import type { EditorConfig, LexicalNode, NodeKey, SerializedTextNode, Spread } from 'lexical'
 
 import { $applyNodeReplacement, TextNode } from 'lexical'
 
@@ -50,10 +44,9 @@ export class EmojiNode extends TextNode {
   }
 
   static importJSON(serializedNode: SerializedEmojiNode): EmojiNode {
-    return $createEmojiNode(
-      serializedNode.className,
-      serializedNode.text,
-    ).updateFromJSON(serializedNode)
+    return $createEmojiNode(serializedNode.className, serializedNode.text).updateFromJSON(
+      serializedNode,
+    )
   }
 
   exportJSON(): SerializedEmojiNode {
@@ -69,16 +62,11 @@ export class EmojiNode extends TextNode {
   }
 }
 
-export function $isEmojiNode(
-  node: LexicalNode | null | undefined,
-): node is EmojiNode {
+export function $isEmojiNode(node: LexicalNode | null | undefined): node is EmojiNode {
   return node instanceof EmojiNode
 }
 
-export function $createEmojiNode(
-  className: string,
-  emojiText: string,
-): EmojiNode {
+export function $createEmojiNode(className: string, emojiText: string): EmojiNode {
   const node = new EmojiNode(className, emojiText).setMode('token')
   return $applyNodeReplacement(node)
 }

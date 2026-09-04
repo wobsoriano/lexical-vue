@@ -1,26 +1,21 @@
 {
   "name": "lexical-monorepo",
-  "packageManager": "pnpm@10.24.0",
-  "files": [
-    "dist"
-  ],
+  "private": true,
+  "type": "module",
   "scripts": {
-    "release": "pnpm --filter lexical-vue build && changeset publish",
-    "prepublishOnly": "pnpm run build",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "prepare": "vp config"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^6.4.1",
     "@changesets/cli": "^2.29.8",
-    "@types/node": "^20.19.25",
-    "@vue-vine/eslint-config": "^1.1.12",
-    "eslint": "^9.39.1",
-    "typescript": "^5.9.3"
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   },
+  "packageManager": "pnpm@10.24.0",
   "pnpm": {
     "overrides": {
-      "vite": "npm:rolldown-vite@7.1.14"
+      "vite": "npm:@voidzero-dev/vite-plus-core@0.3.0"
     }
   }
 }

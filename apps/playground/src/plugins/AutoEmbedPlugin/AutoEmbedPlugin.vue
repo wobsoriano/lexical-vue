@@ -6,7 +6,11 @@ import { EmbedConfigs } from './embedConfigs'
 import type { PlaygroundEmbedConfig } from './embedConfigs'
 import useModal from '../../composables/useModal'
 
-function getMenuOptions(activeEmbedConfig: PlaygroundEmbedConfig, embedFn: () => void, dismissFn: () => void) {
+function getMenuOptions(
+  activeEmbedConfig: PlaygroundEmbedConfig,
+  embedFn: () => void,
+  dismissFn: () => void,
+) {
   return [
     new AutoEmbedOption('Dismiss', {
       onSelect: dismissFn,
@@ -32,7 +36,10 @@ function openEmbedModal(embedConfig: PlaygroundEmbedConfig) {
 <template>
   <component :is="modal" />
   <LexicalAutoEmbedPlugin
-    v-slot="{ anchorElementRef, itemProps: { options, selectedIndex, setHighlightedIndex, selectOptionAndCleanUp } }"
+    v-slot="{
+      anchorElementRef,
+      itemProps: { options, selectedIndex, setHighlightedIndex, selectOptionAndCleanUp },
+    }"
     :embed-configs="EmbedConfigs"
     :get-menu-options="getMenuOptions"
     @open-embed-modal-for-config="openEmbedModal"
@@ -50,10 +57,12 @@ function openEmbedModal(embedConfig: PlaygroundEmbedConfig) {
               :aria-selected="selectedIndex === i"
               class="item"
               :class="{ selected: selectedIndex === i }"
-              @click="{
-                setHighlightedIndex(i);
-                selectOptionAndCleanUp(option);
-              }"
+              @click="
+                () => {
+                  setHighlightedIndex(i)
+                  selectOptionAndCleanUp(option)
+                }
+              "
               @mouseenter="setHighlightedIndex(i)"
             >
               <span class="text">{{ option.title }}</span>

@@ -6,9 +6,8 @@ import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { defineComponent, onMounted, onUnmounted } from 'vue'
 import { $createYouTubeNode, YouTubeNode } from '../nodes/YouTubeNode'
 
-export const INSERT_YOUTUBE_COMMAND: LexicalCommand<string> = createCommand(
-  'INSERT_YOUTUBE_COMMAND',
-)
+export const INSERT_YOUTUBE_COMMAND: LexicalCommand<string> =
+  createCommand('INSERT_YOUTUBE_COMMAND')
 
 export default defineComponent({
   setup() {

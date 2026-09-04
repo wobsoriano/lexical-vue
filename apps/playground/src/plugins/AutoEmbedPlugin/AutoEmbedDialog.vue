@@ -30,13 +30,10 @@ function debounce(callback: (text: string) => void, delay: number) {
 const validateText = debounce((inputText: string) => {
   const urlMatch = URL_MATCHER.exec(inputText)
   if (props.embedConfig != null && inputText != null && urlMatch != null) {
-    Promise.resolve(props.embedConfig.parseUrl(inputText)).then(
-      (parseResult) => {
-        embedResult.value = parseResult
-      },
-    )
-  }
-  else if (embedResult.value != null) {
+    Promise.resolve(props.embedConfig.parseUrl(inputText)).then((parseResult) => {
+      embedResult.value = parseResult
+    })
+  } else if (embedResult.value != null) {
     embedResult.value = null
   }
 }, 200)
@@ -65,7 +62,7 @@ function onChange(e: Event) {
         :value="text"
         :data-test-id="`${embedConfig.type}-embed-modal-url`"
         @input="onChange"
-      >
+      />
     </div>
     <DialogActions>
       <Button

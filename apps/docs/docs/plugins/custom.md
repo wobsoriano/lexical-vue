@@ -50,7 +50,7 @@ export class VideoNode extends DecoratorNode<Component> {
       width: 560,
       height: 315,
       allowfullScreen: true,
-      title: 'A youtube vid'
+      title: 'A youtube vid',
     })
   }
 }
@@ -91,14 +91,13 @@ onMounted(() => {
       // Adding custom command that will be handled by this plugin
       editor.update(() => {
         const selection = $getSelection()
-        if (selection !== null)
-          selection.insertNodes([$createVideoNode(url)])
+        if (selection !== null) selection.insertNodes([$createVideoNode(url)])
       })
 
       // Returning true indicates that command is handled and no further propagation is required
       return true
     },
-    0
+    0,
   )
 
   onUnmounted(() => {
@@ -125,8 +124,6 @@ function insertVideo(url: string) {
 </script>
 
 <template>
-  <button @click="insertVideo('some_youtube_embed_url')">
-    Add video
-  </button>
+  <button @click="insertVideo('some_youtube_embed_url')">Add video</button>
 </template>
 ```

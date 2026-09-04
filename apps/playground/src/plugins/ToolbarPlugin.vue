@@ -98,28 +98,32 @@ onMounted(() => {
     </button>
     <div class="divider" />
     <button
-      class="toolbar-item spaced" :class="[{ active: isBold }]"
+      class="toolbar-item spaced"
+      :class="[{ active: isBold }]"
       aria-label="Format Bold"
       @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')"
     >
       <i class="format bold" />
     </button>
     <button
-      class="toolbar-item spaced" :class="[{ active: isItalic }]"
+      class="toolbar-item spaced"
+      :class="[{ active: isItalic }]"
       aria-label="Format Italics"
       @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')"
     >
       <i class="format italic" />
     </button>
     <button
-      class="toolbar-item spaced" :class="[{ active: isUnderline }]"
+      class="toolbar-item spaced"
+      :class="[{ active: isUnderline }]"
       aria-label="Format Underline"
       @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')"
     >
       <i class="format underline" />
     </button>
     <button
-      class="toolbar-item spaced" :class="[{ active: isStrikethrough }]"
+      class="toolbar-item spaced"
+      :class="[{ active: isStrikethrough }]"
       aria-label="Format Strikethrough"
       @click="editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')"
     >
@@ -156,23 +160,20 @@ onMounted(() => {
     </button>
     <div class="divider" />
     <DropDown
-        button-class-name="toolbar-item spaced"
-        button-label="Insert"
-        button-aria-label="Insert specialized editor node"
-        button-icon-class-name="icon plus"
+      button-class-name="toolbar-item spaced"
+      button-label="Insert"
+      button-aria-label="Insert specialized editor node"
+      button-icon-class-name="icon plus"
+    >
+      <DropDownItem
+        v-for="embedConfig in EmbedConfigs"
+        :key="embedConfig.type"
+        class="item"
+        @click="editor.dispatchCommand(INSERT_EMBED_COMMAND, embedConfig.type)"
       >
-        <DropDownItem
-          v-for="embedConfig in EmbedConfigs"
-          :key="embedConfig.type"
-          class="item"
-          @click="editor.dispatchCommand(
-            INSERT_EMBED_COMMAND,
-            embedConfig.type,
-          )"
-        >
-          <component :is="embedConfig.icon" />
-          <span class="text">{{ embedConfig.contentName }}</span>
-        </DropDownItem>
-      </DropDown>
+        <component :is="embedConfig.icon" />
+        <span class="text">{{ embedConfig.contentName }}</span>
+      </DropDownItem>
+    </DropDown>
   </div>
 </template>

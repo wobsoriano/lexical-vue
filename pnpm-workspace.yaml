@@ -2,6 +2,23 @@ packages:
   - apps/*
   - packages/*
 
+catalog:
+  '@types/node': ^24.6.0
+  '@vitejs/plugin-vue-jsx': ^5.1.6
+  '@vue/test-utils': ^2.5.0
+  happy-dom: ^20.14.0
+  typescript: ~5.9.3
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.0
+  vite-plus: 0.3.0
+
+catalogMode: prefer
+
 onlyBuiltDependencies:
   - core-js
   - esbuild
+
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: '*'

@@ -6,9 +6,7 @@ import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { defineComponent, onMounted, onUnmounted } from 'vue'
 import { $createTweetNode, TweetNode } from '../nodes/TweetNode'
 
-export const INSERT_TWEET_COMMAND: LexicalCommand<string> = createCommand(
-  'INSERT_TWEET_COMMAND',
-)
+export const INSERT_TWEET_COMMAND: LexicalCommand<string> = createCommand('INSERT_TWEET_COMMAND')
 
 export default defineComponent({
   setup() {
