@@ -7,8 +7,10 @@ import {
   COMMAND_PRIORITY_LOW,
   createCommand,
   getDOMShadowRoots,
+  getParentElement,
   getRootOwnerDocument,
   isDOMShadowRoot,
+  isHTMLElement,
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
   KEY_ENTER_COMMAND,
@@ -157,6 +159,68 @@ export const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
   option: MenuOption
 }> = createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND')
 
+/**
+ * Whether an element establishes the containing block that an absolutely
+ * positioned descendant resolves its offsets against. Being positioned is the
+ * usual reason, but a transform, filter, containment or a `will-change` naming
+ * one of those does it too, on an otherwise statically positioned element.
+ */
+function establishesContainingBlock(style: CSSStyleDeclaration): boolean {
+  if (style.position !== 'static') return true
+
+  const willChange = style.willChange
+  return (
+    style.transform !== 'none' ||
+    style.perspective !== 'none' ||
+    style.filter !== 'none' ||
+    style.backdropFilter !== 'none' ||
+    style.contain.includes('paint') ||
+    style.contain.includes('layout') ||
+    style.contain.includes('strict') ||
+    style.contain.includes('content') ||
+    willChange.includes('transform') ||
+    willChange.includes('perspective') ||
+    willChange.includes('filter') ||
+    willChange.includes('contain')
+  )
+}
+
+/**
+ * The viewport coordinates of the origin the anchor's `top`/`left` resolve
+ * against, or null when that is the initial containing block and document
+ * coordinates apply. A `parent` passed to {@link useMenuAnchorRef} is usually
+ * positioned so it can contain the menu, and document coordinates would then
+ * place the menu at the parent's own offset instead of at the caret.
+ *
+ * Walks up from the element the anchor is appended to rather than the anchor's
+ * own `offsetParent`, because the anchor is detached whenever the menu is
+ * closed and a detached element has no `offsetParent`.
+ */
+function getContainingBlockOrigin(
+  parent: HTMLElement | ShadowRoot,
+): null | { left: number; top: number } {
+  // An anchor inside a shadow tree is laid out against the flat tree, so the
+  // walk continues at the host.
+  const start = isDOMShadowRoot(parent) ? parent.host : parent
+  for (
+    let element: HTMLElement | null = isHTMLElement(start) ? start : null;
+    element !== null;
+    element = getParentElement(element)
+  ) {
+    const view = element.ownerDocument.defaultView
+    if (view === null) break
+
+    if (establishesContainingBlock(view.getComputedStyle(element))) {
+      const rect = element.getBoundingClientRect()
+      return {
+        left: rect.left + element.clientLeft - element.scrollLeft,
+        top: rect.top + element.clientTop - element.scrollTop,
+      }
+    }
+  }
+  return null
+}
+
 function resolveMenuParent(editor: LexicalEditor): HTMLElement | ShadowRoot | undefined {
   if (!CAN_USE_DOM) {
     return undefined
@@ -195,10 +259,17 @@ export function useMenuAnchorRef(
     if (rootElement !== null && resolution.value !== null) {
       const { left, top, width, height } = resolution.value.getRect()
       const anchorHeight = anchorElementRef.value.offsetHeight // use to position under anchor
-      containerDiv.style.top = `${
-        top + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0) + anchorHeight + 3
-      }px`
-      containerDiv.style.left = `${left + window.pageXOffset}px`
+      // getRect() returns viewport coordinates; translate them into the space
+      // the anchor is actually positioned in.
+      const origin = getContainingBlockOrigin(resolvedParent)
+      const toAnchorLeft = (viewportLeft: number) =>
+        origin !== null ? viewportLeft - origin.left : viewportLeft + window.pageXOffset
+      const toAnchorTop = (viewportTop: number) =>
+        origin !== null
+          ? viewportTop - origin.top
+          : viewportTop + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)
+      containerDiv.style.top = `${toAnchorTop(top + anchorHeight + 3)}px`
+      containerDiv.style.left = `${toAnchorLeft(left)}px`
       containerDiv.style.height = `${height}px`
       containerDiv.style.width = `${width}px`
       if (menuEle !== null) {
@@ -210,18 +281,13 @@ export function useMenuAnchorRef(
         const rootElementRect = rootElement.getBoundingClientRect()
 
         if (left + menuWidth > rootElementRect.right) {
-          containerDiv.style.left = `${rootElementRect.right - menuWidth + window.pageXOffset}px`
+          containerDiv.style.left = `${toAnchorLeft(rootElementRect.right - menuWidth)}px`
         }
         if (
           (top + menuHeight > window.innerHeight || top + menuHeight > rootElementRect.bottom) &&
           top - rootElementRect.top > menuHeight + height
         ) {
-          containerDiv.style.top = `${
-            top -
-            menuHeight +
-            (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0) -
-            height
-          }px`
+          containerDiv.style.top = `${toAnchorTop(top - menuHeight - height)}px`
         }
       }
 
