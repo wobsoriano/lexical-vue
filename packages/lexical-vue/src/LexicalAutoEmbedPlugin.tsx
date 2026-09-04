@@ -21,11 +21,12 @@ import {
   PASTE_TAG,
 } from 'lexical'
 
-import { computed, defineComponent, getCurrentInstance, h, onUpdated, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 
 import { useLexicalComposer } from './LexicalComposer'
 import { NodeMenuPlugin } from './LexicalNodeMenuPlugin'
 import { MenuOption } from './shared/LexicalMenu'
+import { useHasListener } from './shared/useHasListener'
 
 export interface EmbedMatchResult<TEmbedMatchResult = unknown> {
   url: string
@@ -91,24 +92,11 @@ export const LexicalAutoEmbedPlugin = defineComponent(
       slots: { default?: (props: MenuRenderProps<AutoEmbedOption>) => any }
     },
   ) => {
-    const instance = getCurrentInstance()
     const editor = useLexicalComposer()
     const nodeKey = ref<NodeKey | null>(null)
     const activeEmbedConfig = ref<any>(null) // Should be <TEmbedConfig | null> but we need to fix the type inference
 
-    function hasOpenEmbedModalListenerProp() {
-      const vnodeProps = instance?.vnode.props
-      return (
-        vnodeProps != null &&
-        ('onOpenEmbedModalForConfig' in vnodeProps || 'onOpenEmbedModalForConfigOnce' in vnodeProps)
-      )
-    }
-
-    const hasOpenEmbedModalListener = ref(hasOpenEmbedModalListenerProp())
-
-    onUpdated(() => {
-      hasOpenEmbedModalListener.value = hasOpenEmbedModalListenerProp()
-    })
+    const hasOpenEmbedModalListener = useHasListener('OpenEmbedModalForConfig')
 
     function reset() {
       nodeKey.value = null
