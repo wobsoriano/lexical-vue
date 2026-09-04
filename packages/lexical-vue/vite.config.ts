@@ -1,18 +1,18 @@
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig, lazyPlugins } from 'vite-plus'
 import { VineVitePlugin } from 'vue-vine/vite'
 
 export default defineConfig({
-  plugins: lazyPlugins(() => [VineVitePlugin()]),
+  plugins: lazyPlugins(() => [VineVitePlugin(), vueJsx()]),
   oxc: { exclude: [/\.vine\.ts$/] },
   test: {
     environment: 'happy-dom',
   },
   pack: {
-    entry: ['src/**/*.ts'],
+    entry: ['src/**/*.ts', 'src/**/*.tsx'],
     unbundle: true,
     platform: 'browser',
-    // Declarations come from `vue-vine-tsc`, which resolves the `vine` macro types.
     dts: false,
-    plugins: [VineVitePlugin()],
+    plugins: [VineVitePlugin(), vueJsx()],
   },
 })

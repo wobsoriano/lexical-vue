@@ -4,6 +4,7 @@ packages:
 
 catalog:
   '@types/node': ^24.6.0
+  '@vitejs/plugin-vue-jsx': ^5.1.6
   '@vue-vine/eslint-config': ^1.1.12
   '@vue-vine/eslint-plugin': ^1.1.12
   '@vue/test-utils': ^2.5.0

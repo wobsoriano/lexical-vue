@@ -1,7 +1,7 @@
 import type { ElementTransformer, Transformer } from '@lexical/markdown'
 import type { LexicalNode } from 'lexical'
 import { registerMarkdownShortcuts, TRANSFORMERS } from '@lexical/markdown'
-import { watchEffect } from 'vue'
+import { defineComponent, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import {
   $createHorizontalRuleNode,
@@ -33,18 +33,20 @@ export const HR: ElementTransformer = {
 
 export const DEFAULT_TRANSFORMERS = [HR, ...TRANSFORMERS]
 
-export function MarkdownShortcutPlugin({
-  transformers = DEFAULT_TRANSFORMERS,
-}: {
-  transformers?: Transformer[]
-}) {
-  const editor = useLexicalComposer()
+export const MarkdownShortcutPlugin = defineComponent(
+  (props: { transformers?: Transformer[] }) => {
+    const editor = useLexicalComposer()
 
-  watchEffect((onInvalidate) => {
-    const unregister = registerMarkdownShortcuts(editor, transformers)
+    watchEffect((onInvalidate) => {
+      const unregister = registerMarkdownShortcuts(editor, props.transformers!)
 
-    onInvalidate(unregister)
-  })
+      onInvalidate(unregister)
+    })
 
-  return vine``
-}
+    return () => null
+  },
+  {
+    name: 'MarkdownShortcutPlugin',
+    props: { transformers: { default: () => DEFAULT_TRANSFORMERS } },
+  },
+)

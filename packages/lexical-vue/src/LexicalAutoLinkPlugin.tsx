@@ -5,7 +5,7 @@ import { AutoLinkNode, registerAutoLink } from '@lexical/link'
 
 import invariant from 'tiny-invariant'
 
-import { toValue, watchEffect } from 'vue'
+import { defineComponent, toValue, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
 export { type ChangeHandler, createLinkMatcherWithRegExp, type LinkMatcher } from '@lexical/link'
@@ -30,27 +30,35 @@ function useAutoLink(
   })
 }
 
-export function AutoLinkPlugin(props: {
-  matchers: LinkMatcher[]
-  excludeParents?: Array<(parent: ElementNode) => boolean>
-}) {
-  const emit = vineEmits<{
-    change?: [value: { url: string | null; prevUrl: string | null }]
-  }>()
-
-  const editor = useLexicalComposer()
-
-  useAutoLink(
-    editor,
-    () => props.matchers,
-    (url: string | null, prevUrl: string | null) => {
-      emit('change', {
-        url,
-        prevUrl,
-      })
+export const AutoLinkPlugin = defineComponent(
+  (
+    props: {
+      matchers: LinkMatcher[]
+      excludeParents?: Array<(parent: ElementNode) => boolean>
     },
-    () => props.excludeParents,
-  )
+    ctx: {
+      emit: (event: 'change', value: { url: string | null; prevUrl: string | null }) => void
+    },
+  ) => {
+    const editor = useLexicalComposer()
 
-  return vine``
-}
+    useAutoLink(
+      editor,
+      () => props.matchers,
+      (url: string | null, prevUrl: string | null) => {
+        ctx.emit('change', {
+          url,
+          prevUrl,
+        })
+      },
+      () => props.excludeParents,
+    )
+
+    return () => null
+  },
+  {
+    name: 'AutoLinkPlugin',
+    props: ['matchers', 'excludeParents'],
+    emits: { change: (value: { url: string | null; prevUrl: string | null }) => true },
+  },
+)

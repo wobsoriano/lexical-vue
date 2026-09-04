@@ -16,6 +16,10 @@ export default defineConfig({
     },
     rules: {
       'vite-plus/prefer-vite-plus-imports': 'error',
+      'no-unused-vars': [
+        'error',
+        { args: 'none', caughtErrors: 'none', ignoreRestSiblings: true, varsIgnorePattern: '^_' },
+      ],
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'import/no-duplicates': 'error',
       'unicorn/prefer-node-protocol': 'error',
