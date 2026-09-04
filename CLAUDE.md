@@ -25,3 +25,12 @@ release. Add a tool name to select part of the graph. For example, run
 - [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
 
 <!--VITE PLUS END-->
+
+## Linting
+
+`vp check` alone is not a full lint of this repo. Oxlint cannot resolve identifiers
+referenced inside a `vine` template, so `no-unused-vars` is disabled for `**/*.vine.ts`
+there and ESLint covers those files instead, via `vineParser`. See `eslint.config.mjs`.
+
+Run `vp run ready` before declaring work done. It runs `vp check`, then the vine lint,
+then every build. `vp run lint:vine` runs the vine lint on its own.

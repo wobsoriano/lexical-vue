@@ -37,10 +37,16 @@ export default defineConfig({
   },
   staged: {
     '*': 'vp check --fix',
+    // Report only. No enabled rule is auto-fixable, and a hook that rewrites
+    // vine templates on commit is a hazard, not a convenience.
+    '*.vine.ts': 'eslint',
   },
   run: {
     cache: true,
     tasks: {
+      // `vp check` does not cover this. See eslint.config.mjs.
+      'lint:vine': 'eslint',
+      ready: ['vp check', 'vp run lint:vine', 'vp run -r build'],
       release: {
         command: 'changeset publish',
         dependsOn: ['lexical-vue#build'],
