@@ -175,6 +175,10 @@
     "./LexicalSelectionAlwaysOnDisplay": {
       "types": "./dist/LexicalSelectionAlwaysOnDisplay.d.ts",
       "import": "./dist/LexicalSelectionAlwaysOnDisplay.js"
+    },
+    "./VueExtension": {
+      "types": "./dist/VueExtension.d.ts",
+      "import": "./dist/VueExtension.js"
     }
   },
   "scripts": {

@@ -1,6 +1,37 @@
 import type { LexicalEditor } from 'lexical'
-import type { DefineComponent } from 'vue'
-import { computed, h, onMounted, onUnmounted, shallowRef, Teleport, unref } from 'vue'
+import type { ComputedRef, DefineComponent, VNode } from 'vue'
+import {
+  computed,
+  h,
+  inject,
+  onMounted,
+  onUnmounted,
+  provide,
+  shallowRef,
+  Teleport,
+  unref,
+} from 'vue'
+import { decoratorHostKey } from './editorContext'
+
+const NO_DECORATORS: ComputedRef<VNode[]> = computed(() => [])
+
+/**
+ * Node-decorator teleports for `editor`, or an empty list when an ancestor
+ * already hosts them for the same editor.
+ *
+ * Calling this claims the host role for the calling component's subtree. Vue's
+ * `inject` reads the parent's provides and never the calling component's own,
+ * so a host claims for its descendants without disqualifying itself. The claim
+ * holds the editor rather than a boolean so a nested editor's composer, which
+ * is a descendant of the outer one, still renders its own decorators.
+ */
+export function useDecoratorHost(editor: LexicalEditor): ComputedRef<VNode[]> {
+  const claimed = inject(decoratorHostKey, null) === editor
+
+  provide(decoratorHostKey, editor)
+
+  return claimed ? NO_DECORATORS : useDecorators(editor)
+}
 
 export function useDecorators(editor: LexicalEditor) {
   const decorators = shallowRef<Record<string, DefineComponent>>(editor.getDecorators())
@@ -13,7 +44,7 @@ export function useDecorators(editor: LexicalEditor) {
     // Catch any decorators that were computed between setup and onMounted.
     // ContentEditableElement.setRootElement() triggers reconciliation in its
     // own onMounted (which fires before this one), so by the time we get here
-    // the decorators are already populated — we just missed the notification.
+    // the decorators are already populated, we just missed the notification.
     decorators.value = editor.getDecorators() as Record<string, DefineComponent>
 
     onUnmounted(() => {
