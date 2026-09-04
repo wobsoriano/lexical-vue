@@ -21,16 +21,7 @@ import {
   getDOMSelection,
   getDOMSelectionPoints,
 } from 'lexical'
-import {
-  computed,
-  defineComponent,
-  getCurrentInstance,
-  h,
-  nextTick,
-  onUpdated,
-  ref,
-  watchEffect,
-} from 'vue'
+import { defineComponent, getCurrentInstance, h, nextTick, ref, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer'
 import { LexicalMenu, MenuOption, useMenuAnchorRef } from './shared/LexicalMenu'
 
@@ -116,23 +107,6 @@ export const TypeaheadMenuPlugin = defineComponent(
     },
   ) => {
     const instance = getCurrentInstance()
-    const hasPreselectFirstItem = ref(hasPreselectFirstItemProp())
-
-    function hasPreselectFirstItemProp() {
-      const vnodeProps = instance?.vnode.props
-      return (
-        vnodeProps != null &&
-        ('preselectFirstItem' in vnodeProps || 'preselect-first-item' in vnodeProps)
-      )
-    }
-
-    onUpdated(() => {
-      hasPreselectFirstItem.value = hasPreselectFirstItemProp()
-    })
-
-    const shouldPreselectFirstItem = computed(() =>
-      hasPreselectFirstItem.value ? props.preselectFirstItem : true,
-    )
     const editor = useLexicalComposer()
     const resolution = ref<MenuResolution | null>(null)
 
@@ -321,7 +295,7 @@ export const TypeaheadMenuPlugin = defineComponent(
               options: props.options,
               shouldSplitNodeWithQuery: true,
               commandPriority: props.commandPriority,
-              preselectFirstItem: shouldPreselectFirstItem.value,
+              preselectFirstItem: props.preselectFirstItem,
               close: closeTypeahead,
               onSelectOption: (payload: MenuSelectOptionPayload<MenuOption>) =>
                 ctx.emit('selectOption', payload as MenuSelectOptionPayload<TOption>),

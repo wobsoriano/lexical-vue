@@ -16,16 +16,7 @@ import {
   KEY_TAB_COMMAND,
   registerEventListener,
 } from 'lexical'
-import {
-  computed,
-  defineComponent,
-  getCurrentInstance,
-  onUnmounted,
-  onUpdated,
-  ref,
-  watch,
-  watchEffect,
-} from 'vue'
+import { computed, defineComponent, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { useLexicalComposer } from '../LexicalComposer'
 
 export type MenuRenderFn<TOption extends MenuOption> = (
@@ -291,7 +282,6 @@ export const LexicalMenu = defineComponent(
       slots: { default?: (props: MenuRenderProps<TOption>) => any }
     },
   ) => {
-    const instance = getCurrentInstance()
     const rawSelectedIndex = ref<number | null>(null)
     const selectedIndex = computed(() =>
       rawSelectedIndex.value === null
@@ -302,24 +292,6 @@ export const LexicalMenu = defineComponent(
       () => props.resolution.match && props.resolution.match.matchingString,
     )
     const commandPriority = computed(() => props.commandPriority ?? COMMAND_PRIORITY_LOW)
-
-    function hasPreselectFirstItemProp() {
-      const vnodeProps = instance?.vnode.props
-      return (
-        vnodeProps != null &&
-        ('preselectFirstItem' in vnodeProps || 'preselect-first-item' in vnodeProps)
-      )
-    }
-
-    const hasPreselectFirstItem = ref(hasPreselectFirstItemProp())
-
-    onUpdated(() => {
-      hasPreselectFirstItem.value = hasPreselectFirstItemProp()
-    })
-
-    const shouldPreselectFirstItem = computed(() =>
-      hasPreselectFirstItem.value ? props.preselectFirstItem : true,
-    )
 
     function setHighlightedIndex(index: number | null) {
       rawSelectedIndex.value = index
@@ -368,7 +340,7 @@ export const LexicalMenu = defineComponent(
     watch(
       matchString,
       () => {
-        if (shouldPreselectFirstItem.value) setHighlightedIndex(0)
+        if (props.preselectFirstItem) setHighlightedIndex(0)
       },
       { immediate: true },
     )
@@ -404,8 +376,7 @@ export const LexicalMenu = defineComponent(
 
     watchEffect(() => {
       if (props.options === null) setHighlightedIndex(null)
-      else if (selectedIndex.value === null && shouldPreselectFirstItem.value)
-        updateSelectedIndex(0)
+      else if (selectedIndex.value === null && props.preselectFirstItem) updateSelectedIndex(0)
     })
 
     function scrollIntoViewIfNeeded(target: HTMLElement) {
@@ -591,7 +562,7 @@ export const LexicalMenu = defineComponent(
         type: Number as PropType<CommandListenerPriority | undefined>,
         required: false,
       },
-      preselectFirstItem: { type: Boolean as PropType<boolean | undefined>, required: false },
+      preselectFirstItem: { type: Boolean as PropType<boolean | undefined>, default: true },
     },
     emits: {
       selectOption: (_payload: MenuSelectOptionPayload<MenuOption>) => true,
