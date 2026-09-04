@@ -39,6 +39,11 @@ export function useLexicalNodeSelection(
       let selection = $getSelection()
 
       if (!$isNodeSelection(selection)) {
+        const node = selected ? null : $getNodeByKey(toValue(key))
+        // Replacing a range selection that does not cover this node would
+        // discard the user's caret to remove something that was never in it.
+        if (node !== null && !node.isSelected()) return
+
         selection = $createNodeSelection()
         $setSelection(selection)
       }
