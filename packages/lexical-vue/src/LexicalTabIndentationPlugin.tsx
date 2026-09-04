@@ -1,7 +1,7 @@
 import type { CanIndentPredicate } from '@lexical/extension'
 import { registerTabIndentation } from '@lexical/extension'
 import { defineComponent, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 /**
  * This plugin adds the ability to indent content using the tab key. Generally, we don't

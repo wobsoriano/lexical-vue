@@ -1,6 +1,6 @@
 import { $getSelection, $isRangeSelection } from 'lexical'
 import { defineComponent, onMounted, onUnmounted } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const LexicalAutoScrollPlugin = defineComponent(
   (props: { scrollRef: HTMLElement | null }) => {

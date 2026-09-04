@@ -11,7 +11,7 @@ import {
   getComposedEventTarget,
 } from 'lexical'
 import { useTemplateRef, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { $isDecoratorBlockNode } from './LexicalDecoratorBlockNode'
 import { useLexicalNodeSelection } from './useLexicalNodeSelection'
 

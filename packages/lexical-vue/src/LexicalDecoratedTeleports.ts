@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { useDecorators } from './shared/useDecorators'
 
 export const LexicalDecoratedTeleports = defineComponent({

@@ -1,6 +1,6 @@
 import type { ContentEditableElementProps as ElementProps } from './shared/LexicalContentEditableElement.vine'
 import { computed, getCurrentInstance, onMounted, onUnmounted, onUpdated, ref } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { ContentEditableElement } from './shared/LexicalContentEditableElement.vine'
 import { useCanShowPlaceholder } from './shared/useCanShowPlaceholder'
 

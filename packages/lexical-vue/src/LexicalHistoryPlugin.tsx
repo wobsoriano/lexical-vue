@@ -1,6 +1,6 @@
 import type { HistoryState } from '@lexical/history'
 import { defineComponent } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { useHistory } from './shared/useHistory'
 
 export const HistoryPlugin = defineComponent(

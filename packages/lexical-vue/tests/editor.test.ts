@@ -3,9 +3,9 @@ import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
 import { flushPromises, mount } from '@vue/test-utils'
 import { expect, test } from 'vite-plus/test'
 import { defineComponent, h, nextTick } from 'vue'
-import { LexicalComposer, useLexicalComposer } from '../src/LexicalComposer.vine'
+import { LexicalComposer, useLexicalComposer } from '../src/LexicalComposer'
 import { ContentEditable } from '../src/LexicalContentEditable.vine'
-import { RichTextPlugin } from '../src/LexicalRichTextPlugin.vine'
+import { RichTextPlugin } from '../src/LexicalRichTextPlugin'
 
 function mountEditor(contentEditableProps: Record<string, unknown> = {}) {
   let editor: ReturnType<typeof useLexicalComposer>

@@ -6,7 +6,7 @@ import { AutoLinkNode, registerAutoLink } from '@lexical/link'
 import invariant from 'tiny-invariant'
 
 import { defineComponent, toValue, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export { type ChangeHandler, createLinkMatcherWithRegExp, type LinkMatcher } from '@lexical/link'
 
@@ -59,6 +59,6 @@ export const AutoLinkPlugin = defineComponent(
   {
     name: 'AutoLinkPlugin',
     props: ['matchers', 'excludeParents'],
-    emits: { change: (value: { url: string | null; prevUrl: string | null }) => true },
+    emits: { change: (_value: { url: string | null; prevUrl: string | null }) => true },
   },
 )

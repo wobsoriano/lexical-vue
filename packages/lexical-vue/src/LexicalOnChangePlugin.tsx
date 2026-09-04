@@ -1,7 +1,7 @@
 import type { EditorState, LexicalEditor } from 'lexical'
 import { HISTORY_MERGE_TAG } from 'lexical'
 import { defineComponent, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const OnChangePlugin = defineComponent(
   (
@@ -44,7 +44,7 @@ export const OnChangePlugin = defineComponent(
       ignoreHistoryMergeTagChange: { type: Boolean, default: true },
     },
     emits: {
-      change: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => true,
+      change: (_editorState: EditorState, _editor: LexicalEditor, _tags: Set<string>) => true,
     },
   },
 )

@@ -3,7 +3,7 @@ import { namedSignals } from '@lexical/extension'
 
 import { LinkNode, registerLink } from '@lexical/link'
 import { defineComponent, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const LinkPlugin = defineComponent(
   (props: { validateUrl?: (url: string) => boolean; attributes?: LinkAttributes }) => {

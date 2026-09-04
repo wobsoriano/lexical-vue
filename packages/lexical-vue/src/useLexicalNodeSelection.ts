@@ -9,7 +9,7 @@ import {
   $setSelection,
 } from 'lexical'
 import { readonly, ref, toValue, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 function isNodeSelected(editor: LexicalEditor, key: NodeKey): boolean {
   return editor.read('latest', () => {

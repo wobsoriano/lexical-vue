@@ -1,6 +1,6 @@
 import { getActiveElement } from 'lexical'
 import { defineComponent, nextTick, onMounted } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const AutoFocusPlugin = defineComponent(
   (props: { defaultSelection?: 'rootStart' | 'rootEnd' }) => {

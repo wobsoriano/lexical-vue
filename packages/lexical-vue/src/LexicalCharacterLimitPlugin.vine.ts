@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { useCharacterLimit } from './shared/useCharacterLimit'
 
 export function CharacterLimitPlugin({

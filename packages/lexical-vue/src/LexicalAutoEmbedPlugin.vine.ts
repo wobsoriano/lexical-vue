@@ -22,7 +22,7 @@ import {
 
 import { computed, getCurrentInstance, onUpdated, ref, watchEffect } from 'vue'
 
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { NodeMenuPlugin } from './LexicalNodeMenuPlugin.vine'
 import { MenuOption } from './shared/LexicalMenu.vine'
 

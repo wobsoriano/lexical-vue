@@ -3,7 +3,7 @@ import type { MenuOption, MenuRenderProps, MenuResolution } from './shared/Lexic
 
 import { $getNodeByKey } from 'lexical'
 import { nextTick, ref, watch, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { LexicalMenu, useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
 export interface NodeMenuPluginProps<TOption extends MenuOption> {

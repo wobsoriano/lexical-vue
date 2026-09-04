@@ -10,7 +10,7 @@ import {
 
 import { $fullReconcile } from 'lexical'
 import { defineComponent, onMounted, onUnmounted, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export interface TablePluginProps {
   /**

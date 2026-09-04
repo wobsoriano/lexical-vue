@@ -21,7 +21,7 @@ import {
   getDOMSelectionPoints,
 } from 'lexical'
 import { computed, getCurrentInstance, nextTick, onUpdated, ref, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { LexicalMenu, MenuOption, useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
 export const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'

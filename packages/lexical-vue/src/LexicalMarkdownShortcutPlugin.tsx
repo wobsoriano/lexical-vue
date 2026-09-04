@@ -2,7 +2,7 @@ import type { ElementTransformer, Transformer } from '@lexical/markdown'
 import type { LexicalNode } from 'lexical'
 import { registerMarkdownShortcuts, TRANSFORMERS } from '@lexical/markdown'
 import { defineComponent, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import {
   $createHorizontalRuleNode,
   $isHorizontalRuleNode,

@@ -5,7 +5,7 @@ import type { Doc } from 'yjs'
 import type { InitialEditorStateType } from './types'
 import { createYjsBinding } from '@lexical/yjs'
 import { onUnmounted, shallowRef, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { collaborationContext } from './shared/useCollaborationContext'
 import {
   useYjsCollaboration,

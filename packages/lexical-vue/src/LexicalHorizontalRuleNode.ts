@@ -17,7 +17,7 @@ import {
   removeClassNamesFromElement,
 } from 'lexical'
 import { defineComponent, h, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 import { useLexicalNodeSelection } from './useLexicalNodeSelection'
 
 export { $isHorizontalRuleNode, INSERT_HORIZONTAL_RULE_COMMAND, type SerializedHorizontalRuleNode }

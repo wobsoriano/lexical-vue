@@ -1,6 +1,6 @@
 import { selectionAlwaysOnDisplay } from '@lexical/utils'
 import { defineComponent, getCurrentInstance, onUpdated, ref, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const SelectionAlwaysOnDisplay = defineComponent(
   (_props: object, ctx: { emit: (event: 'reposition', nodes: readonly HTMLElement[]) => void }) => {
@@ -32,6 +32,6 @@ export const SelectionAlwaysOnDisplay = defineComponent(
   },
   {
     name: 'SelectionAlwaysOnDisplay',
-    emits: { reposition: (nodes: readonly HTMLElement[]) => true },
+    emits: { reposition: (_nodes: readonly HTMLElement[]) => true },
   },
 )

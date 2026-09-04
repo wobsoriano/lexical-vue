@@ -1,6 +1,6 @@
 import { registerCheckList } from '@lexical/list'
 import { defineComponent, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const CheckListPlugin = defineComponent(
   (props: { disableTakeFocusOnClick?: boolean }) => {

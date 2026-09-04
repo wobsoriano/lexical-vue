@@ -17,7 +17,7 @@ import {
   registerEventListener,
 } from 'lexical'
 import { computed, getCurrentInstance, onUnmounted, onUpdated, ref, watch, watchEffect } from 'vue'
-import { useLexicalComposer } from '../LexicalComposer.vine'
+import { useLexicalComposer } from '../LexicalComposer'
 
 export type MenuRenderFn<TOption extends MenuOption> = (
   anchorElementRef: Ref<HTMLElement | null>,

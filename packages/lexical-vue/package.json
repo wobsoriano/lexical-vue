@@ -89,8 +89,8 @@
       "import": "./dist/LexicalCollaborationPlugin.vine.js"
     },
     "./LexicalComposer": {
-      "types": "./dist/LexicalComposer.vine.d.ts",
-      "import": "./dist/LexicalComposer.vine.js"
+      "types": "./dist/LexicalComposer.d.ts",
+      "import": "./dist/LexicalComposer.js"
     },
     "./LexicalContentEditable": {
       "types": "./dist/LexicalContentEditable.vine.d.ts",
@@ -125,12 +125,12 @@
       "import": "./dist/LexicalOnChangePlugin.js"
     },
     "./LexicalPlainTextPlugin": {
-      "types": "./dist/LexicalPlainTextPlugin.vine.d.ts",
-      "import": "./dist/LexicalPlainTextPlugin.vine.js"
+      "types": "./dist/LexicalPlainTextPlugin.d.ts",
+      "import": "./dist/LexicalPlainTextPlugin.js"
     },
     "./LexicalRichTextPlugin": {
-      "types": "./dist/LexicalRichTextPlugin.vine.d.ts",
-      "import": "./dist/LexicalRichTextPlugin.vine.js"
+      "types": "./dist/LexicalRichTextPlugin.d.ts",
+      "import": "./dist/LexicalRichTextPlugin.js"
     },
     "./LexicalTabIndentationPlugin": {
       "types": "./dist/LexicalTabIndentationPlugin.d.ts",
@@ -157,8 +157,8 @@
       "import": "./dist/LexicalTreeView.vine.js"
     },
     "./LexicalTableOfContentsPlugin": {
-      "types": "./dist/LexicalTableOfContentsPlugin.vine.d.ts",
-      "import": "./dist/LexicalTableOfContentsPlugin.vine.js"
+      "types": "./dist/LexicalTableOfContentsPlugin.d.ts",
+      "import": "./dist/LexicalTableOfContentsPlugin.js"
     },
     "./LexicalSelectionAlwaysOnDisplay": {
       "types": "./dist/LexicalSelectionAlwaysOnDisplay.d.ts",

@@ -1,6 +1,6 @@
 import { HashtagNode, registerLexicalHashtag } from '@lexical/hashtag'
 import { defineComponent, watchEffect } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const HashtagPlugin = defineComponent(
   () => {

@@ -1,6 +1,6 @@
 import { registerClearEditor } from '@lexical/extension'
 import { defineComponent, onMounted, onUnmounted } from 'vue'
-import { useLexicalComposer } from './LexicalComposer.vine'
+import { useLexicalComposer } from './LexicalComposer'
 
 export const ClearEditorPlugin = defineComponent(
   (_props: object, ctx: { emit: (event: 'clear') => void }) => {

@@ -10,7 +10,7 @@ import { mount } from '@vue/test-utils'
 import { expect, test } from 'vite-plus/test'
 import { defineComponent, h } from 'vue'
 import { HorizontalRuleNode } from '../src/LexicalHorizontalRuleNode'
-import { LexicalComposer, useLexicalComposer } from '../src/LexicalComposer.vine'
+import { LexicalComposer, useLexicalComposer } from '../src/LexicalComposer'
 
 const NODES = [
   AutoLinkNode,
@@ -68,8 +68,8 @@ const CASES: Case[] = [
     load: () => import('../src/LexicalOnChangePlugin'),
     props: { onChange: () => {} },
   },
-  { name: 'PlainTextPlugin', load: () => import('../src/LexicalPlainTextPlugin.vine') },
-  { name: 'RichTextPlugin', load: () => import('../src/LexicalRichTextPlugin.vine') },
+  { name: 'PlainTextPlugin', load: () => import('../src/LexicalPlainTextPlugin') },
+  { name: 'RichTextPlugin', load: () => import('../src/LexicalRichTextPlugin') },
   {
     name: 'SelectionAlwaysOnDisplay',
     load: () => import('../src/LexicalSelectionAlwaysOnDisplay'),
@@ -77,7 +77,7 @@ const CASES: Case[] = [
   { name: 'TabIndentationPlugin', load: () => import('../src/LexicalTabIndentationPlugin') },
   {
     name: 'TableOfContentsPlugin',
-    load: () => import('../src/LexicalTableOfContentsPlugin.vine'),
+    load: () => import('../src/LexicalTableOfContentsPlugin'),
     slots: { default: () => h('div') },
   },
   { name: 'TablePlugin', load: () => import('../src/LexicalTablePlugin') },
