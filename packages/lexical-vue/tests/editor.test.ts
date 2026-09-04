@@ -4,7 +4,7 @@ import { flushPromises, mount } from '@vue/test-utils'
 import { expect, test } from 'vite-plus/test'
 import { defineComponent, h, nextTick } from 'vue'
 import { LexicalComposer, useLexicalComposer } from '../src/LexicalComposer'
-import { ContentEditable } from '../src/LexicalContentEditable.vine'
+import { ContentEditable } from '../src/LexicalContentEditable'
 import { RichTextPlugin } from '../src/LexicalRichTextPlugin'
 
 function mountEditor(contentEditableProps: Record<string, unknown> = {}) {

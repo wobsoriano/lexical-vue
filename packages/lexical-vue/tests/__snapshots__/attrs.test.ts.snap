@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContentEditable renders a stable attribute set 1`] = `
+{
+  "aria-describedby": "desc",
+  "aria-label": "Editor input",
+  "autocapitalize": "none",
+  "class": "editor-class",
+  "contenteditable": "true",
+  "data-lexical-editor": "true",
+  "data-testid": "ce",
+  "id": "my-editor",
+  "role": "textbox",
+  "spellcheck": "true",
+  "style": "user-select: text; white-space: pre-wrap; word-break: break-word;",
+  "tabindex": "3",
+}
+`;

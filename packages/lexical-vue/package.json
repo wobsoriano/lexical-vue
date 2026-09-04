@@ -93,8 +93,8 @@
       "import": "./dist/LexicalComposer.js"
     },
     "./LexicalContentEditable": {
-      "types": "./dist/LexicalContentEditable.vine.d.ts",
-      "import": "./dist/LexicalContentEditable.vine.js"
+      "types": "./dist/LexicalContentEditable.d.ts",
+      "import": "./dist/LexicalContentEditable.js"
     },
     "./LexicalDecoratedTeleports": {
       "types": "./dist/LexicalDecoratedTeleports.d.ts",
