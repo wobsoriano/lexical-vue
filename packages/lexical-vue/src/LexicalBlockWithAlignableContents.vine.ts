@@ -1,11 +1,5 @@
-import type {
-  ElementFormatType,
-  NodeKey,
-} from 'lexical'
-import {
-  $getNearestBlockElementAncestorOrThrow,
-  mergeRegister,
-} from '@lexical/utils'
+import type { ElementFormatType, NodeKey } from 'lexical'
+import { $getNearestBlockElementAncestorOrThrow, mergeRegister } from '@lexical/utils'
 import {
   $getNodeByKey,
   $getSelection,
@@ -42,17 +36,14 @@ export function BlockWithAlignableContents(props: {
             if ($isNodeSelection(selection)) {
               const node = $getNodeByKey(props.nodeKey)
 
-              if (node && $isDecoratorBlockNode(node))
-                node.setFormat(formatType)
-            }
-            else if ($isRangeSelection(selection)) {
+              if (node && $isDecoratorBlockNode(node)) node.setFormat(formatType)
+            } else if ($isRangeSelection(selection)) {
               const nodes = selection.getNodes()
 
               for (const node of nodes) {
                 if ($isDecoratorBlockNode(node)) {
                   node.setFormat(formatType)
-                }
-                else {
+                } else {
                   const element = $getNearestBlockElementAncestorOrThrow(node)
                   element.setFormat(formatType)
                 }
@@ -70,8 +61,7 @@ export function BlockWithAlignableContents(props: {
         (event) => {
           if (getComposedEventTarget(event) === containerRef.value) {
             event.preventDefault()
-            if (!event.shiftKey)
-              clearSelection()
+            if (!event.shiftKey) clearSelection()
 
             setSelected(!isSelected.value)
             return true

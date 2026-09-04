@@ -15,7 +15,11 @@ export function useHistory(
   )
 
   watchEffect((onInvalidate) => {
-    const unregisterListener = registerHistory(toValue(editor), historyState.value, toValue(delay) || 1000)
+    const unregisterListener = registerHistory(
+      toValue(editor),
+      historyState.value,
+      toValue(delay) || 1000,
+    )
 
     onInvalidate(unregisterListener)
   })

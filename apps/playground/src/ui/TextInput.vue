@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import type { InputTypeHTMLAttribute } from 'vue'
 
-withDefaults(defineProps<{
-  label: string
-  placeholder?: string
-  type?: InputTypeHTMLAttribute
-}>(), {
-  placeholder: '',
-  type: 'text',
-})
+withDefaults(
+  defineProps<{
+    label: string
+    placeholder?: string
+    type?: InputTypeHTMLAttribute
+  }>(),
+  {
+    placeholder: '',
+    type: 'text',
+  },
+)
 
 const model = defineModel()
 </script>
@@ -16,7 +19,7 @@ const model = defineModel()
 <template>
   <div class="Input__wrapper">
     <label class="Input__label">{{ label }}</label>
-    <input v-model="model" :type="type" class="Input__input" :placeholder="placeholder">
+    <input v-model="model" :type="type" class="Input__input" :placeholder="placeholder" />
   </div>
 </template>
 

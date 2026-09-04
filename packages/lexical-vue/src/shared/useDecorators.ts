@@ -31,9 +31,13 @@ export function useDecorators(editor: LexicalEditor) {
       const element = editor.getElementByKey(nodeKey)
       if (element !== null) {
         decoratedTeleports.push(
-          h(Teleport, {
-            to: element,
-          }, vueDecorator),
+          h(
+            Teleport,
+            {
+              to: element,
+            },
+            vueDecorator,
+          ),
         )
       }
     }

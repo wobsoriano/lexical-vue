@@ -6,10 +6,7 @@ import { onMounted, onUnmounted } from 'vue'
 
 export function usePlainTextSetup(editor: LexicalEditor) {
   onMounted(() => {
-    const unregister = mergeRegister(
-      registerPlainText(editor),
-      registerDragonSupport(editor),
-    )
+    const unregister = mergeRegister(registerPlainText(editor), registerDragonSupport(editor))
 
     onUnmounted(unregister)
   })

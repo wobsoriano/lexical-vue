@@ -34,16 +34,12 @@ import {
   $isTextNode,
 } from 'lexical'
 
-export type CustomPrintNodeFn = (
-  node: LexicalNode,
-  obfuscateText?: boolean,
-) => string | undefined
+export type CustomPrintNodeFn = (node: LexicalNode, obfuscateText?: boolean) => string | undefined
 
-const NON_SINGLE_WIDTH_CHARS_REPLACEMENT: Readonly<Record<string, string>>
-  = Object.freeze({
-    '\t': '\\t',
-    '\n': '\\n',
-  })
+const NON_SINGLE_WIDTH_CHARS_REPLACEMENT: Readonly<Record<string, string>> = Object.freeze({
+  '\t': '\\t',
+  '\n': '\\n',
+})
 const NON_SINGLE_WIDTH_CHARS_REGEX = new RegExp(
   Object.keys(NON_SINGLE_WIDTH_CHARS_REPLACEMENT).join('|'),
   'g',
@@ -61,24 +57,18 @@ const FORMAT_PREDICATES = [
   (node: TextNode | RangeSelection) => node.hasFormat('bold') && 'Bold',
   (node: TextNode | RangeSelection) => node.hasFormat('code') && 'Code',
   (node: TextNode | RangeSelection) => node.hasFormat('italic') && 'Italic',
-  (node: TextNode | RangeSelection) =>
-    node.hasFormat('strikethrough') && 'Strikethrough',
-  (node: TextNode | RangeSelection) =>
-    node.hasFormat('subscript') && 'Subscript',
-  (node: TextNode | RangeSelection) =>
-    node.hasFormat('superscript') && 'Superscript',
-  (node: TextNode | RangeSelection) =>
-    node.hasFormat('underline') && 'Underline',
-  (node: TextNode | RangeSelection) =>
-    node.hasFormat('highlight') && 'Highlight',
+  (node: TextNode | RangeSelection) => node.hasFormat('strikethrough') && 'Strikethrough',
+  (node: TextNode | RangeSelection) => node.hasFormat('subscript') && 'Subscript',
+  (node: TextNode | RangeSelection) => node.hasFormat('superscript') && 'Superscript',
+  (node: TextNode | RangeSelection) => node.hasFormat('underline') && 'Underline',
+  (node: TextNode | RangeSelection) => node.hasFormat('highlight') && 'Highlight',
 ]
 
 const FORMAT_PREDICATES_PARAGRAPH = [
   (node: ParagraphNode) => node.hasTextFormat('bold') && 'Bold',
   (node: ParagraphNode) => node.hasTextFormat('code') && 'Code',
   (node: ParagraphNode) => node.hasTextFormat('italic') && 'Italic',
-  (node: ParagraphNode) =>
-    node.hasTextFormat('strikethrough') && 'Strikethrough',
+  (node: ParagraphNode) => node.hasTextFormat('strikethrough') && 'Strikethrough',
   (node: ParagraphNode) => node.hasTextFormat('subscript') && 'Subscript',
   (node: ParagraphNode) => node.hasTextFormat('superscript') && 'Superscript',
   (node: ParagraphNode) => node.hasTextFormat('underline') && 'Underline',
@@ -128,11 +118,7 @@ export function generateContent(
 
       res += `${isSelected ? SYMBOLS.selectedLine : ' '} ${indent.join(
         ' ',
-      )} ${nodeKeyDisplay} ${typeDisplay} ${printNode(
-        node,
-        customPrintNode,
-        obfuscateText,
-      )}\n`
+      )} ${nodeKeyDisplay} ${typeDisplay} ${printNode(node, customPrintNode, obfuscateText)}\n`
 
       res += $printSelectedCharsLine({
         indent,
@@ -163,8 +149,7 @@ export function generateContent(
         payload instanceof Event ? payload.constructor.name : payload
       } }`
     }
-  }
-  else {
+  } else {
     res += '\n  └ None dispatched.'
   }
   const { version } = editor.constructor
@@ -224,11 +209,7 @@ function visitTree(
   childNodes.forEach((childNode, i) => {
     visitor(
       childNode,
-      indent.concat(
-        i === childNodesLength - 1
-          ? SYMBOLS.isLastChild
-          : SYMBOLS.hasNextSibling,
-      ),
+      indent.concat(i === childNodesLength - 1 ? SYMBOLS.isLastChild : SYMBOLS.hasNextSibling),
     )
 
     if ($isElementNode(childNode)) {
@@ -236,9 +217,7 @@ function visitTree(
         childNode,
         visitor,
         indent.concat(
-          i === childNodesLength - 1
-            ? SYMBOLS.ancestorIsLastChild
-            : SYMBOLS.ancestorHasNextSibling,
+          i === childNodesLength - 1 ? SYMBOLS.ancestorIsLastChild : SYMBOLS.ancestorHasNextSibling,
         ),
       )
     }
@@ -270,42 +249,34 @@ function printNode(
 
   if ($isTextNode(node)) {
     const text = node.getTextContent()
-    const title
-      = text.length === 0 ? '(empty)' : `"${normalize(text, obfuscateText)}"`
+    const title = text.length === 0 ? '(empty)' : `"${normalize(text, obfuscateText)}"`
     const properties = printAllTextNodeProperties(node)
     return [title, properties.length !== 0 ? `{ ${properties} }` : null]
       .filter(Boolean)
       .join(' ')
       .trim()
-  }
-  else if ($isLinkNode(node)) {
+  } else if ($isLinkNode(node)) {
     const link = node.getURL()
-    const title
-      = link.length === 0 ? '(empty)' : `"${normalize(link, obfuscateText)}"`
+    const title = link.length === 0 ? '(empty)' : `"${normalize(link, obfuscateText)}"`
     const properties = printAllLinkNodeProperties(node)
     return [title, properties.length !== 0 ? `{ ${properties} }` : null]
       .filter(Boolean)
       .join(' ')
       .trim()
-  }
-  else if ($isMarkNode(node)) {
+  } else if ($isMarkNode(node)) {
     return `ids: [ ${node.getIDs().join(', ')} ]`
-  }
-  else if ($isParagraphNode(node)) {
+  } else if ($isParagraphNode(node)) {
     const formatText = printTextFormatProperties(node)
     let paragraphData = formatText !== '' ? `{ ${formatText} }` : ''
     paragraphData += node.__style ? `(${node.__style})` : ''
     return paragraphData
-  }
-  else {
+  } else {
     return ''
   }
 }
 
 function printTextFormatProperties(nodeOrSelection: ParagraphNode) {
-  let str = FORMAT_PREDICATES_PARAGRAPH.map(predicate =>
-    predicate(nodeOrSelection),
-  )
+  let str = FORMAT_PREDICATES_PARAGRAPH.map((predicate) => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
     .toLocaleLowerCase()
@@ -340,7 +311,7 @@ function printAllLinkNodeProperties(node: LinkNode) {
 }
 
 function printDetailProperties(nodeOrSelection: TextNode) {
-  let str = DETAIL_PREDICATES.map(predicate => predicate(nodeOrSelection))
+  let str = DETAIL_PREDICATES.map((predicate) => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
     .toLocaleLowerCase()
@@ -353,7 +324,7 @@ function printDetailProperties(nodeOrSelection: TextNode) {
 }
 
 function printModeProperties(nodeOrSelection: TextNode) {
-  let str = MODE_PREDICATES.map(predicate => predicate(nodeOrSelection))
+  let str = MODE_PREDICATES.map((predicate) => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
     .toLocaleLowerCase()
@@ -366,7 +337,7 @@ function printModeProperties(nodeOrSelection: TextNode) {
 }
 
 function printFormatProperties(nodeOrSelection: TextNode | RangeSelection) {
-  let str = FORMAT_PREDICATES.map(predicate => predicate(nodeOrSelection))
+  let str = FORMAT_PREDICATES.map((predicate) => predicate(nodeOrSelection))
     .filter(Boolean)
     .join(', ')
     .toLocaleLowerCase()
@@ -440,12 +411,7 @@ function $printSelectedCharsLine({
   typeDisplay: string
 }) {
   // No selection or node is not selected.
-  if (
-    !$isTextNode(node)
-    || !$isRangeSelection(selection)
-    || !isSelected
-    || $isElementNode(node)
-  ) {
+  if (!$isTextNode(node) || !$isRangeSelection(selection) || !isSelected || $isElementNode(node)) {
     return ''
   }
 
@@ -454,9 +420,8 @@ function $printSelectedCharsLine({
   const focus = selection.focus
 
   if (
-    node.getTextContent() === ''
-    || (anchor.getNode() === selection.focus.getNode()
-      && anchor.offset === focus.offset)
+    node.getTextContent() === '' ||
+    (anchor.getNode() === selection.focus.getNode() && anchor.offset === focus.offset)
   ) {
     return ''
   }
@@ -467,30 +432,23 @@ function $printSelectedCharsLine({
     return ''
   }
 
-  const selectionLastIndent
-    = indent[indent.length - 1] === SYMBOLS.hasNextSibling
+  const selectionLastIndent =
+    indent[indent.length - 1] === SYMBOLS.hasNextSibling
       ? SYMBOLS.ancestorHasNextSibling
       : SYMBOLS.ancestorIsLastChild
 
-  const indentionChars = [
-    ...indent.slice(0, indent.length - 1),
-    selectionLastIndent,
-  ]
+  const indentionChars = [...indent.slice(0, indent.length - 1), selectionLastIndent]
   const unselectedChars = new Array(start + 1).fill(' ')
   const selectedChars = new Array(end - start).fill(SYMBOLS.selectedChar)
   const paddingLength = typeDisplay.length + 2 // 1 for the space after + 1 for the double quote.
 
-  const nodePrintSpaces = new Array(nodeKeyDisplay.length + paddingLength).fill(
-    ' ',
-  )
+  const nodePrintSpaces = new Array(nodeKeyDisplay.length + paddingLength).fill(' ')
 
-  return (
-    `${[
-      SYMBOLS.selectedLine,
-      indentionChars.join(' '),
-      [...nodePrintSpaces, ...unselectedChars, ...selectedChars].join(''),
-    ].join(' ')}\n`
-  )
+  return `${[
+    SYMBOLS.selectedLine,
+    indentionChars.join(' '),
+    [...nodePrintSpaces, ...unselectedChars, ...selectedChars].join(''),
+  ].join(' ')}\n`
 }
 
 function printPrettyHTML(str: string) {
@@ -517,10 +475,7 @@ function prettifyHTML(node: Element, level: number) {
   return node
 }
 
-function $getSelectionStartEnd(
-  node: LexicalNode,
-  selection: BaseSelection,
-): [number, number] {
+function $getSelectionStartEnd(node: LexicalNode, selection: BaseSelection): [number, number] {
   const anchorAndFocus = selection.getStartEndPoints()
   if ($isNodeSelection(selection) || anchorAndFocus === null) {
     return [-1, -1]
@@ -537,29 +492,20 @@ function $getSelectionStartEnd(
     const anchorNode = anchor.getNode()
     const focusNode = focus.getNode()
 
-    if (
-      anchorNode === focusNode
-      && node === anchorNode
-      && anchor.offset !== focus.offset
-    ) {
-      [start, end]
-        = anchor.offset < focus.offset
-          ? [anchor.offset, focus.offset]
-          : [focus.offset, anchor.offset]
-    }
-    else if (node === anchorNode) {
-      [start, end] = anchorNode.isBefore(focusNode)
+    if (anchorNode === focusNode && node === anchorNode && anchor.offset !== focus.offset) {
+      ;[start, end] =
+        anchor.offset < focus.offset ? [anchor.offset, focus.offset] : [focus.offset, anchor.offset]
+    } else if (node === anchorNode) {
+      ;[start, end] = anchorNode.isBefore(focusNode)
         ? [anchor.offset, textLength]
         : [0, anchor.offset]
-    }
-    else if (node === focusNode) {
-      [start, end] = focusNode.isBefore(anchorNode)
+    } else if (node === focusNode) {
+      ;[start, end] = focusNode.isBefore(anchorNode)
         ? [focus.offset, textLength]
         : [0, focus.offset]
-    }
-    else {
+    } else {
       // Node is within selection but not the anchor nor focus.
-      [start, end] = [0, textLength]
+      ;[start, end] = [0, textLength]
     }
   }
 
@@ -573,8 +519,6 @@ function $getSelectionStartEnd(
 
   return [
     start + numNonSingleWidthCharBeforeSelection,
-    end
-    + numNonSingleWidthCharBeforeSelection
-    + numNonSingleWidthCharInSelection,
+    end + numNonSingleWidthCharBeforeSelection + numNonSingleWidthCharInSelection,
   ]
 }

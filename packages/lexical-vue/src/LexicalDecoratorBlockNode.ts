@@ -45,12 +45,8 @@ export class DecoratorBlockNode extends DecoratorNode<Component> {
     }
   }
 
-  updateFromJSON(
-    serializedNode: LexicalUpdateJSON<SerializedDecoratorBlockNode>,
-  ): this {
-    return super
-      .updateFromJSON(serializedNode)
-      .setFormat(serializedNode.format || '')
+  updateFromJSON(serializedNode: LexicalUpdateJSON<SerializedDecoratorBlockNode>): this {
+    return super.updateFromJSON(serializedNode).setFormat(serializedNode.format || '')
   }
 
   setFormat(format: ElementFormatType): this {
@@ -76,6 +72,8 @@ export function $createDecoratorBlockNode() {
   return new DecoratorBlockNode()
 }
 
-export function $isDecoratorBlockNode(node: LexicalNode | null | undefined): node is DecoratorBlockNode {
+export function $isDecoratorBlockNode(
+  node: LexicalNode | null | undefined,
+): node is DecoratorBlockNode {
   return node instanceof DecoratorBlockNode
 }

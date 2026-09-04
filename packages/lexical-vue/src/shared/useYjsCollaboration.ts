@@ -97,14 +97,7 @@ export function useYjsCollaboration(
 
     root.getSharedType().observeDeep(onYjsTreeChanges)
     const removeListener = editor.registerUpdateListener(
-      ({
-        prevEditorState,
-        editorState,
-        dirtyLeaves,
-        dirtyElements,
-        normalizedNodes,
-        tags,
-      }) => {
+      ({ prevEditorState, editorState, dirtyLeaves, dirtyElements, normalizedNodes, tags }) => {
         if (!tags.has(SKIP_COLLAB_TAG)) {
           syncLexicalUpdateToYjs(
             resolvedBinding,
@@ -154,15 +147,7 @@ export function useYjsCollaboration(
     })
   })
 
-  useProvider(
-    editor,
-    provider,
-    name,
-    color,
-    isReloadingDoc,
-    awarenessData,
-    onBootstrap,
-  )
+  useProvider(editor, provider, name, color, isReloadingDoc, awarenessData, onBootstrap)
 
   useAwareness(binding, provider, selectionHighlight)
 
@@ -206,8 +191,7 @@ export function useProvider(
   const disconnect = (resolvedProvider: Provider) => {
     try {
       resolvedProvider.disconnect()
-    }
-    catch {
+    } catch {
       // Do nothing
     }
   }
@@ -246,8 +230,7 @@ export function useProvider(
       if (isReloadingDoc.value === false) {
         if (connectionPromise) {
           connectionPromise.then(() => disconnect(resolvedProvider))
-        }
-        else {
+        } else {
           // Workaround for race condition in StrictMode. It's possible there
           // is a different race for the above case where connect returns a
           // promise, but we don't have an example of that in-repo.
@@ -276,12 +259,11 @@ export function useProvider(
         const shouldConnect = payload
 
         if (shouldConnect) {
-          // eslint-disable-next-line no-console
+          // oxlint-disable-next-line no-console
           console.log('Collaboration connected!')
           resolvedProvider.connect()
-        }
-        else {
-          // eslint-disable-next-line no-console
+        } else {
+          // oxlint-disable-next-line no-console
           console.log('Collaboration disconnected!')
           disconnect(resolvedProvider)
         }
@@ -303,16 +285,17 @@ export function useProvider(
     const clearAwarenessState = () => {
       try {
         resolvedProvider.awareness.setLocalState(null)
-      }
-      catch {
+      } catch {
         // Ignore errors during cleanup if the provider is already disconnected.
       }
     }
 
-    onInvalidate(registerEventListeners(window, {
-      beforeunload: clearAwarenessState,
-      pagehide: clearAwarenessState,
-    }))
+    onInvalidate(
+      registerEventListeners(window, {
+        beforeunload: clearAwarenessState,
+        pagehide: clearAwarenessState,
+      }),
+    )
   })
 }
 
@@ -338,7 +321,7 @@ export function useYjsCursors(
       }),
     )
   })
-};
+}
 
 export function useYjsFocusTracking(
   editor: LexicalEditor,
@@ -357,7 +340,13 @@ export function useYjsFocusTracking(
       editor.registerCommand(
         FOCUS_COMMAND,
         () => {
-          setLocalStateFocus(resolvedProvider, toValue(name), toValue(color), true, toValue(awarenessData) || {})
+          setLocalStateFocus(
+            resolvedProvider,
+            toValue(name),
+            toValue(color),
+            true,
+            toValue(awarenessData) || {},
+          )
           return false
         },
         COMMAND_PRIORITY_EDITOR,
@@ -365,7 +354,13 @@ export function useYjsFocusTracking(
       editor.registerCommand(
         BLUR_COMMAND,
         () => {
-          setLocalStateFocus(resolvedProvider, toValue(name), toValue(color), false, toValue(awarenessData) || {})
+          setLocalStateFocus(
+            resolvedProvider,
+            toValue(name),
+            toValue(color),
+            false,
+            toValue(awarenessData) || {},
+          )
           return false
         },
         COMMAND_PRIORITY_EDITOR,
@@ -376,7 +371,10 @@ export function useYjsFocusTracking(
   })
 }
 
-export function useYjsHistory(editor: LexicalEditor, binding: MaybeRefOrGetter<Binding>): () => void {
+export function useYjsHistory(
+  editor: LexicalEditor,
+  binding: MaybeRefOrGetter<Binding>,
+): () => void {
   const undoManager = computed(() => {
     const resolvedBinding = toValue(binding)
     return resolvedBinding
@@ -450,14 +448,8 @@ export function useYjsUndoManager(editor: LexicalEditor, undoManager: Ref<UndoMa
     }
 
     const updateUndoRedoStates = () => {
-      editor.dispatchCommand(
-        CAN_UNDO_COMMAND,
-        resolvedUndoManager.undoStack.length > 0,
-      )
-      editor.dispatchCommand(
-        CAN_REDO_COMMAND,
-        resolvedUndoManager.redoStack.length > 0,
-      )
+      editor.dispatchCommand(CAN_UNDO_COMMAND, resolvedUndoManager.undoStack.length > 0)
+      editor.dispatchCommand(CAN_REDO_COMMAND, resolvedUndoManager.redoStack.length > 0)
     }
     resolvedUndoManager.on('stack-item-added', updateUndoRedoStates)
     resolvedUndoManager.on('stack-item-popped', updateUndoRedoStates)
@@ -496,23 +488,21 @@ function initializeEditor(
               editor.update(
                 () => {
                   const root1 = $getRoot()
-                  if (root1.isEmpty())
-                    initialEditorState(editor)
+                  if (root1.isEmpty()) initialEditorState(editor)
                 },
                 { tag: HISTORY_MERGE_TAG },
               )
               break
             }
           }
-        }
-        else {
+        } else {
           const paragraph = $createParagraphNode()
           root.append(paragraph)
           const rootElement = editor.getRootElement()
 
           if (
-            $getSelection() !== null
-            || (rootElement !== null && getActiveElement(rootElement) === rootElement)
+            $getSelection() !== null ||
+            (rootElement !== null && getActiveElement(rootElement) === rootElement)
           ) {
             paragraph.select()
           }
@@ -538,18 +528,15 @@ function clearEditorSkipCollab(editor: LexicalEditor, binding: BaseBinding) {
     },
   )
 
-  if (binding.cursors == null)
-    return
+  if (binding.cursors == null) return
 
   const cursors = binding.cursors
 
-  if (cursors == null)
-    return
+  if (cursors == null) return
 
   const cursorsContainer = binding.cursorsContainer
 
-  if (cursorsContainer == null)
-    return
+  if (cursorsContainer == null) return
 
   for (const cursor of cursors.values()) {
     const selection = cursor.selection
@@ -557,7 +544,9 @@ function clearEditorSkipCollab(editor: LexicalEditor, binding: BaseBinding) {
       continue
     }
     if (selection.highlight !== null) {
-      (CSS.highlights as unknown as { delete: (name: string) => boolean }).delete(selection.highlightName)
+      ;(CSS.highlights as unknown as { delete: (name: string) => boolean }).delete(
+        selection.highlightName,
+      )
       removeCursorHighlightRule(binding, selection.highlightName)
     }
     if (selection.caret.parentNode === cursorsContainer) {

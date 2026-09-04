@@ -39,18 +39,16 @@ export interface EmbedConfig<
   // Used to identify this config e.g. youtube, tweet, google-maps.
   type: string
   // Determine if a given URL is a match and return url data.
-  parseUrl: (
-    text: string,
-  ) => Promise<TEmbedMatchResult | null> | TEmbedMatchResult | null
+  parseUrl: (text: string) => Promise<TEmbedMatchResult | null> | TEmbedMatchResult | null
   // Create the Lexical embed node from the url data.
   insertNode: (editor: LexicalEditor, result: TEmbedMatchResult) => void
 }
 
-export const URL_MATCHER
-  = /((https?:\/\/(www\.)?)|(www\.))[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-\w()@:%+.~#?&/=]*)/
+export const URL_MATCHER =
+  /((https?:\/\/(www\.)?)|(www\.))[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-\w()@:%+.~#?&/=]*)/
 
-export const INSERT_EMBED_COMMAND: LexicalCommand<EmbedConfig['type']>
-  = createCommand('INSERT_EMBED_COMMAND')
+export const INSERT_EMBED_COMMAND: LexicalCommand<EmbedConfig['type']> =
+  createCommand('INSERT_EMBED_COMMAND')
 
 export class AutoEmbedOption extends MenuOption {
   title: string
@@ -77,7 +75,9 @@ interface LexicalAutoEmbedPluginProps<TEmbedConfig extends EmbedConfig> {
   menuCommandPriority?: CommandListenerPriority
 }
 
-export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: LexicalAutoEmbedPluginProps<TEmbedConfig>) {
+export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(
+  props: LexicalAutoEmbedPluginProps<TEmbedConfig>,
+) {
   const instance = getCurrentInstance()
   const editor = useLexicalComposer()
   const nodeKey = ref<NodeKey | null>(null)
@@ -89,11 +89,10 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
 
   function hasOpenEmbedModalListenerProp() {
     const vnodeProps = instance?.vnode.props
-    return vnodeProps != null
-      && (
-        'onOpenEmbedModalForConfig' in vnodeProps
-        || 'onOpenEmbedModalForConfigOnce' in vnodeProps
-      )
+    return (
+      vnodeProps != null &&
+      ('onOpenEmbedModalForConfig' in vnodeProps || 'onOpenEmbedModalForConfigOnce' in vnodeProps)
+    )
   }
 
   const hasOpenEmbedModalListener = ref(hasOpenEmbedModalListenerProp())
@@ -126,19 +125,11 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
     }
   }
 
-  const listener: MutationListener = (
-    nodeMutations,
-    { updateTags, dirtyLeaves },
-  ) => {
+  const listener: MutationListener = (nodeMutations, { updateTags, dirtyLeaves }) => {
     for (const [key, mutation] of nodeMutations) {
-      if (
-        mutation === 'created'
-        && updateTags.has(PASTE_TAG)
-        && dirtyLeaves.size <= 3
-      ) {
+      if (mutation === 'created' && updateTags.has(PASTE_TAG) && dirtyLeaves.size <= 3) {
         checkIfLinkNodeIsEmbeddable(key)
-      }
-      else if (key === nodeKey.value) {
+      } else if (key === nodeKey.value) {
         reset()
       }
     }
@@ -146,7 +137,7 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
 
   watchEffect((onInvalidate) => {
     const unregister = mergeRegister(
-      ...[LinkNode, AutoLinkNode].map(Klass =>
+      ...[LinkNode, AutoLinkNode].map((Klass) =>
         editor.registerMutationListener(Klass, (...args) => listener(...args), {
           skipInitialization: true,
         }),
@@ -164,9 +155,7 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
     const unregister = editor.registerCommand(
       INSERT_EMBED_COMMAND,
       (embedConfigType: TEmbedConfig['type']) => {
-        const embedConfig = props.embedConfigs.find(
-          ({ type }) => type === embedConfigType,
-        )
+        const embedConfig = props.embedConfigs.find(({ type }) => type === embedConfigType)
         if (embedConfig) {
           emit('openEmbedModalForConfig', embedConfig)
           return true
@@ -185,33 +174,30 @@ export function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>(props: 
     if (embedConfig != null && activeNodeKey != null) {
       const linkNode = editor.read('latest', () => {
         const node = $getNodeByKey(activeNodeKey)
-        if ($isLinkNode(node))
-          return node
+        if ($isLinkNode(node)) return node
 
         return null
       })
 
       if ($isLinkNode(linkNode)) {
-        const result = await Promise.resolve(
-          embedConfig.parseUrl(linkNode.__url),
-        )
+        const result = await Promise.resolve(embedConfig.parseUrl(linkNode.__url))
         if (result != null) {
           editor.update(() => {
-            if (!$getSelection())
-              linkNode.selectEnd()
+            if (!$getSelection()) linkNode.selectEnd()
 
             embedConfig.insertNode(editor, result)
-            if (linkNode.isAttached())
-              linkNode.remove()
+            if (linkNode.isAttached()) linkNode.remove()
           })
         }
       }
     }
   }
 
-  const options = computed<AutoEmbedOption[]>(() => activeEmbedConfig.value != null && nodeKey.value != null
-    ? props.getMenuOptions(activeEmbedConfig.value, embedLinkViaActiveEmbedConfig, reset)
-    : [])
+  const options = computed<AutoEmbedOption[]>(() =>
+    activeEmbedConfig.value != null && nodeKey.value != null
+      ? props.getMenuOptions(activeEmbedConfig.value, embedLinkViaActiveEmbedConfig, reset)
+      : [],
+  )
 
   function onSelectOption({
     option: selectedOption,

@@ -1,12 +1,11 @@
 import { $insertNodeToNearestRoot } from '@lexical/utils'
-import {
-  $getSelection,
-  $isRangeSelection,
-  COMMAND_PRIORITY_EDITOR,
-} from 'lexical'
+import { $getSelection, $isRangeSelection, COMMAND_PRIORITY_EDITOR } from 'lexical'
 import { onMounted, onUnmounted } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
-import { $createHorizontalRuleNode, INSERT_HORIZONTAL_RULE_COMMAND } from './LexicalHorizontalRuleNode'
+import {
+  $createHorizontalRuleNode,
+  INSERT_HORIZONTAL_RULE_COMMAND,
+} from './LexicalHorizontalRuleNode'
 
 export function HorizontalRulePlugin() {
   const editor = useLexicalComposer()

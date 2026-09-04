@@ -3,7 +3,11 @@ import type { LexicalNode } from 'lexical'
 import { registerMarkdownShortcuts, TRANSFORMERS } from '@lexical/markdown'
 import { watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
-import { $createHorizontalRuleNode, $isHorizontalRuleNode, HorizontalRuleNode } from './LexicalHorizontalRuleNode'
+import {
+  $createHorizontalRuleNode,
+  $isHorizontalRuleNode,
+  HorizontalRuleNode,
+} from './LexicalHorizontalRuleNode'
 
 export const HR: ElementTransformer = {
   dependencies: [HorizontalRuleNode],
@@ -17,8 +21,7 @@ export const HR: ElementTransformer = {
     // TODO: Get rid of isImport flag
     if (isImport || parentNode.getNextSibling() != null) {
       parentNode.replace(line)
-    }
-    else {
+    } else {
       parentNode.insertBefore(line)
     }
 

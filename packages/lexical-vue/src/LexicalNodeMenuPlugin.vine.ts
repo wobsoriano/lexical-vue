@@ -1,13 +1,7 @@
-import type {
-  CommandListenerPriority,
-  NodeKey,
-  TextNode,
-} from 'lexical'
+import type { CommandListenerPriority, NodeKey, TextNode } from 'lexical'
 import type { MenuOption, MenuRenderProps, MenuResolution } from './shared/LexicalMenu.vine'
 
-import {
-  $getNodeByKey,
-} from 'lexical'
+import { $getNodeByKey } from 'lexical'
 import { nextTick, ref, watch, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import { LexicalMenu, useMenuAnchorRef } from './shared/LexicalMenu.vine'
@@ -24,12 +18,14 @@ export function NodeMenuPlugin<TOption extends MenuOption>(props: NodeMenuPlugin
   const emit = vineEmits<{
     close?: []
     open?: [payload: MenuResolution]
-    selectOption: [payload: {
-      option: TOption
-      textNodeContainingQuery: TextNode | null
-      closeMenu: () => void
-      matchingString: string
-    }]
+    selectOption: [
+      payload: {
+        option: TOption
+        textNodeContainingQuery: TextNode | null
+        closeMenu: () => void
+        matchingString: string
+      },
+    ]
   }>()
 
   const editor = useLexicalComposer()
@@ -49,15 +45,13 @@ export function NodeMenuPlugin<TOption extends MenuOption>(props: NodeMenuPlugin
   function closeNodeMenu() {
     const wasOpen = resolution.value !== null
     setResolution(null)
-    if (wasOpen)
-      emit('close')
+    if (wasOpen) emit('close')
   }
 
   function openNodeMenu(res: MenuResolution) {
     const wasClosed = resolution.value === null
     setResolution(res)
-    if (wasClosed)
-      emit('open', res)
+    if (wasClosed) emit('open', res)
   }
 
   function positionOrCloseMenu() {
@@ -75,8 +69,7 @@ export function NodeMenuPlugin<TOption extends MenuOption>(props: NodeMenuPlugin
           }
         }
       })
-    }
-    else if (props.nodeKey == null && resolution.value != null) {
+    } else if (props.nodeKey == null && resolution.value != null) {
       closeNodeMenu()
     }
   }
@@ -86,8 +79,7 @@ export function NodeMenuPlugin<TOption extends MenuOption>(props: NodeMenuPlugin
   watchEffect((onInvalidate) => {
     if (props.nodeKey != null) {
       const unregister = editor.registerUpdateListener(({ dirtyElements }) => {
-        if (dirtyElements.get(props.nodeKey!))
-          positionOrCloseMenu()
+        if (dirtyElements.get(props.nodeKey!)) positionOrCloseMenu()
       })
 
       onInvalidate(unregister)

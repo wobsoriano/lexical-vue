@@ -60,7 +60,7 @@ function onChange(editorState) {
           <template #placeholder>
             <div>Enter some text...</div>
           </template>
-        </ContentEditable >
+        </ContentEditable>
       </template>
     </PlainTextPlugin>
     <OnChangePlugin @change="onChange" />

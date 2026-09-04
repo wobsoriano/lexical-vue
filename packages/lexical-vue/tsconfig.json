@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "lib": ["DOM", "ES2022"],
@@ -17,8 +18,8 @@
     "noUnusedParameters": true,
 
     "declaration": true,
-    "downlevelIteration": true,
     "emitDeclarationOnly": true,
+    "rootDir": "./src",
     "outDir": "dist",
     "isolatedModules": true,
     "skipLibCheck": true

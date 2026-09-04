@@ -131,25 +131,25 @@ Plugin will convert text into links based on passed matchers list. In example be
 
 ```html
 <script setup>
-const URL_MATCHER
-  = /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
+  const URL_MATCHER =
+    /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
 
-const MATCHERS = [
-  (text) => {
-    const match = URL_MATCHER.exec(text);
-    if (match === null) {
-      return null;
-    }
-    const fullMatch = match[0];
-    return {
-      index: match.index,
-      length: fullMatch.length,
-      text: fullMatch,
-      url: fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`,
-      // attributes: { rel: 'noreferrer', target: '_blank' }, // Optional link attributes
-    };
-  },
-];
+  const MATCHERS = [
+    (text) => {
+      const match = URL_MATCHER.exec(text)
+      if (match === null) {
+        return null
+      }
+      const fullMatch = match[0]
+      return {
+        index: match.index,
+        length: fullMatch.length,
+        text: fullMatch,
+        url: fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`,
+        // attributes: { rel: 'noreferrer', target: '_blank' }, // Optional link attributes
+      }
+    },
+  ]
 </script>
 
 <template>

@@ -14,11 +14,9 @@ export function CharacterLimitPlugin({
   let textEncoderInstance: TextEncoder | null = null
 
   function textEncoder(): null | TextEncoder {
-    if (window.TextEncoder === undefined)
-      return null
+    if (window.TextEncoder === undefined) return null
 
-    if (textEncoderInstance === null)
-      textEncoderInstance = new window.TextEncoder()
+    if (textEncoderInstance === null) textEncoderInstance = new window.TextEncoder()
 
     return textEncoderInstance
   }
@@ -27,7 +25,7 @@ export function CharacterLimitPlugin({
     const currentTextEncoder = textEncoder()
 
     if (currentTextEncoder === null) {
-    // http://stackoverflow.com/a/5515960/210370
+      // http://stackoverflow.com/a/5515960/210370
       const m = encodeURIComponent(text).match(/%[89AB]/gi)
       return text.length + (m ? m.length : 0)
     }
@@ -40,27 +38,16 @@ export function CharacterLimitPlugin({
     remainingCharacters.value = payload
   }
 
-  const characterLimitProps = computed(
-    () => ({
-      remainingCharacters: setRemainingCharacters,
-      strlen: (text: string) => {
-        if (charset === 'UTF-8')
-          return utf8Length(text)
+  const characterLimitProps = computed(() => ({
+    remainingCharacters: setRemainingCharacters,
+    strlen: (text: string) => {
+      if (charset === 'UTF-8') return utf8Length(text)
+      else if (charset === 'UTF-16') return text.length
+      else throw new Error('Unrecognized charset')
+    },
+  }))
 
-        else if (charset === 'UTF-16')
-          return text.length
-
-        else
-          throw new Error('Unrecognized charset')
-      },
-    }),
-  )
-
-  useCharacterLimit(
-    editor,
-    maxLength,
-    characterLimitProps,
-  )
+  useCharacterLimit(editor, maxLength, characterLimitProps)
 
   vineSlots<{
     default: (props: { remainingCharacters: number }) => any

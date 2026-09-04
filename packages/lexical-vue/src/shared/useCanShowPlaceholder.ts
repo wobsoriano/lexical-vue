@@ -3,9 +3,7 @@ import { $canShowPlaceholderCurry } from '@lexical/text'
 import { mergeRegister } from '@lexical/utils'
 import { onMounted, onUnmounted, readonly, ref } from 'vue'
 
-function canShowPlaceholderFromCurrentEditorState(
-  editor: LexicalEditor,
-): boolean {
+function canShowPlaceholderFromCurrentEditorState(editor: LexicalEditor): boolean {
   const currentCanShowPlaceholder = editor.read(
     'latest',
     $canShowPlaceholderCurry(editor.isComposing()),
@@ -15,16 +13,12 @@ function canShowPlaceholderFromCurrentEditorState(
 }
 
 export function useCanShowPlaceholder(editor: LexicalEditor) {
-  const initialState = editor.read(
-    'latest',
-    $canShowPlaceholderCurry(editor.isComposing()),
-  )
+  const initialState = editor.read('latest', $canShowPlaceholderCurry(editor.isComposing()))
 
   const canShowPlaceholder = ref(initialState)
 
   function resetCanShowPlaceholder() {
-    const currentCanShowPlaceholder
-      = canShowPlaceholderFromCurrentEditorState(editor)
+    const currentCanShowPlaceholder = canShowPlaceholderFromCurrentEditorState(editor)
     canShowPlaceholder.value = currentCanShowPlaceholder
   }
 

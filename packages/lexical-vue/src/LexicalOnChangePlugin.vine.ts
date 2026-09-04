@@ -17,17 +17,19 @@ export function OnChangePlugin({
   }>()
 
   watchEffect((onInvalidate) => {
-    const unregister = editor.registerUpdateListener(({ editorState, dirtyElements, dirtyLeaves, prevEditorState, tags }) => {
-      if (
-        (ignoreSelectionChange && dirtyElements.size === 0 && dirtyLeaves.size === 0)
-        || (ignoreHistoryMergeTagChange && tags.has(HISTORY_MERGE_TAG))
-        || prevEditorState.isEmpty()
-      ) {
-        return
-      }
+    const unregister = editor.registerUpdateListener(
+      ({ editorState, dirtyElements, dirtyLeaves, prevEditorState, tags }) => {
+        if (
+          (ignoreSelectionChange && dirtyElements.size === 0 && dirtyLeaves.size === 0) ||
+          (ignoreHistoryMergeTagChange && tags.has(HISTORY_MERGE_TAG)) ||
+          prevEditorState.isEmpty()
+        ) {
+          return
+        }
 
-      emit('change', editorState, editor, tags)
-    })
+        emit('change', editorState, editor, tags)
+      },
+    )
 
     onInvalidate(unregister)
   })

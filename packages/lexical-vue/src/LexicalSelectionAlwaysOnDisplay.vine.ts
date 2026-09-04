@@ -11,8 +11,7 @@ export function SelectionAlwaysOnDisplay() {
 
   function hasRepositionListenerProp() {
     const vnodeProps = instance?.vnode.props
-    return vnodeProps != null
-      && ('onReposition' in vnodeProps || 'onRepositionOnce' in vnodeProps)
+    return vnodeProps != null && ('onReposition' in vnodeProps || 'onRepositionOnce' in vnodeProps)
   }
 
   const hasRepositionListener = ref(hasRepositionListenerProp())
@@ -24,9 +23,7 @@ export function SelectionAlwaysOnDisplay() {
   watchEffect((onInvalidate) => {
     const unregister = selectionAlwaysOnDisplay(
       editor,
-      hasRepositionListener.value
-        ? nodes => emit('reposition', nodes)
-        : undefined,
+      hasRepositionListener.value ? (nodes) => emit('reposition', nodes) : undefined,
     )
     onInvalidate(unregister)
   })

@@ -20,9 +20,7 @@ export function ListPlugin(props: ListPluginProps) {
   const editor = useLexicalComposer()
   watchEffect((onInvalidate) => {
     if (!editor.hasNodes([ListNode, ListItemNode])) {
-      throw new Error(
-        'ListPlugin: ListNode and/or ListItemNode not registered on editor',
-      )
+      throw new Error('ListPlugin: ListNode and/or ListItemNode not registered on editor')
     }
 
     if (!props.hasStrictIndent) {

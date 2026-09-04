@@ -10,9 +10,7 @@ import type {
   Spread,
 } from 'lexical'
 
-import type {
-  SerializedDecoratorBlockNode,
-} from 'lexical-vue'
+import type { SerializedDecoratorBlockNode } from 'lexical-vue'
 import type { Component } from 'vue'
 import { BlockWithAlignableContents } from 'lexical-vue/LexicalBlockWithAlignableContents'
 import { DecoratorBlockNode } from 'lexical-vue/LexicalDecoratorBlockNode'
@@ -22,20 +20,27 @@ const YouTubeComponent = defineComponent({
   name: 'YouTubeComponent',
   props: ['format', 'nodeKey', 'videoID', 'class'],
   setup(props) {
-    // @ts-expect-error: vue-vine should allow default slot like this
-    return () => h(BlockWithAlignableContents, {
-      class: props.class,
-      format: props.format,
-      nodeKey: props.nodeKey,
-    }, () => h('iframe', {
-      width: '560',
-      height: '315',
-      src: `https://www.youtube-nocookie.com/embed/${props.videoID}`,
-      frameBorder: '0',
-      allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
-      allowFullScreen: true,
-      title: 'YouTube video',
-    }))
+    return () =>
+      h(
+        // @ts-expect-error: vue-vine should allow default slot like this
+        BlockWithAlignableContents,
+        {
+          class: props.class,
+          format: props.format,
+          nodeKey: props.nodeKey,
+        },
+        () =>
+          h('iframe', {
+            width: '560',
+            height: '315',
+            src: `https://www.youtube-nocookie.com/embed/${props.videoID}`,
+            frameBorder: '0',
+            allow:
+              'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+            allowFullScreen: true,
+            title: 'YouTube video',
+          }),
+      )
   },
 })
 
@@ -46,9 +51,7 @@ export type SerializedYouTubeNode = Spread<
   SerializedDecoratorBlockNode
 >
 
-function convertYoutubeElement(
-  domNode: HTMLElement,
-): null | DOMConversionOutput {
+function convertYoutubeElement(domNode: HTMLElement): null | DOMConversionOutput {
   const videoID = domNode.getAttribute('data-lexical-youtube')
   if (videoID) {
     const node = $createYouTubeNode(videoID)
@@ -69,9 +72,7 @@ export class YouTubeNode extends DecoratorBlockNode {
   }
 
   static importJSON(serializedNode: SerializedYouTubeNode): YouTubeNode {
-    return $createYouTubeNode(serializedNode.videoID).updateFromJSON(
-      serializedNode,
-    )
+    return $createYouTubeNode(serializedNode.videoID).updateFromJSON(serializedNode)
   }
 
   exportJSON(): SerializedYouTubeNode {
@@ -91,10 +92,7 @@ export class YouTubeNode extends DecoratorBlockNode {
     element.setAttribute('data-lexical-youtube', this.__id)
     element.setAttribute('width', '560')
     element.setAttribute('height', '315')
-    element.setAttribute(
-      'src',
-      `https://www.youtube-nocookie.com/embed/${this.__id}`,
-    )
+    element.setAttribute('src', `https://www.youtube-nocookie.com/embed/${this.__id}`)
     element.setAttribute('frameborder', '0')
     element.setAttribute(
       'allow',
@@ -108,8 +106,7 @@ export class YouTubeNode extends DecoratorBlockNode {
   static importDOM(): DOMConversionMap | null {
     return {
       iframe: (domNode: HTMLElement) => {
-        if (!domNode.hasAttribute('data-lexical-youtube'))
-          return null
+        if (!domNode.hasAttribute('data-lexical-youtube')) return null
 
         return {
           conversion: convertYoutubeElement,
@@ -127,10 +124,7 @@ export class YouTubeNode extends DecoratorBlockNode {
     return this.__id
   }
 
-  getTextContent(
-    _includeInert?: boolean | undefined,
-    _includeDirectionless?: false | undefined,
-  ): string {
+  getTextContent(_includeInert?: boolean, _includeDirectionless?: false): string {
     return `https://www.youtube.com/watch?v=${this.__id}`
   }
 

@@ -29,7 +29,11 @@ interface CollaborationPluginProps {
   excludedProperties?: Map<Klass<LexicalNode>, Set<string>>
   // `awarenessData` parameter allows arbitrary data to be added to the awareness.
   awarenessData?: object
-  syncCursorPositionsFn?: (binding: AnyBinding, provider: Provider, options?: SyncCursorPositionsOptions) => void
+  syncCursorPositionsFn?: (
+    binding: AnyBinding,
+    provider: Provider,
+    options?: SyncCursorPositionsOptions,
+  ) => void
   selectionHighlight?: boolean
   rootName?: string
 }
@@ -37,10 +41,8 @@ interface CollaborationPluginProps {
 export function CollaborationPlugin(props: CollaborationPluginProps) {
   // Set username and cursor color
   watchEffect(() => {
-    if (props.username !== undefined)
-      collaborationContext.value.name = props.username
-    if (props.cursorColor !== undefined)
-      collaborationContext.value.color = props.cursorColor
+    if (props.username !== undefined) collaborationContext.value.name = props.username
+    if (props.cursorColor !== undefined) collaborationContext.value.color = props.cursorColor
   })
 
   const editor = useLexicalComposer()
@@ -49,10 +51,9 @@ export function CollaborationPlugin(props: CollaborationPluginProps) {
     collaborationContext.value.isCollabActive = true
 
     onInvalidate(() => {
-    // Reseting flag only when unmount top level editor collab plugin. Nested
-    // editors (e.g. image caption) should unmount without affecting it
-      if (editor._parentEditor == null)
-        collaborationContext.value.isCollabActive = false
+      // Reseting flag only when unmount top level editor collab plugin. Nested
+      // editors (e.g. image caption) should unmount without affecting it
+      if (editor._parentEditor == null) collaborationContext.value.isCollabActive = false
     })
   })
 
@@ -60,14 +61,16 @@ export function CollaborationPlugin(props: CollaborationPluginProps) {
   const yjsDocMap = collaborationContext.value.yjsDocMap
   const provider = shallowRef(props.providerFactory(id, yjsDocMap))
   const doc = shallowRef(yjsDocMap.get(id)!)
-  const binding = shallowRef(createYjsBinding({
-    doc: doc.value,
-    docMap: yjsDocMap,
-    editor,
-    excludedProperties: props.excludedProperties,
-    id,
-    rootName: props.rootName,
-  }))
+  const binding = shallowRef(
+    createYjsBinding({
+      doc: doc.value,
+      docMap: yjsDocMap,
+      editor,
+      excludedProperties: props.excludedProperties,
+      id,
+      rootName: props.rootName,
+    }),
+  )
 
   onUnmounted(() => {
     binding.value.root.destroy(binding.value)
@@ -92,7 +95,13 @@ export function CollaborationPlugin(props: CollaborationPluginProps) {
   )
 
   useYjsHistory(editor, binding)
-  useYjsFocusTracking(editor, provider, () => collaborationContext.value.name, () => collaborationContext.value.color, () => props.awarenessData)
+  useYjsFocusTracking(
+    editor,
+    provider,
+    () => collaborationContext.value.name,
+    () => collaborationContext.value.color,
+    () => props.awarenessData,
+  )
 
   return vine`
     <component :is="cursors" />

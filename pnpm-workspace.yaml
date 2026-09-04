@@ -2,6 +2,23 @@ packages:
   - apps/*
   - packages/*
 
+catalogMode: prefer
+
+catalog:
+  '@types/node': ^24.6.0
+  typescript: ~5.9.3
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.0
+  vite-plus: 0.3.0
+
+overrides:
+  vite@*: 'catalog:'
+
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: '*'
+
 onlyBuiltDependencies:
   - core-js
   - esbuild

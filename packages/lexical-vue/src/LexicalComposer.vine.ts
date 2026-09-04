@@ -1,17 +1,28 @@
-import type { EditorState, EditorThemeClasses, HTMLConfig, Klass, LexicalEditor, LexicalNode, LexicalNodeReplacement } from 'lexical'
+import type {
+  EditorState,
+  EditorThemeClasses,
+  HTMLConfig,
+  Klass,
+  LexicalEditor,
+  LexicalNode,
+  LexicalNodeReplacement,
+} from 'lexical'
 import type { InjectionKey } from 'vue'
 import { CAN_USE_DOM } from '@lexical/utils'
-import { $createParagraphNode, $getRoot, $getSelection, createEditor, getActiveElement, HISTORY_MERGE_TAG } from 'lexical'
+import {
+  $createParagraphNode,
+  $getRoot,
+  $getSelection,
+  createEditor,
+  getActiveElement,
+  HISTORY_MERGE_TAG,
+} from 'lexical'
 import invariant from 'tiny-invariant'
 import { inject, onMounted, provide } from 'vue'
 
 const lexicalEditorKey = Symbol('LexicalEditor') as InjectionKey<LexicalEditor>
 
-export type InitialEditorStateType
-  = | null
-    | string
-    | EditorState
-    | ((editor: LexicalEditor) => void)
+export type InitialEditorStateType = null | string | EditorState | ((editor: LexicalEditor) => void)
 
 export type InitialConfigType = Readonly<{
   namespace: string
@@ -24,9 +35,7 @@ export type InitialConfigType = Readonly<{
   html?: HTMLConfig
 }>
 
-export function LexicalComposer(props: {
-  initialConfig: InitialConfigType
-}) {
+export function LexicalComposer(props: { initialConfig: InitialConfigType }) {
   const HISTORY_MERGE_OPTIONS = { tag: HISTORY_MERGE_TAG }
 
   const {
@@ -68,8 +77,7 @@ export function LexicalComposer(props: {
     editor: LexicalEditor,
     initialEditorState?: InitialEditorStateType,
   ): void {
-    if (initialEditorState === null)
-      return
+    if (initialEditorState === null) return
 
     if (initialEditorState === undefined) {
       editor.update(() => {
@@ -78,20 +86,17 @@ export function LexicalComposer(props: {
           const paragraph = $createParagraphNode()
           root.append(paragraph)
           const rootElement = editor.getRootElement()
-          const activeElement
-            = CAN_USE_DOM && rootElement !== null
-              ? getActiveElement(rootElement)
-              : null
+          const activeElement =
+            CAN_USE_DOM && rootElement !== null ? getActiveElement(rootElement) : null
           if (
-            $getSelection() !== null
-            || (activeElement !== null && activeElement === rootElement)
+            $getSelection() !== null ||
+            (activeElement !== null && activeElement === rootElement)
           ) {
             paragraph.select()
           }
         }
       }, HISTORY_MERGE_OPTIONS)
-    }
-    else if (initialEditorState !== null) {
+    } else if (initialEditorState !== null) {
       switch (typeof initialEditorState) {
         case 'string': {
           const parsedEditorState = editor.parseEditorState(initialEditorState)
@@ -105,8 +110,7 @@ export function LexicalComposer(props: {
         case 'function': {
           editor.update(() => {
             const root = $getRoot()
-            if (root.isEmpty())
-              initialEditorState(editor)
+            if (root.isEmpty()) initialEditorState(editor)
           }, HISTORY_MERGE_OPTIONS)
           break
         }
@@ -135,10 +139,7 @@ export function useLexicalComposer() {
   const editor = inject(lexicalEditorKey, null)
 
   if (!editor) {
-    invariant(
-      false,
-      'useLexicalComposer: cannot find a LexicalComposer',
-    )
+    invariant(false, 'useLexicalComposer: cannot find a LexicalComposer')
   }
 
   return editor

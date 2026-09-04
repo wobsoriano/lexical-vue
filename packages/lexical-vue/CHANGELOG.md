@@ -43,19 +43,18 @@
     - Other plugins follow similar naming conventions
 
   # New Features
-
   - Individual plugin imports now available to reduce bundle size:
 
   ```vue
   <script setup lang="ts">
-  import { LexicalComposer } from "lexical-vue/LexicalComposer";
-  import { ContentEditable } from "lexical-vue/LexicalContentEditable";
-  import { HistoryPlugin } from "lexical-vue/LexicalHistoryPlugin";
-  import { PlainTextPlugin } from "lexical-vue/LexicalPlainTextPlugin";
+  import { LexicalComposer } from 'lexical-vue/LexicalComposer'
+  import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
+  import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
+  import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 
   const config = {
     // config
-  };
+  }
   </script>
 
   <template>

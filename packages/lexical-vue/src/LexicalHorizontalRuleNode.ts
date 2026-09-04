@@ -1,8 +1,5 @@
 import type { SerializedHorizontalRuleNode } from '@lexical/extension'
-import type {
-  DOMConversionOutput,
-  NodeKey,
-} from 'lexical'
+import type { DOMConversionOutput, NodeKey } from 'lexical'
 
 import type { Component, PropType } from 'vue'
 import {
@@ -23,11 +20,7 @@ import { defineComponent, h, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import { useLexicalNodeSelection } from './useLexicalNodeSelection'
 
-export {
-  $isHorizontalRuleNode,
-  INSERT_HORIZONTAL_RULE_COMMAND,
-  type SerializedHorizontalRuleNode,
-}
+export { $isHorizontalRuleNode, INSERT_HORIZONTAL_RULE_COMMAND, type SerializedHorizontalRuleNode }
 
 const HorizontalRuleComponent = defineComponent({
   props: {
@@ -38,8 +31,7 @@ const HorizontalRuleComponent = defineComponent({
   },
   setup(props) {
     const editor = useLexicalComposer()
-    const [isSelected, setSelected, clearSelection]
-      = useLexicalNodeSelection(() => props.nodeKey)
+    const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(() => props.nodeKey)
 
     watchEffect((onInvalidate) => {
       const unregister = mergeRegister(
@@ -72,8 +64,7 @@ const HorizontalRuleComponent = defineComponent({
       if (hrElem !== null) {
         if (isSelected.value) {
           addClassNamesToElement(hrElem, isSelectedClassName)
-        }
-        else {
+        } else {
           removeClassNamesFromElement(hrElem, isSelectedClassName)
         }
       }

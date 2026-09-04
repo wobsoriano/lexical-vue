@@ -8,12 +8,10 @@ const button = useTemplateRef('button')
 
 const ctx = inject<{ registerItem: (itemRef: HTMLButtonElement) => void }>('DropDownContext')
 
-if (!ctx?.registerItem)
-  throw new Error('DropDownItem must be used within a DropDown')
+if (!ctx?.registerItem) throw new Error('DropDownItem must be used within a DropDown')
 
 onMounted(() => {
-  if (button.value)
-    ctx.registerItem(button.value)
+  if (button.value) ctx.registerItem(button.value)
 })
 </script>
 

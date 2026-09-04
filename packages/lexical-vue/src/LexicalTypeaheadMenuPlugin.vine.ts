@@ -5,15 +5,26 @@ import type {
   RangeSelection,
   TextNode,
 } from 'lexical'
-import type { MenuRenderProps, MenuResolution, MenuTextMatch, TriggerFn } from './shared/LexicalMenu.vine'
+import type {
+  MenuRenderProps,
+  MenuResolution,
+  MenuTextMatch,
+  TriggerFn,
+} from './shared/LexicalMenu.vine'
 import { getScrollParent as getScrollParent_ } from '@lexical/utils'
-import { $getSelection, $isRangeSelection, $isTextNode, createCommand, getDOMSelection, getDOMSelectionPoints } from 'lexical'
+import {
+  $getSelection,
+  $isRangeSelection,
+  $isTextNode,
+  createCommand,
+  getDOMSelection,
+  getDOMSelectionPoints,
+} from 'lexical'
 import { computed, getCurrentInstance, nextTick, onUpdated, ref, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 import { LexicalMenu, MenuOption, useMenuAnchorRef } from './shared/LexicalMenu.vine'
 
-export const PUNCTUATION
-  = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
+export const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;'
 
 /** @deprecated Moved to `@lexical/utils`. Import `getScrollParent` from there. */
 export const getScrollParent = getScrollParent_
@@ -27,22 +38,18 @@ export const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
 
 export function useBasicTypeaheadTriggerMatch(
   trigger: string,
-  { minLength = 1, maxLength = 75, punctuation = PUNCTUATION, allowWhitespace = false }: { minLength?: number, maxLength?: number, punctuation?: string, allowWhitespace?: boolean },
+  {
+    minLength = 1,
+    maxLength = 75,
+    punctuation = PUNCTUATION,
+    allowWhitespace = false,
+  }: { minLength?: number; maxLength?: number; punctuation?: string; allowWhitespace?: boolean },
 ): TriggerFn {
   return (text: string) => {
     const validCharsSuffix = allowWhitespace ? '' : '\\s'
     const validChars = `[^${trigger}${punctuation}${validCharsSuffix}]`
     const TypeaheadTriggerRegex = new RegExp(
-      `(^|\\s|\\()(`
-      + `[${
-        trigger
-      }]`
-      + `((?:${
-        validChars
-      }){0,${
-        maxLength
-      }})`
-      + `)$`,
+      `(^|\\s|\\()(` + `[${trigger}]` + `((?:${validChars}){0,${maxLength}})` + `)$`,
     )
     const match = TypeaheadTriggerRegex.exec(text)
     if (match !== null) {
@@ -75,23 +82,27 @@ export type { MenuResolution, MenuTextMatch, TriggerFn }
 
 export { MenuOption }
 
-export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: TypeaheadMenuPluginProps<TOption>) {
+export function TypeaheadMenuPlugin<TOption extends MenuOption>(
+  props: TypeaheadMenuPluginProps<TOption>,
+) {
   const instance = getCurrentInstance()
   const hasPreselectFirstItem = ref(hasPreselectFirstItemProp())
 
   function hasPreselectFirstItemProp() {
     const vnodeProps = instance?.vnode.props
-    return vnodeProps != null
-      && ('preselectFirstItem' in vnodeProps || 'preselect-first-item' in vnodeProps)
+    return (
+      vnodeProps != null &&
+      ('preselectFirstItem' in vnodeProps || 'preselect-first-item' in vnodeProps)
+    )
   }
 
   onUpdated(() => {
     hasPreselectFirstItem.value = hasPreselectFirstItemProp()
   })
 
-  const shouldPreselectFirstItem = computed(() => hasPreselectFirstItem.value
-    ? props.preselectFirstItem
-    : true)
+  const shouldPreselectFirstItem = computed(() =>
+    hasPreselectFirstItem.value ? props.preselectFirstItem : true,
+  )
   const editor = useLexicalComposer()
   const resolution = ref<MenuResolution | null>(null)
 
@@ -99,12 +110,14 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
     close?: []
     open?: [payload: MenuResolution]
     queryChange: [payload: string | null]
-    selectOption: [payload: {
-      option: TOption
-      textNodeContainingQuery: TextNode | null
-      closeMenu: () => void
-      matchingString: string
-    }]
+    selectOption: [
+      payload: {
+        option: TOption
+        textNodeContainingQuery: TextNode | null
+        closeMenu: () => void
+        matchingString: string
+      },
+    ]
   }>()
 
   function setResolution(payload: MenuResolution | null) {
@@ -131,17 +144,14 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
     let result: PromiseLike<unknown> | null = null
     try {
       if (Array.isArray(onClose)) {
-        result = Promise.all(onClose.map(listener => listener()))
-      }
-      else {
+        result = Promise.all(onClose.map((listener) => listener()))
+      } else {
         result = onClose?.() ?? null
       }
-    }
-    finally {
+    } finally {
       if (result) {
         result.then(finish, finish)
-      }
-      else {
+      } else {
         finish()
       }
     }
@@ -150,18 +160,15 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
   function openTypeahead(res: MenuResolution) {
     const wasClosed = resolution.value === null
     setResolution(res)
-    if (wasClosed)
-      emit('open', res)
+    if (wasClosed) emit('open', res)
   }
 
   function getTextUpToAnchor(selection: RangeSelection): string | null {
     const anchor = selection.anchor
-    if (anchor.type !== 'text')
-      return null
+    if (anchor.type !== 'text') return null
 
     const anchorNode = anchor.getNode()
-    if (!anchorNode.isSimpleText())
-      return null
+    if (!anchorNode.isSimpleText()) return null
 
     const anchorOffset = anchor.offset
     return anchorNode.getTextContent().slice(0, anchorOffset)
@@ -174,22 +181,19 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
     rootElement: HTMLElement | null,
   ): boolean {
     const domSelection = getDOMSelection(editorWindow)
-    if (domSelection === null || !domSelection.isCollapsed)
-      return false
+    if (domSelection === null || !domSelection.isCollapsed) return false
 
     const points = getDOMSelectionPoints(domSelection, rootElement)
     const anchorNode = points.anchorNode
     const startOffset = leadOffset
     const endOffset = points.anchorOffset
 
-    if (anchorNode == null || endOffset == null)
-      return false
+    if (anchorNode == null || endOffset == null) return false
 
     try {
       range.setStart(anchorNode, startOffset)
       range.setEnd(anchorNode, endOffset)
-    }
-    catch {
+    } catch {
       return false
     }
 
@@ -200,20 +204,15 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
     let text = null
     editor.read('latest', () => {
       const selection = $getSelection()
-      if (!$isRangeSelection(selection))
-        return
+      if (!$isRangeSelection(selection)) return
 
       text = getTextUpToAnchor(selection)
     })
     return text
   }
 
-  function isSelectionOnEntityBoundary(
-    editor: LexicalEditor,
-    offset: number,
-  ): boolean {
-    if (offset !== 0)
-      return false
+  function isSelectionOnEntityBoundary(editor: LexicalEditor, offset: number): boolean {
+    if (offset !== 0) return false
 
     return editor.read('latest', () => {
       const selection = $getSelection()
@@ -229,7 +228,7 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
 
   watchEffect((onInvalidate) => {
     const updateListener = () => {
-    // Check if editor is in read-only mode
+      // Check if editor is in read-only mode
       editor.read('latest', () => {
         if (!editor.isEditable()) {
           closeTypeahead()
@@ -246,10 +245,10 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
         const text = getQueryTextForSearch(editor)
 
         if (
-          !$isRangeSelection(selection)
-          || !selection.isCollapsed()
-          || text === null
-          || range === null
+          !$isRangeSelection(selection) ||
+          !selection.isCollapsed() ||
+          text === null ||
+          range === null
         ) {
           closeTypeahead()
           return
@@ -259,8 +258,8 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
         emit('queryChange', match ? match.matchingString : null)
 
         if (
-          match !== null
-          && (props.ignoreEntityBoundary || !isSelectionOnEntityBoundary(editor, match.leadOffset))
+          match !== null &&
+          (props.ignoreEntityBoundary || !isSelectionOnEntityBoundary(editor, match.leadOffset))
         ) {
           const isRangePositioned = tryToPositionRange(
             match.leadOffset,
@@ -269,10 +268,12 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
             editor.getRootElement(),
           )
           if (isRangePositioned) {
-            nextTick(() => openTypeahead({
-              getRect: () => range.getBoundingClientRect(),
-              match,
-            }))
+            nextTick(() =>
+              openTypeahead({
+                getRect: () => range.getBoundingClientRect(),
+                match,
+              }),
+            )
             return
           }
         }
@@ -287,8 +288,7 @@ export function TypeaheadMenuPlugin<TOption extends MenuOption>(props: Typeahead
 
   watchEffect((onInvalidate) => {
     const unregister = editor.registerEditableListener((isEditable) => {
-      if (!isEditable)
-        closeTypeahead()
+      if (!isEditable) closeTypeahead()
     })
 
     onInvalidate(unregister)

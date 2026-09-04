@@ -87,8 +87,7 @@ export function TablePlugin({
   watchEffect((onInvalidate) => {
     if (!hasCellBackgroundColor) {
       const unregister = editor.registerNodeTransform(TableCellNode, (node) => {
-        if (node.getBackgroundColor() !== null)
-          node.setBackgroundColor(null)
+        if (node.getBackgroundColor() !== null) node.setBackgroundColor(null)
       })
 
       onInvalidate(unregister)

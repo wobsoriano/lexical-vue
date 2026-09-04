@@ -2,16 +2,19 @@
 import { ref, watchEffect, useTemplateRef } from 'vue'
 import DropDownItems from './DropDownItems.vue'
 
-const props = withDefaults(defineProps<{
-  disabled?: boolean
-  buttonAriaLabel?: string
-  buttonClassName: string
-  buttonIconClassName?: string
-  buttonLabel?: string
-  stopCloseOnClickSelf?: boolean
-}>(), {
-  disabled: false,
-})
+const props = withDefaults(
+  defineProps<{
+    disabled?: boolean
+    buttonAriaLabel?: string
+    buttonClassName: string
+    buttonIconClassName?: string
+    buttonLabel?: string
+    stopCloseOnClickSelf?: boolean
+  }>(),
+  {
+    disabled: false,
+  },
+)
 
 const dropDownRef = ref<{ el: HTMLDivElement } | null>(null)
 const buttonRef = useTemplateRef('buttonRef')
@@ -19,8 +22,7 @@ const showDropDown = ref(false)
 
 function handleClose() {
   showDropDown.value = false
-  if (buttonRef.value && buttonRef.value)
-    buttonRef.value.focus()
+  if (buttonRef.value) buttonRef.value.focus()
 }
 
 watchEffect(() => {
@@ -29,10 +31,7 @@ watchEffect(() => {
   if (showDropDown.value && button !== null && dropDown !== null) {
     const { top, left } = button.getBoundingClientRect()
     dropDown.el.style.top = `${top + 40}px`
-    dropDown.el.style.left = `${Math.min(
-        left,
-        window.innerWidth - dropDown.el.offsetWidth - 20,
-      )}px`
+    dropDown.el.style.left = `${Math.min(left, window.innerWidth - dropDown.el.offsetWidth - 20)}px`
   }
 })
 
@@ -43,15 +42,11 @@ watchEffect((onInvalidate) => {
     const handle = (event: MouseEvent) => {
       const target = event.target
       if (props.stopCloseOnClickSelf) {
-        if (
-          dropDownRef.value
-          && dropDownRef.value.el.contains(target as Node)
-        ) {
+        if (dropDownRef.value && dropDownRef.value.el.contains(target as Node)) {
           return
         }
       }
-      if (!button.contains(target as Node))
-        showDropDown.value = false
+      if (!button.contains(target as Node)) showDropDown.value = false
     }
     document.addEventListener('click', handle)
 

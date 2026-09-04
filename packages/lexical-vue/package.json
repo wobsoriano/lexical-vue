@@ -1,24 +1,28 @@
 {
   "name": "lexical-vue",
-  "type": "module",
   "version": "0.15.0",
   "description": "An extensible Vue 3 web text-editor based on Lexical.",
-  "author": "Robert Soriano <sorianorobertc@gmail.com>",
-  "license": "MIT",
+  "keywords": [
+    "editor",
+    "lexical",
+    "rich-text",
+    "vue"
+  ],
   "homepage": "https://github.com/wobsoriano/lexical-vue#readme",
+  "bugs": {
+    "url": "https://github.com/wobsoriano/lexical-vue/issues"
+  },
+  "license": "MIT",
+  "author": "Robert Soriano <sorianorobertc@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wobsoriano/lexical-vue.git"
   },
-  "bugs": {
-    "url": "https://github.com/wobsoriano/lexical-vue/issues"
-  },
-  "keywords": [
-    "vue",
-    "lexical",
-    "editor",
-    "rich-text"
+  "files": [
+    "dist"
   ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -161,16 +165,9 @@
       "import": "./dist/LexicalSelectionAlwaysOnDisplay.vine.js"
     }
   },
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "rslib build && vue-vine-tsc",
-    "dev": "rslib build --watch"
-  },
-  "peerDependencies": {
-    "vue": "^3.5.0"
+    "build": "vp pack && vue-vine-tsc",
+    "dev": "vp pack --watch"
   },
   "dependencies": {
     "@lexical/dragon": "0.49.0",
@@ -194,10 +191,20 @@
     "vue-vine": "^1.7.20"
   },
   "devDependencies": {
-    "@rslib/core": "^0.16.1",
-    "@vue-vine/rspack-loader": "1.7.20-beta.1",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
     "vue": "^3.5.22",
     "vue-vine-tsc": "^1.7.20",
     "yjs": "^13.6.18"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "yjs": "^13.6.18"
+  },
+  "peerDependenciesMeta": {
+    "yjs": {
+      "optional": true
+    }
   }
 }

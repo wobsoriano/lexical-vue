@@ -25,23 +25,16 @@ export function ContentEditableElement(props: ContentEditableElementProps) {
 
   const otherAttrs = computed(() => {
     const { editor: _, ...rest } = props
-    return Object.fromEntries(
-      Object.entries(rest).filter(([, value]) => value !== undefined),
-    )
+    return Object.fromEntries(Object.entries(rest).filter(([, value]) => value !== undefined))
   })
 
   onMounted(() => {
     function handleRef(rootElement: HTMLElement | null) {
-    // defaultView is required for a root element.
-    // In multi-window setups, the defaultView may not exist at certain points.
-      if (
-        rootElement
-        && rootElement.ownerDocument
-        && rootElement.ownerDocument.defaultView
-      ) {
+      // defaultView is required for a root element.
+      // In multi-window setups, the defaultView may not exist at certain points.
+      if (rootElement && rootElement.ownerDocument && rootElement.ownerDocument.defaultView) {
         props.editor.setRootElement(rootElement)
-      }
-      else {
+      } else {
         props.editor.setRootElement(null)
       }
     }

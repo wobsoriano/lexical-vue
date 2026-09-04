@@ -3,6 +3,7 @@
 Below is an example of a basic plain text editor using `lexical`, `lexical-vue`, and `yjs`
 
 Tip: you can easily run a local y-websocket server by running:
+
 ```bash
 HOST=localhost PORT=1234 npx y-websocket
 ```
@@ -72,9 +73,7 @@ function onError(error: Error) {
             <LexicalContentEditable class="editor-input" />
           </template>
           <template #placeholder>
-            <div class="editor-placeholder">
-              Enter some collaboration text...
-            </div>
+            <div class="editor-placeholder">Enter some collaboration text...</div>
           </template>
         </LexicalRichTextPlugin>
         <LexicalAutoFocusPlugin />

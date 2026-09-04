@@ -1,26 +1,12 @@
 import type { HeadingTagType } from '@lexical/rich-text'
-import type {
-  ElementNode,
-  LexicalEditor,
-  NodeKey,
-  NodeMutation,
-} from 'lexical'
+import type { ElementNode, LexicalEditor, NodeKey, NodeMutation } from 'lexical'
 import { $isHeadingNode, HeadingNode } from '@lexical/rich-text'
 import { $getNextRightPreorderNode } from '@lexical/utils'
-import {
-  $getNodeByKey,
-  $getRoot,
-  $isElementNode,
-  TextNode,
-} from 'lexical'
+import { $getNodeByKey, $getRoot, $isElementNode, TextNode } from 'lexical'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export type TableOfContentsEntry = [
-  key: NodeKey,
-  text: string,
-  tag: HeadingTagType,
-]
+export type TableOfContentsEntry = [key: NodeKey, text: string, tag: HeadingTagType]
 
 function toEntry(heading: HeadingNode): TableOfContentsEntry {
   return [heading.getKey(), heading.getTextContent(), heading.getTag()]
@@ -38,23 +24,19 @@ function $insertHeadingIntoTableOfContents(
   let newTableOfContents: Array<TableOfContentsEntry> = []
   if (prevHeading === null) {
     // check if key already exists
-    if (
-      currentTableOfContents.length > 0
-      && currentTableOfContents[0][0] === newHeading.__key
-    ) {
+    if (currentTableOfContents.length > 0 && currentTableOfContents[0][0] === newHeading.__key) {
       return currentTableOfContents
     }
     newTableOfContents = [newEntry, ...currentTableOfContents]
-  }
-  else {
+  } else {
     for (let i = 0; i < currentTableOfContents.length; i++) {
       const key = currentTableOfContents[i][0]
       newTableOfContents.push(currentTableOfContents[i])
       if (key === prevHeading.getKey() && key !== newHeading.getKey()) {
         // check if key already exists
         if (
-          i + 1 < currentTableOfContents.length
-          && currentTableOfContents[i + 1][0] === newHeading.__key
+          i + 1 < currentTableOfContents.length &&
+          currentTableOfContents[i + 1][0] === newHeading.__key
         ) {
           return currentTableOfContents
         }
@@ -86,8 +68,7 @@ function $updateHeadingInTableOfContents(
   for (const oldHeading of currentTableOfContents) {
     if (oldHeading[0] === heading.getKey()) {
       newTableOfContents.push(toEntry(heading))
-    }
-    else {
+    } else {
       newTableOfContents.push(oldHeading)
     }
   }
@@ -141,13 +122,8 @@ export function TableOfContentsPlugin() {
       const updateCurrentTableOfContents = (node: ElementNode) => {
         for (const child of node.getChildren()) {
           if ($isHeadingNode(child)) {
-            currentTableOfContents.push([
-              child.getKey(),
-              child.getTextContent(),
-              child.getTag(),
-            ])
-          }
-          else if ($isElementNode(child)) {
+            currentTableOfContents.push([child.getKey(), child.getTextContent(), child.getTag()])
+          } else if ($isElementNode(child)) {
             updateCurrentTableOfContents(child)
           }
         }
@@ -170,8 +146,7 @@ export function TableOfContentsPlugin() {
                   currentTableOfContents,
                 )
                 tableOfContents.value = currentTableOfContents
-              }
-              else if ($isElementNode(child)) {
+              } else if ($isElementNode(child)) {
                 updateChildHeadings(child)
               }
             }
@@ -205,14 +180,12 @@ export function TableOfContentsPlugin() {
                   currentTableOfContents,
                 )
               }
-            }
-            else if (mutation === 'destroyed') {
+            } else if (mutation === 'destroyed') {
               currentTableOfContents = $deleteHeadingFromTableOfContents(
                 nodeKey,
                 currentTableOfContents,
               )
-            }
-            else if (mutation === 'updated') {
+            } else if (mutation === 'updated') {
               const newHeading = $getNodeByKey(nodeKey)
               if ($isHeadingNode(newHeading)) {
                 const prevHeading = $getPreviousHeading(newHeading)
@@ -265,10 +238,7 @@ export function TableOfContentsPlugin() {
   })
 
   vineSlots<{
-    default: (props: {
-      tableOfContents: TableOfContentsEntry[]
-      editor: LexicalEditor
-    }) => any
+    default: (props: { tableOfContents: TableOfContentsEntry[]; editor: LexicalEditor }) => any
   }>()
 
   return vine`

@@ -7,12 +7,7 @@ import type {
   LexicalEditor,
   LexicalNode,
 } from 'lexical'
-import {
-  $isTextNode,
-  isHTMLElement,
-  ParagraphNode,
-  TextNode,
-} from 'lexical'
+import { $isTextNode, isHTMLElement, ParagraphNode, TextNode } from 'lexical'
 import { AutoFocusPlugin } from 'lexical-vue/LexicalAutoFocusPlugin'
 import { LexicalComposer, type InitialConfigType } from 'lexical-vue/LexicalComposer'
 import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
@@ -40,10 +35,7 @@ function removeStylesExportDOM(editor: LexicalEditor, target: LexicalNode): DOME
     // Remove all inline styles and classes if the element is an HTMLElement
     // Children are checked as well since TextNode can be nested
     // in i, b, and strong tags.
-    for (const el of [
-      output.element,
-      ...output.element.querySelectorAll('[style],[class]'),
-    ]) {
+    for (const el of [output.element, ...output.element.querySelectorAll('[style],[class]')]) {
       el.removeAttribute('class')
       el.removeAttribute('style')
     }
@@ -97,10 +89,10 @@ function constructImportMap(): DOMConversionMap {
         conversion: (element) => {
           const output = importer.conversion(element)
           if (
-            output === null
-            || output.forChild === undefined
-            || output.after !== undefined
-            || output.node !== null
+            output === null ||
+            output.forChild === undefined ||
+            output.after !== undefined ||
+            output.node !== null
           ) {
             return output
           }
@@ -142,29 +134,29 @@ const editorConfig = {
 </script>
 
 <template>
-    <LexicalComposer :initial-config="editorConfig">
-      <div class="editor-container">
-        <ToolbarPlugin />
-        <div class="editor-inner">
-          <RichTextPlugin>
-            <template #contentEditable>
-              <ContentEditable class="editor-input" :aria-placeholder="placeholder">
-                <template #placeholder>
-                  <div class="editor-placeholder">{{placeholder}}</div>
-                </template>
-              </ContentEditable>
-            </template>
-          </RichTextPlugin>
-          <HistoryPlugin />
-          <AutoEmbedPlugin />
-          <AutoLinkPlugin />
-          <AutoFocusPlugin />
-          <YouTubePlugin />
-          <TweetPlugin />
-          <EmojiPlugin />
-          <EmojiPickerPlugin />
-          <TreeViewPlugin />
-        </div>
+  <LexicalComposer :initial-config="editorConfig">
+    <div class="editor-container">
+      <ToolbarPlugin />
+      <div class="editor-inner">
+        <RichTextPlugin>
+          <template #contentEditable>
+            <ContentEditable class="editor-input" :aria-placeholder="placeholder">
+              <template #placeholder>
+                <div class="editor-placeholder">{{ placeholder }}</div>
+              </template>
+            </ContentEditable>
+          </template>
+        </RichTextPlugin>
+        <HistoryPlugin />
+        <AutoEmbedPlugin />
+        <AutoLinkPlugin />
+        <AutoFocusPlugin />
+        <YouTubePlugin />
+        <TweetPlugin />
+        <EmojiPlugin />
+        <EmojiPickerPlugin />
+        <TreeViewPlugin />
       </div>
-    </LexicalComposer>
+    </div>
+  </LexicalComposer>
 </template>

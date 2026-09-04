@@ -1,3 +1,7 @@
 {
-  "recommendations": ["Vue.volar", "shenqingchuan.vue-vine-extension"]
+  "recommendations": [
+    "Vue.volar",
+    "shenqingchuan.vue-vine-extension",
+    "VoidZero.vite-plus-extension-pack"
+  ]
 }

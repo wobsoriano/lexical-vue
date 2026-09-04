@@ -1,10 +1,7 @@
 import type { LinkAttributes } from '@lexical/link'
 import { namedSignals } from '@lexical/extension'
 
-import {
-  LinkNode,
-  registerLink,
-} from '@lexical/link'
+import { LinkNode, registerLink } from '@lexical/link'
 import { watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
@@ -18,7 +15,10 @@ export function LinkPlugin(props: {
     if (!editor.hasNodes([LinkNode]))
       throw new Error('LinkPlugin: LinkNode not registered on editor')
 
-    const unregister = registerLink(editor, namedSignals({ attributes: props.attributes, validateUrl: props.validateUrl }))
+    const unregister = registerLink(
+      editor,
+      namedSignals({ attributes: props.attributes, validateUrl: props.validateUrl }),
+    )
 
     onInvalidate(unregister)
   })

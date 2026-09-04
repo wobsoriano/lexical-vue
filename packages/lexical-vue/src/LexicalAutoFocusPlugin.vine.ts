@@ -2,9 +2,7 @@ import { getActiveElement } from 'lexical'
 import { nextTick, onMounted } from 'vue'
 import { useLexicalComposer } from './LexicalComposer.vine'
 
-export function AutoFocusPlugin(props: {
-  defaultSelection?: 'rootStart' | 'rootEnd'
-}) {
+export function AutoFocusPlugin(props: { defaultSelection?: 'rootStart' | 'rootEnd' }) {
   const editor = useLexicalComposer()
 
   onMounted(() => {
@@ -18,8 +16,8 @@ export function AutoFocusPlugin(props: {
           const rootElement = editor.getRootElement() as HTMLDivElement
           const activeElement = rootElement !== null ? getActiveElement(rootElement) : null
           if (
-            rootElement !== null
-            && (activeElement === null || !rootElement.contains(activeElement))
+            rootElement !== null &&
+            (activeElement === null || !rootElement.contains(activeElement))
           ) {
             // Note: preventScroll won't work in Webkit.
             rootElement.focus({ preventScroll: true })

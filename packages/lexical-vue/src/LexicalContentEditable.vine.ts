@@ -14,8 +14,7 @@ export function ContentEditable(props: ContentEditableProps) {
 
   function hasSpellcheckProp() {
     const vnodeProps = instance?.vnode.props
-    return vnodeProps != null
-      && ('spellcheck' in vnodeProps || 'spellCheck' in vnodeProps)
+    return vnodeProps != null && ('spellcheck' in vnodeProps || 'spellCheck' in vnodeProps)
   }
 
   const hasSpellcheck = ref(hasSpellcheckProp())
@@ -24,9 +23,7 @@ export function ContentEditable(props: ContentEditableProps) {
     hasSpellcheck.value = hasSpellcheckProp()
   })
 
-  const shouldSpellcheck = computed(() =>
-    hasSpellcheck.value ? props.spellcheck : true,
-  )
+  const shouldSpellcheck = computed(() => (hasSpellcheck.value ? props.spellcheck : true))
 
   onMounted(() => {
     isEditable.value = editor.isEditable()

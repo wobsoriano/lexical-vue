@@ -13,11 +13,13 @@ interface LexicalTreeViewProps {
   generateContent: (exportDOM: boolean) => Promise<string>
   setEditorState: (state: EditorState, options?: EditorSetOptions) => void
   setEditorReadOnly: (isReadonly: boolean) => void
-  commandsLog?: ReadonlyArray<{
-    index: number
-  } & LexicalCommand<unknown> & {
-    payload: unknown
-  }>
+  commandsLog?: ReadonlyArray<
+    {
+      index: number
+    } & LexicalCommand<unknown> & {
+        payload: unknown
+      }
+  >
 }
 
 const LARGE_EDITOR_STATE_SIZE = 1000
@@ -51,8 +53,7 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
       if (myID === lastGenerationID) {
         content.value = treeText
       }
-    }
-    catch (err) {
+    } catch (err) {
       if (myID === lastGenerationID) {
         content.value = `Error rendering tree: ${err instanceof Error ? err.message : String(err)}\n\nStack:\n${err instanceof Error ? err.stack : 'No stack trace'}`
       }
@@ -68,9 +69,8 @@ export function TreeViewCore(props: LexicalTreeViewProps) {
     }
 
     // Update view when either editor state changes or new commands are logged
-    const shouldUpdate
-      = lastEditorStateRef !== props.editorState
-        || lastCommandsLogRef !== props.commandsLog
+    const shouldUpdate =
+      lastEditorStateRef !== props.editorState || lastCommandsLogRef !== props.commandsLog
 
     if (shouldUpdate) {
       // Check if it's a real editor state change

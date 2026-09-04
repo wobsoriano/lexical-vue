@@ -1,11 +1,7 @@
 import type { LexicalEditor, LexicalNode } from 'lexical'
 
 import type { MaybeRefOrGetter } from 'vue'
-import {
-  $createOverflowNode,
-  $isOverflowNode,
-  OverflowNode,
-} from '@lexical/overflow'
+import { $createOverflowNode, $isOverflowNode, OverflowNode } from '@lexical/overflow'
 import { $rootTextContent } from '@lexical/text'
 import { $dfsWithSlots, $unwrapNode, mergeRegister } from '@lexical/utils'
 import {
@@ -37,10 +33,7 @@ export function useCharacterLimit(
 ) {
   watchEffect((onInvalidate) => {
     if (!editor.hasNodes([OverflowNode])) {
-      invariant(
-        false,
-        'useCharacterLimit: OverflowNode not registered on editor',
-      )
+      invariant(false, 'useCharacterLimit: OverflowNode not registered on editor')
     }
 
     const {
@@ -58,14 +51,12 @@ export function useCharacterLimit(
       editor.registerUpdateListener(({ dirtyElements, dirtyLeaves }) => {
         const isComposing = editor.isComposing()
         const hasContentChanges = dirtyLeaves.size > 0 || dirtyElements.size > 0
-        if (isComposing || !hasContentChanges)
-          return
+        if (isComposing || !hasContentChanges) return
 
         const textLength = strlen(text)
-        const textLengthAboveThreshold
-          = textLength > toValue(maxCharacters)
-            || (lastComputedTextLength !== null
-              && lastComputedTextLength > toValue(maxCharacters))
+        const textLengthAboveThreshold =
+          textLength > toValue(maxCharacters) ||
+          (lastComputedTextLength !== null && lastComputedTextLength > toValue(maxCharacters))
         const diff = toValue(maxCharacters) - textLength
         remainingCharacters(diff)
         if (lastComputedTextLength === null || textLengthAboveThreshold) {
@@ -91,14 +82,11 @@ export function useCharacterLimit(
           const anchorNode = selection.anchor.getNode()
           const overflow = anchorNode.getParent()
           const overflowParent = overflow ? overflow.getParent() : null
-          const parentNext = overflowParent
-            ? overflowParent.getNextSibling()
-            : null
+          const parentNext = overflowParent ? overflowParent.getNextSibling() : null
           selection.deleteCharacter(isBackward)
           if (overflowParent && overflowParent.isEmpty()) {
             overflowParent.remove()
-          }
-          else if ($isElementNode(parentNext) && parentNext.isEmpty()) {
+          } else if ($isElementNode(parentNext) && parentNext.isEmpty()) {
             parentNext.remove()
           }
           return true
@@ -127,14 +115,12 @@ function findOffset(
     for (const { segment: grapheme } of graphemes) {
       const nextOffset = offset + strlen(grapheme)
 
-      if (nextOffset > maxCharacters)
-        break
+      if (nextOffset > maxCharacters) break
 
       offset = nextOffset
       offsetUtf16 += grapheme.length
     }
-  }
-  else {
+  } else {
     const codepoints = Array.from(text)
     const codepointsLength = codepoints.length
 
@@ -142,8 +128,7 @@ function findOffset(
       const codepoint = codepoints[i]
       const nextOffset = offset + strlen(codepoint)
 
-      if (nextOffset > maxCharacters)
-        break
+      if (nextOffset > maxCharacters) break
 
       offset = nextOffset
       offsetUtf16 += codepoint.length
@@ -167,10 +152,8 @@ export function $wrapOverflowedNodes(offset: number): void {
     }
 
     const isSlotValueLeaf = $isLeafNode(node) && $getSlotHost(node) !== null
-    const needsOverflowParent
-      = $isLeafNode(node)
-        && !isSlotValueLeaf
-        && !$findMatchingParent(node, $isOverflowNode)
+    const needsOverflowParent =
+      $isLeafNode(node) && !isSlotValueLeaf && !$findMatchingParent(node, $isOverflowNode)
 
     if ($isOverflowNode(node)) {
       const previousLength = accumulatedLength
@@ -185,38 +168,27 @@ export function $wrapOverflowedNodes(offset: number): void {
 
         // Restore selection when the overflow children are removed
         if (
-          $isRangeSelection(selection)
-          && (!selection.anchor.getNode().isAttached()
-            || !selection.focus.getNode().isAttached())
+          $isRangeSelection(selection) &&
+          (!selection.anchor.getNode().isAttached() || !selection.focus.getNode().isAttached())
         ) {
-          if ($isTextNode(previousSibling))
-            previousSibling.select()
-          else if ($isTextNode(nextSibling))
-            nextSibling.select()
-          else if (parent !== null)
-            parent.select()
+          if ($isTextNode(previousSibling)) previousSibling.select()
+          else if ($isTextNode(nextSibling)) nextSibling.select()
+          else if (parent !== null) parent.select()
         }
-      }
-      else if (previousLength < offset) {
+      } else if (previousLength < offset) {
         const descendant = node.getFirstDescendant()
-        const descendantLength
-          = descendant !== null ? descendant.getTextContentSize() : 0
+        const descendantLength = descendant !== null ? descendant.getTextContentSize() : 0
         const previousPlusDescendantLength = previousLength + descendantLength
         // For simple text we can redimension the overflow into a smaller and more accurate
         // container
-        const firstDescendantIsSimpleText
-          = $isTextNode(descendant) && descendant.isSimpleText()
-        const firstDescendantDoesNotOverflow
-          = previousPlusDescendantLength <= offset
+        const firstDescendantIsSimpleText = $isTextNode(descendant) && descendant.isSimpleText()
+        const firstDescendantDoesNotOverflow = previousPlusDescendantLength <= offset
 
-        if (firstDescendantIsSimpleText || firstDescendantDoesNotOverflow)
-          $unwrapNode(node)
+        if (firstDescendantIsSimpleText || firstDescendantDoesNotOverflow) $unwrapNode(node)
       }
-    }
-    else if (isSlotValueLeaf) {
+    } else if (isSlotValueLeaf) {
       accumulatedLength += node.getTextContentSize()
-    }
-    else if (needsOverflowParent) {
+    } else if (needsOverflowParent) {
       const previousAccumulatedLength = accumulatedLength
       accumulatedLength += node.getTextContentSize()
 
@@ -226,22 +198,14 @@ export function $wrapOverflowedNodes(offset: number): void {
 
         // For simple text we can improve the limit accuracy by splitting the TextNode
         // on the split point
-        if (
-          previousAccumulatedLength < offset
-          && $isTextNode(node)
-          && node.isSimpleText()
-        ) {
-          const [, overflowedText] = node.splitText(
-            offset - previousAccumulatedLength,
-          )
+        if (previousAccumulatedLength < offset && $isTextNode(node) && node.isSimpleText()) {
+          const [, overflowedText] = node.splitText(offset - previousAccumulatedLength)
           overflowNode = $wrapNode(overflowedText)
-        }
-        else {
+        } else {
           overflowNode = $wrapNode(node)
         }
 
-        if (previousSelection !== null)
-          $setSelection(previousSelection)
+        if (previousSelection !== null) $setSelection(previousSelection)
 
         $mergePrevious(overflowNode)
         const nextNode = overflowNode.getNextSibling()
@@ -263,8 +227,7 @@ function $wrapNode(node: LexicalNode): OverflowNode {
 export function $mergePrevious(overflowNode: OverflowNode): void {
   const previousNode = overflowNode.getPreviousSibling()
 
-  if (!$isOverflowNode(previousNode))
-    return
+  if (!$isOverflowNode(previousNode)) return
 
   const firstChild = overflowNode.getFirstChild()
   const previousNodeChildren = previousNode.getChildren()
@@ -272,8 +235,7 @@ export function $mergePrevious(overflowNode: OverflowNode): void {
 
   if (firstChild === null) {
     overflowNode.append(...previousNodeChildren)
-  }
-  else {
+  } else {
     for (let i = 0; i < previousNodeChildrenLength; i++)
       firstChild.insertBefore(previousNodeChildren[i])
   }
@@ -288,24 +250,14 @@ export function $mergePrevious(overflowNode: OverflowNode): void {
 
     if (anchorNode.is(previousNode)) {
       anchor.set(overflowNode.getKey(), anchor.offset, 'element')
-    }
-    else if (anchorNode.is(overflowNode)) {
-      anchor.set(
-        overflowNode.getKey(),
-        previousNodeChildrenLength + anchor.offset,
-        'element',
-      )
+    } else if (anchorNode.is(overflowNode)) {
+      anchor.set(overflowNode.getKey(), previousNodeChildrenLength + anchor.offset, 'element')
     }
 
     if (focusNode.is(previousNode)) {
       focus.set(overflowNode.getKey(), focus.offset, 'element')
-    }
-    else if (focusNode.is(overflowNode)) {
-      focus.set(
-        overflowNode.getKey(),
-        previousNodeChildrenLength + focus.offset,
-        'element',
-      )
+    } else if (focusNode.is(overflowNode)) {
+      focus.set(overflowNode.getKey(), previousNodeChildrenLength + focus.offset, 'element')
     }
   }
 
