@@ -29,20 +29,20 @@
       "import": "./dist/index.js"
     },
     "./LexicalNodeMenuPlugin": {
-      "types": "./dist/LexicalNodeMenuPlugin.vine.d.ts",
-      "import": "./dist/LexicalNodeMenuPlugin.vine.js"
+      "types": "./dist/LexicalNodeMenuPlugin.d.ts",
+      "import": "./dist/LexicalNodeMenuPlugin.js"
     },
     "./LexicalAutoEmbedPlugin": {
-      "types": "./dist/LexicalAutoEmbedPlugin.vine.d.ts",
-      "import": "./dist/LexicalAutoEmbedPlugin.vine.js"
+      "types": "./dist/LexicalAutoEmbedPlugin.d.ts",
+      "import": "./dist/LexicalAutoEmbedPlugin.js"
     },
     "./LexicalAutoLinkPlugin": {
       "types": "./dist/LexicalAutoLinkPlugin.d.ts",
       "import": "./dist/LexicalAutoLinkPlugin.js"
     },
     "./LexicalTypeaheadMenuPlugin": {
-      "types": "./dist/LexicalTypeaheadMenuPlugin.vine.d.ts",
-      "import": "./dist/LexicalTypeaheadMenuPlugin.vine.js"
+      "types": "./dist/LexicalTypeaheadMenuPlugin.d.ts",
+      "import": "./dist/LexicalTypeaheadMenuPlugin.js"
     },
     "./LexicalHorizontalRuleNode": {
       "types": "./dist/LexicalHorizontalRuleNode.d.ts",

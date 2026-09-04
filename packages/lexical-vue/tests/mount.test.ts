@@ -84,19 +84,19 @@ const CASES: Case[] = [
   { name: 'TreeView', load: () => import('../src/LexicalTreeView.vine'), needsEditor: true },
   {
     name: 'NodeMenuPlugin',
-    load: () => import('../src/LexicalNodeMenuPlugin.vine'),
+    load: () => import('../src/LexicalNodeMenuPlugin'),
     props: { options: [], nodeKey: null },
     slots: { default: () => h('div') },
   },
   {
     name: 'TypeaheadMenuPlugin',
-    load: () => import('../src/LexicalTypeaheadMenuPlugin.vine'),
+    load: () => import('../src/LexicalTypeaheadMenuPlugin'),
     props: { options: [], triggerFn: () => null, onQueryChange: () => {} },
     slots: { default: () => h('div') },
   },
   {
     name: 'LexicalAutoEmbedPlugin',
-    load: () => import('../src/LexicalAutoEmbedPlugin.vine'),
+    load: () => import('../src/LexicalAutoEmbedPlugin'),
     props: { embedConfigs: [], getMenuOptions: () => [] },
     slots: { default: () => h('div') },
   },
