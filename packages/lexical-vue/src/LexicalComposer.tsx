@@ -7,7 +7,6 @@ import type {
   LexicalNode,
   LexicalNodeReplacement,
 } from 'lexical'
-import type { InjectionKey } from 'vue'
 import { CAN_USE_DOM } from '@lexical/utils'
 import {
   $createParagraphNode,
@@ -19,8 +18,7 @@ import {
 } from 'lexical'
 import invariant from 'tiny-invariant'
 import { defineComponent, inject, onMounted, provide } from 'vue'
-
-const lexicalEditorKey = Symbol('LexicalEditor') as InjectionKey<LexicalEditor>
+import { lexicalEditorKey } from './shared/editorContext'
 
 export type InitialEditorStateType = null | string | EditorState | ((editor: LexicalEditor) => void)
 
