@@ -16,10 +16,10 @@ hero:
       link: https://github.com/wobsoriano/lexical-vue
 
 features:
-  - title: Reliable
-    details: Lexical is comprised of editor instances that each attach to a single content editable element. A set of editor states represent the current and pending states of the editor at any given time.
-  - title: Accessible
-    details: Lexical is designed for everyone. It follows best practices established in WCAG and is compatible with screen readers and other assistive technologies.
-  - title: Fast
-    details: Lexical is minimal. It doesn't directly concern itself with UI components, toolbars or rich-text features and markdown. The logic for these features can be included via a plugin interface.
+  - title: Built for Vue
+    details: The editor is a component and its content is a ref. Drop it into a template, render your own components inside it, and watch it change like any other reactive value.
+  - title: Real Lexical, not a fork
+    details: Every Lexical package works here, from rich text and tables to the new extension system. What you learn carries over to any other Lexical project.
+  - title: Only what you need
+    details: Rich text, history, lists, links, tables and markdown are separate imports. Your bundle holds the features you actually use.
 ---

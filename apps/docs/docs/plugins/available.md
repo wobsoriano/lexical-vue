@@ -1,38 +1,6 @@
 # Available Plugins
 
-Vue-based plugins are using Lexical editor instance from `<LexicalComposer>` component:
-
-```vue
-<script setup>
-import { LexicalComposer } from 'lexical-vue/LexicalComposer'
-import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
-import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
-import { OnChangePlugin } from 'lexical-vue/LexicalOnChangePlugin'
-import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
-
-const initialConfig = {
-  namespace: 'MyEditor',
-  theme,
-  onError,
-}
-</script>
-
-<template>
-  <LexicalComposer :initial-config="initialConfig">
-    <PlainTextPlugin>
-      <template #contentEditable>
-        <ContentEditable>
-          <template #placeholder>
-            <div>Enter some text...</div>
-          </template>
-        </ContentEditable>
-      </template>
-    </PlainTextPlugin>
-    <HistoryPlugin />
-    <OnChangePlugin @change="onChange" />
-  </LexicalComposer>
-</template>
-```
+Every plugin below reads the Lexical editor instance provided by `<LexicalComposer>`, so each one has to be rendered inside a composer. See [Usage](../getting-started/usage) for a complete editor.
 
 > [!NOTE]
 > Note: Many plugins might require you to register the one or many Lexical nodes in order for the plugin to work. You can do this by passing a reference to the node to the `nodes` array in your initial editor configuration.
@@ -44,11 +12,11 @@ Wrapper for `@lexical/plain-text` that adds major features for plain text editin
 ```html
 <PlainTextPlugin>
   <template #contentEditable>
-    <LexicalContentEditable>
+    <ContentEditable>
       <template #placeholder>
         <div>Enter some text...</div>
       </template>
-    </LexicalContentEditable>
+    </ContentEditable>
   </template>
 </PlainTextPlugin>
 ```
@@ -60,18 +28,20 @@ Wrapper for `@lexical/rich-text` that adds major features for rich text editing,
 ```html
 <RichTextPlugin>
   <template #contentEditable>
-    <LexicalContentEditable>
+    <ContentEditable>
       <template #placeholder>
         <div>Enter some text...</div>
       </template>
-    </LexicalContentEditable>
+    </ContentEditable>
   </template>
 </RichTextPlugin>
 ```
 
 ## `LexicalOnChangePlugin`
 
-Plugin that emits `change` whenever Lexical state is updated. Using `ignoreInitialChange` (`true` by default) and `ignoreSelectionChange` (`false` by default) can give more granular control over changes that are causing the `change` event.
+Plugin that emits `change` whenever Lexical state is updated. The handler receives the new `editorState`, the `editor` instance, and the `tags` set for the update.
+
+Two props narrow down which updates emit the event. `ignoreSelectionChange` (`false` by default) skips updates that only move the selection, and `ignoreHistoryMergeTagChange` (`true` by default) skips updates tagged as a history merge.
 
 ```html
 <OnChangePlugin @change="onChange" />
@@ -127,7 +97,7 @@ Plugin that allows tab indentation in combination with `@lexical/rich-text`.
 
 ## `LexicalAutoLinkPlugin`
 
-Plugin will convert text into links based on passed matchers list. In example below whenever user types url-like string it will automaticaly convert it into a link node.
+Plugin will convert text into links based on passed matchers list. In example below whenever user types url-like string it will automatically convert it into a link node.
 
 ```html
 <script setup>
@@ -177,7 +147,7 @@ Adds markdown shortcut support: headings, lists, code blocks, quotes, links and 
 
 This plugin allows you to render a table of contents for a page from the headings from the editor. It listens to any deletions or modifications to those headings and updates the table of contents. Additionally, it's able to track any newly added headings and inserts them in the table of contents once they are created. This plugin also supports lazy loading - so you can defer adding the plugin until when the user needs it.
 
-In order to use `TableOfContentsPlugin`, you need to provide a default slot. This slot gives you access to the up-to-date data of the table of contents through slot props. You can access this data through the `table-of-contents` prop which comes in the form of an array of arrays `[[headingKey, headingTextContent, headingTag], [], [], ...]` and the `editor` prop for the Lexical editor instance.
+In order to use `TableOfContentsPlugin`, you need to provide a default slot. This slot gives you access to the up-to-date data of the table of contents through slot props. You can access this data through the `tableOfContents` slot prop, which comes in the form of an array of arrays `[[headingKey, headingTextContent, headingTag], [], [], ...]` and the `editor` prop for the Lexical editor instance.
 
 `headingKey`: Unique key that identifies the heading. headingTextContent: A string of the exact text of the heading. headingTag: A string that reads either 'h1', 'h2', or 'h3'.
 

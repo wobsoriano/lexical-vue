@@ -29,14 +29,6 @@ The app adds the extension and nothing else. It does not need to know the panel 
 
 Contributed UI renders inside the editor's context, so it reaches the editor with `useLexicalComposer()` exactly like any component you write yourself.
 
-```vue
-<script setup lang="ts">
-import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
-
-const editor = useLexicalComposer()
-</script>
-```
-
 ## Decorators concatenate
 
 Every extension in the graph contributes. Configs merge by concatenation rather than replacement, so two extensions that each add a decorator both get rendered and neither overwrites the other.

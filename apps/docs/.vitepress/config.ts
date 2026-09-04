@@ -35,24 +35,23 @@ function sidebarDocs() {
         { text: 'Theming', link: '/docs/getting-started/theming' },
       ],
     },
-    { text: 'Concepts', link: 'https://lexical.dev/docs/concepts/editor-state' },
+    {
+      text: 'Plugins',
+      collapsed: false,
+      items: [
+        { text: 'Available Plugins', link: '/docs/plugins/available' },
+        { text: 'Decorator Nodes', link: '/docs/plugins/custom' },
+      ],
+    },
     {
       text: 'Extensions',
       collapsed: false,
       items: [
         { text: 'Introduction', link: '/docs/extensions/introduction' },
-        { text: 'Using Extensions', link: '/docs/extensions/usage' },
         { text: 'Contributing Vue UI', link: '/docs/extensions/vue-ui' },
         { text: 'Reading Extension State', link: '/docs/extensions/signals' },
       ],
     },
-    {
-      text: 'Plugins',
-      collapsible: false,
-      items: [
-        { text: 'Available Plugins', link: '/docs/plugins/available' },
-        { text: 'Custom', link: '/docs/plugins/custom' },
-      ],
-    },
+    { text: 'Collaboration', link: '/docs/collaboration' },
   ]
 }

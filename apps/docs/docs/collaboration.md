@@ -23,8 +23,6 @@ import { ref } from 'vue'
 import { WebsocketProvider } from 'y-websocket'
 import * as Y from 'yjs'
 
-import exampleTheme from '../themes/example'
-
 const cursorsContainerRef = ref<HTMLElement | null>(null)
 
 // Optional initial editor state in case collaborative Y.Doc won't
@@ -47,7 +45,8 @@ const config = {
   namespace: 'Demo',
   nodes: [],
   editable: true,
-  theme: exampleTheme,
+  theme: {},
+  onError,
 }
 
 function providerFactory(id: string, yjsDocMap: Map<string, Y.Doc>) {
@@ -65,19 +64,19 @@ function onError(error: Error) {
 </script>
 
 <template>
-  <LexicalComposer :initial-config="config" @error="onError">
+  <LexicalComposer :initial-config="config">
     <div ref="cursorsContainerRef" class="editor-container">
       <div class="editor-inner">
-        <LexicalRichTextPlugin>
+        <RichTextPlugin>
           <template #contentEditable>
-            <LexicalContentEditable class="editor-input" />
+            <ContentEditable class="editor-input" />
           </template>
           <template #placeholder>
             <div class="editor-placeholder">Enter some collaboration text...</div>
           </template>
-        </LexicalRichTextPlugin>
-        <LexicalAutoFocusPlugin />
-        <LexicalCollaborationPlugin
+        </RichTextPlugin>
+        <AutoFocusPlugin />
+        <CollaborationPlugin
           id="yjs-plugin"
           :provider-factory="providerFactory"
           :initial-editor-state="initialEditorState"

@@ -33,7 +33,7 @@ export function useDecoratorHost(editor: LexicalEditor): ComputedRef<VNode[]> {
   return claimed ? NO_DECORATORS : useDecorators(editor)
 }
 
-export function useDecorators(editor: LexicalEditor) {
+function useDecorators(editor: LexicalEditor) {
   const decorators = shallowRef<Record<string, DefineComponent>>(editor.getDecorators())
 
   onMounted(() => {

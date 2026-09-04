@@ -12,9 +12,6 @@ import invariant from 'tiny-invariant'
  */
 export type VueRenderable = VNode | Component
 
-/**
- * Configuration for {@link VueExtension}.
- */
 export interface VueConfig {
   /**
    * The editor's editable region, rendered first by `LexicalExtensionComposer`.
@@ -53,15 +50,6 @@ const initialConfig: VueConfig = { contentEditable: null, decorators: [] }
 /**
  * The channel through which an extension contributes Vue UI to an editor.
  * Depend on it with `configExtension(VueExtension, { decorators: [...] })`.
- *
- * @example
- * ```ts
- * export const MentionsExtension = defineExtension({
- *   name: '@app/Mentions',
- *   nodes: [MentionNode],
- *   dependencies: [configExtension(VueExtension, { decorators: [MentionsPanel] })],
- * })
- * ```
  */
 export const VueExtension = defineExtension({
   name: 'lexical-vue/Vue',

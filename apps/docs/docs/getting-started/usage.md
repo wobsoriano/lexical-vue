@@ -77,8 +77,14 @@ import { LexicalComposer } from 'lexical-vue/LexicalComposer'
 import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
 import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
 import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import OnChangePlugin from './OnChangePlugin.vue'
+
+const config = {
+  namespace: 'MyEditor',
+  theme: {},
+  onError: console.error,
+}
 
 const editorState = ref()
 </script>
@@ -108,16 +114,22 @@ import { LexicalComposer } from 'lexical-vue/LexicalComposer'
 import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
 import { HistoryPlugin } from 'lexical-vue/LexicalHistoryPlugin'
 import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import OnChangePlugin from './OnChangePlugin.vue'
+
+const config = {
+  namespace: 'MyEditor',
+  theme: {},
+  onError: console.error,
+}
 
 const editorState = ref()
 
-function onChange(editorState) {
-  // Call toJSON on the EditorState object, which produces a serialization safe string
-  editorState.value = editorState.toJSON()
+function onChange(state) {
+  // Call toJSON on the EditorState object, which produces a serialization safe object
+  const editorStateJSON = state.toJSON()
 
-  // However, we still have a JavaScript object, so we need to convert it to an actual string with JSON.stringify
+  // That is still a JavaScript object, so convert it to an actual string with JSON.stringify
   editorState.value = JSON.stringify(editorStateJSON)
 }
 </script>

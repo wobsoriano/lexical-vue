@@ -7,20 +7,8 @@ import { useLexicalComposer } from './LexicalComposer'
  * editor provided by the nearest `LexicalComposer` or `LexicalExtensionComposer`,
  * giving access to that extension's finalized config and output.
  *
- * The editor must have been built with this extension, otherwise it throws.
- *
- * @param extension - The concrete extension reference used to build the editor
- * @returns The config and output for that extension
- *
- * @example
- * ```vue
- * <script setup lang="ts">
- * import { EditorStateExtension } from '@lexical/extension'
- * import { useExtensionDependency, useSignalValue } from 'lexical-vue'
- *
- * const editorState = useSignalValue(useExtensionDependency(EditorStateExtension).output)
- * </script>
- * ```
+ * The editor must have been built with this exact extension reference,
+ * otherwise it throws.
  */
 export function useExtensionDependency<Extension extends AnyLexicalExtension>(
   extension: Extension,
