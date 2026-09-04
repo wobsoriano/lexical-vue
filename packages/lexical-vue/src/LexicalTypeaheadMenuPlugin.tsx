@@ -4,14 +4,15 @@ import type {
   LexicalCommand,
   LexicalEditor,
   RangeSelection,
-  TextNode,
 } from 'lexical'
 import type {
   MenuRenderProps,
   MenuResolution,
+  MenuSelectOptionPayload,
   MenuTextMatch,
   TriggerFn,
 } from './shared/LexicalMenu'
+import type { GenericComponentInstance } from './types'
 import { getScrollParent as getScrollParent_ } from '@lexical/utils'
 import {
   $getSelection,
@@ -92,6 +93,16 @@ export type { MenuResolution, MenuTextMatch, TriggerFn }
 
 export { MenuOption }
 
+export interface TypeaheadMenuPluginEvents<TOption extends MenuOption> {
+  onClose?: () => void
+  onOpen?: (payload: MenuResolution) => void
+  onQueryChange?: (payload: string | null) => void
+  onSelectOption?: (payload: MenuSelectOptionPayload<TOption>) => void
+}
+
+type TypeaheadMenuPluginAttrs<TOption extends MenuOption> = TypeaheadMenuPluginProps<TOption> &
+  TypeaheadMenuPluginEvents<TOption>
+
 export const TypeaheadMenuPlugin = defineComponent(
   <TOption extends MenuOption>(
     props: TypeaheadMenuPluginProps<TOption>,
@@ -100,15 +111,7 @@ export const TypeaheadMenuPlugin = defineComponent(
         (event: 'close'): void
         (event: 'open', payload: MenuResolution): void
         (event: 'queryChange', payload: string | null): void
-        (
-          event: 'selectOption',
-          payload: {
-            option: TOption
-            textNodeContainingQuery: TextNode | null
-            closeMenu: () => void
-            matchingString: string
-          },
-        ): void
+        (event: 'selectOption', payload: MenuSelectOptionPayload<TOption>): void
       }
       slots: { default?: (props: MenuRenderProps<TOption>) => any }
     },
@@ -344,37 +347,12 @@ export const TypeaheadMenuPlugin = defineComponent(
       close: () => true,
       open: (_payload: MenuResolution) => true,
       queryChange: (_payload: string | null) => true,
-      selectOption: (_payload: {
-        option: MenuOption
-        textNodeContainingQuery: TextNode | null
-        closeMenu: () => void
-        matchingString: string
-      }) => true,
+      selectOption: (_payload: MenuSelectOptionPayload<MenuOption>) => true,
     },
   },
 ) as unknown as new <TOption extends MenuOption>(
-  props: TypeaheadMenuPluginProps<TOption> & {
-    onClose?: () => void
-    onOpen?: (payload: MenuResolution) => void
-    onQueryChange?: (payload: string | null) => void
-    onSelectOption?: (payload: {
-      option: TOption
-      textNodeContainingQuery: TextNode | null
-      closeMenu: () => void
-      matchingString: string
-    }) => void
-  },
-) => {
-  $props: TypeaheadMenuPluginProps<TOption> & {
-    onClose?: () => void
-    onOpen?: (payload: MenuResolution) => void
-    onQueryChange?: (payload: string | null) => void
-    onSelectOption?: (payload: {
-      option: TOption
-      textNodeContainingQuery: TextNode | null
-      closeMenu: () => void
-      matchingString: string
-    }) => void
-  }
-  $slots: { default?: (props: MenuRenderProps<TOption>) => any }
-}
+  props: TypeaheadMenuPluginAttrs<TOption>,
+) => GenericComponentInstance<
+  TypeaheadMenuPluginAttrs<TOption>,
+  { default?: (props: MenuRenderProps<TOption>) => any }
+>

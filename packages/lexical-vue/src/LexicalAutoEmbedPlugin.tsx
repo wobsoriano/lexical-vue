@@ -9,6 +9,7 @@ import type {
   TextNode,
 } from 'lexical'
 import type { MenuRenderProps } from './shared/LexicalMenu'
+import type { GenericComponentInstance } from './types'
 
 import { $isLinkNode, AutoLinkNode, LinkNode } from '@lexical/link'
 import { mergeRegister } from '@lexical/utils'
@@ -75,6 +76,13 @@ interface LexicalAutoEmbedPluginProps<TEmbedConfig extends EmbedConfig> {
   ) => AutoEmbedOption[]
   menuCommandPriority?: CommandListenerPriority
 }
+
+export interface LexicalAutoEmbedPluginEvents<TEmbedConfig extends EmbedConfig> {
+  onOpenEmbedModalForConfig?: (embedConfig: TEmbedConfig) => void
+}
+
+type LexicalAutoEmbedPluginAttrs<TEmbedConfig extends EmbedConfig> =
+  LexicalAutoEmbedPluginProps<TEmbedConfig> & LexicalAutoEmbedPluginEvents<TEmbedConfig>
 
 export const LexicalAutoEmbedPlugin = defineComponent(
   <TEmbedConfig extends EmbedConfig>(
@@ -238,12 +246,8 @@ export const LexicalAutoEmbedPlugin = defineComponent(
     emits: { openEmbedModalForConfig: (_embedConfig: EmbedConfig) => true },
   },
 ) as unknown as new <TEmbedConfig extends EmbedConfig>(
-  props: LexicalAutoEmbedPluginProps<TEmbedConfig> & {
-    onOpenEmbedModalForConfig?: (embedConfig: TEmbedConfig) => void
-  },
-) => {
-  $props: LexicalAutoEmbedPluginProps<TEmbedConfig> & {
-    onOpenEmbedModalForConfig?: (embedConfig: TEmbedConfig) => void
-  }
-  $slots: { default?: (props: MenuRenderProps<AutoEmbedOption>) => any }
-}
+  props: LexicalAutoEmbedPluginAttrs<TEmbedConfig>,
+) => GenericComponentInstance<
+  LexicalAutoEmbedPluginAttrs<TEmbedConfig>,
+  { default?: (props: MenuRenderProps<AutoEmbedOption>) => any }
+>

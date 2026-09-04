@@ -1,6 +1,12 @@
-import type { CommandListenerPriority, NodeKey, TextNode } from 'lexical'
+import type { CommandListenerPriority, NodeKey } from 'lexical'
 import type { Component } from 'vue'
-import type { MenuOption, MenuRenderProps, MenuResolution } from './shared/LexicalMenu'
+import type { GenericComponentInstance } from './types'
+import type {
+  MenuOption,
+  MenuRenderProps,
+  MenuResolution,
+  MenuSelectOptionPayload,
+} from './shared/LexicalMenu'
 
 import { $getNodeByKey } from 'lexical'
 import { defineComponent, h, nextTick, ref, watch, watchEffect } from 'vue'
@@ -15,6 +21,15 @@ export interface NodeMenuPluginProps<TOption extends MenuOption> {
   parent?: HTMLElement
 }
 
+export interface NodeMenuPluginEvents<TOption extends MenuOption> {
+  onClose?: () => void
+  onOpen?: (payload: MenuResolution) => void
+  onSelectOption?: (payload: MenuSelectOptionPayload<TOption>) => void
+}
+
+type NodeMenuPluginAttrs<TOption extends MenuOption> = NodeMenuPluginProps<TOption> &
+  NodeMenuPluginEvents<TOption>
+
 export const NodeMenuPlugin = defineComponent(
   <TOption extends MenuOption>(
     props: NodeMenuPluginProps<TOption>,
@@ -22,15 +37,7 @@ export const NodeMenuPlugin = defineComponent(
       emit: {
         (event: 'close'): void
         (event: 'open', payload: MenuResolution): void
-        (
-          event: 'selectOption',
-          payload: {
-            option: TOption
-            textNodeContainingQuery: TextNode | null
-            closeMenu: () => void
-            matchingString: string
-          },
-        ): void
+        (event: 'selectOption', payload: MenuSelectOptionPayload<TOption>): void
       }
       slots: { default?: (props: MenuRenderProps<TOption>) => any }
     },
@@ -118,35 +125,12 @@ export const NodeMenuPlugin = defineComponent(
     emits: {
       close: () => true,
       open: (_payload: MenuResolution) => true,
-      selectOption: (_payload: {
-        option: MenuOption
-        textNodeContainingQuery: TextNode | null
-        closeMenu: () => void
-        matchingString: string
-      }) => true,
+      selectOption: (_payload: MenuSelectOptionPayload<MenuOption>) => true,
     },
   },
 ) as unknown as new <TOption extends MenuOption>(
-  props: NodeMenuPluginProps<TOption> & {
-    onClose?: () => void
-    onOpen?: (payload: MenuResolution) => void
-    onSelectOption?: (payload: {
-      option: TOption
-      textNodeContainingQuery: TextNode | null
-      closeMenu: () => void
-      matchingString: string
-    }) => void
-  },
-) => {
-  $props: NodeMenuPluginProps<TOption> & {
-    onClose?: () => void
-    onOpen?: (payload: MenuResolution) => void
-    onSelectOption?: (payload: {
-      option: TOption
-      textNodeContainingQuery: TextNode | null
-      closeMenu: () => void
-      matchingString: string
-    }) => void
-  }
-  $slots: { default?: (props: MenuRenderProps<TOption>) => any }
-}
+  props: NodeMenuPluginAttrs<TOption>,
+) => GenericComponentInstance<
+  NodeMenuPluginAttrs<TOption>,
+  { default?: (props: MenuRenderProps<TOption>) => any }
+>

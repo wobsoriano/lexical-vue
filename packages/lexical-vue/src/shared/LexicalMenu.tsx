@@ -69,6 +69,13 @@ export class MenuOption {
   }
 }
 
+export interface MenuSelectOptionPayload<TOption extends MenuOption> {
+  option: TOption
+  textNodeContainingQuery: TextNode | null
+  closeMenu: () => void
+  matchingString: string
+}
+
 export interface MenuRenderProps<TOption extends MenuOption> {
   anchorElementRef: HTMLElement | null
   itemProps: {
@@ -280,15 +287,7 @@ export const LexicalMenu = defineComponent(
   <TOption extends MenuOption>(
     props: LexicalMenuProps<TOption>,
     ctx: {
-      emit: (
-        event: 'selectOption',
-        payload: {
-          option: TOption
-          textNodeContainingQuery: TextNode | null
-          closeMenu: () => void
-          matchingString: string
-        },
-      ) => void
+      emit: (event: 'selectOption', payload: MenuSelectOptionPayload<TOption>) => void
       slots: { default?: (props: MenuRenderProps<TOption>) => any }
     },
   ) => {
@@ -595,12 +594,7 @@ export const LexicalMenu = defineComponent(
       preselectFirstItem: { type: Boolean as PropType<boolean | undefined>, required: false },
     },
     emits: {
-      selectOption: (_payload: {
-        option: MenuOption
-        textNodeContainingQuery: TextNode | null
-        closeMenu: () => void
-        matchingString: string
-      }) => true,
+      selectOption: (_payload: MenuSelectOptionPayload<MenuOption>) => true,
     },
   },
 )
