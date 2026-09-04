@@ -42,7 +42,33 @@ export function useCharacterLimit(
     } = toValue(optional)
 
     let text = editor.read('latest', $rootTextContent)
-    let lastComputedTextLength = 0
+    let lastComputedTextLength: null | number = null
+
+    function updateCharacterLimit() {
+      const textLength = strlen(text)
+      const textLengthAboveThreshold =
+        textLength > toValue(maxCharacters) ||
+        (lastComputedTextLength !== null && lastComputedTextLength > toValue(maxCharacters))
+      const diff = toValue(maxCharacters) - textLength
+      remainingCharacters(diff)
+      if (lastComputedTextLength === null || textLengthAboveThreshold) {
+        const offset = findOffset(text, toValue(maxCharacters), strlen)
+        editor.update(
+          () => {
+            $wrapOverflowedNodes(offset)
+          },
+          {
+            tag: HISTORY_MERGE_TAG,
+          },
+        )
+      }
+      lastComputedTextLength = textLength
+    }
+
+    // registerUpdateListener does not fire on registration, so without this the
+    // count and the OverflowNode wrapping stay at their initial values until
+    // the next edit.
+    updateCharacterLimit()
 
     const unregister = mergeRegister(
       editor.registerTextContentListener((currentText: string) => {
@@ -53,24 +79,7 @@ export function useCharacterLimit(
         const hasContentChanges = dirtyLeaves.size > 0 || dirtyElements.size > 0
         if (isComposing || !hasContentChanges) return
 
-        const textLength = strlen(text)
-        const textLengthAboveThreshold =
-          textLength > toValue(maxCharacters) ||
-          (lastComputedTextLength !== null && lastComputedTextLength > toValue(maxCharacters))
-        const diff = toValue(maxCharacters) - textLength
-        remainingCharacters(diff)
-        if (lastComputedTextLength === null || textLengthAboveThreshold) {
-          const offset = findOffset(text, toValue(maxCharacters), strlen)
-          editor.update(
-            () => {
-              $wrapOverflowedNodes(offset)
-            },
-            {
-              tag: HISTORY_MERGE_TAG,
-            },
-          )
-        }
-        lastComputedTextLength = textLength
+        updateCharacterLimit()
       }),
       editor.registerCommand(
         DELETE_CHARACTER_COMMAND,
