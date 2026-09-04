@@ -1,10 +1,8 @@
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig, lazyPlugins } from 'vite-plus'
-import { VineVitePlugin } from 'vue-vine/vite'
 
 export default defineConfig({
-  plugins: lazyPlugins(() => [VineVitePlugin(), vueJsx()]),
-  oxc: { exclude: [/\.vine\.ts$/] },
+  plugins: lazyPlugins(() => [vueJsx()]),
   test: {
     environment: 'happy-dom',
   },
@@ -12,7 +10,8 @@ export default defineConfig({
     entry: ['src/**/*.ts', 'src/**/*.tsx'],
     unbundle: true,
     platform: 'browser',
+    // Declarations come from `vue-tsc`.
     dts: false,
-    plugins: [VineVitePlugin(), vueJsx()],
+    plugins: [vueJsx()],
   },
 })

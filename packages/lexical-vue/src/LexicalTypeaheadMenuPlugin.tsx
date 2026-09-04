@@ -352,7 +352,7 @@ export const TypeaheadMenuPlugin = defineComponent(
       }) => true,
     },
   },
-) as unknown as <TOption extends MenuOption>(
+) as unknown as new <TOption extends MenuOption>(
   props: TypeaheadMenuPluginProps<TOption> & {
     onClose?: () => void
     onOpen?: (payload: MenuResolution) => void
@@ -364,5 +364,17 @@ export const TypeaheadMenuPlugin = defineComponent(
       matchingString: string
     }) => void
   },
-  ctx?: { slots: { default?: (props: MenuRenderProps<TOption>) => any } },
-) => any
+) => {
+  $props: TypeaheadMenuPluginProps<TOption> & {
+    onClose?: () => void
+    onOpen?: (payload: MenuResolution) => void
+    onQueryChange?: (payload: string | null) => void
+    onSelectOption?: (payload: {
+      option: TOption
+      textNodeContainingQuery: TextNode | null
+      closeMenu: () => void
+      matchingString: string
+    }) => void
+  }
+  $slots: { default?: (props: MenuRenderProps<TOption>) => any }
+}

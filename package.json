@@ -8,8 +8,6 @@
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "@types/node": "catalog:",
-    "@vue-vine/eslint-plugin": "catalog:",
-    "eslint": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:"

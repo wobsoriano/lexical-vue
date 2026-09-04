@@ -237,9 +237,13 @@ export const LexicalAutoEmbedPlugin = defineComponent(
     props: ['embedConfigs', 'getMenuOptions', 'menuCommandPriority'],
     emits: { openEmbedModalForConfig: (_embedConfig: EmbedConfig) => true },
   },
-) as unknown as <TEmbedConfig extends EmbedConfig>(
+) as unknown as new <TEmbedConfig extends EmbedConfig>(
   props: LexicalAutoEmbedPluginProps<TEmbedConfig> & {
     onOpenEmbedModalForConfig?: (embedConfig: TEmbedConfig) => void
   },
-  ctx?: { slots: { default?: (props: MenuRenderProps<AutoEmbedOption>) => any } },
-) => any
+) => {
+  $props: LexicalAutoEmbedPluginProps<TEmbedConfig> & {
+    onOpenEmbedModalForConfig?: (embedConfig: TEmbedConfig) => void
+  }
+  $slots: { default?: (props: MenuRenderProps<AutoEmbedOption>) => any }
+}

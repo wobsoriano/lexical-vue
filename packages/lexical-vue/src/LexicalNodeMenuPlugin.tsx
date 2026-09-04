@@ -126,7 +126,7 @@ export const NodeMenuPlugin = defineComponent(
       }) => true,
     },
   },
-) as unknown as <TOption extends MenuOption>(
+) as unknown as new <TOption extends MenuOption>(
   props: NodeMenuPluginProps<TOption> & {
     onClose?: () => void
     onOpen?: (payload: MenuResolution) => void
@@ -137,5 +137,16 @@ export const NodeMenuPlugin = defineComponent(
       matchingString: string
     }) => void
   },
-  ctx?: { slots: { default?: (props: MenuRenderProps<TOption>) => any } },
-) => any
+) => {
+  $props: NodeMenuPluginProps<TOption> & {
+    onClose?: () => void
+    onOpen?: (payload: MenuResolution) => void
+    onSelectOption?: (payload: {
+      option: TOption
+      textNodeContainingQuery: TextNode | null
+      closeMenu: () => void
+      matchingString: string
+    }) => void
+  }
+  $slots: { default?: (props: MenuRenderProps<TOption>) => any }
+}

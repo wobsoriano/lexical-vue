@@ -53,8 +53,8 @@
       "import": "./dist/LexicalMarkdownShortcutPlugin.js"
     },
     "./LexicalAutoFocusPlugin": {
-      "types": "./dist/LexicalAutoFocusPlugin.vine.d.ts",
-      "import": "./dist/LexicalAutoFocusPlugin.vine.js"
+      "types": "./dist/LexicalAutoFocusPlugin.d.ts",
+      "import": "./dist/LexicalAutoFocusPlugin.js"
     },
     "./LexicalAutoScrollPlugin": {
       "types": "./dist/LexicalAutoScrollPlugin.d.ts",
@@ -153,8 +153,8 @@
       "import": "./dist/useLexicalTextEntity.js"
     },
     "./LexicalTreeView": {
-      "types": "./dist/LexicalTreeView.vine.d.ts",
-      "import": "./dist/LexicalTreeView.vine.js"
+      "types": "./dist/LexicalTreeView.d.ts",
+      "import": "./dist/LexicalTreeView.js"
     },
     "./LexicalTableOfContentsPlugin": {
       "types": "./dist/LexicalTableOfContentsPlugin.d.ts",
@@ -166,7 +166,7 @@
     }
   },
   "scripts": {
-    "build": "vp pack && vue-vine-tsc",
+    "build": "vp pack && vue-tsc",
     "dev": "vp pack --watch",
     "test": "vp test"
   },
@@ -188,8 +188,7 @@
     "@lexical/utils": "0.49.0",
     "@lexical/yjs": "0.49.0",
     "lexical": "0.49.0",
-    "tiny-invariant": "^1.3.3",
-    "vue-vine": "^1.7.20"
+    "tiny-invariant": "^1.3.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue-jsx": "catalog:",
@@ -199,7 +198,7 @@
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "vue": "^3.5.22",
-    "vue-vine-tsc": "^1.7.20",
+    "vue-tsc": "^3.1.0",
     "yjs": "^13.6.18"
   },
   "peerDependencies": {

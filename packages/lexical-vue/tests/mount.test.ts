@@ -81,7 +81,7 @@ const CASES: Case[] = [
     slots: { default: () => h('div') },
   },
   { name: 'TablePlugin', load: () => import('../src/LexicalTablePlugin') },
-  { name: 'TreeView', load: () => import('../src/LexicalTreeView.vine'), needsEditor: true },
+  { name: 'TreeView', load: () => import('../src/LexicalTreeView'), needsEditor: true },
   {
     name: 'NodeMenuPlugin',
     load: () => import('../src/LexicalNodeMenuPlugin'),

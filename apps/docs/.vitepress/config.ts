@@ -8,7 +8,7 @@ export default defineConfig({
 
   themeConfig: {
     socialLinks: [{ icon: 'github', link: 'https://github.com/wobsoriano/lexical-vue' }],
-    lastUpdatedText: 'Last Updated',
+    lastUpdated: { text: 'Last Updated' },
     nav: [
       { text: 'Docs', link: '/docs/introduction', activeMatch: '/docs/' },
       { text: 'API', link: 'https://lexical.dev/docs/api/modules' },

@@ -63,7 +63,6 @@ const TweetComponent = defineComponent({
 
     return () =>
       h(
-        // @ts-expect-error: vue-vine should allow default slot like this
         BlockWithAlignableContents,
         {
           hoverClass: props.hoverClass,

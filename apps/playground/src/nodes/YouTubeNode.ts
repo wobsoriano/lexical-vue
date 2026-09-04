@@ -22,7 +22,6 @@ const YouTubeComponent = defineComponent({
   setup(props) {
     return () =>
       h(
-        // @ts-expect-error: vue-vine should allow default slot like this
         BlockWithAlignableContents,
         {
           class: props.class,
