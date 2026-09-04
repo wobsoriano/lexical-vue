@@ -9,18 +9,24 @@ catalogs:
     '@types/node':
       specifier: ^24.6.0
       version: 24.9.1
+    '@vitejs/plugin-vue-jsx':
+      specifier: ^5.1.6
+      version: 5.1.6
+    '@vue/test-utils':
+      specifier: ^2.5.0
+      version: 2.5.0
+    happy-dom:
+      specifier: ^20.14.0
+      version: 20.14.0
     typescript:
       specifier: ~5.9.3
       version: 5.9.3
-    vite:
-      specifier: npm:@voidzero-dev/vite-plus-core@0.3.0
-      version: 0.3.0
     vite-plus:
       specifier: 0.3.0
       version: 0.3.0
 
 overrides:
-  vite@*: npm:@voidzero-dev/vite-plus-core@0.3.0
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.0
 
 importers:
 
@@ -36,7 +42,7 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 'catalog:'
+        specifier: npm:@voidzero-dev/vite-plus-core@0.3.0
         version: '@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2)'
       vite-plus:
         specifier: 'catalog:'
@@ -45,7 +51,7 @@ importers:
   apps/docs:
     devDependencies:
       vite:
-        specifier: 'catalog:'
+        specifier: npm:@voidzero-dev/vite-plus-core@0.3.0
         version: '@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2)'
       vitepress:
         specifier: ^2.0.0-alpha.19
@@ -82,7 +88,7 @@ importers:
         specifier: ~5.9.3
         version: 5.9.3
       vite:
-        specifier: 'catalog:'
+        specifier: npm:@voidzero-dev/vite-plus-core@0.3.0
         version: '@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2)'
       vite-plus:
         specifier: 'catalog:'
@@ -161,7 +167,7 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 'catalog:'
+        specifier: npm:@voidzero-dev/vite-plus-core@0.3.0
         version: '@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2)'
       vite-plus:
         specifier: 'catalog:'
@@ -3279,7 +3285,7 @@ snapshots:
       '@testing-library/dom': 10.4.1
       '@testing-library/user-event': 14.6.7(@testing-library/dom@10.4.1)
       '@vitest/browser': 4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(vitest@4.1.11)
-      vitest: 4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)
+      vitest: 4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(vitest@4.1.11))(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)
     transitivePeerDependencies:
       - bufferutil
       - msw
@@ -3295,7 +3301,7 @@ snapshots:
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.1.1
-      vitest: 4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)
+      vitest: 4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(vitest@4.1.11))(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)
       ws: 8.21.3
     transitivePeerDependencies:
       - bufferutil
@@ -3349,7 +3355,7 @@ snapshots:
       '@oxc-project/runtime': 0.146.0
       '@oxc-project/types': 0.146.0
       lightningcss: 1.33.0
-      postcss: 8.5.6
+      postcss: 8.5.28
       yuku-codegen: 0.5.48
       yuku-parser: 0.5.48
     optionalDependencies:
@@ -4446,7 +4452,7 @@ snapshots:
       oxfmt: 0.64.0(vite-plus@0.3.0(@types/node@24.9.1)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))
       oxlint: 1.79.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.3.0(@types/node@24.9.1)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))
       oxlint-tsgolint: 7.0.2001
-      vitest: 4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)
+      vitest: 4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(vitest@4.1.11))(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0)
     optionalDependencies:
       '@voidzero-dev/vite-plus-darwin-arm64': 0.3.0
       '@voidzero-dev/vite-plus-darwin-x64': 0.3.0
@@ -4540,7 +4546,7 @@ snapshots:
       - unrun
       - yaml
 
-  vitest@4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0):
+  vitest@4.1.11(@types/node@24.9.1)(@vitest/browser-preview@4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(vitest@4.1.11))(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))(happy-dom@20.14.0):
     dependencies:
       '@vitest/expect': 4.1.11
       '@vitest/mocker': 4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.9.1)(jiti@2.6.1)(typescript@5.9.3)(yaml@2.8.2))
