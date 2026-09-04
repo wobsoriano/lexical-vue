@@ -25,3 +25,14 @@ release. Add a tool name to select part of the graph. For example, run
 - [ ] If setup, runtime, or package-manager behavior looks wrong, run `vp env doctor` and include its output when asking for help.
 
 <!--VITE PLUS END-->
+
+## Checks
+
+Run `vp run ready`. It builds lexical-vue, then checks, tests and builds
+everything, and it is exactly what CI runs.
+
+`vp check` on its own fails on a fresh clone with ~29 unresolved-module errors.
+The apps import lexical-vue through its exports map, so type-aware lint reads
+`packages/lexical-vue/dist`, which does not exist until the package is built.
+That is deliberate: the apps validate the real published type surface, which is
+how a consumer sees it, and it has already caught a broken export subpath.

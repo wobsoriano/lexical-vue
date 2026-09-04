@@ -17,14 +17,9 @@ jobs:
           node-version-file: .node-version
           cache: true
 
-      - name: Check
-        run: vp check
-
-      - name: Test
-        run: vp run -r test
-
-      - name: Build
-        run: vp run lexical-vue#build
+      # The same task contributors run locally, so the two cannot drift.
+      - name: Check, test and build
+        run: vp run ready
 
       - name: Create a snapshot version
         id: snapshot

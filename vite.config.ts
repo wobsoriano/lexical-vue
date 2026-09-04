@@ -33,7 +33,13 @@ export default defineConfig({
   run: {
     cache: true,
     tasks: {
-      ready: ['vp check', 'vp run -r test', 'vp run -r build'],
+      ready: {
+        // The apps import lexical-vue through its exports map, so type-aware
+        // lint reads the package's built declarations. Check before build and
+        // every one of those imports is unresolvable.
+        dependsOn: ['lexical-vue#build'],
+        command: ['vp check', 'vp run -r test', 'vp run -r build'],
+      },
       release: {
         command: 'changeset publish',
         dependsOn: ['lexical-vue#build'],
