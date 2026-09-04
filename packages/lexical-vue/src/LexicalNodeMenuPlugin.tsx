@@ -103,6 +103,9 @@ export const NodeMenuPlugin = defineComponent(
     return () =>
       anchorElementRef.value !== null && resolution.value !== null
         ? h(
+            // `h()` resolves to its component-instance overload when a call omits
+            // optional props, and LexicalMenu's `'preselectFirstItem' in vnodeProps`
+            // check means they cannot be passed as undefined instead.
             LexicalMenu as Component,
             {
               resolution: resolution.value,
@@ -111,7 +114,8 @@ export const NodeMenuPlugin = defineComponent(
               options: props.options,
               commandPriority: props.commandPriority,
               close: closeNodeMenu,
-              onSelectOption: (payload: any) => ctx.emit('selectOption', payload),
+              onSelectOption: (payload: MenuSelectOptionPayload<MenuOption>) =>
+                ctx.emit('selectOption', payload as MenuSelectOptionPayload<TOption>),
             },
             {
               default: (slotProps: MenuRenderProps<TOption>) => ctx.slots.default?.(slotProps),

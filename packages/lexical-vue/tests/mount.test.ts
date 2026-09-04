@@ -106,7 +106,7 @@ function mountInComposer(component: Component, c: Case) {
   const Host = defineComponent({
     setup: () => () =>
       h(
-        LexicalComposer as unknown as Component,
+        LexicalComposer,
         {
           initialConfig: {
             namespace: 'test',

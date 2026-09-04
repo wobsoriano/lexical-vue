@@ -1,4 +1,3 @@
-import type { Component } from 'vue'
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical'
 import { flushPromises, mount } from '@vue/test-utils'
 import { expect, test } from 'vite-plus/test'
@@ -13,9 +12,9 @@ function mountEditor(contentEditableProps: Record<string, unknown> = {}) {
     setup() {
       editor = useLexicalComposer()
       return () =>
-        h(RichTextPlugin as unknown as Component, null, {
+        h(RichTextPlugin, null, {
           placeholder: () => h('span', { class: 'ph' }, 'Type here'),
-          contentEditable: () => h(ContentEditable as unknown as Component, contentEditableProps),
+          contentEditable: () => h(ContentEditable, contentEditableProps),
         })
     },
   })
@@ -23,7 +22,7 @@ function mountEditor(contentEditableProps: Record<string, unknown> = {}) {
     defineComponent({
       setup: () => () =>
         h(
-          LexicalComposer as unknown as Component,
+          LexicalComposer,
           {
             initialConfig: {
               namespace: 'test',

@@ -1,4 +1,3 @@
-import type { Component } from 'vue'
 import { mount } from '@vue/test-utils'
 import { expect, test } from 'vite-plus/test'
 import { defineComponent, h } from 'vue'
@@ -20,7 +19,7 @@ test('ContentEditable renders a stable attribute set', () => {
     defineComponent({
       setup: () => () =>
         h(
-          LexicalComposer as unknown as Component,
+          LexicalComposer,
           {
             initialConfig: {
               namespace: 't',
@@ -31,8 +30,8 @@ test('ContentEditable renders a stable attribute set', () => {
           },
           {
             default: () => [
-              h(RichTextPlugin as unknown as Component, null, {
-                contentEditable: () => h(ContentEditable as unknown as Component, props),
+              h(RichTextPlugin, null, {
+                contentEditable: () => h(ContentEditable, props),
               }),
             ],
           },

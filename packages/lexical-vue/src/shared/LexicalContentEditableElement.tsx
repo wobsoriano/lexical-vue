@@ -19,27 +19,6 @@ export type ContentEditableElementProps = {
   style?: any
 } & Omit<HTMLAttributes, 'placeholder' | 'prefix' | 'style'>
 
-const DECLARED_PROPS = [
-  'editor',
-  'ariaActiveDescendant',
-  'ariaAutoComplete',
-  'ariaControls',
-  'ariaDescribedBy',
-  'ariaErrorMessage',
-  'ariaExpanded',
-  'ariaInvalid',
-  'ariaLabel',
-  'ariaLabelledBy',
-  'ariaMultiline',
-  'ariaOwns',
-  'ariaRequired',
-  'autocapitalize',
-  'role',
-  'spellcheck',
-  'tabindex',
-  'style',
-] as const
-
 export const ContentEditableElement = defineComponent(
   (props: ContentEditableElementProps, ctx: { attrs: Record<string, unknown> }) => {
     const root = ref<HTMLDivElement | null>(null)
@@ -101,5 +80,29 @@ export const ContentEditableElement = defineComponent(
       />
     )
   },
-  { name: 'ContentEditableElement', props: [...DECLARED_PROPS], inheritAttrs: false },
+  {
+    name: 'ContentEditableElement',
+    // Everything not listed here reaches the element through ctx.attrs.
+    props: [
+      'editor',
+      'ariaActiveDescendant',
+      'ariaAutoComplete',
+      'ariaControls',
+      'ariaDescribedBy',
+      'ariaErrorMessage',
+      'ariaExpanded',
+      'ariaInvalid',
+      'ariaLabel',
+      'ariaLabelledBy',
+      'ariaMultiline',
+      'ariaOwns',
+      'ariaRequired',
+      'autocapitalize',
+      'role',
+      'spellcheck',
+      'tabindex',
+      'style',
+    ],
+    inheritAttrs: false,
+  },
 )

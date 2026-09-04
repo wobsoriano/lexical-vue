@@ -1,4 +1,3 @@
-import type { Component } from 'vue'
 import type {
   CommandListenerPriority,
   LexicalCommand,
@@ -225,7 +224,7 @@ export const LexicalAutoEmbedPlugin = defineComponent(
     return () =>
       nodeKey.value !== null
         ? h(
-            NodeMenuPlugin as Component,
+            NodeMenuPlugin,
             {
               nodeKey: nodeKey.value,
               onClose: reset,

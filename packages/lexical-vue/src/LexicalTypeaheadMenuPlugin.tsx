@@ -1,4 +1,3 @@
-import type { Component } from 'vue'
 import type {
   CommandListenerPriority,
   LexicalCommand,
@@ -314,7 +313,7 @@ export const TypeaheadMenuPlugin = defineComponent(
     return () =>
       resolution.value !== null && anchorElementRef.value !== null
         ? h(
-            LexicalMenu as Component,
+            LexicalMenu,
             {
               anchorElementRef: anchorElementRef.value,
               editor,
@@ -324,7 +323,8 @@ export const TypeaheadMenuPlugin = defineComponent(
               commandPriority: props.commandPriority,
               preselectFirstItem: shouldPreselectFirstItem.value,
               close: closeTypeahead,
-              onSelectOption: (payload: any) => ctx.emit('selectOption', payload),
+              onSelectOption: (payload: MenuSelectOptionPayload<MenuOption>) =>
+                ctx.emit('selectOption', payload as MenuSelectOptionPayload<TOption>),
             },
             {
               default: (slotProps: MenuRenderProps<TOption>) => ctx.slots.default?.(slotProps),
