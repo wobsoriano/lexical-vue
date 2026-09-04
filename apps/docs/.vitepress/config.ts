@@ -37,6 +37,16 @@ function sidebarDocs() {
     },
     { text: 'Concepts', link: 'https://lexical.dev/docs/concepts/editor-state' },
     {
+      text: 'Extensions',
+      collapsed: false,
+      items: [
+        { text: 'Introduction', link: '/docs/extensions/introduction' },
+        { text: 'Using Extensions', link: '/docs/extensions/usage' },
+        { text: 'Contributing Vue UI', link: '/docs/extensions/vue-ui' },
+        { text: 'Reading Extension State', link: '/docs/extensions/signals' },
+      ],
+    },
+    {
       text: 'Plugins',
       collapsible: false,
       items: [
