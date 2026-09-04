@@ -68,7 +68,7 @@ export function useYjsCollaboration(
     }
     const { root } = resolvedBinding
     if (toValue(shouldBootstrap) && root.isEmpty() && root._xmlText._length === 0) {
-      initializeEditor(editor, toValue(initialEditorState))
+      bootstrapEditor(resolvedBinding, editor, toValue(initialEditorState))
     }
   }
 
@@ -467,6 +467,7 @@ export function useYjsUndoManager(editor: LexicalEditor, undoManager: Ref<UndoMa
 function initializeEditor(
   editor: LexicalEditor,
   initialEditorState?: InitialEditorStateType,
+  onUpdate?: () => void,
 ): void {
   editor.update(
     () => {
@@ -510,9 +511,39 @@ function initializeEditor(
       }
     },
     {
+      onUpdate,
       tag: HISTORY_MERGE_TAG,
     },
   )
+}
+
+function bootstrapEditor(
+  binding: BaseBinding,
+  editor: LexicalEditor,
+  initialEditorState?: InitialEditorStateType,
+): void {
+  binding.isBootstrapping = true
+  try {
+    // The Yjs write happens in the update listener during the commit, which is
+    // not necessarily synchronous with this call, so the flag has to outlive it.
+    // Lexical queues onUpdate before the update body runs and flushes it at the
+    // tail of the same commit, so it lands after the write, and a queued
+    // deferred callback forces a commit even when the update is a no-op.
+    initializeEditor(editor, initialEditorState, () => {
+      binding.isBootstrapping = false
+    })
+  } finally {
+    // onUpdate alone is not enough: when the update body throws, Lexical
+    // commits (so the Yjs write still happens) but skips that commit's deferred
+    // callbacks, leaving the reset queued until the tail of the next commit, by
+    // which point the user's first edit after a failed bootstrap has been
+    // written with the flag set and kept out of the undo stack. This bounds the
+    // flag to a microtask. It cannot fire early, because the commit is
+    // scheduled from inside editor.update above.
+    queueMicrotask(() => {
+      binding.isBootstrapping = false
+    })
+  }
 }
 
 function clearEditorSkipCollab(editor: LexicalEditor, binding: BaseBinding) {
