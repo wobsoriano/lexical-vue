@@ -23,6 +23,9 @@ jobs:
       - name: Lint vine components
         run: vp run lint:vine
 
+      - name: Test
+        run: vp run -r test
+
       - name: Build
         run: vp run lexical-vue#build
 

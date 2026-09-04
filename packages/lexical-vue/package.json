@@ -167,7 +167,8 @@
   },
   "scripts": {
     "build": "vp pack && vue-vine-tsc",
-    "dev": "vp pack --watch"
+    "dev": "vp pack --watch",
+    "test": "vp test"
   },
   "dependencies": {
     "@lexical/dragon": "0.49.0",
@@ -191,6 +192,8 @@
     "vue-vine": "^1.7.20"
   },
   "devDependencies": {
+    "@vue/test-utils": "catalog:",
+    "happy-dom": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:",

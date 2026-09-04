@@ -46,7 +46,7 @@ export default defineConfig({
     tasks: {
       // `vp check` does not cover this. See eslint.config.mjs.
       'lint:vine': 'eslint',
-      ready: ['vp check', 'vp run lint:vine', 'vp run -r build'],
+      ready: ['vp check', 'vp run lint:vine', 'vp run -r test', 'vp run -r build'],
       release: {
         command: 'changeset publish',
         dependsOn: ['lexical-vue#build'],
