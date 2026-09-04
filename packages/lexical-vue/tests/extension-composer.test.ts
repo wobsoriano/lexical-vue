@@ -9,7 +9,7 @@ import { ContentEditable } from '../src/LexicalContentEditable'
 import { LexicalExtensionComposer } from '../src/LexicalExtensionComposer'
 
 function mountComposer(renderInner: () => unknown = () => null) {
-  let editor: ReturnType<typeof useLexicalComposer>
+  let editor!: ReturnType<typeof useLexicalComposer>
   const Inner = defineComponent({
     setup() {
       editor = useLexicalComposer()
@@ -27,7 +27,7 @@ function mountComposer(renderInner: () => unknown = () => null) {
     }),
     { attachTo: document.body },
   )
-  return { wrapper, editor: editor! }
+  return { wrapper, editor }
 }
 
 test('an extension builds an editor the default slot can inject', () => {

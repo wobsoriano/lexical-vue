@@ -1,15 +1,13 @@
 # Creating decorator nodes
 
-::: warning WARNING
-Lexical Vue decorators uses the Teleport component so make sure you've installed Vue >= 3.2.0.
-:::
-
 Decorator node is a way to embed non-text components into the editor. It can be media embeds like videos, tweets, instagram posts or more complex components with its own internal state.
 
 Here's an example of how you can create a decorator node for embedding a video:
 
 ```ts
+import type { EditorConfig, LexicalCommand, LexicalNode, NodeKey } from 'lexical'
 import type { Component } from 'vue'
+import { createCommand, DecoratorNode } from 'lexical'
 import { h } from 'vue'
 
 export class VideoNode extends DecoratorNode<Component> {
@@ -77,6 +75,7 @@ As any other custom Lexical node, decorator nodes need to be registered before t
 
 ```vue
 <script setup lang="ts">
+import { $getSelection } from 'lexical'
 import { useLexicalComposer } from 'lexical-vue/LexicalComposer'
 import { onMounted, onUnmounted } from 'vue'
 import { $createVideoNode, INSERT_VIDEO_COMMAND } from './VideoNode'
@@ -109,7 +108,7 @@ onMounted(() => {
 <template />
 ```
 
-Then assuming we have a some UE insert a video into the editor:
+Then we can add some UI that inserts a video into the editor:
 
 ```vue
 <script setup lang="ts">

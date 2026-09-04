@@ -1,4 +1,4 @@
-import type { SerializedLexicalNode } from 'lexical'
+import type { LexicalEditor, SerializedLexicalNode } from 'lexical'
 import type { VNode } from 'vue'
 import { RichTextExtension } from '@lexical/rich-text'
 import { flushPromises, mount } from '@vue/test-utils'
@@ -51,6 +51,18 @@ const BadgeExtension = defineExtension({
   nodes: [BadgeNode],
 })
 
+function insertBadge(editor: LexicalEditor) {
+  editor.update(() => {
+    $getRoot().clear().append($createParagraphNode().append(new BadgeNode()))
+  })
+}
+
+async function flushRender() {
+  await nextTick()
+  await flushPromises()
+  await nextTick()
+}
+
 async function mountAndInsertBadge(renderInner: () => unknown) {
   let editor!: ReturnType<typeof useLexicalComposer>
   const Inner = defineComponent({
@@ -67,12 +79,8 @@ async function mountAndInsertBadge(renderInner: () => unknown) {
     { attachTo: document.body },
   )
 
-  editor.update(() => {
-    $getRoot().clear().append($createParagraphNode().append(new BadgeNode()))
-  })
-  await nextTick()
-  await flushPromises()
-  await nextTick()
+  insertBadge(editor)
+  await flushRender()
 
   return { editor, wrapper }
 }
@@ -135,14 +143,8 @@ test('a nested composer renders a decorator for each editor', async () => {
   expect(editors.length, 'the inner composer built a second editor').toBe(2)
   expect(editors[0], 'the two composers own distinct editors').not.toBe(editors[1])
 
-  for (const editor of editors) {
-    editor.update(() => {
-      $getRoot().clear().append($createParagraphNode().append(new BadgeNode()))
-    })
-  }
-  await nextTick()
-  await flushPromises()
-  await nextTick()
+  for (const editor of editors) insertBadge(editor)
+  await flushRender()
 
   expect(
     document.querySelectorAll('[data-badge]').length,

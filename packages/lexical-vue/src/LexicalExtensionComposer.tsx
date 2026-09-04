@@ -14,24 +14,6 @@ import { useDecoratorHost } from './shared/useDecorators'
  * The editor is built once, on setup. A later change to `extension` is ignored,
  * because rebuilding would throw away the editor state the user has typed. Bind
  * a `:key` to whatever the extension is derived from to force a rebuild.
- *
- * It renders, in order, the `contentEditable` slot or `VueExtension`'s
- * `contentEditable` config, the default slot, `VueExtension`'s config
- * decorators, and the teleports for the editor's decorator nodes.
- *
- * @example
- * ```vue
- * <script setup lang="ts">
- * import { RichTextExtension } from '@lexical/rich-text'
- * import { ContentEditable, LexicalExtensionComposer } from 'lexical-vue'
- * </script>
- *
- * <template>
- *   <LexicalExtensionComposer :extension="RichTextExtension">
- *     <ContentEditable />
- *   </LexicalExtensionComposer>
- * </template>
- * ```
  */
 export const LexicalExtensionComposer = defineComponent(
   (
@@ -72,7 +54,6 @@ export const LexicalExtensionComposer = defineComponent(
   },
 )
 
-/** The composer is the only place a `VueRenderable` is turned into a vnode. */
 function toVNode(renderable: VueRenderable | null): VNode | null {
   if (renderable == null) {
     return null

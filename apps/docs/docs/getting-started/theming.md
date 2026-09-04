@@ -46,7 +46,11 @@ import { ContentEditable } from 'lexical-vue/LexicalContentEditable'
 import { PlainTextPlugin } from 'lexical-vue/LexicalPlainTextPlugin'
 import { exampleTheme } from './exampleTheme'
 
-const initialConfig = { namespace: 'MyEditor', theme: exampleTheme }
+const initialConfig = {
+  namespace: 'MyEditor',
+  theme: exampleTheme,
+  onError: console.error,
+}
 </script>
 
 <template>
