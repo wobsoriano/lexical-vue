@@ -22,7 +22,7 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
-      - uses: voidzero-dev/setup-vp@v1.18.0
+      - uses: voidzero-dev/setup-vp@v1.19.0
         with:
           node-version-file: .node-version
           cache: true
