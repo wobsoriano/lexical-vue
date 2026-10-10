@@ -1,5 +1,11 @@
 # lexical-vue
 
+## 0.18.0
+
+### Minor Changes
+
+- bd2c669: Add `CollaborationPluginV2__EXPERIMENTAL`, an experimental port of the Lexical V2 Yjs binding that takes a caller-owned `doc` and `provider`. `CollaborationPlugin` is unchanged.
+
 ## 0.17.0
 
 ### Minor Changes
