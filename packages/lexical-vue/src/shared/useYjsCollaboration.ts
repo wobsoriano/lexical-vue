@@ -192,7 +192,10 @@ export function useYjsCollaborationV2__EXPERIMENTAL(
   })
   const providerRef = shallowRef(provider)
   docMap.set(id, doc)
-  onUnmounted(() => docMap.delete(id))
+  onUnmounted(() => {
+    // A keyed replacement registers its doc under the same id before this hook runs.
+    if (docMap.get(id) === doc) docMap.delete(id)
+  })
 
   const diffSnapshots = shallowRef<{ prevSnapshot?: Snapshot; snapshot?: Snapshot } | null>(null)
   onUnmounted(
@@ -209,7 +212,8 @@ export function useYjsCollaborationV2__EXPERIMENTAL(
       editor.registerCommand(
         DIFF_VERSIONS_COMMAND__EXPERIMENTAL,
         (snapshots) => {
-          diffSnapshots.value = snapshots
+          // Copy so that dispatching the same payload object renders again.
+          diffSnapshots.value = { ...snapshots }
           return true
         },
         COMMAND_PRIORITY_EDITOR,

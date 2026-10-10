@@ -192,20 +192,21 @@ export const CollaborationPluginV2__EXPERIMENTAL = defineComponent(
   },
   {
     name: 'CollaborationPluginV2__EXPERIMENTAL',
-    props: [
-      'id',
-      'doc',
-      'provider',
-      '__shouldBootstrapUnsafe',
-      'username',
-      'cursorColor',
-      'cursorsContainerRef',
-      'excludedProperties',
-      'awarenessData',
-      'selectionHighlight',
-      'rootName',
-      'getXmlElement',
-    ],
+    props: {
+      id: null,
+      doc: null,
+      provider: null,
+      // Boolean types make Vue cast a bare template attribute to true.
+      __shouldBootstrapUnsafe: Boolean,
+      username: null,
+      cursorColor: null,
+      cursorsContainerRef: null,
+      excludedProperties: null,
+      awarenessData: null,
+      selectionHighlight: Boolean,
+      rootName: null,
+      getXmlElement: null,
+    },
   },
 )
 
