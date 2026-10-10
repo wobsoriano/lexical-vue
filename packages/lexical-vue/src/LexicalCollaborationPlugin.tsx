@@ -1,16 +1,26 @@
-import type { BaseBinding, Binding, BindingV2, Provider, UserState } from '@lexical/yjs'
+import type {
+  BaseBinding,
+  Binding,
+  BindingV2,
+  ExcludedProperties,
+  Provider,
+  UserState,
+} from '@lexical/yjs'
 
-import type { Klass, LexicalNode } from 'lexical'
-import type { Doc } from 'yjs'
+import type { LexicalEditor } from 'lexical'
+import type { Doc, XmlElement } from 'yjs'
 import type { InitialEditorStateType } from './types'
 import { createYjsBinding } from '@lexical/yjs'
-import { defineComponent, h, onUnmounted, shallowRef, watchEffect } from 'vue'
+import { defineComponent, h, onUnmounted, shallowRef, toRaw, watchEffect } from 'vue'
 import { useLexicalComposer } from './LexicalComposer'
 import { collaborationContext } from './shared/useCollaborationContext'
 import {
   useYjsCollaboration,
+  useYjsCollaborationV2__EXPERIMENTAL,
+  useYjsCursors,
   useYjsFocusTracking,
   useYjsHistory,
+  useYjsHistoryV2,
 } from './shared/useYjsCollaboration'
 
 type AnyBinding = Binding | BindingV2
@@ -26,7 +36,7 @@ interface CollaborationPluginProps {
   cursorColor?: string
   cursorsContainerRef?: HTMLElement | null
   initialEditorState?: InitialEditorStateType
-  excludedProperties?: Map<Klass<LexicalNode>, Set<string>>
+  excludedProperties?: ExcludedProperties
   // `awarenessData` parameter allows arbitrary data to be added to the awareness.
   awarenessData?: object
   syncCursorPositionsFn?: (
@@ -40,23 +50,9 @@ interface CollaborationPluginProps {
 
 export const CollaborationPlugin = defineComponent(
   (props: CollaborationPluginProps) => {
-    // Set username and cursor color
-    watchEffect(() => {
-      if (props.username !== undefined) collaborationContext.value.name = props.username
-      if (props.cursorColor !== undefined) collaborationContext.value.color = props.cursorColor
-    })
-
+    useCollaborationContextProps(props)
     const editor = useLexicalComposer()
-
-    watchEffect((onInvalidate) => {
-      collaborationContext.value.isCollabActive = true
-
-      onInvalidate(() => {
-        // Reseting flag only when unmount top level editor collab plugin. Nested
-        // editors (e.g. image caption) should unmount without affecting it
-        if (editor._parentEditor == null) collaborationContext.value.isCollabActive = false
-      })
-    })
+    useCollabActive(editor)
 
     const id = props.id
     const yjsDocMap = collaborationContext.value.yjsDocMap
@@ -124,3 +120,108 @@ export const CollaborationPlugin = defineComponent(
     ],
   },
 )
+
+export interface CollaborationPluginV2Props {
+  id: string
+  /** Caller-owned document; use the same document as the provider. */
+  doc: Doc
+  /** The plugin connects/disconnects this provider but does not destroy it or the document. */
+  provider: Provider
+  /**
+   * Seed an empty root after the provider reports sync. Only one client may opt in
+   * per document: concurrent seeds are ordinary Yjs inserts and both are retained.
+   * Prefer initializing shared content server-side, especially for nested editors.
+   */
+  __shouldBootstrapUnsafe?: boolean
+  username?: string
+  cursorColor?: string
+  cursorsContainerRef?: HTMLElement | null
+  excludedProperties?: ExcludedProperties
+  /** Arbitrary data published with the local user's awareness state. */
+  awarenessData?: object
+  /** Opt in to CSS Highlights selection rendering, with a legacy fallback. */
+  selectionHighlight?: boolean
+  /** Top-level shared root key; defaults to 'root-v2'. Read once per editor mount. */
+  rootName?: string
+  /**
+   * Resolve an integrated root created with new XmlElement() without a nodeName.
+   * Overrides rootName. Called once before the provider connects, so the root must
+   * already be available locally. Return the same root for the same document;
+   * never share it between multiple live bindings in one editor session.
+   * Remount the whole editor to change roots, not just this plugin: otherwise the
+   * previous editor content can be written into the new root.
+   */
+  getXmlElement?: (doc: Doc) => XmlElement
+}
+
+/**
+ * Experimental V2 binding with a caller-owned document and provider.
+ * Remount the editor, not just this plugin, to change the document or root.
+ * The API may change in a future release.
+ */
+export const CollaborationPluginV2__EXPERIMENTAL = defineComponent(
+  (props: CollaborationPluginV2Props) => {
+    const editor = useLexicalComposer()
+    const provider = shallowRef(toRaw(props.provider))
+    const doc = toRaw(props.doc)
+    const docMap = toRaw(collaborationContext.value.yjsDocMap)
+
+    useCollaborationContextProps(props)
+    useCollabActive(editor)
+
+    const binding = useYjsCollaborationV2__EXPERIMENTAL(
+      editor,
+      props.id,
+      doc,
+      provider.value,
+      docMap,
+      () => collaborationContext.value.name,
+      () => collaborationContext.value.color,
+      props,
+    )
+    useYjsHistoryV2(editor, binding)
+    useYjsFocusTracking(
+      editor,
+      provider,
+      () => collaborationContext.value.name,
+      () => collaborationContext.value.color,
+      () => props.awarenessData,
+    )
+    const cursors = useYjsCursors(binding, () => props.cursorsContainerRef ?? null)
+    return () => cursors.value
+  },
+  {
+    name: 'CollaborationPluginV2__EXPERIMENTAL',
+    props: [
+      'id',
+      'doc',
+      'provider',
+      '__shouldBootstrapUnsafe',
+      'username',
+      'cursorColor',
+      'cursorsContainerRef',
+      'excludedProperties',
+      'awarenessData',
+      'selectionHighlight',
+      'rootName',
+      'getXmlElement',
+    ],
+  },
+)
+
+function useCollaborationContextProps(props: { username?: string; cursorColor?: string }) {
+  watchEffect(() => {
+    if (props.username !== undefined) collaborationContext.value.name = props.username
+    if (props.cursorColor !== undefined) collaborationContext.value.color = props.cursorColor
+  })
+}
+
+function useCollabActive(editor: LexicalEditor) {
+  watchEffect((onInvalidate) => {
+    collaborationContext.value.isCollabActive = true
+    onInvalidate(() => {
+      // Nested editor cleanup must not deactivate its parent editor's collaboration.
+      if (editor._parentEditor == null) collaborationContext.value.isCollabActive = false
+    })
+  })
+}

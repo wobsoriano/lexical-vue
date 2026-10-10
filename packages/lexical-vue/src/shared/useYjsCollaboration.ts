@@ -1,19 +1,33 @@
-import type { BaseBinding, Binding, Provider, SyncCursorPositionsFn } from '@lexical/yjs'
+import type {
+  BaseBinding,
+  Binding,
+  BindingV2,
+  ExcludedProperties,
+  Provider,
+  SyncCursorPositionsFn,
+} from '@lexical/yjs'
 import type { LexicalEditor } from 'lexical'
 
 import type { MaybeRefOrGetter, Ref } from 'vue'
-import type { Doc, Transaction, YEvent } from 'yjs'
+import type { Doc, Snapshot, Transaction, XmlElement, YEvent } from 'yjs'
 import type { InitialEditorStateType } from '../types'
 import { mergeRegister } from '@lexical/utils'
 import {
+  CLEAR_DIFF_VERSIONS_COMMAND__EXPERIMENTAL,
   CONNECTED_COMMAND,
+  createBindingV2__EXPERIMENTAL,
   createUndoManager,
+  DIFF_VERSIONS_COMMAND__EXPERIMENTAL,
   initLocalState,
   removeCursorHighlightRule,
+  renderSnapshot__EXPERIMENTAL,
   setLocalStateFocus,
   syncCursorPositions,
   syncLexicalUpdateToYjs,
+  syncLexicalUpdateToYjsV2__EXPERIMENTAL,
   syncYjsChangesToLexical,
+  syncYjsChangesToLexicalV2__EXPERIMENTAL,
+  syncYjsStateToLexicalV2__EXPERIMENTAL,
   TOGGLE_CONNECT_COMMAND,
 } from '@lexical/yjs'
 import {
@@ -32,7 +46,7 @@ import {
   SKIP_COLLAB_TAG,
   UNDO_COMMAND,
 } from 'lexical'
-import { computed, h, ref, Teleport, toValue, watchEffect } from 'vue'
+import { computed, h, onUnmounted, ref, shallowRef, Teleport, toValue, watchEffect } from 'vue'
 import { UndoManager } from 'yjs'
 
 type OnYjsTreeChanges = (
@@ -154,8 +168,122 @@ export function useYjsCollaboration(
   return useYjsCursors(binding, cursorsContainerRef)
 }
 
+export function useYjsCollaborationV2__EXPERIMENTAL(
+  editor: LexicalEditor,
+  id: string,
+  doc: Doc,
+  provider: Provider,
+  docMap: Map<string, Doc>,
+  name: MaybeRefOrGetter<string>,
+  color: MaybeRefOrGetter<string>,
+  options: {
+    awarenessData?: object
+    excludedProperties?: ExcludedProperties
+    rootName?: string
+    getXmlElement?: (doc: Doc) => XmlElement
+    selectionHighlight?: boolean
+    __shouldBootstrapUnsafe?: boolean
+  } = {},
+): BindingV2 {
+  const binding = createBindingV2__EXPERIMENTAL(editor, id, doc, docMap, {
+    excludedProperties: options.excludedProperties,
+    rootName: options.rootName,
+    getXmlElement: options.getXmlElement,
+  })
+  const providerRef = shallowRef(provider)
+  docMap.set(id, doc)
+  onUnmounted(() => docMap.delete(id))
+
+  const diffSnapshots = shallowRef<{ prevSnapshot?: Snapshot; snapshot?: Snapshot } | null>(null)
+  onUnmounted(
+    mergeRegister(
+      editor.registerCommand(
+        CLEAR_DIFF_VERSIONS_COMMAND__EXPERIMENTAL,
+        () => {
+          diffSnapshots.value = null
+          syncYjsStateToLexicalV2__EXPERIMENTAL(binding, provider)
+          return true
+        },
+        COMMAND_PRIORITY_EDITOR,
+      ),
+      editor.registerCommand(
+        DIFF_VERSIONS_COMMAND__EXPERIMENTAL,
+        (snapshots) => {
+          diffSnapshots.value = snapshots
+          return true
+        },
+        COMMAND_PRIORITY_EDITOR,
+      ),
+    ),
+  )
+
+  watchEffect((onInvalidate) => {
+    const { root } = binding
+    if (diffSnapshots.value) {
+      renderSnapshot__EXPERIMENTAL(
+        binding,
+        diffSnapshots.value.snapshot,
+        diffSnapshots.value.prevSnapshot,
+      )
+      return
+    }
+    const onYjsTreeChanges: OnYjsTreeChanges = (events, transaction) => {
+      if (transaction.origin !== binding) {
+        syncYjsChangesToLexicalV2__EXPERIMENTAL(
+          binding,
+          provider,
+          events,
+          transaction,
+          transaction.origin instanceof UndoManager,
+        )
+      }
+    }
+    root.observeDeep(onYjsTreeChanges)
+    const removeListener = editor.registerUpdateListener(
+      ({ prevEditorState, editorState, dirtyElements, dirtyLeaves, normalizedNodes, tags }) => {
+        if (!tags.has(SKIP_COLLAB_TAG)) {
+          syncLexicalUpdateToYjsV2__EXPERIMENTAL(
+            binding,
+            provider,
+            prevEditorState,
+            editorState,
+            dirtyElements,
+            dirtyLeaves,
+            normalizedNodes,
+            tags,
+          )
+        }
+      },
+    )
+    onInvalidate(() => {
+      root.unobserveDeep(onYjsTreeChanges)
+      removeListener()
+    })
+  })
+
+  // Pre-populated local documents may not emit a Yjs event after mounting.
+  if (binding.root.length > 0) {
+    syncYjsStateToLexicalV2__EXPERIMENTAL(binding, provider)
+  }
+  useProvider(
+    editor,
+    providerRef,
+    name,
+    color,
+    ref(false),
+    () => options.awarenessData,
+    () => {
+      if (options.__shouldBootstrapUnsafe && binding.root.length === 0) {
+        bootstrapEditor(binding, editor)
+      }
+    },
+  )
+  useAwareness(binding, providerRef, () => options.selectionHighlight)
+  return binding
+}
+
 function useAwareness(
-  binding: MaybeRefOrGetter<Binding>,
+  binding: MaybeRefOrGetter<Binding | BindingV2>,
   provider: Ref<Provider>,
   selectionHighlight?: MaybeRefOrGetter<boolean | undefined>,
 ) {
@@ -382,6 +510,12 @@ export function useYjsHistory(
       : null
   })
 
+  return useYjsUndoManager(editor, undoManager)
+}
+
+export function useYjsHistoryV2(editor: LexicalEditor, binding: BindingV2): () => void {
+  const undoManager = shallowRef(createUndoManager(binding, binding.root))
+  onUnmounted(() => undoManager.value.destroy())
   return useYjsUndoManager(editor, undoManager)
 }
 
