@@ -90,7 +90,7 @@ function mountCollab(pluginProps: () => Record<string, unknown>, key = ref(0)) {
     }),
     { attachTo: document.body },
   )
-  return { wrapper, key, editor: () => editor }
+  return { wrapper, editor: () => editor }
 }
 
 function textContent(editor: LexicalEditor) {
